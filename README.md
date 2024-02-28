@@ -1,5 +1,7 @@
 # Bulma-Gomponents
 
+[![GoDoc](https://pkg.go.dev/badge/github.com/willoma/bulma-gomponents)](https://pkg.go.dev/github.com/willoma/bulma-gomponents)
+
 This _Go_ library makes it easier to use the Bulma CSS framework with the Gomponents library.
 
 [https://www.gomponents.com/](Gomponents) is a collection of HTML 5 components
