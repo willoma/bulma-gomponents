@@ -7,7 +7,7 @@ import (
 )
 
 var intro = c.NewPage(
-	"Intro", "Bulma-Components", "//index",
+	"Intro", "Bulma-Components", "/index",
 	"https://bulma.io/documentation/",
 
 	b.Content(
