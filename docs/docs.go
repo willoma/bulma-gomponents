@@ -135,9 +135,7 @@ func Layout(p *c.Page) gomponents.Node {
 				p.Title,
 			),
 			b.Content(b.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")),
-			p.Children,
-			p.InternalMenu(),
-		),
+		).Withs(p.Children).With(p.InternalMenu()),
 	)
 }
 

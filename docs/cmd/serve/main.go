@@ -24,7 +24,7 @@ func main() {
 
 	for _, section := range docs.Sections {
 		for _, page := range section.Pages {
-			page.Path = strings.Replace(page.Path, "/index", "", 1)
+			page.Path = strings.Replace(page.Path, "/index", "/", 1)
 			route(mux, page)
 		}
 	}

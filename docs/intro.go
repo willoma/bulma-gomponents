@@ -11,7 +11,7 @@ var intro = c.NewPage(
 	"https://bulma.io/documentation/",
 
 	b.Content(
-		"This ", el.Em("Go"), " library makes it easier to use the Bulma CSS framework with the Gomponents library.",
+		el.P("This ", el.Em("Go"), " library makes it easier to use the Bulma CSS framework with the Gomponents library."),
 		el.H2("Examples"),
 		el.P("The examples in this documentation refer to examples in the ", b.AHref("https://bulma.io/documentation/", "official Bulma documentation"), "."),
 		"All examples consider that Bulma-Gomponents has been imported with:",
