@@ -1,0 +1,21 @@
+# Bulma-Gomponents
+
+This _Go_ library makes it easier to use the Bulma CSS framework with the Gomponents library.
+
+[https://www.gomponents.com/](Gomponents) is a collection of HTML 5 components
+in pure Go.
+
+[https://bulma.io/](Bulma) is a CSS framework "that just works".
+
+_Bulma-Gomponents_ provides numerous helpers that allow easily creating web
+interfaces, without the need to write HTML, CSS or JS code. It fits well with
+[https://htmx.org/](HTMX) thanks to
+[https://github.com/maragudk/gomponents-htmx](gomponents-htmx).
+
+## Documentation
+
+To run the documentation server locally, execute:
+
+```shell
+go run docs/cmd/*.go
+```
