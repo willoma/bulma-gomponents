@@ -8,14 +8,19 @@ import (
 
 const cdnPath = "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
 
-type (
-	CSSPath     string
-	Language    string
-	HTitle      string
-	Description string
+// CSSPath, when provided to HTML, sets the path to the Bulma CSS
+type CSSPath string
 
-	head []gomponents.Node
-)
+// Language, when provided to HTML, sets the page lang attribute
+type Language string
+
+// HTitle, when provided to HTML, sets the page title
+type HTitle string
+
+// Description, when provided to HTML, sets the description metadata
+type Description string
+
+type head []gomponents.Node
 
 type htmlElem struct {
 	cssPath     string
