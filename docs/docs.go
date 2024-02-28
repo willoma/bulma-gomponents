@@ -2,6 +2,7 @@ package docs
 
 import (
 	_ "embed"
+	"path"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -109,10 +110,10 @@ var Sections = []docSection{
 
 func Layout(p *c.Page) gomponents.Node {
 	return b.HTML(
-		b.Script("/htmx.min.js"),
+		b.Script(path.Join(p.BaseURL, "htmx.min.js")),
 		b.HTitle("Bulma-Gomponents - "+p.Title),
-		b.CSSPath("/bulma.css"),
-		fa.CSSPath("/fa"),
+		b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
+		fa.CSSPath(path.Join(p.BaseURL, "fa")),
 		b.Box(
 			b.Style(
 				"position", "fixed",
