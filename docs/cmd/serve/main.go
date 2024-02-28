@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "embed"
 	"log"
 	"net/http"
 	"strings"
@@ -12,13 +11,13 @@ import (
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
-func serve() {
+func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /bulma.css", b.CSSHandlerFunc)
 	mux.HandleFunc("GET /htmx.min.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/javascript")
-		w.Write(htmxJS)
+		w.Write(docs.HtmxJS)
 	})
 
 	mux.Handle("GET /fa/", http.StripPrefix("/fa/", http.FileServer(http.FS(fa.Assets))))
@@ -30,7 +29,7 @@ func serve() {
 		}
 	}
 
-	log.Print("Listening...")
+	log.Print("Listening on localhost:8080...")
 	http.ListenAndServe("localhost:8080", mux)
 }
 

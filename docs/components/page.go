@@ -1,6 +1,7 @@
 package components
 
 import (
+	"path"
 	"strings"
 
 	"github.com/maragudk/gomponents"
@@ -15,9 +16,17 @@ type Page struct {
 	menuentry    string
 	Title        string
 	Path         string
+	BaseURL      string
 	BulmaURL     string
 	Children     []any
 	internalMenu []any
+}
+
+func (p *Page) URL() string {
+	if p.BaseURL == "" {
+		return p.Path
+	}
+	return path.Join(p.BaseURL, p.Path)
 }
 
 func NewPage(menuentry, title, path, bulmaURL string, content ...any) *Page {
@@ -38,11 +47,11 @@ func (p *Page) MenuEntry(activePath string) *b.Element {
 
 	return b.MenuEntry(
 		b.AHref(
-			p.Path,
+			p.URL(),
 			p.menuentry,
 			active,
-			gomponents.Attr("hx-get", p.Path),
-			gomponents.Attr("hx-push-url", p.Path),
+			gomponents.Attr("hx-get", p.URL()),
+			gomponents.Attr("hx-push-url", p.URL()),
 			gomponents.Attr("hx-select-oob", "#menu,#content"),
 		),
 	)

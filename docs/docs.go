@@ -12,6 +12,9 @@ import (
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
+//go:embed htmx.min.js
+var HtmxJS []byte
+
 type docSection struct {
 	title string
 	Pages []*c.Page

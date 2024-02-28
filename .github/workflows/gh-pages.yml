@@ -24,16 +24,17 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Build
-        run: go run docs/cmd/*.go static
-
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v4
+
+      - name: Build
+        run: go run docs/cmd/generate/main.go -destination public -baseurl ${{ steps.pages.outputs.base_path }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: bulma-gomponents
+          path: public
 
       - name: Deploy to GitHub Pages
         id: deployment
