@@ -23,9 +23,6 @@ type Page struct {
 }
 
 func (p *Page) URL() string {
-	if p.BaseURL == "" {
-		return p.Path
-	}
 	return path.Join(p.BaseURL, p.Path)
 }
 
@@ -34,6 +31,7 @@ func NewPage(menuentry, title, path, bulmaURL string, content ...any) *Page {
 		menuentry: menuentry,
 		Title:     title,
 		Path:      path,
+		BaseURL:   "/",
 		BulmaURL:  bulmaURL,
 		Children:  content,
 	}
