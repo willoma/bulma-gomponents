@@ -109,6 +109,20 @@ var Sections = []docSection{
 }
 
 func Layout(p *c.Page) gomponents.Node {
+	content := el.Div(
+		html.ID("content"),
+		b.Style("margin-left", "11.25rem"),
+		b.Padding(b.Spacing4),
+		b.Title(
+			el.A(html.Name("top")),
+			p.Title,
+		),
+	)
+	if p.BulmaURL != "" {
+		content.With(b.Content(b.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")))
+	}
+	content.Withs(p.Children).With(p.InternalMenu())
+
 	return b.HTML(
 		b.Script(path.Join(p.BaseURL, "htmx.min.js")),
 		b.HTitle("Bulma-Gomponents - "+p.Title),
@@ -126,16 +140,7 @@ func Layout(p *c.Page) gomponents.Node {
 			b.PaddingHorizontal(b.Spacing0),
 			navMenu(p.Path),
 		),
-		el.Div(
-			html.ID("content"),
-			b.Style("margin-left", "11.25rem"),
-			b.Padding(b.Spacing4),
-			b.Title(
-				el.A(html.Name("top")),
-				p.Title,
-			),
-			b.Content(b.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")),
-		).Withs(p.Children).With(p.InternalMenu()),
+		content,
 	)
 }
 
