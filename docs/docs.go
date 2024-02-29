@@ -127,7 +127,7 @@ func Layout(p *c.Page) gomponents.Node {
 		b.Script(path.Join(p.BaseURL, "htmx.min.js")),
 		b.HTitle("Bulma-Gomponents - "+p.Title),
 		b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
-		fa.CSSPath(path.Join(p.BaseURL, "fa")),
+		fa.CSSHead(path.Join(p.BaseURL, "fa")),
 		b.Box(
 			b.Style(
 				"position", "fixed",
