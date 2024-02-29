@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
 	"github.com/willoma/bulma-gomponents/el"
@@ -13,22 +12,6 @@ var intro = c.NewPage(
 
 	b.Content(
 		el.P("This ", el.Em("Go"), " library makes it easier to use the Bulma CSS framework with the Gomponents library."),
-		el.P(
-			b.AHref(
-				"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
-				b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Go"), b.Tag(b.Info, "Reference")),
-			),
-			" ",
-			b.AHref(
-				"https://github.com/willoma/bulma-gomponents",
-				b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "GitHub"), b.Tag(b.Success, "Repository")),
-			),
-			" ",
-			b.AHref(
-				"https://bulma.io/documentation",
-				b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Bulma"), b.Tag(b.Warning, "Official documentation")),
-			),
-		),
 		el.H2("Examples"),
 		el.P("The examples in this documentation refer to examples in the ", b.AHref("https://bulma.io/documentation/", "official Bulma documentation"), "."),
 		"All examples consider that Bulma-Gomponents has been imported with:",

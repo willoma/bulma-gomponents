@@ -121,13 +121,37 @@ func Layout(p *c.Page) gomponents.Node {
 	if p.BulmaURL != "" {
 		content.With(b.Content(b.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")))
 	}
-	content.Withs(p.Children).With(p.InternalMenu())
+	content.Withs(p.Children).Withs(p.InternalMenu())
 
 	return b.HTML(
 		b.Script(path.Join(p.BaseURL, "htmx.min.js")),
-		b.HTitle("Bulma-Gomponents - "+p.Title),
+		b.HTitle(p.Title+" | Bulma-Gomponents"),
 		b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
 		fa.CSSHead(path.Join(p.BaseURL, "fa")),
+		b.TopNavbar(
+			b.Shadow,
+			b.NavbarBrand(
+				b.NavbarItem(
+					b.Title(
+						"Bulma-Gomponents",
+					),
+				),
+			),
+			b.NavbarEnd(
+				b.NavbarAHref(
+					"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
+					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Go"), b.Tag(b.Info, "Reference")),
+				),
+				b.NavbarAHref(
+					"https://github.com/willoma/bulma-gomponents",
+					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "GitHub"), b.Tag(b.Success, "Repository")),
+				),
+				b.NavbarAHref(
+					"https://bulma.io/documentation",
+					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Bulma"), b.Tag(b.Warning, "Official documentation")),
+				),
+			),
+		),
 		b.Box(
 			b.Style(
 				"position", "fixed",
@@ -136,6 +160,7 @@ func Layout(p *c.Page) gomponents.Node {
 				"width", "11.25rem",
 				"top", "0",
 				"left", "0",
+				"padding-top", "3.25rem",
 			),
 			b.PaddingHorizontal(b.Spacing0),
 			navMenu(p.Path),
@@ -147,11 +172,6 @@ func Layout(p *c.Page) gomponents.Node {
 func navMenu(currentPath string) *b.Element {
 	navmenu := b.Menu(
 		html.ID("menu"),
-		b.MenuLabel(
-			html.H1,
-			b.MarginHorizontal(b.Spacing2),
-			el.Strong("Bulma-Gomponents"),
-		),
 	)
 
 	for _, section := range Sections {

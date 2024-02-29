@@ -99,6 +99,7 @@ func (p *Page) InternalMenu() []any {
 				"width", "9rem",
 				"top", "0",
 				"right", "0",
+				"padding-top", "3.25rem",
 			),
 			b.PaddingHorizontal(b.Spacing0),
 			b.Menu(
@@ -112,8 +113,7 @@ func (p *Page) InternalMenu() []any {
 							),
 						),
 					),
-					p.internalMenu,
-				),
+				).Withs(p.internalMenu),
 			),
 		),
 	}
