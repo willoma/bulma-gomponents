@@ -10,22 +10,22 @@ import (
 )
 
 type (
-	faStyle string
-	Class   string
+	Style string
+	Class string
 )
 
 // Styles
 const (
-	Brand        = faStyle("fa-brands")
-	Duotone      = faStyle("fa-duotone")
-	Light        = faStyle("fa-light")
-	SharpLight   = faStyle("fa-sharp fa-light")
-	Regular      = faStyle("fa-regular")
-	SharpRegular = faStyle("fa-sharp fa-regular")
-	Solid        = faStyle("fa-solid")
-	SharpSolid   = faStyle("fa-sharp fa-solid")
-	Thin         = faStyle("fa-thin")
-	SharpThin    = faStyle("fa-sharp fa-thin")
+	Brand        = Style("fa-brands")
+	Duotone      = Style("fa-duotone")
+	Light        = Style("fa-light")
+	SharpLight   = Style("fa-sharp fa-light")
+	Regular      = Style("fa-regular")
+	SharpRegular = Style("fa-sharp fa-regular")
+	Solid        = Style("fa-solid")
+	SharpSolid   = Style("fa-sharp fa-solid")
+	Thin         = Style("fa-thin")
+	SharpThin    = Style("fa-sharp fa-thin")
 )
 
 // Variations
@@ -47,7 +47,7 @@ const (
 //
 // The rotating+flipping combination is supported and the needed span element
 // is automatically created when needed.
-func FA(style faStyle, name string, children ...any) *b.Element {
+func FA(style Style, name string, children ...any) *b.Element {
 	var rotateClass Class
 	var rotateAngle Rotate
 
@@ -101,7 +101,7 @@ func FA(style faStyle, name string, children ...any) *b.Element {
 //   - all other children types are added as-is to the b.Icon
 //
 // See the FA documentation for more information.
-func Icon(style faStyle, name string, children ...any) *b.Element {
+func Icon(style Style, name string, children ...any) *b.Element {
 	ic := b.Icon()
 
 	var faChildren []any
