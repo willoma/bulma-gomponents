@@ -38,7 +38,7 @@ const (
 
 // FA returns a Font-Awesome icon, in an i element, with the provided style and
 // name (without the "fa-" prefix).
-//   - when a child id a FaClass, it is added as a class to the i element
+//   - when a child id a Class, it is added as a class to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to
 //     the i element
 //   - when a child is a Rotate, the provided rotation (in degree) is applied to
@@ -95,7 +95,7 @@ func FA(style Style, name string, children ...any) *b.Element {
 
 // Icon returns a Font-Awesome icon, in an i element within a b.Icon element,
 // with the provided style and name (without the "fa-" prefix).
-//   - when a child id a FaClass, it is added to the i element
+//   - when a child id a Class, it is added to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to
 //     the b.Icon
 //   - all other children types are added as-is to the b.Icon

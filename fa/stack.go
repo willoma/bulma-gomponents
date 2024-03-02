@@ -12,7 +12,7 @@ const (
 )
 
 // Stack stacks Font-Awesome children icons.
-//   - when a child is a FaClass, it is added as a b.Class to the stack element
+//   - when a child is a Class, it is added as a b.Class to the stack element
 //   - other children types are added as-is to the stack element
 //
 // Stacked icons must be created with the FA function.
