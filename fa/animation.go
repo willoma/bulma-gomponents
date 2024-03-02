@@ -7,7 +7,7 @@ import (
 )
 
 type Animation interface {
-	attrs() (FaClass, b.Styles)
+	attrs() (Class, b.Styles)
 }
 
 type AnimationDirection string
@@ -65,7 +65,7 @@ type Beat struct {
 	MaxScale float64
 }
 
-func (a Beat) attrs() (FaClass, b.Styles) {
+func (a Beat) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	if a.MaxScale != 0 {
 		styles["--fa-beat-scale"] = fmt.Sprintf("%v", a.MaxScale)
@@ -79,7 +79,7 @@ type Fade struct {
 	MinOpacity float64
 }
 
-func (a Fade) attrs() (FaClass, b.Styles) {
+func (a Fade) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	if a.Duration != 0 {
 		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
@@ -97,7 +97,7 @@ type BeatFade struct {
 	MinOpacity float64
 }
 
-func (a BeatFade) attrs() (FaClass, b.Styles) {
+func (a BeatFade) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	if a.Duration != 0 {
 		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
@@ -124,7 +124,7 @@ type Bounce struct {
 	LandScaleY  float64
 }
 
-func (a Bounce) attrs() (FaClass, b.Styles) {
+func (a Bounce) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	if a.Duration != 0 {
 		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
@@ -166,7 +166,7 @@ type Flip struct {
 	Angle float64
 }
 
-func (a Flip) attrs() (FaClass, b.Styles) {
+func (a Flip) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	if a.Duration != 0 {
 		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
@@ -191,7 +191,7 @@ type Shake struct {
 	AnimationBase
 }
 
-func (a Shake) attrs() (FaClass, b.Styles) {
+func (a Shake) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	return "fa-shake", styles
 }
@@ -201,7 +201,7 @@ type Spin struct {
 	AnimationBase
 }
 
-func (a Spin) attrs() (FaClass, b.Styles) {
+func (a Spin) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	return "fa-spin", styles
 }
@@ -211,7 +211,7 @@ type SpinReverse struct {
 	AnimationBase
 }
 
-func (a SpinReverse) attrs() (FaClass, b.Styles) {
+func (a SpinReverse) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	return "fa-spin fa-spin-reverse", styles
 }
@@ -221,7 +221,7 @@ type SpinPulse struct {
 	AnimationBase
 }
 
-func (a SpinPulse) attrs() (FaClass, b.Styles) {
+func (a SpinPulse) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	return "fa-spin-pulse", styles
 }
@@ -231,7 +231,7 @@ type SpinPulseReverse struct {
 	AnimationBase
 }
 
-func (a SpinPulseReverse) attrs() (FaClass, b.Styles) {
+func (a SpinPulseReverse) attrs() (Class, b.Styles) {
 	styles := a.baseStyles()
 	return "fa-spin-pulse fa-spin-reverse", styles
 }

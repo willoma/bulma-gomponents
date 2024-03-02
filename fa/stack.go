@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	Stack1x = FaClass("fa-stack-1x")
-	Stack2x = FaClass("fa-stack-2x")
+	Stack1x = Class("fa-stack-1x")
+	Stack2x = Class("fa-stack-2x")
 )
 
 // Stack stacks Font-Awesome children icons.
@@ -20,7 +20,7 @@ func Stack(children ...any) *b.Element {
 	e := b.Elem(html.Span).With(b.Class("fa-stack"))
 	for _, c := range children {
 		switch c := c.(type) {
-		case FaClass:
+		case Class:
 			e.With(b.Class(c))
 		default:
 			e.With(c)

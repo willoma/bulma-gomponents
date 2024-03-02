@@ -11,7 +11,7 @@ import (
 
 type (
 	faStyle string
-	FaClass string
+	Class   string
 )
 
 // Styles
@@ -30,10 +30,10 @@ const (
 
 // Variations
 const (
-	Border     = FaClass("fa-border")
-	FixedWidth = FaClass("fa-fw")
-	Inverse    = FaClass("fa-inverse")
-	Pulse      = FaClass("fa-pulse")
+	Border     = Class("fa-border")
+	FixedWidth = Class("fa-fw")
+	Inverse    = Class("fa-inverse")
+	Pulse      = Class("fa-pulse")
 )
 
 // FA returns a Font-Awesome icon, in an i element, with the provided style and
@@ -48,13 +48,13 @@ const (
 // The rotating+flipping combination is supported and the needed span element
 // is automatically created when needed.
 func FA(style faStyle, name string, children ...any) *b.Element {
-	var rotateClass FaClass
+	var rotateClass Class
 	var rotateAngle Rotate
 
 	e := b.Elem(html.I).With(b.Class(style)).With(b.Class("fa-" + name))
 	for _, c := range children {
 		switch c := c.(type) {
-		case FaClass:
+		case Class:
 			if c == Rotate90 || c == Rotate180 || c == Rotate270 || c == FlipHorizontal || c == FlipVertical || c == FlipBoth {
 				rotateClass = c
 			} else {
@@ -108,7 +108,7 @@ func Icon(style faStyle, name string, children ...any) *b.Element {
 
 	for _, c := range children {
 		switch c := c.(type) {
-		case FaClass:
+		case Class:
 			faChildren = append(faChildren, c)
 		case b.ColorClass:
 			ic.With(c.Text())
