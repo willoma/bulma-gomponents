@@ -1,6 +1,7 @@
 # Bulma-Gomponents
 
 [![GoDoc](https://pkg.go.dev/badge/github.com/willoma/bulma-gomponents)](https://pkg.go.dev/github.com/willoma/bulma-gomponents)
+[![Documentation](https://img.shields.io/badge/online-documentation-blue)](https://willoma.github.io/bulma-gomponents/)
 
 This _Go_ library makes it easier to use the Bulma CSS framework with the Gomponents library.
 
