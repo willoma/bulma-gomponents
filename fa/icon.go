@@ -48,48 +48,65 @@ const (
 // The rotating+flipping combination is supported and the needed span element
 // is automatically created when needed.
 func FA(style Style, name string, children ...any) *b.Element {
-	var rotateClass Class
-	var rotateAngle Rotate
+	f := &fa{style: style, name: name}
+	f.addChildren(children)
+	return f.elem()
+}
 
-	e := b.Elem(html.I).With(b.Class(style)).With(b.Class("fa-" + name))
+type fa struct {
+	style       Style
+	name        string
+	rotateClass Class
+	rotateAngle Rotate
+	children    []any
+}
+
+func (f *fa) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
 			if c == Rotate90 || c == Rotate180 || c == Rotate270 || c == FlipHorizontal || c == FlipVertical || c == FlipBoth {
-				rotateClass = c
+				f.rotateClass = c
 			} else {
-				e.With(b.Class(c))
+				f.children = append(f.children, b.Class(c))
 			}
 		case b.ColorClass:
-			e.With(c.Text())
+			f.children = append(f.children, c.Text())
 		case Rotate:
-			rotateAngle = c
+			f.rotateAngle = c
 		case Animation:
 			class, styles := c.attrs()
-			e.With(class)
+			f.children = append(f.children, class)
 			if len(styles) > 0 {
-				e.With(styles)
+				f.children = append(f.children, styles)
 			}
+		case []any:
+			f.addChildren(c)
 		default:
-			e.With(c)
+			f.children = append(f.children, c)
 		}
 	}
+}
+
+func (f *fa) elem() *b.Element {
+	e := b.Elem(html.I).With(b.Class(f.style)).With(b.Class("fa-" + f.name))
 
 	switch {
-	case rotateClass != "" && rotateAngle != 0:
+	case f.rotateClass != "" && f.rotateAngle != 0:
 		e.With(b.Class("fa-rotate-by"))
-		e.With(b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", rotateAngle)))
+		e.With(b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)))
 		return el.Span(
-			b.Class(rotateClass),
+			b.Class(f.rotateClass),
 			b.Style("display", "inline-block"),
 			e,
 		)
-	case rotateAngle != 0:
+	case f.rotateAngle != 0:
 		e.With(b.Class("fa-rotate-by"))
-		e.With(b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", rotateAngle)))
-	case rotateClass != "":
-		e.With(b.Class(rotateClass))
+		e.With(b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)))
+	case f.rotateClass != "":
+		e.With(b.Class(f.rotateClass))
 	}
+
 	return e
 }
 
@@ -102,19 +119,33 @@ func FA(style Style, name string, children ...any) *b.Element {
 //
 // See the FA documentation for more information.
 func Icon(style Style, name string, children ...any) *b.Element {
-	ic := b.Icon()
+	i := &icon{style: style, name: name}
+	i.addChildren(children)
+	return i.elem()
+}
 
-	var faChildren []any
+type icon struct {
+	style        Style
+	name         string
+	iconChildren []any
+	faChildren   []any
+}
 
+func (i *icon) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			faChildren = append(faChildren, c)
+			i.faChildren = append(i.faChildren, c)
 		case b.ColorClass:
-			ic.With(c.Text())
+			i.iconChildren = append(i.iconChildren, c.Text())
+		case []any:
+			i.addChildren(c)
 		default:
-			ic.With(c)
+			i.iconChildren = append(i.iconChildren, c)
 		}
 	}
-	return ic.With(FA(style, name, faChildren...))
+}
+
+func (i *icon) elem() *b.Element {
+	return b.Icon(i.iconChildren...).With(FA(i.style, i.name, i.faChildren...))
 }

@@ -48,36 +48,56 @@ func Modal(id string, children ...any) *Element {
 // children with ModalCardFoot in order to add them to the card footer. Any
 // unwrapped child is added to the card body.
 func ModalCard(id string, children ...any) *Element {
-	head := Elem(html.Div).
-		With(Class("modal-card-head"))
+	mc := &modalCard{id: id}
+	mc.addChildren(children)
+	return mc.elem()
+}
 
-	body := Elem(html.Div).
-		With(Class("modal-card-body"))
+type modalCard struct {
+	id           string
+	headChildren []any
+	footChildren []any
+	bodyChildren []any
+}
 
-	foot := Elem(html.Div).
-		With(Class("modal-card-foot"))
-
+func (mc *modalCard) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case modalCardHead:
-			head.Withs([]any(c))
+			mc.headChildren = append(mc.headChildren, c...)
 		case modalCardFoot:
-			foot.Withs([]any(c))
+			mc.footChildren = append(mc.footChildren, c...)
+		case []any:
+			mc.addChildren(c)
 		default:
-			body.With(c)
+			mc.bodyChildren = append(mc.bodyChildren, c)
 		}
 	}
+}
 
+func (mc *modalCard) elem() *Element {
 	return Elem(html.Div).
 		With(Class("modal")).
-		With(html.ID(id)).
+		With(html.ID(mc.id)).
 		With(modalBackground()).
 		With(
 			Elem(html.Div).
 				With(Class("modal-card")).
-				With(head).
-				With(body).
-				With(foot),
+				With(
+					Elem(html.Div).
+						With(Class("modal-card-head")).
+						Withs(mc.headChildren),
+				).
+				With(
+					Elem(html.Div).
+						With(Class("modal-card-body")).
+						Withs(mc.bodyChildren),
+				).
+				With(
+					Elem(html.Div).
+						With(Class("modal-card-foot")).
+						Withs(mc.footChildren),
+				),
 		).
 		With(modalClose())
 }

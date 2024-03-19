@@ -28,46 +28,61 @@ type (
 // When there is no MessageTitle in the children, the message is displayed
 // with the "message body only" style.
 func Message(children ...any) *b.Element {
-	message := b.Elem(html.Article).
-		With(b.Class("message"))
+	m := &message{}
+	m.addChildren(children)
+	return m.elem()
+}
 
-	body := b.Elem(html.Div).
-		With(b.Class("message-body"))
+type message struct {
+	title           string
+	delete          *b.Element
+	messageChildren []any
+	bodyChildren    []any
+}
 
-	var (
-		title  string
-		delete *b.Element
-	)
+func (m *message) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case MessageTitle:
-			title = string(c)
+			m.title = string(c)
 		case MessageDeleteOnClick:
-			delete = b.Delete(
+			m.delete = b.Delete(
 				b.OnClick(string(c)),
 			)
 		case b.Class, b.ColorClass, b.Styles:
-			message.With(c)
+			m.messageChildren = append(m.messageChildren, c)
 		case gomponents.Node:
 			if b.IsAttribute(c) {
-				message.With(c)
+				m.messageChildren = append(m.messageChildren, c)
 			} else {
-				body.With(c)
+				m.bodyChildren = append(m.bodyChildren, c)
 			}
+		case []any:
+			m.addChildren(c)
 		default:
-			body.With(c)
+			m.bodyChildren = append(m.bodyChildren, c)
 		}
 	}
+}
 
-	if title != "" {
+func (m *message) elem() *b.Element {
+	message := b.Elem(html.Article).
+		With(b.Class("message")).
+		Withs(m.messageChildren)
+
+	body := b.Elem(html.Div).
+		With(b.Class("message-body")).
+		Withs(m.bodyChildren)
+
+	if m.title != "" {
 		header := b.Elem(html.Div).
 			With(b.Class("message-header")).
 			With(b.Elem(html.P).
-				With(title),
+				With(m.title),
 			)
 
-		if delete != nil {
-			header.With(delete)
+		if m.delete != nil {
+			header.With(m.delete)
 		}
 		message.With(header)
 	}

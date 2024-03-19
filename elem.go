@@ -58,6 +58,7 @@ func IsAttribute(node any) bool {
 //   - gomponents.Node with type gomponents.AttributeType: add the provided
 //     attribute to this element
 //   - gomponents.Node with another time: add the provided element as a child
+//   - []any: add the slice items by executing e.Withs
 //
 // Any other type is ignored.
 func (e *Element) With(c any) *Element {
@@ -125,11 +126,13 @@ func (e *Element) With(c any) *Element {
 		} else {
 			e.elements = append(e.elements, c)
 		}
+	case []any:
+		e.Withs(c)
 	}
 	return e
 }
 
-// Withs adds multiple childs to the element. It simply calls With, for all
+// Withs adds multiple childs to the element. It simply calls e.With, for all
 // elements in the slice.
 func (e *Element) Withs(children []any) *Element {
 	for _, c := range children {

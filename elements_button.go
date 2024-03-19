@@ -115,15 +115,30 @@ func ButtonInputReset(value string, children ...any) *Element {
 //   - Medium
 //   - Large
 func Buttons(children ...any) *Element {
-	e := Elem(html.Div).
-		With(Class("buttons"))
+	b := &buttons{}
+	b.addChildren(children)
+	return b.elem()
+}
+
+type buttons struct {
+	children []any
+}
+
+func (b *buttons) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			e.With(changeSizePrefix("are-", c))
+			b.children = append(b.children, changeSizePrefix("are-", c))
+		case []any:
+			b.addChildren(c)
 		default:
-			e.With(c)
+			b.children = append(b.children, c)
 		}
 	}
-	return e
+}
+
+func (b *buttons) elem() *Element {
+	return Elem(html.Div).
+		With(Class("buttons")).
+		Withs(b.children)
 }

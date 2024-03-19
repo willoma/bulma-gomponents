@@ -25,31 +25,42 @@ import (
 //   - Mobile: show the level horizontally on mobile too (otherwise, the level
 //     items are placed vertically)
 func Level(children ...any) *Element {
-	e := Elem(html.Nav).
-		With(Class("level"))
+	l := &level{}
+	l.addChildren(children)
+	return l.elem()
+}
 
+type level struct {
+	children []any
+}
+
+func (l *level) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
 			if c.hasClass("level-left") || c.hasClass("level-right") || c.hasClass("level-item") {
-				e.With(c)
+				l.children = append(l.children, c)
 			} else {
-				e.With(LevelItem(c))
+				l.children = append(l.children, LevelItem(c))
 			}
 		case container, string:
-			e.With(LevelItem(c))
+			l.children = append(l.children, LevelItem(c))
 		case gomponents.Node:
 			if !IsAttribute(c) {
-				e.With(LevelItem(c))
+				l.children = append(l.children, LevelItem(c))
 			} else {
-				e.With(c)
+				l.children = append(l.children, c)
 			}
+		case []any:
+			l.addChildren(c)
 		default:
-			e.With(c)
+			l.children = append(l.children, c)
 		}
 	}
+}
 
-	return e
+func (l *level) elem() *Element {
+	return Elem(html.Nav).With(Class("level")).Withs(l.children)
 }
 
 // LevelItem creates a level item, to be used as a child for LevelLeft,
@@ -58,37 +69,6 @@ func LevelItem(children ...any) *Element {
 	return Elem(html.Div).
 		With(Class("level-item")).
 		Withs(children)
-}
-
-func levelSection(right bool, children []any) *Element {
-	e := Elem(html.Div)
-	if right {
-		e.With(Class("level-right"))
-	} else {
-		e.With(Class("level-left"))
-	}
-	for _, c := range children {
-		switch c := c.(type) {
-		case *Element:
-			if c.hasClass("level-item") {
-				e.With(c)
-			} else {
-				e.With(LevelItem(c))
-			}
-		case container, string:
-			e.With(LevelItem(c))
-		case gomponents.Node:
-			if !IsAttribute(c) {
-				e.With(LevelItem(c))
-			} else {
-				e.With(c)
-			}
-		default:
-			e.With(c)
-		}
-	}
-
-	return e
 }
 
 // LevelLeft creates the left section of a level.
@@ -106,7 +86,9 @@ func levelSection(right bool, children []any) *Element {
 //     a LevelItem and added as a child to the level section
 //   - other children types are added as children to the level section
 func LevelLeft(children ...any) *Element {
-	return levelSection(false, children)
+	l := &levelSection{}
+	l.addChildren(children)
+	return l.elem()
 }
 
 // LevelLeft creates the right section of a level.
@@ -124,5 +106,49 @@ func LevelLeft(children ...any) *Element {
 //     a LevelItem and added as a child to the level section
 //   - other children types are added as children to the level section
 func LevelRight(children ...any) *Element {
-	return levelSection(true, children)
+	l := &levelSection{right: true}
+	l.addChildren(children)
+	return l.elem()
+}
+
+type levelSection struct {
+	right    bool
+	children []any
+}
+
+func (l *levelSection) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case *Element:
+			if c.hasClass("level-item") {
+				l.children = append(l.children, c)
+			} else {
+				l.children = append(l.children, LevelItem(c))
+			}
+		case container, string:
+			l.children = append(l.children, LevelItem(c))
+		case gomponents.Node:
+			if !IsAttribute(c) {
+				l.children = append(l.children, LevelItem(c))
+			} else {
+				l.children = append(l.children, c)
+			}
+		case []any:
+			l.addChildren(c)
+		default:
+			l.children = append(l.children, c)
+		}
+	}
+}
+
+func (l *levelSection) elem() *Element {
+	e := Elem(html.Div)
+
+	if l.right {
+		e.With(Class("level-right"))
+	} else {
+		e.With(Class("level-left"))
+	}
+
+	return e.Withs(l.children)
 }

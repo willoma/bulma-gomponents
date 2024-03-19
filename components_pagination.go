@@ -20,26 +20,42 @@ import (
 //   - Medium
 //   - Large
 func Pagination(children ...any) *Element {
-	pagination := Elem(html.Nav).
-		With(Class("pagination"))
+	p := pagination{}
+	p.addChildren(children)
+	return p.elem()
+}
 
-	list := Elem(html.Ul).
-		With(Class("pagination-list"))
+type pagination struct {
+	listChildren       []any
+	paginationChildren []any
+}
 
+func (p *pagination) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
 			if c.hasClass("pagination-link") || c.hasClass("pagination-ellipsis") {
-				list.With(Elem(html.Li).With(c))
+				p.listChildren = append(p.listChildren, Elem(html.Li).With(c))
 			} else {
-				pagination.With(c)
+				p.paginationChildren = append(p.paginationChildren, c)
 			}
+		case []any:
+			p.addChildren(c)
 		default:
-			pagination.With(c)
+			p.paginationChildren = append(p.paginationChildren, c)
 		}
 	}
+}
 
-	return pagination.With(list)
+func (p *pagination) elem() *Element {
+	return Elem(html.Nav).
+		With(Class("pagination")).
+		Withs(p.paginationChildren).
+		With(
+			Elem(html.Ul).
+				With(Class("pagination-list")).
+				Withs(p.listChildren),
+		)
 }
 
 // PaginationPrevious creates the "Previous" link button for a pagination.

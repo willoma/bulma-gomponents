@@ -802,7 +802,7 @@ b.Table(
 ).Section(
 	"Table container",
 	"https://bulma.io/documentation/elements/table/#table-container",
-	c.Example(
+	c.HorizontalExample(
 		`b.ScrollableTable(
 	// Your table content
 )`,

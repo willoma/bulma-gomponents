@@ -22,26 +22,44 @@ import "github.com/maragudk/gomponents/html"
 //   - Medium
 //   - Large
 func Tabs(children ...any) *Element {
-	tabs := Elem(html.Div).
-		With(Class("tabs"))
-	content := Elem(html.Ul)
+	t := &tabs{}
+	t.addChildren(children)
+	return t.elem()
+}
 
-	var intermediateContainer *Element
+type tabs struct {
+	intermediateContainer *Element
+	tabsChildren          []any
+	contentChildren       []any
+}
 
+func (t *tabs) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			tabs.With(c)
+			t.tabsChildren = append(t.tabsChildren, c)
 		case func(children ...any) container:
-			intermediateContainer = c()
+			t.intermediateContainer = c()
+		case []any:
+			t.addChildren(c)
 		default:
-			content.With(c)
+			t.contentChildren = append(t.contentChildren, c)
 		}
 	}
+}
 
-	if intermediateContainer != nil {
-		return tabs.With(intermediateContainer.With(content))
+func (t *tabs) elem() *Element {
+	tabs := Elem(html.Div).
+		With(Class("tabs")).
+		Withs(t.tabsChildren)
+
+	content := Elem(html.Ul).
+		Withs(t.contentChildren)
+
+	if t.intermediateContainer != nil {
+		return tabs.With(t.intermediateContainer.With(content))
 	}
+
 	return tabs.With(content)
 }
 

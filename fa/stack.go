@@ -17,14 +17,28 @@ const (
 //
 // Stacked icons must be created with the FA function.
 func Stack(children ...any) *b.Element {
-	e := b.Elem(html.Span).With(b.Class("fa-stack"))
+	s := &stack{}
+	s.addChildren(children)
+	return s.elem()
+}
+
+type stack struct {
+	children []any
+}
+
+func (s *stack) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			e.With(b.Class(c))
+			s.children = append(s.children, b.Class(c))
+		case []any:
+			s.addChildren(c)
 		default:
-			e.With(c)
+			s.children = append(s.children, c)
 		}
 	}
-	return e
+}
+
+func (s *stack) elem() *b.Element {
+	return b.Elem(html.Span).With(b.Class("fa-stack")).Withs(s.children)
 }

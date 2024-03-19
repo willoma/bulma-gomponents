@@ -46,62 +46,75 @@ type FileNameAutoUpdate string
 //   - Medium
 //   - Large
 func File(children ...any) *Element {
-	div := Elem(html.Div).
-		With(Class("file"))
+	f := &file{}
+	f.addChildren(children)
+	return f.elem()
+}
 
-	label := Elem(html.Label).
-		With(Class("file-label"))
+type file struct {
+	fileName      string
+	divChildren   []any
+	ctaChildren   []any
+	inputChildren []any
+}
 
-	input := Elem(html.Input).
-		With(Class("file-input")).
-		With(html.Type("file"))
-
-	callToAction := Elem(html.Span).
-		With(Class("file-cta"))
-
-	var fileName *Element
-
+func (f *file) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class, ColorClass:
-			div.With(c)
+			f.divChildren = append(f.divChildren, c)
 		case string:
-			callToAction.With(
+			f.ctaChildren = append(
+				f.ctaChildren,
 				Elem(html.Span).
 					With(Class("file-label")).
 					With(c),
 			)
 		case FileName:
-			div.With(Class("has-name"))
-			fileName = Elem(html.Span).
-				With(Class("file-name")).
-				With(string(c))
+			f.divChildren = append(f.divChildren, Class("has-name"))
+			f.fileName = string(c)
 		case FileNameAutoUpdate:
-			div.With(Class("has-name"))
-			fileName = Elem(html.Span).
-				With(Class("file-name")).
-				With(string(c))
-			input.With(
-				On("change", fileNameAutoUpdateScript),
-			)
+			f.divChildren = append(f.divChildren, Class("has-name"))
+			f.fileName = string(c)
+			f.inputChildren = append(f.inputChildren, On("change", fileNameAutoUpdateScript))
 		case *Element:
 			if c.hasClass("icon") {
 				c.With(Class("file-icon"))
 				c.classes["icon"] = false
 			}
-			callToAction.With(c)
+			f.ctaChildren = append(f.ctaChildren, c)
+		case []any:
+			f.addChildren(c)
 		default:
-			input.With(c)
+			f.inputChildren = append(f.inputChildren, c)
 		}
 	}
+}
 
-	label.
-		With(input).
-		With(callToAction)
+func (f *file) elem() *Element {
+	label := Elem(html.Label).
+		With(Class("file-label")).
+		With(
+			Elem(html.Input).
+				With(Class("file-input")).
+				With(html.Type("file")).
+				Withs(f.inputChildren),
+		).
+		With(
+			Elem(html.Span).
+				With(Class("file-cta")).
+				Withs(f.ctaChildren),
+		)
 
-	if fileName != nil {
-		label.With(fileName)
+	if f.fileName != "" {
+		label.With(Elem(html.Span).
+			With(Class("file-name")).
+			With(f.fileName),
+		)
 	}
 
-	return div.With(label)
+	return Elem(html.Div).
+		With(Class("file")).
+		Withs(f.divChildren).
+		With(label)
 }

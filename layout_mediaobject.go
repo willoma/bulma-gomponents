@@ -27,52 +27,67 @@ type mediaPart struct {
 //
 // Each of the left, content and right parts is only included if it has content.
 func Media(children ...any) *Element {
-	e := Elem(html.Article).
-		With(Class("media"))
+	m := &media{}
+	m.addChildren(children)
+	return m.elem()
+}
 
-	var left, content, right []any
+type media struct {
+	leftChildren    []any
+	contentChildren []any
+	rightChildren   []any
+	elemChildren    []any
+}
+
+func (m *media) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case mediaPart:
 			if c.right {
-				right = append(right, c.children...)
+				m.rightChildren = append(m.rightChildren, c.children...)
 			} else {
-				left = append(left, c.children...)
+				m.leftChildren = append(m.leftChildren, c.children...)
 			}
 		case *Element, container:
-			content = append(content, c)
+			m.contentChildren = append(m.contentChildren, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
-				e.With(c)
+				m.elemChildren = append(m.elemChildren, c)
 			} else {
-				content = append(content, c)
+				m.contentChildren = append(m.contentChildren, c)
 			}
 		default:
-			e.With(c)
+			m.elemChildren = append(m.elemChildren, c)
 		}
 	}
+}
 
-	if len(left) > 0 {
+func (m *media) elem() *Element {
+	e := Elem(html.Article).
+		With(Class("media")).
+		Withs(m.elemChildren)
+
+	if len(m.leftChildren) > 0 {
 		e.With(
 			Elem(html.Div).
 				With(Class("media-left")).
-				Withs(left),
+				Withs(m.leftChildren),
 		)
 	}
 
-	if len(content) > 0 {
+	if len(m.contentChildren) > 0 {
 		e.With(
 			Elem(html.Div).
 				With(Class("media-content")).
-				Withs(content),
+				Withs(m.contentChildren),
 		)
 	}
 
-	if len(right) > 0 {
+	if len(m.rightChildren) > 0 {
 		e.With(
 			Elem(html.Div).
 				With(Class("media-right")).
-				Withs(right),
+				Withs(m.rightChildren),
 		)
 	}
 

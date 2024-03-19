@@ -34,10 +34,7 @@ func Dropdown(triggerButton, menu *Element, children ...any) *Element {
 //   - Active: open the menu
 //   - Hoverable: make it so the menu opens when the cursor hovers the button
 func Dropup(triggerButton, menu *Element, children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("dropdown")).
-		With(Class("is-up")).
-		Withs(children)
+	return Dropdown(triggerButton, menu, children...).With(Class("is-up"))
 }
 
 // DropdownItem creates a div which is a dropdown item.
@@ -64,31 +61,45 @@ func DropdownDivider() *Element {
 //   - it is an *Element but not generated with DropdownItem or DropdownHref or DropdownDivider
 //   - it is a gomponents.Node with type gomponents.ElementType
 func DropdownMenu(children ...any) *Element {
-	menu := Elem(html.Div).
-		With(Class("dropdown-menu")).
-		With(html.Role("menu"))
+	dm := &dropdownMenu{}
+	dm.addChildren(children)
+	return dm.elem()
+}
 
-	content := Elem(html.Div).
-		With(Class("dropdown-content"))
+type dropdownMenu struct {
+	contentChildren []any
+	menuChildren    []any
+}
 
+func (dm *dropdownMenu) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
 			if c.hasClass("dropdown-item") || c.hasClass("dropdown-divider") {
-				content.With(c)
+				dm.contentChildren = append(dm.contentChildren, c)
 			} else {
-				content.With(DropdownItem(c))
+				dm.contentChildren = append(dm.contentChildren, DropdownItem(c))
 			}
 		case gomponents.Node:
 			if IsAttribute(c) {
-				menu.With(c)
+				dm.menuChildren = append(dm.menuChildren, c)
 			} else {
-				content.With(c)
+				dm.contentChildren = append(dm.contentChildren, c)
 			}
 		default:
-			menu.With(c)
+			dm.menuChildren = append(dm.menuChildren, c)
 		}
 	}
+}
 
-	return menu.With(content)
+func (dm *dropdownMenu) elem() *Element {
+	return Elem(html.Div).
+		With(Class("dropdown-menu")).
+		With(html.Role("menu")).
+		Withs(dm.menuChildren).
+		With(
+			Elem(html.Div).
+				With(Class("dropdown-content")).
+				Withs(dm.contentChildren),
+		)
 }

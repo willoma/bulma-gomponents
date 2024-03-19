@@ -42,38 +42,60 @@ import (
 //   - Light
 //   - White
 func Navbar(children ...any) *Element {
-	navbar := Elem(html.Nav).
-		With(Class("navbar"))
+	n := &navbar{}
+	n.addChildren(children)
+	return n.elem()
+}
 
-	var brand, start, end []any
+type navbar struct {
+	intermediateContainer *Element
+	brandChildren         []any
+	startChildren         []any
+	endChildren           []any
+	navbarChildren        []any
+}
 
-	target := navbar
-
+func (n *navbar) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case navbarBrand:
-			brand = append(brand, c...)
+			n.brandChildren = append(n.brandChildren, c...)
 		case navbarStart:
-			start = append(start, c...)
+			n.startChildren = append(n.startChildren, c...)
 		case navbarEnd:
-			end = append(end, c...)
+			n.endChildren = append(n.endChildren, c...)
 		case func(children ...any) container:
-			target = c()
-			navbar.With(target)
+			n.intermediateContainer = c()
+		case []any:
+			n.addChildren(c)
 		default:
-			navbar.With(c)
+			n.navbarChildren = append(n.navbarChildren, c)
 		}
 	}
+}
 
-	if len(brand) > 0 || len(start) > 0 || len(end) > 0 {
+func (n *navbar) elem() *Element {
+	navbar := Elem(html.Nav).
+		With(Class("navbar")).
+		Withs(n.navbarChildren)
+
+	var target *Element
+	if n.intermediateContainer != nil {
+		target = n.intermediateContainer
+		navbar.With(target)
+	} else {
+		target = navbar
+	}
+
+	if len(n.brandChildren) > 0 || len(n.startChildren) > 0 || len(n.endChildren) > 0 {
 		brandElem := Elem(html.Div).
 			With(Class("navbar-brand"))
 
-		if len(brand) > 0 {
-			brandElem.Withs(brand)
+		if len(n.brandChildren) > 0 {
+			brandElem.Withs(n.brandChildren)
 		}
 
-		if len(start) > 0 || len(end) > 0 {
+		if len(n.startChildren) > 0 || len(n.endChildren) > 0 {
 			brandElem.With(
 				Elem(html.A).
 					With(html.Role("button")).
@@ -90,23 +112,23 @@ func Navbar(children ...any) *Element {
 		target.With(brandElem)
 	}
 
-	if len(start) > 0 || len(end) > 0 {
+	if len(n.startChildren) > 0 || len(n.endChildren) > 0 {
 		menu := Elem(html.Div).
 			With(Class("navbar-menu"))
 
-		if len(start) > 0 {
+		if len(n.startChildren) > 0 {
 			menu.With(
 				Elem(html.Div).
 					With(Class("navbar-start")).
-					Withs(start),
+					Withs(n.startChildren),
 			)
 		}
 
-		if len(end) > 0 {
+		if len(n.endChildren) > 0 {
 			menu.With(
 				Elem(html.Div).
 					With(Class("navbar-end")).
-					Withs(end),
+					Withs(n.endChildren),
 			)
 		}
 

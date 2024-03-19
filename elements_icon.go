@@ -45,39 +45,32 @@ import (
 //   - Medium
 //   - Large
 func Icon(children ...any) *Element {
-	e := Elem(html.Span).
-		With(Class("icon"))
-
-	for _, c := range children {
-		switch c := c.(type) {
-		case ColorClass:
-			e.With(c.Text())
-		default:
-			e.With(c)
-		}
-	}
-
-	return e
+	i := &icon{}
+	i.addChildren(children)
+	return i.elem()
 }
 
-func iconText(
-	el func(children ...gomponents.Node) gomponents.Node,
-	children []any,
-) *Element {
-	e := Elem(el).
-		With(Class("icon-text"))
-	e.spanAroundNonIconsAlways = true
+type icon struct {
+	children []any
+}
 
+func (i *icon) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case ColorClass:
-			e.With(c.Text())
+			i.children = append(i.children, c.Text())
+		case []any:
+			i.addChildren(children)
 		default:
-			e.With(c)
+			i.children = append(i.children, c)
 		}
 	}
+}
 
-	return e
+func (i *icon) elem() *Element {
+	return Elem(html.Span).
+		With(Class("icon")).
+		Withs(i.children)
 }
 
 // IconText creates an icon-text span and embed all its non-icons children into
@@ -116,7 +109,9 @@ func iconText(
 //   - WarningDark
 //   - DangerDark
 func IconText(children ...any) *Element {
-	return iconText(html.Span, children)
+	i := &iconText{el: html.Span}
+	i.addChildren(children)
+	return i.elem()
 }
 
 // IconText creates a flex icon-text span and embed all its non-icons children
@@ -155,5 +150,32 @@ func IconText(children ...any) *Element {
 //   - WarningDark
 //   - DangerDark
 func FlexIconText(children ...any) *Element {
-	return iconText(html.Div, children)
+	i := &iconText{el: html.Div}
+	i.addChildren(children)
+	return i.elem()
+}
+
+type iconText struct {
+	el       func(children ...gomponents.Node) gomponents.Node
+	children []any
+}
+
+func (i *iconText) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case ColorClass:
+			i.children = append(i.children, c.Text())
+		case []any:
+			i.addChildren(c)
+		default:
+			i.children = append(i.children, c)
+		}
+	}
+}
+
+func (i *iconText) elem() *Element {
+	e := Elem(i.el).
+		With(Class("icon-text"))
+	e.spanAroundNonIconsAlways = true
+	return e.Withs(i.children)
 }

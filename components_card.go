@@ -21,20 +21,37 @@ func CardContent(children ...any) *Element {
 // CardFooter creates a card footer.
 //
 // It add the "card-footer-item" class to all its *Element children.
+//
+// Values in a child of type []any are added as if they were direct children.
+//
+// Children may be provided in []any arguments, recursively if needed.
 func CardFooter(children ...any) *Element {
-	e := Elem(html.Footer).
-		With(Class("card-footer"))
+	cf := &cardFooter{}
+	cf.addChildren(children)
+	return cf.elem()
+}
 
+type cardFooter struct {
+	children []any
+}
+
+func (cf *cardFooter) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
-			e.With(c.With(Class("card-footer-item")))
+			cf.children = append(cf.children, c.With(Class("card-footer-item")))
+		case []any:
+			cf.addChildren(c)
 		default:
-			e.With(c)
+			cf.children = append(cf.children, c)
 		}
 	}
+}
 
-	return e
+func (cf *cardFooter) elem() *Element {
+	return Elem(html.Footer).
+		With(Class("card-footer")).
+		Withs(cf.children)
 }
 
 // CardHeader creates a card header.
@@ -44,33 +61,48 @@ func CardFooter(children ...any) *Element {
 // If a child is an *Element with class "icon", it is wrapped into a
 // CardHeaderIcon element.
 func CardHeader(children ...any) *Element {
-	e := Elem(html.Header).
-		With(Class("card-header"))
+	ch := &cardHeader{}
+	ch.addChildren(children)
+	return ch.elem()
+}
 
+type cardHeader struct {
+	children []any
+}
+
+func (ch *cardHeader) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
 			if c.hasClass("icon") {
-				e.With(
+				ch.children = append(
+					ch.children,
 					Elem(html.Button).
 						With(Class("card-header-icon")).
 						With(c),
 				)
 			} else {
-				e.With(c)
+				ch.children = append(ch.children, c)
 			}
 		case string:
-			e.With(
+			ch.children = append(
+				ch.children,
 				Elem(html.P).
 					With(Class("card-header-title")).
 					With(c),
 			)
+		case []any:
+			ch.addChildren(c)
 		default:
-			e.With(c)
+			ch.children = append(ch.children, c)
 		}
 	}
+}
 
-	return e
+func (ch *cardHeader) elem() *Element {
+	return Elem(html.Header).
+		With(Class("card-header")).
+		Withs(ch.children)
 }
 
 // CardHeaderIcon creates an icon for a card header.

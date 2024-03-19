@@ -13,17 +13,30 @@ import "github.com/maragudk/gomponents/html"
 // Add one of the the following modifiers to Ol elements in order to change the
 // list style: OlLowerAlpha, OlLowerRoman, OlUpperAlpha, OlUpperRoman.
 func Content(children ...any) *Element {
-	e := Elem(html.Div).
-		With(Class("content"))
+	ct := &content{}
+	ct.addChildren(children)
+	return ct.elem()
+}
 
+type content struct {
+	children []any
+}
+
+func (ct *content) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case string:
-			e.With(Elem(html.P).With(c))
+			ct.children = append(ct.children, Elem(html.P).With(c))
+		case []any:
+			ct.addChildren(c)
 		default:
-			e.With(c)
+			ct.children = append(ct.children, c)
 		}
 	}
+}
 
-	return e
+func (ct *content) elem() *Element {
+	return Elem(html.Div).
+		With(Class("content")).
+		Withs(ct.children)
 }

@@ -43,52 +43,69 @@ type heroPart struct {
 //   - FullHeight
 //   - FullHeightWithNavbar
 func Hero(children ...any) *Element {
-	e := Elem(html.Section).
-		With(Class("hero"))
+	h := &hero{}
+	h.addChildren(children)
+	return h.elem()
+}
 
-	var head, body, foot []any
+type hero struct {
+	elemChildren []any
+	headChildren []any
+	bodyChildren []any
+	footChildren []any
+}
+
+func (h *hero) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case heroPart:
 			if c.foot {
-				foot = append(foot, c.children...)
+				h.footChildren = append(h.footChildren, c.children...)
 			} else {
-				head = append(head, c.children...)
+				h.headChildren = append(h.headChildren, c.children...)
 			}
 		case *Element, container:
-			body = append(body, c)
+			h.bodyChildren = append(h.bodyChildren, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
-				e.With(c)
+				h.elemChildren = append(h.elemChildren, c)
 			} else {
-				body = append(body, c)
+				h.bodyChildren = append(h.bodyChildren, c)
 			}
+		case []any:
+			h.addChildren(c)
 		default:
-			e.With(c)
+			h.elemChildren = append(h.elemChildren, c)
 		}
 	}
+}
 
-	if len(head) > 0 {
+func (h *hero) elem() *Element {
+	e := Elem(html.Section).
+		With(Class("hero")).
+		Withs(h.elemChildren)
+
+	if len(h.headChildren) > 0 {
 		e.With(
 			Elem(html.Div).
 				With(Class("hero-head")).
-				Withs(head),
+				Withs(h.headChildren),
 		)
 	}
 
-	if len(body) > 0 {
+	if len(h.bodyChildren) > 0 {
 		e.With(
 			Elem(html.Div).
 				With(Class("hero-body")).
-				Withs(body),
+				Withs(h.bodyChildren),
 		)
 	}
 
-	if len(foot) > 0 {
+	if len(h.footChildren) > 0 {
 		e.With(
 			Elem(html.Div).
 				With(Class("hero-foot")).
-				Withs(foot),
+				Withs(h.footChildren),
 		)
 	}
 

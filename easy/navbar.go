@@ -15,36 +15,53 @@ const (
 	NavbarDropdownActive
 )
 
+// .TODO ICI
 func NavbarDropdown(label string, children ...any) *b.Element {
-	item := b.NavbarItem(b.HasDropdown)
+	n := &navbarDropdown{label: label}
+	n.addChildren(children)
+	return n.elem()
+}
 
-	link := b.NavbarLink(label)
+type navbarDropdown struct {
+	label            string
+	dropdownChildren []any
+	itemChildren     []any
+	linkChildren     []any
+}
 
-	dropdown := b.NavbarDropdown()
-
+func (n *navbarDropdown) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case navbarDropdownOption:
 			switch c {
 			case NavbarDropdownHoverable:
-				item.With(b.Hoverable)
+				n.itemChildren = append(n.itemChildren, b.Hoverable)
 			case NavbarDropdownClickable:
-				link.With(b.OnClick(b.JSToggleThisNavbarItem))
+				n.linkChildren = append(n.linkChildren, b.OnClick(b.JSToggleThisNavbarItem))
 			case NavbarDropup:
-				item.With(b.Class("has-dropdown-up"))
+				n.itemChildren = append(n.itemChildren, b.Class("has-dropdown-up"))
 			case NavbarDropdownArrowless:
-				link.With(b.Arrowless)
+				n.linkChildren = append(n.linkChildren, b.Arrowless)
 			case NavbarDropdownBoxed:
-				dropdown.With(b.Boxed)
+				n.dropdownChildren = append(n.dropdownChildren, b.Boxed)
 			case NavbarDropdownActive:
-				item.With(b.Active)
+				n.itemChildren = append(n.itemChildren, b.Active)
 			}
+		case []any:
+			n.addChildren(c)
 		default:
-			dropdown.With(c)
+			n.dropdownChildren = append(n.dropdownChildren, c)
 		}
 	}
+}
 
-	return item.
-		With(link).
-		With(dropdown)
+func (n *navbarDropdown) elem() *b.Element {
+	return b.NavbarItem(b.HasDropdown).
+		Withs(n.itemChildren).
+		With(
+			b.NavbarLink(n.label).Withs(n.linkChildren),
+		).
+		With(
+			b.NavbarDropdown().Withs(n.dropdownChildren),
+		)
 }

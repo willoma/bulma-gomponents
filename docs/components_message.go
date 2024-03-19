@@ -36,7 +36,7 @@ var message = c.NewPage(
 	c.Example(
 		`easy.Message(
 	easy.MessageTitle("Hello world"),
-	b.MessageDeleteChild(b.OnClick(′alert("click")′)),
+	easy.MessageDeleteOnClick(′alert("click")′),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
 		easy.Message(

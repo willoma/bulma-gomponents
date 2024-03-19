@@ -12,29 +12,6 @@ func Cell(children ...any) cell {
 	return cell(children)
 }
 
-func rowChildren(elem func(...gomponents.Node) gomponents.Node, children []any) *Element {
-	e := Elem(html.Tr)
-
-	for _, c := range children {
-		switch c := c.(type) {
-		case cell:
-			e.With(Elem(elem).Withs(c))
-		case string:
-			e.With(elem(gomponents.Text(c)))
-		case gomponents.Node:
-			if IsAttribute(c) {
-				e.With(c)
-			} else {
-				e.With(elem(c))
-			}
-		default:
-			e.With(c)
-		}
-	}
-
-	return e
-}
-
 type rowSection int
 
 const (
@@ -44,8 +21,34 @@ const (
 )
 
 type row struct {
-	section rowSection
-	row     *Element
+	section  rowSection
+	el       func(...gomponents.Node) gomponents.Node
+	children []any
+}
+
+func (r *row) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case cell:
+			r.children = append(r.children, Elem(r.el).Withs(c))
+		case string:
+			r.children = append(r.children, r.el(gomponents.Text(c)))
+		case gomponents.Node:
+			if IsAttribute(c) {
+				r.children = append(r.children, c)
+			} else {
+				r.children = append(r.children, r.el(c))
+			}
+		case []any:
+			r.addChildren(c)
+		default:
+			r.children = append(r.children, c)
+		}
+	}
+}
+
+func (r *row) elem() *Element {
+	return Elem(html.Tr).Withs(r.children)
 }
 
 // HeadRow creates a table header row (tr element).
@@ -59,8 +62,10 @@ type row struct {
 //
 // The following modifiers change the row behaviour:
 //   - Selected: mark the row as selected
-func HeadRow(children ...any) row {
-	return row{rowSectionHead, rowChildren(html.Th, children)}
+func HeadRow(children ...any) *row {
+	r := &row{section: rowSectionHead, el: html.Th}
+	r.addChildren(children)
+	return r
 }
 
 // FootRow creates a table footer row (tr element).
@@ -74,8 +79,10 @@ func HeadRow(children ...any) row {
 //
 // The following modifiers change the row behaviour:
 //   - Selected: mark the row as selected
-func FootRow(children ...any) row {
-	return row{rowSectionFoot, rowChildren(html.Th, children)}
+func FootRow(children ...any) *row {
+	r := &row{section: rowSectionFoot, el: html.Th}
+	r.addChildren(children)
+	return r
 }
 
 // Row creates a table body row (tr element).
@@ -89,8 +96,10 @@ func FootRow(children ...any) row {
 //
 // The following modifiers change the row behaviour:
 //   - Selected: mark the row as selected
-func Row(children ...any) row {
-	return row{rowSectionBody, rowChildren(html.Td, children)}
+func Row(children ...any) *row {
+	r := &row{section: rowSectionBody, el: html.Td}
+	r.addChildren(children)
+	return r
 }
 
 // Table creates a table element.
@@ -105,38 +114,56 @@ func Row(children ...any) row {
 //   - Table: add a hover effect on each body row
 //   - FullWidth: take the whole width
 func Table(children ...any) *Element {
-	table := Elem(html.Table).
-		With(Class("table"))
+	t := &table{}
+	t.addChildren(children)
+	return t.elem()
+}
 
-	var head, foot, body []gomponents.Node
+type table struct {
+	children []any
+	head     []gomponents.Node
+	foot     []gomponents.Node
+	body     []gomponents.Node
+}
 
+func (t *table) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case row:
+		case *row:
 			switch c.section {
 			case rowSectionHead:
-				head = append(head, c.row)
+				t.head = append(t.head, c.elem())
 			case rowSectionFoot:
-				foot = append(foot, c.row)
+				t.foot = append(t.foot, c.elem())
 			case rowSectionBody:
-				body = append(body, c.row)
+				t.body = append(t.body, c.elem())
 			}
+		case []any:
+			t.addChildren(c)
 		default:
-			table.With(c)
+			t.children = append(t.children, c)
 		}
 	}
+}
 
-	if len(head) > 0 {
-		table.With(html.THead(head...))
-	}
-	if len(foot) > 0 {
-		table.With(html.TFoot(foot...))
-	}
-	if len(body) > 0 {
-		table.With(html.TBody(body...))
+func (t *table) elem() *Element {
+	tb := Elem(html.Table).
+		With(Class("table")).
+		Withs(t.children)
+
+	if len(t.head) > 0 {
+		tb.With(html.THead(t.head...))
 	}
 
-	return table
+	if len(t.foot) > 0 {
+		tb.With(html.TFoot(t.foot...))
+	}
+
+	if len(t.body) > 0 {
+		tb.With(html.TBody(t.body...))
+	}
+
+	return tb
 }
 
 // ScrollableTable creates a table in a table-container element, making the

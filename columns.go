@@ -33,26 +33,40 @@ import (
 //   - Multiline: create a new line when columns do not fit in a single line
 //   - VCentered: align columns vertically
 func Columns(children ...any) *Element {
-	e := Elem(html.Div).With(Class("columns"))
+	cols := &columns{}
+	cols.addChildren(children)
+	return cols.elem()
+}
+
+type columns struct {
+	children []any
+}
+
+func (cols *columns) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
 			if !c.hasClass("column") {
-				e.With(Column(c))
+				cols.children = append(cols.children, Column(c))
 			} else {
-				e.With(c)
+				cols.children = append(cols.children, c)
 			}
 		case gomponents.Node:
 			if IsAttribute(c) {
-				e.With(c)
+				cols.children = append(cols.children, c)
 			} else {
-				e.With(Column(c))
+				cols.children = append(cols.children, Column(c))
 			}
+		case []any:
+			cols.addChildren(c)
 		default:
-			e.With(c)
+			cols.children = append(cols.children, c)
 		}
 	}
-	return e
+}
+
+func (cols *columns) elem() *Element {
+	return Elem(html.Div).With(Class("columns")).Withs(cols.children)
 }
 
 // Column creates a single column.
@@ -99,7 +113,27 @@ func Columns(children ...any) *Element {
 //
 // the narrow behaviour may be breakpoint-based, by using Narrow.Mobile() to Narrow.FullHD().
 func Column(children ...any) *Element {
+	col := &column{}
+	col.addChildren(children)
+	return col.elem()
+}
+
+type column struct {
+	children []any
+}
+
+func (col *column) addChildren(children []any) {
+	for _, c := range children {
+		if slice, ok := c.([]any); ok {
+			col.addChildren(slice)
+			continue
+		}
+		col.children = append(col.children, c)
+	}
+}
+
+func (col *column) elem() *Element {
 	return Elem(html.Div).
 		With(Class("column")).
-		Withs(children)
+		Withs(col.children)
 }

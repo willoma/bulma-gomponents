@@ -106,3 +106,56 @@ func FieldHorizontal(children ...any) *Element {
 		With(label).
 		With(body)
 }
+
+type fieldHorizontal struct {
+	label        *Element
+	body         *Element
+	bodyChildren []any
+	elemChildren []any
+}
+
+func (f *fieldHorizontal) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case *Element:
+			switch {
+			case c.hasClass("field-label"):
+				f.label = c
+			case c.hasClass("field-body"):
+				f.body = c
+			default:
+				f.bodyChildren = append(f.bodyChildren, c)
+			}
+		case []any:
+			f.addChildren(c)
+		default:
+			f.elemChildren = append(f.elemChildren, c)
+		}
+	}
+}
+
+func (f *fieldHorizontal) elem() *Element {
+	var label *Element
+	if f.label != nil {
+		label = f.label
+	} else {
+		label = Elem(html.Div).
+			With(Class("field-label"))
+	}
+
+	var body *Element
+	if f.body != nil {
+		body = f.body.Withs(f.bodyChildren)
+	} else {
+		body = Elem(html.Div).
+			With(Class("field-body")).
+			Withs(f.bodyChildren)
+	}
+
+	return Elem(html.Div).
+		With(Class("field")).
+		With(Horizontal).
+		Withs(f.elemChildren).
+		With(label).
+		With(body)
+}

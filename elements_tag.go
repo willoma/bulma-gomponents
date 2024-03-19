@@ -39,17 +39,32 @@ func Tag(children ...any) *Element {
 // The following modifiers change the tags list behaviour:
 //   - Addons: attach the contained tags together
 func Tags(children ...any) *Element {
-	e := Elem(html.Div).
-		With(Class("tags"))
+	t := &tags{}
+	t.addChildren(children)
+	return t.elem()
+}
+
+type tags struct {
+	children []any
+}
+
+func (t *tags) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			e.With(changeSizePrefix("are-", c))
+			t.children = append(t.children, changeSizePrefix("are-", c))
+		case []any:
+			t.addChildren(c)
 		default:
-			e.With(c)
+			t.children = append(t.children, c)
 		}
 	}
-	return e
+}
+
+func (t *tags) elem() *Element {
+	return Elem(html.Div).
+		With(Class("tags")).
+		Withs(t.children)
 }
 
 // DeleteTag creates a tag which is a delete button-looking a element.

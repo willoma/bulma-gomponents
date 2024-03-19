@@ -104,3 +104,39 @@ func ImageImg(src string, children ...any) *Element {
 
 	return figure.With(img)
 }
+
+type imageImg struct {
+	src            string
+	imgChildren    []any
+	figureChildren []any
+}
+
+func (i *imageImg) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case Class:
+			if c == Rounded {
+				i.imgChildren = append(i.imgChildren, c)
+			} else {
+				i.figureChildren = append(i.figureChildren, c)
+			}
+		case ImgAlt:
+			i.imgChildren = append(i.imgChildren, html.Alt(string(c)))
+		case []any:
+			i.addChildren(c)
+		default:
+			i.figureChildren = append(i.figureChildren, c)
+		}
+	}
+}
+
+func (i *imageImg) elem() *Element {
+	return Elem(html.Figure).
+		With(Class("image")).
+		Withs(i.figureChildren).
+		With(
+			Elem(html.Img).
+				With(html.Src(i.src)).
+				Withs(i.imgChildren),
+		)
+}

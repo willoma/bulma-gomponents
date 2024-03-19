@@ -5,46 +5,62 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
-func checkboxElem(disabled bool, children []any) *Element {
-	input := Elem(html.Input).
-		With(html.Type("checkbox"))
-
-	label := Elem(html.Label).
-		With(Class("checkbox")).
-		With(input).
-		With(" ")
-
-	if disabled {
-		label.With(html.Disabled())
-		input.With(html.Disabled())
-	}
-
-	for _, c := range children {
-		switch c := c.(type) {
-		case string:
-			label.With(c)
-		case gomponents.Node:
-			if IsAttribute(c) {
-				input.With(c)
-			} else {
-				label.With(c)
-			}
-		case *Element, container:
-			label.With(c)
-		default:
-			input.With(c)
-		}
-	}
-
-	return label
-}
-
 // Checkbox creates a checkbox input element.
 func Checkbox(children ...any) *Element {
-	return checkboxElem(false, children)
+	cb := &checkbox{}
+	cb.addChildren(children)
+	return cb.elem()
 }
 
 // CheckboxDisabled creates a disabled checkbox input element.
 func CheckboxDisabled(children ...any) *Element {
-	return checkboxElem(true, children)
+	cb := &checkbox{disabled: true}
+	cb.addChildren(children)
+	return cb.elem()
+}
+
+type checkbox struct {
+	disabled      bool
+	labelChildren []any
+	inputChildren []any
+}
+
+func (cb *checkbox) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case string:
+			cb.labelChildren = append(cb.labelChildren, c)
+		case gomponents.Node:
+			if IsAttribute(c) {
+				cb.inputChildren = append(cb.inputChildren, c)
+			} else {
+				cb.labelChildren = append(cb.labelChildren, c)
+			}
+		case *Element, container:
+			cb.labelChildren = append(cb.labelChildren, c)
+		case []any:
+			cb.addChildren(c)
+		default:
+			cb.inputChildren = append(cb.inputChildren, c)
+		}
+	}
+}
+
+func (cb *checkbox) elem() *Element {
+	input := Elem(html.Input).
+		With(html.Type("checkbox")).
+		Withs(cb.inputChildren)
+
+	label := Elem(html.Label).
+		With(Class("checkbox")).
+		With(input).
+		With(" ").
+		Withs(cb.labelChildren)
+
+	if cb.disabled {
+		label.With(html.Disabled())
+		input.With(html.Disabled())
+	}
+
+	return label
 }

@@ -45,9 +45,16 @@ func PanelTabs(children ...any) *Element {
 
 // PanelLink creates a link which is a panel block element.
 func PanelLink(children ...any) *Element {
-	e := Elem(html.A).
-		With(Class("panel-block"))
+	p := panelLink{}
+	p.addChildren(children)
+	return p.elem()
+}
 
+type panelLink struct {
+	children []any
+}
+
+func (p *panelLink) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *Element:
@@ -55,13 +62,19 @@ func PanelLink(children ...any) *Element {
 				c.With(Class("panel-icon"))
 				c.classes["icon"] = false
 			}
-			e.With(c)
+			p.children = append(p.children, c)
+		case []any:
+			p.addChildren(c)
 		default:
-			e.With(c)
+			p.children = append(p.children, c)
 		}
 	}
+}
 
-	return e
+func (p *panelLink) elem() *Element {
+	return Elem(html.A).
+		With(Class("panel-block")).
+		Withs(p.children)
 }
 
 // PanelLabel creates a label which is a panel block element, which must contain

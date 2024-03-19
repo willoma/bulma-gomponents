@@ -22,32 +22,47 @@ import (
 //   - Medium
 //   - Large
 func Breadcrumb(children ...any) *Element {
-	ul := Elem(html.Ul)
-	nav := Elem(html.Nav).
-		With(Class("breadcrumb")).
-		With(html.Aria("label", "breadcrumbs"))
+	b := &breadcrumb{}
+	b.addChildren(children)
+	return b.elem()
+}
 
-	nav.spanAroundNonIconsIfHasIcons = true
+type breadcrumb struct {
+	ulChildren  []any
+	navChildren []any
+}
 
+func (b *breadcrumb) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			nav.With(c)
+			b.navChildren = append(b.navChildren, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
-				nav.With(c)
+				b.navChildren = append(b.navChildren, c)
 			} else {
-				ul.With(c)
+				b.ulChildren = append(b.ulChildren, c)
 			}
+		case []any:
+			b.addChildren(c)
 		default:
-			ul.With(c)
+			b.ulChildren = append(b.ulChildren, c)
 		}
 	}
-
-	return nav.With(ul)
 }
 
-// BreadcrubmbEntry creates a generic breadcrumb entry.
+func (b *breadcrumb) elem() *Element {
+	nav := Elem(html.Nav).
+		With(Class("breadcrumb")).
+		With(html.Aria("label", "breadcrumbs")).
+		Withs(b.navChildren)
+
+	nav.spanAroundNonIconsIfHasIcons = true
+
+	return nav.With(Elem(html.Ul).Withs(b.ulChildren))
+}
+
+// BreadcrumbEntry creates a generic breadcrumb entry.
 func BreadcrumbEntry(children ...any) *Element {
 	return Elem(html.Li).Withs(children)
 }
@@ -75,7 +90,5 @@ func BreadcrumbActiveAHref(href string, children ...any) *Element {
 
 	ahref.spanAroundNonIconsIfHasIcons = true
 
-	return Elem(html.Li).
-		With(Active).
-		With(ahref)
+	return Elem(html.Li).With(Active).With(ahref)
 }

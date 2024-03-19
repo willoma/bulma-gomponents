@@ -11,45 +11,6 @@ type Size int
 
 type Name string
 
-func selectElem(multiple bool, children []any) *Element {
-	div := Elem(html.Div).
-		With(Class("select"))
-
-	sel := Elem(html.Select)
-
-	if multiple {
-		div.With(Class("is-multiple"))
-		sel.With(html.Multiple())
-	}
-
-	for _, c := range children {
-		switch c := c.(type) {
-		case Size:
-			sel.With(
-				gomponents.Attr(
-					"size",
-					strconv.Itoa(int(c)),
-				),
-			)
-		case Class:
-			switch c {
-			case Hovered, Focused:
-				sel.With(c)
-			default:
-				div.With(c)
-			}
-		case *Element, container:
-			sel.With(c)
-		case Name:
-			sel.With(html.Name(string(c)))
-		default:
-			div.With(c)
-		}
-	}
-
-	return div.With(sel)
-}
-
 // Select creates a dropdown select element. It should contain one or multiple
 // Option elements.
 //   - when a child is a Class, it is applied to the select element if it is
@@ -81,7 +42,9 @@ func selectElem(multiple bool, children []any) *Element {
 //   - Medium
 //   - Large
 func Select(children ...any) *Element {
-	return selectElem(false, children)
+	s := &selectEl{}
+	s.addChildren(children)
+	return s.elem()
 }
 
 // SelectMultiple creates a multiple select element. It should contain one or
@@ -116,7 +79,60 @@ func Select(children ...any) *Element {
 //   - Medium
 //   - Large
 func SelectMultiple(children ...any) *Element {
-	return selectElem(true, children)
+	s := &selectEl{multiple: true}
+	s.addChildren(children)
+	return s.elem()
+}
+
+type selectEl struct {
+	multiple       bool
+	selectChildren []any
+	divChildren    []any
+}
+
+func (s *selectEl) addChildren(children []any) {
+	for _, c := range children {
+		switch c := c.(type) {
+		case Size:
+			s.selectChildren = append(
+				s.selectChildren,
+				gomponents.Attr(
+					"size",
+					strconv.Itoa(int(c)),
+				),
+			)
+		case Class:
+			switch c {
+			case Hovered, Focused:
+				s.selectChildren = append(s.selectChildren, c)
+			default:
+				s.divChildren = append(s.divChildren, c)
+			}
+		case *Element, container:
+			s.selectChildren = append(s.selectChildren, c)
+		case Name:
+			s.selectChildren = append(s.selectChildren, html.Name(string(c)))
+		case []any:
+			s.addChildren(c)
+		default:
+			s.divChildren = append(s.divChildren, c)
+		}
+	}
+}
+
+func (s *selectEl) elem() *Element {
+	div := Elem(html.Div).
+		With(Class("select")).
+		Withs(s.divChildren)
+
+	sel := Elem(html.Select).Withs(s.selectChildren)
+
+	if s.multiple {
+		div.With(Class("is-multiple"))
+		sel.With(html.Multiple())
+	}
+
+	return div.With(sel)
 }
 
 // Option creates an option element, to be used as a child of a Select or
