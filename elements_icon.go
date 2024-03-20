@@ -60,7 +60,7 @@ func (i *icon) addChildren(children []any) {
 		case ColorClass:
 			i.children = append(i.children, c.Text())
 		case []any:
-			i.addChildren(children)
+			i.addChildren(c)
 		default:
 			i.children = append(i.children, c)
 		}
