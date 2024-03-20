@@ -27,7 +27,7 @@ type (
 //
 // When there is no MessageTitle in the children, the message is displayed
 // with the "message body only" style.
-func Message(children ...any) *b.Element {
+func Message(children ...any) b.Element {
 	m := &message{}
 	m.addChildren(children)
 	return m.elem()
@@ -35,7 +35,7 @@ func Message(children ...any) *b.Element {
 
 type message struct {
 	title           string
-	delete          *b.Element
+	delete          b.Element
 	messageChildren []any
 	bodyChildren    []any
 }
@@ -65,7 +65,7 @@ func (m *message) addChildren(children []any) {
 	}
 }
 
-func (m *message) elem() *b.Element {
+func (m *message) elem() b.Element {
 	message := b.Elem(html.Article, b.Class("message"), m.messageChildren)
 
 	body := b.Elem(html.Div, b.Class("message-body"), m.bodyChildren)

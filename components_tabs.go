@@ -21,14 +21,14 @@ import "github.com/maragudk/gomponents/html"
 //   - Small
 //   - Medium
 //   - Large
-func Tabs(children ...any) *Element {
+func Tabs(children ...any) Element {
 	t := &tabs{}
 	t.addChildren(children)
 	return t.elem()
 }
 
 type tabs struct {
-	intermediateContainer *Element
+	intermediateContainer Element
 	tabsChildren          []any
 	contentChildren       []any
 }
@@ -48,7 +48,7 @@ func (t *tabs) addChildren(children []any) {
 	}
 }
 
-func (t *tabs) elem() *Element {
+func (t *tabs) elem() Element {
 	tabs := Elem(html.Div, Class("tabs"), t.tabsChildren)
 
 	content := Elem(html.Ul, t.contentChildren...)
@@ -62,7 +62,7 @@ func (t *tabs) elem() *Element {
 
 // TabsLink creates a tab entry which is a link. Use html.Href as an argument
 // to define a link target if needed.
-func TabsLink(children ...any) *Element {
+func TabsLink(children ...any) Element {
 	t := &tabsLink{}
 	t.addChildren(children)
 	return t.elem()
@@ -90,7 +90,7 @@ func (t *tabsLink) addChildren(children []any) {
 	}
 }
 
-func (t *tabsLink) elem() *Element {
+func (t *tabsLink) elem() Element {
 	li := Elem(html.Li)
 	if t.active {
 		li.With(Active)

@@ -11,6 +11,6 @@ import (
 //   - Normal
 //   - Medium
 //   - Large
-func Delete(children ...any) *Element {
+func Delete(children ...any) Element {
 	return Elem(html.Button, Class("delete"), children)
 }

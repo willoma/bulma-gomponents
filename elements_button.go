@@ -8,7 +8,7 @@ import (
 func buttonElem(
 	fn func(...gomponents.Node) gomponents.Node,
 	children ...any,
-) *Element {
+) Element {
 	return Elem(fn, Class("button"), elemOptionSpanAroundNonIconsIfHasIcons, children)
 }
 
@@ -59,35 +59,35 @@ func buttonElem(
 //   - SuccessLight
 //   - WarningLight
 //   - DangerLight
-func Button(children ...any) *Element {
+func Button(children ...any) Element {
 	return buttonElem(html.Button, children...)
 }
 
 // ButtonA creates a button-looking link.
 //
 // See the documentation on the Button function for modifiers details.
-func ButtonA(children ...any) *Element {
+func ButtonA(children ...any) Element {
 	return buttonElem(html.A, children...)
 }
 
 // ButtonSubmit creates a submit button.
 //
 // See the documentation on the Button function for modifiers details.
-func ButtonSubmit(children ...any) *Element {
+func ButtonSubmit(children ...any) Element {
 	return buttonElem(html.Button, html.Type("submit"), children)
 }
 
 // ButtonInputSubmit creates an input of type submit.
 //
 // See the documentation on the Button function for modifiers details.
-func ButtonInputSubmit(value string, children ...any) *Element {
+func ButtonInputSubmit(value string, children ...any) Element {
 	return buttonElem(html.Input, html.Type("submit"), html.Value(value), children)
 }
 
 // ButtonInputReset creates an input of type reset.
 //
 // See the documentation on the Button function for modifiers details.
-func ButtonInputReset(value string, children ...any) *Element {
+func ButtonInputReset(value string, children ...any) Element {
 	return buttonElem(html.Input, html.Type("reset"), html.Value(value), children)
 }
 
@@ -102,7 +102,7 @@ func ButtonInputReset(value string, children ...any) *Element {
 //   - Small
 //   - Medium
 //   - Large
-func Buttons(children ...any) *Element {
+func Buttons(children ...any) Element {
 	b := &buttons{}
 	b.addChildren(children)
 	return b.elem()
@@ -125,6 +125,6 @@ func (b *buttons) addChildren(children []any) {
 	}
 }
 
-func (b *buttons) elem() *Element {
+func (b *buttons) elem() Element {
 	return Elem(html.Div, Class("buttons"), b.children)
 }

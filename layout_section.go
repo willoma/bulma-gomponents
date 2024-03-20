@@ -7,6 +7,6 @@ import "github.com/maragudk/gomponents/html"
 // The following modifiers change the section behaviour:
 //   - Medium: medium spacing
 //   - Large: large spacing
-func Section(children ...any) *Element {
+func Section(children ...any) Element {
 	return Elem(html.Section, Class("section"), children)
 }

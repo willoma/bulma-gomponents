@@ -15,8 +15,7 @@ type Name string
 // Option elements.
 //   - when a child is a Class, it is applied to the select element if it is
 //     Hovered or Focused, otherwise it is applied to the div element
-//   - when a child is an *Element, it is added as a child to the select element
-//   - when a child is a container, it is added as a child to the select element
+//   - when a child is an Element, it is added as a child to the select element
 //   - when a child is a Name, it is used as the name attribute of the select
 //     element
 //   - other children are added as children to the div element
@@ -41,7 +40,7 @@ type Name string
 //   - Normal
 //   - Medium
 //   - Large
-func Select(children ...any) *Element {
+func Select(children ...any) Element {
 	s := &selectEl{}
 	s.addChildren(children)
 	return s.elem()
@@ -52,8 +51,7 @@ func Select(children ...any) *Element {
 //   - when a child is a Size, it defines the select size
 //   - when a child is a Class, it is applied to the select element if it is
 //     Hovered or Focused, otherwise it is applied to the div element
-//   - when a child is an *Element, it is added as a child to the select element
-//   - when a child is a container, it is added as a child to the select element
+//   - when a child is an Element, it is added as a child to the select element
 //   - when a child is a Name, it is used as the name attribute of the select
 //     element
 //   - other children types are added as children to the div element
@@ -78,7 +76,7 @@ func Select(children ...any) *Element {
 //   - Normal
 //   - Medium
 //   - Large
-func SelectMultiple(children ...any) *Element {
+func SelectMultiple(children ...any) Element {
 	s := &selectEl{multiple: true}
 	s.addChildren(children)
 	return s.elem()
@@ -108,7 +106,7 @@ func (s *selectEl) addChildren(children []any) {
 			default:
 				s.divChildren = append(s.divChildren, c)
 			}
-		case *Element, container:
+		case Element:
 			s.selectChildren = append(s.selectChildren, c)
 		case Name:
 			s.selectChildren = append(s.selectChildren, html.Name(string(c)))
@@ -120,7 +118,7 @@ func (s *selectEl) addChildren(children []any) {
 	}
 }
 
-func (s *selectEl) elem() *Element {
+func (s *selectEl) elem() Element {
 	div := Elem(html.Div, Class("select"), s.divChildren)
 	sel := Elem(html.Select, s.selectChildren...)
 
@@ -134,13 +132,13 @@ func (s *selectEl) elem() *Element {
 
 // Option creates an option element, to be used as a child of a Select or
 // SelectMultiple. The value argument is used as the option value attribute.
-func Option(value string, children ...any) *Element {
+func Option(value string, children ...any) Element {
 	return Elem(html.Option, html.Value(value), children)
 }
 
 // OptionSelected creates a selected option element, to be used as a child of a
 // Select or SelectMultiple. The value argument is used as the option value
 // attribute.
-func OptionSelected(value string, children ...any) *Element {
+func OptionSelected(value string, children ...any) Element {
 	return Elem(html.Option, html.Value(value), html.Selected(), children)
 }

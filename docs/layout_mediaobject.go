@@ -64,16 +64,16 @@ var mediaObject = c.NewPage(
 				b.Level(
 					b.Mobile,
 					b.LevelLeft(
-						el.A(
-							b.LevelItem,
+						b.LevelItem(
+							html.A,
 							fa.Icon(fa.Solid, "reply", b.Small),
 						),
 						b.LevelItem(
 							html.A,
 							fa.Icon(fa.Solid, "retweet", b.Small),
 						),
-						el.A(
-							b.Class("level-item"),
+						b.LevelItem(
+							html.A,
 							fa.Icon(fa.Solid, "heart", b.Small),
 						),
 					),
@@ -114,7 +114,7 @@ var mediaObject = c.NewPage(
 				html.Figure,
 				b.ImageImg(
 					"https://bulma.io/images/placeholders/128x128.png",
-					el.P, b.ImgSq64,
+					html.P, b.ImgSq64,
 				),
 			),
 			b.Field(

@@ -15,10 +15,8 @@ type heroPart struct {
 //     of the hero element
 //   - when a child is a return value of HeroFoot, it is added in the foot part
 //     of the hero element
-//   - when a child is an *Element, it is added in the body part of the hero
+//   - when a child is an Element, it is added in the body part of the hero
 //     element
-//   - when a child is a return value of Container*, it is added in the body
-//     part of the hero element
 //   - when a child is a gomponents.Node with type gomponents.AttributeType, it
 //     is added as a direct child of to the hero element
 //   - when a child is a gomponents.Node with another type, it is added in the
@@ -42,7 +40,7 @@ type heroPart struct {
 //   - HalfHeight
 //   - FullHeight
 //   - FullHeightWithNavbar
-func Hero(children ...any) *Element {
+func Hero(children ...any) Element {
 	h := &hero{}
 	h.addChildren(children)
 	return h.elem()
@@ -64,7 +62,7 @@ func (h *hero) addChildren(children []any) {
 			} else {
 				h.headChildren = append(h.headChildren, c.children...)
 			}
-		case *Element, container:
+		case Element:
 			h.bodyChildren = append(h.bodyChildren, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
@@ -80,7 +78,7 @@ func (h *hero) addChildren(children []any) {
 	}
 }
 
-func (h *hero) elem() *Element {
+func (h *hero) elem() Element {
 	e := Elem(html.Section, Class("hero"), h.elemChildren)
 
 	if len(h.headChildren) > 0 {

@@ -15,10 +15,8 @@ type mediaPart struct {
 //     of the media element
 //   - when a child is a return value of MediaRight, it is added in the right
 //     part of the media element
-//   - when a child is an *Element, it is added in the content part of the media
+//   - when a child is an Element, it is added in the content part of the media
 //     element
-//   - when a child is a return value of Container*, it is added in the content
-//     part of the media element
 //   - when a child is a gomponents.Node with type gomponents.AttributeType, it
 //     is added as a direct child of to the media element
 //   - when a child is a gomponents.Node with another type, it is added in the
@@ -26,7 +24,7 @@ type mediaPart struct {
 //   - other children types are added as direct children of to the media element
 //
 // Each of the left, content and right parts is only included if it has content.
-func Media(children ...any) *Element {
+func Media(children ...any) Element {
 	m := &media{}
 	m.addChildren(children)
 	return m.elem()
@@ -48,7 +46,7 @@ func (m *media) addChildren(children []any) {
 			} else {
 				m.leftChildren = append(m.leftChildren, c.children...)
 			}
-		case *Element, container:
+		case Element:
 			m.contentChildren = append(m.contentChildren, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
@@ -62,7 +60,7 @@ func (m *media) addChildren(children []any) {
 	}
 }
 
-func (m *media) elem() *Element {
+func (m *media) elem() Element {
 	e := Elem(html.Article, Class("media"), m.elemChildren)
 
 	if len(m.leftChildren) > 0 {

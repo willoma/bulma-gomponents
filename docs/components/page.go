@@ -37,7 +37,7 @@ func NewPage(menuentry, title, path, bulmaURL string, content ...any) *Page {
 	}
 }
 
-func (p *Page) MenuEntry(activePath string) *b.Element {
+func (p *Page) MenuEntry(activePath string) b.Element {
 	var active any
 	if activePath == p.Path {
 		active = b.Active

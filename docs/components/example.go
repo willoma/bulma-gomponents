@@ -5,7 +5,7 @@ import (
 	"github.com/willoma/bulma-gomponents/el"
 )
 
-func ColParagraph(children ...any) *b.Element {
+func ColParagraph(children ...any) b.Element {
 	return el.P(
 		b.Style("outline", "1px dashed #36b6e0"),
 		b.Style("border-radius", "0.25em"),
@@ -14,7 +14,7 @@ func ColParagraph(children ...any) *b.Element {
 	)
 }
 
-func exampleContainer(children ...any) *b.Element {
+func exampleContainer(children ...any) b.Element {
 	return b.Block(
 		b.Style("border-left", "1em solid hsl(48, 100%, 29%)"), // warning-dark
 		b.Style("border-right", "0.25em solid hsl(48, 100%, 29%)"),
@@ -38,7 +38,7 @@ func exampleContainer(children ...any) *b.Element {
 	)
 }
 
-func Example(code string, result ...any) *b.Element {
+func Example(code string, result ...any) b.Element {
 	return exampleContainer(
 		b.Columns(
 			b.Gap1,
@@ -64,7 +64,7 @@ func Example(code string, result ...any) *b.Element {
 	)
 }
 
-func HorizontalExample(code string, result ...any) *b.Element {
+func HorizontalExample(code string, result ...any) b.Element {
 	return exampleContainer(
 		el.Div(
 			b.Tag(b.Info, "Result", b.MarginBottom(b.Spacing1)),

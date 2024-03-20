@@ -21,7 +21,7 @@ import (
 //   - Small
 //   - Medium
 //   - Large
-func Breadcrumb(children ...any) *Element {
+func Breadcrumb(children ...any) Element {
 	b := &breadcrumb{}
 	b.addChildren(children)
 	return b.elem()
@@ -51,7 +51,7 @@ func (b *breadcrumb) addChildren(children []any) {
 	}
 }
 
-func (b *breadcrumb) elem() *Element {
+func (b *breadcrumb) elem() Element {
 	return Elem(
 		html.Nav,
 		Class("breadcrumb"),
@@ -63,7 +63,7 @@ func (b *breadcrumb) elem() *Element {
 }
 
 // BreadcrumbEntry creates a generic breadcrumb entry.
-func BreadcrumbEntry(children ...any) *Element {
+func BreadcrumbEntry(children ...any) Element {
 	return Elem(html.Li, children...)
 }
 
@@ -72,7 +72,7 @@ func BreadcrumbEntry(children ...any) *Element {
 //
 // It is better than BreadcrumbEntry(AHref(href, children...)),
 // because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbAHref(href string, children ...any) *Element {
+func BreadcrumbAHref(href string, children ...any) Element {
 	return Elem(
 		html.Li,
 		AHref(
@@ -88,7 +88,7 @@ func BreadcrumbAHref(href string, children ...any) *Element {
 //
 // It is better than BreadcrumbEntry(Active, AHref(href, children)),
 // because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbActiveAHref(href string, children ...any) *Element {
+func BreadcrumbActiveAHref(href string, children ...any) Element {
 	return Elem(
 		html.Li, Active,
 		AHref(

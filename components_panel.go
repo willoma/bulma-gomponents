@@ -13,17 +13,17 @@ import (
 //   - Success
 //   - Warning
 //   - Danger
-func Panel(children ...any) *Element {
+func Panel(children ...any) Element {
 	return Elem(html.Nav, Class("panel"), children)
 }
 
 // PanelHeading creates a panel heading element.
-func PanelHeading(children ...any) *Element {
+func PanelHeading(children ...any) Element {
 	return Elem(html.P, Class("panel-heading"), children)
 }
 
 // PanelBlock creates a panel block element.
-func PanelBlock(children ...any) *Element {
+func PanelBlock(children ...any) Element {
 	return Elem(html.Div, Class("panel-block"), children)
 }
 
@@ -31,12 +31,12 @@ func PanelBlock(children ...any) *Element {
 //
 // Its children must be "a" html elements (for instance AHref). Add the Active
 // modifier to a link to mark it as the active tab.
-func PanelTabs(children ...any) *Element {
+func PanelTabs(children ...any) Element {
 	return Elem(html.P, Class("panel-tabs"), children)
 }
 
 // PanelLink creates a link which is a panel block element.
-func PanelLink(children ...any) *Element {
+func PanelLink(children ...any) Element {
 	p := panelLink{}
 	p.addChildren(children)
 	return p.elem()
@@ -49,10 +49,10 @@ type panelLink struct {
 func (p *panelLink) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			if c.hasClass("icon") {
+				c.removeClass("icon")
 				c.With(Class("panel-icon"))
-				c.classes["icon"] = false
 			}
 			p.children = append(p.children, c)
 		case []any:
@@ -63,12 +63,12 @@ func (p *panelLink) addChildren(children []any) {
 	}
 }
 
-func (p *panelLink) elem() *Element {
+func (p *panelLink) elem() Element {
 	return Elem(html.A, Class("panel-block"), p.children)
 }
 
 // PanelLabel creates a label which is a panel block element, which must contain
 // a Checkbox.
-func PanelLabel(children ...any) *Element {
+func PanelLabel(children ...any) Element {
 	return Elem(html.Label, Class("panel-block"), children)
 }

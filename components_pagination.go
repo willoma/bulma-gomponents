@@ -19,7 +19,7 @@ import (
 //   - Small
 //   - Medium
 //   - Large
-func Pagination(children ...any) *Element {
+func Pagination(children ...any) Element {
 	p := pagination{}
 	p.addChildren(children)
 	return p.elem()
@@ -33,7 +33,7 @@ type pagination struct {
 func (p *pagination) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			if c.hasClass("pagination-link") || c.hasClass("pagination-ellipsis") {
 				p.listChildren = append(p.listChildren, Elem(html.Li, c))
 			} else {
@@ -47,7 +47,7 @@ func (p *pagination) addChildren(children []any) {
 	}
 }
 
-func (p *pagination) elem() *Element {
+func (p *pagination) elem() Element {
 	return Elem(
 		html.Nav,
 		Class("pagination"),
@@ -60,7 +60,7 @@ func (p *pagination) elem() *Element {
 //
 // The following modifiers change the link button behaviour:
 //   - Disabled: mark the link button as inactive
-func PaginationPrevious(children ...any) *Element {
+func PaginationPrevious(children ...any) Element {
 	return Elem(html.A, Class("pagination-previous"), children)
 }
 
@@ -68,7 +68,7 @@ func PaginationPrevious(children ...any) *Element {
 //
 // The following modifiers change the link button behaviour:
 //   - Disabled: mark the link button as inactive
-func PaginationNext(children ...any) *Element {
+func PaginationNext(children ...any) Element {
 	return Elem(html.A, Class("pagination-next"), children)
 }
 
@@ -77,11 +77,11 @@ func PaginationNext(children ...any) *Element {
 // The following modifiers change the link button behaviour:
 //   - Current: mark this link button as being the current page
 //   - Disabled: mark the link button as inactive
-func PaginationLink(children ...any) *Element {
+func PaginationLink(children ...any) Element {
 	return Elem(html.A, Class("pagination-link"), children)
 }
 
 // PaginationEllipsis creates an ellipsis element for a pagination.
-func PaginationEllipsis() *Element {
+func PaginationEllipsis() Element {
 	return Elem(html.Span, Class("pagination-ellipsis"), gomponents.Raw("&hellip;"))
 }

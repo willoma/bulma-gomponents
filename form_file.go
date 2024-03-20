@@ -45,7 +45,7 @@ type FileNameAutoUpdate string
 //   - Normal
 //   - Medium
 //   - Large
-func File(children ...any) *Element {
+func File(children ...any) Element {
 	f := &file{}
 	f.addChildren(children)
 	return f.elem()
@@ -75,10 +75,10 @@ func (f *file) addChildren(children []any) {
 			f.divChildren = append(f.divChildren, Class("has-name"))
 			f.fileName = string(c)
 			f.inputChildren = append(f.inputChildren, On("change", fileNameAutoUpdateScript))
-		case *Element:
+		case Element:
 			if c.hasClass("icon") {
 				c.With(Class("file-icon"))
-				c.classes["icon"] = false
+				c.removeClass("icon")
 			}
 			f.ctaChildren = append(f.ctaChildren, c)
 		case []any:
@@ -89,7 +89,7 @@ func (f *file) addChildren(children []any) {
 	}
 }
 
-func (f *file) elem() *Element {
+func (f *file) elem() Element {
 	label := Elem(
 		html.Label,
 		Class("file-label"),

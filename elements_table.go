@@ -47,7 +47,7 @@ func (r *row) addChildren(children []any) {
 	}
 }
 
-func (r *row) elem() *Element {
+func (r *row) elem() Element {
 	return Elem(html.Tr, r.children...)
 }
 
@@ -113,7 +113,7 @@ func Row(children ...any) *row {
 //   - Narrow: make the cells narrower
 //   - Table: add a hover effect on each body row
 //   - FullWidth: take the whole width
-func Table(children ...any) *Element {
+func Table(children ...any) Element {
 	t := &table{}
 	t.addChildren(children)
 	return t.elem()
@@ -146,7 +146,7 @@ func (t *table) addChildren(children []any) {
 	}
 }
 
-func (t *table) elem() *Element {
+func (t *table) elem() Element {
 	tb := Elem(html.Table, Class("table"), t.children)
 
 	if len(t.head) > 0 {
@@ -168,6 +168,6 @@ func (t *table) elem() *Element {
 // table scrollable.
 //
 // See the documentation on the Table function for modifiers details.
-func ScrollableTable(children ...any) *Element {
+func ScrollableTable(children ...any) Element {
 	return Elem(html.Div, Class("table-container"), Table(children...))
 }

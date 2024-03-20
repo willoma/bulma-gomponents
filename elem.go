@@ -7,6 +7,14 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
+type Element interface {
+	gomponents.Node
+
+	With(...any) Element
+	hasClass(string) bool
+	removeClass(cl string)
+}
+
 type elemOption int
 
 const (
@@ -15,8 +23,8 @@ const (
 )
 
 // Elem creates a base element, based on the provided gomponents.Node function.
-func Elem(elemFn func(...gomponents.Node) gomponents.Node, children ...any) *Element {
-	e := &Element{
+func Elem(elemFn func(...gomponents.Node) gomponents.Node, children ...any) *element {
+	e := &element{
 		elemFn:           elemFn,
 		classes:          map[string]bool{},
 		stylesCollection: map[string]string{},
@@ -25,8 +33,8 @@ func Elem(elemFn func(...gomponents.Node) gomponents.Node, children ...any) *Ele
 	return e
 }
 
-// Element is a single element.
-type Element struct {
+// element is a single element.
+type element struct {
 	elemFn func(...gomponents.Node) gomponents.Node
 
 	hasIcons                     bool
@@ -59,17 +67,15 @@ func IsAttribute(node any) bool {
 //   - ColorClass: add a color class to the element
 //   - Styles: add one or multiple CSS styles to the element
 //   - string: add a string to the element (using gomponents.Text)
-//   - *Element: add the provided element as a child
+//   - Element: add the provided element as a child
 //   - container: add the provided element as a child
-//   - func(...any) *Element: apply the following parts of that element to
-//     the current element: classes, styles, attributes, children
 //   - gomponents.Node with type gomponents.AttributeType: add the provided
 //     attribute to this element
 //   - gomponents.Node with another time: add the provided element as a child
 //   - []any: add the slice items by executing With recursively
 //
 // Any other type is ignored.
-func (e *Element) With(children ...any) *Element {
+func (e *element) With(children ...any) Element {
 	if e == nil {
 		e = Elem(html.Div)
 	}
@@ -105,13 +111,13 @@ func (e *Element) With(children ...any) *Element {
 			}
 		case string:
 			e.elements = append(e.elements, gomponents.Text(c))
-		case *Element:
+		case Element:
 			if c.hasClass("icon") {
 				e.hasIcons = true
 			}
 
 			if c.hasClass("tile") && !e.hasClass("tile") {
-				c.classes["is-ancestor"] = true
+				c.With(Class("is-ancestor"))
 			}
 
 			// If the child is a navbar, add the "navbar-fixed-bottom" or "navbar-fixed-top" class to its parent
@@ -124,19 +130,6 @@ func (e *Element) With(children ...any) *Element {
 			}
 
 			e.elements = append(e.elements, c)
-		case container:
-			elem := Element(*c)
-			e.elements = append(e.elements, &elem)
-		case func(...any) *Element:
-			other := c()
-			for c := range other.classes {
-				e.classes[c] = true
-			}
-			for p, v := range other.stylesCollection {
-				e.stylesCollection[p] = v
-			}
-			e.attributes = append(e.attributes, other.attributes...)
-			e.elements = append(e.elements, other.elements...)
 		case gomponents.Node:
 			if IsAttribute(c) {
 				e.attributes = append(e.attributes, c)
@@ -151,11 +144,15 @@ func (e *Element) With(children ...any) *Element {
 	return e
 }
 
-func (e *Element) hasClass(cl string) bool {
+func (e *element) hasClass(cl string) bool {
 	return e.classes[cl]
 }
 
-func (e *Element) getChildren() []gomponents.Node {
+func (e *element) removeClass(cl string) {
+	delete(e.classes, cl)
+}
+
+func (e *element) getChildren() []gomponents.Node {
 	if e == nil {
 		return nil
 	}
@@ -184,7 +181,7 @@ func (e *Element) getChildren() []gomponents.Node {
 	if e.spanAroundNonIconsAlways || (e.spanAroundNonIconsIfHasIcons && e.hasIcons) {
 		for _, c := range e.elements {
 			switch c := c.(type) {
-			case *Element:
+			case Element:
 				if c.hasClass("icon") {
 					children = append(children, c)
 				} else {
@@ -201,9 +198,9 @@ func (e *Element) getChildren() []gomponents.Node {
 	return children
 }
 
-// Render renders the element. With this function, an *Element is a
+// Render renders the element. With this function, an Element is a
 // gomponents.Node.
-func (e *Element) Render(w io.Writer) error {
+func (e *element) Render(w io.Writer) error {
 	if e == nil {
 		return nil
 	}

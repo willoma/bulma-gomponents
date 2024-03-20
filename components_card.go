@@ -5,23 +5,23 @@ import (
 )
 
 // Card creates a card.
-func Card(children ...any) *Element {
+func Card(children ...any) Element {
 	return Elem(html.Div, Class("card"), children)
 }
 
 // CardContent creates a card content.
-func CardContent(children ...any) *Element {
+func CardContent(children ...any) Element {
 	return Elem(html.Div, Class("card-content"), children)
 }
 
 // CardFooter creates a card footer.
 //
-// It add the "card-footer-item" class to all its *Element children.
+// It add the "card-footer-item" class to all its Element children.
 //
 // Values in a child of type []any are added as if they were direct children.
 //
 // Children may be provided in []any arguments, recursively if needed.
-func CardFooter(children ...any) *Element {
+func CardFooter(children ...any) Element {
 	cf := &cardFooter{}
 	cf.addChildren(children)
 	return cf.elem()
@@ -34,7 +34,7 @@ type cardFooter struct {
 func (cf *cardFooter) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			cf.children = append(cf.children, c.With(Class("card-footer-item")))
 		case []any:
 			cf.addChildren(c)
@@ -44,7 +44,7 @@ func (cf *cardFooter) addChildren(children []any) {
 	}
 }
 
-func (cf *cardFooter) elem() *Element {
+func (cf *cardFooter) elem() Element {
 	return Elem(html.Footer, Class("card-footer"), cf.children)
 }
 
@@ -52,9 +52,9 @@ func (cf *cardFooter) elem() *Element {
 //
 // If a child is a string, it is wrapped into a CardHeaderTitle element.
 //
-// If a child is an *Element with class "icon", it is wrapped into a
+// If a child is an Element with class "icon", it is wrapped into a
 // CardHeaderIcon element.
-func CardHeader(children ...any) *Element {
+func CardHeader(children ...any) Element {
 	ch := &cardHeader{}
 	ch.addChildren(children)
 	return ch.elem()
@@ -67,7 +67,7 @@ type cardHeader struct {
 func (ch *cardHeader) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			if c.hasClass("icon") {
 				ch.children = append(
 					ch.children,
@@ -97,15 +97,15 @@ func (ch *cardHeader) addChildren(children []any) {
 	}
 }
 
-func (ch *cardHeader) elem() *Element {
+func (ch *cardHeader) elem() Element {
 	return Elem(html.Header, Class("card-header"), ch.children)
 }
 
 // CardHeaderIcon creates an icon for a card header.
 //
-// If you provide an *Element with class "icon" to the CardHeader function (ie.
+// If you provide an Element with class "icon" to the CardHeader function (ie.
 // / the result of the Icon function), you don't need CardHeaderIcon.
-func CardHeaderIcon(children ...any) *Element {
+func CardHeaderIcon(children ...any) Element {
 	return Elem(html.Button, Class("card-header-icon"), children)
 }
 
@@ -113,14 +113,14 @@ func CardHeaderIcon(children ...any) *Element {
 //
 // If you provide a string to the CardHeader function, you don't need
 // CardHeaderTitle.
-func CardHeaderTitle(children ...any) *Element {
+func CardHeaderTitle(children ...any) Element {
 	return Elem(html.P, Class("card-header-title"), children)
 }
 
 // CardImage creates a card image.
 //
 // See the Image function documentation for the list of allowed modifiers.
-func CardImage(children ...any) *Element {
+func CardImage(children ...any) Element {
 	return Elem(html.Div, Class("card-image"), Image(children...))
 }
 
@@ -128,6 +128,6 @@ func CardImage(children ...any) *Element {
 // provided src.
 //
 // See the ImageImg function documentation for the list of allowed modifiers.
-func CardImageImg(src string, children ...any) *Element {
+func CardImageImg(src string, children ...any) Element {
 	return Elem(html.Div, Class("card-image"), ImageImg(src, children...))
 }

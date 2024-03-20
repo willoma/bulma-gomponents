@@ -4,11 +4,11 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
-func modalBackground() *Element {
+func modalBackground() Element {
 	return Elem(html.Div, Class("modal-background"), OnClick(JSCloseThisModal))
 }
 
-func modalClose() *Element {
+func modalClose() Element {
 	return Elem(
 		html.Button,
 		Class("modal-close"),
@@ -29,7 +29,7 @@ func modalClose() *Element {
 //		b.OnClick(b.JSOpen("myModal"))
 //	),
 //	b.Modal("myModal", [...])
-func Modal(id string, children ...any) *Element {
+func Modal(id string, children ...any) Element {
 	return Elem(
 		html.Div,
 		Class("modal"),
@@ -45,7 +45,7 @@ func Modal(id string, children ...any) *Element {
 // Wrap children in ModalCardHead in order to add them to the card header. Wrap
 // children with ModalCardFoot in order to add them to the card footer. Any
 // unwrapped child is added to the card body.
-func ModalCard(id string, children ...any) *Element {
+func ModalCard(id string, children ...any) Element {
 	mc := &modalCard{id: id}
 	mc.addChildren(children)
 	return mc.elem()
@@ -73,7 +73,7 @@ func (mc *modalCard) addChildren(children []any) {
 	}
 }
 
-func (mc *modalCard) elem() *Element {
+func (mc *modalCard) elem() Element {
 	return Elem(
 		html.Div,
 		Class("modal"),
@@ -98,7 +98,7 @@ func ModalCardHead(children ...any) modalCardHead {
 }
 
 // ModalCardTitle creates a title for a card head.
-func ModalCardTitle(children ...any) *Element {
+func ModalCardTitle(children ...any) Element {
 	return Elem(html.P, Class("modal-card-title"), children)
 }
 

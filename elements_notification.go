@@ -26,6 +26,6 @@ import "github.com/maragudk/gomponents/html"
 //   - SuccessLight
 //   - WarningLight
 //   - DangerLight
-func Notification(children ...any) *Element {
+func Notification(children ...any) Element {
 	return Elem(html.Div, Class("notification"), children)
 }

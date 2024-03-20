@@ -8,7 +8,7 @@ import (
 // Columns creates a columns container.
 //
 // Each child is automatically wrapped in a new Column element if:
-//   - it is an *Element but not generated with Column
+//   - it is an Element but not generated with Column
 //   - it is a gomponents.Node with type gomponents.ElementType
 //
 // The following modifiers change the gap:
@@ -32,7 +32,7 @@ import (
 //   - Mobile: allow columns on mobile phones too
 //   - Multiline: create a new line when columns do not fit in a single line
 //   - VCentered: align columns vertically
-func Columns(children ...any) *Element {
+func Columns(children ...any) Element {
 	cols := &columns{}
 	cols.addChildren(children)
 	return cols.elem()
@@ -45,7 +45,7 @@ type columns struct {
 func (cols *columns) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			if !c.hasClass("column") {
 				cols.children = append(cols.children, Column(c))
 			} else {
@@ -65,7 +65,7 @@ func (cols *columns) addChildren(children []any) {
 	}
 }
 
-func (cols *columns) elem() *Element {
+func (cols *columns) elem() Element {
 	return Elem(html.Div, Class("columns"), cols.children)
 }
 
@@ -112,7 +112,7 @@ func (cols *columns) elem() *Element {
 //   - Narrow: the column takes only the width it needs
 //
 // the narrow behaviour may be breakpoint-based, by using Narrow.Mobile() to Narrow.FullHD().
-func Column(children ...any) *Element {
+func Column(children ...any) Element {
 	col := &column{}
 	col.addChildren(children)
 	return col.elem()
@@ -132,6 +132,6 @@ func (col *column) addChildren(children []any) {
 	}
 }
 
-func (col *column) elem() *Element {
+func (col *column) elem() Element {
 	return Elem(html.Div, Class("column"), col.children)
 }

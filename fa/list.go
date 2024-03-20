@@ -7,7 +7,7 @@ import (
 
 // Li is a list element in a UList or a OList.
 type Li struct {
-	Icon  *b.Element
+	Icon  b.Element
 	Child any
 }
 
@@ -17,11 +17,11 @@ type Li struct {
 //
 // If the Child element is of type []any, all its elements are added as children
 // to the li element.
-func UList(lines ...Li) *b.Element {
+func UList(lines ...Li) b.Element {
 	var children []any
 
 	for _, li := range lines {
-		var icon *b.Element
+		var icon b.Element
 
 		if li.Icon == nil {
 			icon = FA(Solid, "minus")
@@ -41,11 +41,11 @@ func UList(lines ...Li) *b.Element {
 // OList replaces numbers with icons in ol lists. When the Icon attribute is
 // nil, the fa-minus icon is used. When not nil, the Icon attribute should be
 // a return value of FA.
-func OList(lines ...Li) *b.Element {
+func OList(lines ...Li) b.Element {
 	var children []any
 
 	for _, li := range lines {
-		var icon *b.Element
+		var icon b.Element
 
 		if li.Icon == nil {
 			icon = FA(Solid, "minus")

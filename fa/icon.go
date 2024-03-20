@@ -47,7 +47,7 @@ const (
 //
 // The rotating+flipping combination is supported and the needed span element
 // is automatically created when needed.
-func FA(style Style, name string, children ...any) *b.Element {
+func FA(style Style, name string, children ...any) b.Element {
 	f := &fa{style: style, name: name}
 	f.addChildren(children)
 	return f.elem()
@@ -88,7 +88,7 @@ func (f *fa) addChildren(children []any) {
 	}
 }
 
-func (f *fa) elem() *b.Element {
+func (f *fa) elem() b.Element {
 	e := b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name))
 
 	switch {
@@ -122,7 +122,7 @@ func (f *fa) elem() *b.Element {
 //   - all other children types are added as-is to the b.Icon
 //
 // See the FA documentation for more information.
-func Icon(style Style, name string, children ...any) *b.Element {
+func Icon(style Style, name string, children ...any) b.Element {
 	i := &icon{style: style, name: name}
 	i.addChildren(children)
 	return i.elem()
@@ -150,6 +150,6 @@ func (i *icon) addChildren(children []any) {
 	}
 }
 
-func (i *icon) elem() *b.Element {
+func (i *icon) elem() b.Element {
 	return b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...))
 }

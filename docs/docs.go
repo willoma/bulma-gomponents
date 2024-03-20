@@ -169,7 +169,7 @@ func Layout(p *c.Page) gomponents.Node {
 	)
 }
 
-func navMenu(currentPath string) *b.Element {
+func navMenu(currentPath string) b.Element {
 	navmenu := b.Menu(
 		html.ID("menu"),
 	)

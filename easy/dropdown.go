@@ -34,9 +34,9 @@ func (d *easyDropdown) addChildren(children []any) {
 	}
 }
 
-func (d *easyDropdown) elem() *b.Element {
+func (d *easyDropdown) elem() b.Element {
 	var (
-		dropdown   func(triggerButton, menu *b.Element, children ...any) *b.Element
+		dropdown   func(triggerButton, menu b.Element, children ...any) b.Element
 		faIconName string
 	)
 	if d.up {
@@ -74,7 +74,7 @@ func (d *easyDropdown) elem() *b.Element {
 //   - when a child is a gomponents.Node with another type, it is added to the
 //     menu element
 //   - other children types are added to the menu element
-func ClickableDropdown(buttonText string, children ...any) *b.Element {
+func ClickableDropdown(buttonText string, children ...any) b.Element {
 	d := &easyDropdown{buttonText: buttonText}
 	d.addChildren(children)
 	return d.elem()
@@ -89,7 +89,7 @@ func ClickableDropdown(buttonText string, children ...any) *b.Element {
 //   - when a child is a gomponents.Node with another type, it is added to the
 //     menu element
 //   - other children types are added to the menu element
-func HoverableDropdown(buttonText string, children ...any) *b.Element {
+func HoverableDropdown(buttonText string, children ...any) b.Element {
 	d := &easyDropdown{hover: true, buttonText: buttonText}
 	d.addChildren(children)
 	return d.elem()
@@ -104,7 +104,7 @@ func HoverableDropdown(buttonText string, children ...any) *b.Element {
 //   - when a child is a gomponents.Node with another type, it is added to the
 //     menu element
 //   - other children types are added to the menu element
-func ClickableDropup(buttonText string, children ...any) *b.Element {
+func ClickableDropup(buttonText string, children ...any) b.Element {
 	d := &easyDropdown{up: true, buttonText: buttonText}
 	d.addChildren(children)
 	return d.elem()
@@ -119,7 +119,7 @@ func ClickableDropup(buttonText string, children ...any) *b.Element {
 //   - when a child is a gomponents.Node with another type, it is added to the
 //     menu element
 //   - other children types are added to the menu element
-func HoverableDropup(buttonText string, children ...any) *b.Element {
+func HoverableDropup(buttonText string, children ...any) b.Element {
 	d := &easyDropdown{hover: true, up: true, buttonText: buttonText}
 	d.addChildren(children)
 	return d.elem()

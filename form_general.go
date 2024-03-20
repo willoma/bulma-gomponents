@@ -20,12 +20,12 @@ import (
 //   - GroupedMultiline: group the children controls together, without attaching
 //     them and allow them to fill up multiple lines (Grouped is not required)
 //   - Horizontal: make the field horizontal ()
-func Field(children ...any) *Element {
+func Field(children ...any) Element {
 	return Elem(html.Div, Class("field"), children)
 }
 
 // Label creates a label element, to be used as a child of a Field.
-func Label(children ...any) *Element {
+func Label(children ...any) Element {
 	return Elem(html.Label, Class("label"), children)
 }
 
@@ -41,38 +41,38 @@ func Label(children ...any) *Element {
 //   - Expanded: make the contained element take the remaining space - to apply
 //     this style to a Select, you also need to add the FullWidth modifier to
 //     the Select element
-func Control(children ...any) *Element {
+func Control(children ...any) Element {
 	return Elem(html.Div, Class("control"), children)
 }
 
 // Help creates a help element, to be used as a child of a Field.
-func Help(children ...any) *Element {
+func Help(children ...any) Element {
 	return Elem(html.P, Class("help"), children)
 }
 
 // FieldBody creates a field-body element, to be used as a child of a
 // FieldHorizontal.
-func FieldBody(children ...any) *Element {
+func FieldBody(children ...any) Element {
 	return Elem(html.Div, Class("field-body"), children)
 }
 
 // FieldLabel creates a field-label element, to be used as a child of a
 // FieldHorizontal.
-func FieldLabel(children ...any) *Element {
+func FieldLabel(children ...any) Element {
 	return Elem(html.Div, Class("field-label"), children)
 }
 
 // FieldHorizontal creates a horizontal field, including an empty body if
-func FieldHorizontal(children ...any) *Element {
+func FieldHorizontal(children ...any) Element {
 	e := Elem(html.Div, Class("field"), Horizontal)
 
-	label := Elem(html.Div, Class("field-label"))
+	var label Element = Elem(html.Div, Class("field-label"))
 
-	body := Elem(html.Div, Class("field-body"))
+	var body Element = Elem(html.Div, Class("field-body"))
 
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			switch {
 			case c.hasClass("field-label"):
 				label = c
@@ -90,8 +90,8 @@ func FieldHorizontal(children ...any) *Element {
 }
 
 type fieldHorizontal struct {
-	label        *Element
-	body         *Element
+	label        Element
+	body         Element
 	bodyChildren []any
 	elemChildren []any
 }
@@ -99,7 +99,7 @@ type fieldHorizontal struct {
 func (f *fieldHorizontal) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			switch {
 			case c.hasClass("field-label"):
 				f.label = c
@@ -116,15 +116,15 @@ func (f *fieldHorizontal) addChildren(children []any) {
 	}
 }
 
-func (f *fieldHorizontal) elem() *Element {
-	var label *Element
+func (f *fieldHorizontal) elem() Element {
+	var label Element
 	if f.label != nil {
 		label = f.label
 	} else {
 		label = Elem(html.Div, Class("field-label"))
 	}
 
-	var body *Element
+	var body Element
 	if f.body != nil {
 		body = f.body.With(f.bodyChildren...)
 	} else {

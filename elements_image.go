@@ -42,7 +42,7 @@ type ImgAlt string
 // Use the Ratio modifier on the inner element (other than image) in order
 // to apply it the ratio (associate with an Img*By* modifier on the Image
 // element).
-func Image(children ...any) *Element {
+func Image(children ...any) Element {
 	return Elem(html.Figure, Class("image"), children)
 }
 
@@ -78,7 +78,7 @@ func Image(children ...any) *Element {
 //   - FullWidth: make sure the image takes the whole width of its container
 //     (usually not needed)
 //   - Rounded: make the image rounded (associate with an ImgSq* modifier)
-func ImageImg(src string, children ...any) *Element {
+func ImageImg(src string, children ...any) Element {
 	i := &imageImg{src: src}
 	i.addChildren(children)
 	return i.elem()
@@ -109,7 +109,7 @@ func (i *imageImg) addChildren(children []any) {
 	}
 }
 
-func (i *imageImg) elem() *Element {
+func (i *imageImg) elem() Element {
 	return Elem(
 		html.Figure,
 		Class("image"),

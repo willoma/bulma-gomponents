@@ -2,7 +2,7 @@ package bulma
 
 import "github.com/maragudk/gomponents/html"
 
-type container *Element
+type container Element
 
 // Container creates a container element.
 func Container(children ...any) container {

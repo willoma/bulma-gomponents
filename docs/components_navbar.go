@@ -10,7 +10,7 @@ import (
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
-func demoNavbar(white bool, child any) *b.Element {
+func demoNavbar(white bool, child any) b.Element {
 	var logoSrc string
 	if white {
 		logoSrc = "https://bulma.io/images/bulma-logo-white.png"

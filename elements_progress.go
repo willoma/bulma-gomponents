@@ -25,7 +25,7 @@ import (
 //   - Normal
 //   - Medium
 //   - Large
-func Progress(value, max int, children ...any) *Element {
+func Progress(value, max int, children ...any) Element {
 	return Elem(
 		html.Progress,
 		Class("progress"),
@@ -55,7 +55,7 @@ func Progress(value, max int, children ...any) *Element {
 //   - Normal
 //   - Medium
 //   - Large
-func ProgressIndeterminate(children ...any) *Element {
+func ProgressIndeterminate(children ...any) Element {
 	return Elem(
 		html.Progress,
 		Class("progress"),

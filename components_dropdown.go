@@ -13,7 +13,7 @@ import (
 // The following modifiers change the dropdown behaviour:
 //   - Active: open the menu
 //   - Hoverable: make it so the menu opens when the cursor hovers the button
-func Dropdown(triggerButton, menu *Element, children ...any) *Element {
+func Dropdown(triggerButton, menu Element, children ...any) Element {
 	return Elem(
 		html.Div,
 		Class("dropdown"),
@@ -31,31 +31,31 @@ func Dropdown(triggerButton, menu *Element, children ...any) *Element {
 // The following modifiers change the dropdown behaviour:
 //   - Active: open the menu
 //   - Hoverable: make it so the menu opens when the cursor hovers the button
-func Dropup(triggerButton, menu *Element, children ...any) *Element {
+func Dropup(triggerButton, menu Element, children ...any) Element {
 	return Dropdown(triggerButton, menu, children, Class("is-up"))
 }
 
 // DropdownItem creates a div which is a dropdown item.
-func DropdownItem(children ...any) *Element {
+func DropdownItem(children ...any) Element {
 	return Elem(html.Div, Class("dropdown-item"), children)
 }
 
 // DropdownAHref creates an AHref element which is a dropdown item.
-func DropdownAHref(href string, children ...any) *Element {
+func DropdownAHref(href string, children ...any) Element {
 	return AHref(href, Class("dropdown-item"), children)
 }
 
 // DropdownDivider creates a dropdown divider.
-func DropdownDivider() *Element {
+func DropdownDivider() Element {
 	return Elem(html.Hr, Class("dropdown-divider"))
 }
 
 // DropdownMenu creates a dropdown menu.
 //
 // Each child is automatically wrapped in a new dropdown-item element if:
-//   - it is an *Element but not generated with DropdownItem or DropdownHref or DropdownDivider
+//   - it is an Element but not generated with DropdownItem or DropdownHref or DropdownDivider
 //   - it is a gomponents.Node with type gomponents.ElementType
-func DropdownMenu(children ...any) *Element {
+func DropdownMenu(children ...any) Element {
 	dm := &dropdownMenu{}
 	dm.addChildren(children)
 	return dm.elem()
@@ -69,7 +69,7 @@ type dropdownMenu struct {
 func (dm *dropdownMenu) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *Element:
+		case Element:
 			if c.hasClass("dropdown-item") || c.hasClass("dropdown-divider") {
 				dm.contentChildren = append(dm.contentChildren, c)
 			} else {
@@ -87,7 +87,7 @@ func (dm *dropdownMenu) addChildren(children []any) {
 	}
 }
 
-func (dm *dropdownMenu) elem() *Element {
+func (dm *dropdownMenu) elem() Element {
 	return Elem(
 		html.Div,
 		Class("dropdown-menu"),

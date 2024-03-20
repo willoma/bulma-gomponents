@@ -16,7 +16,7 @@ const (
 //   - other children types are added as-is to the stack element
 //
 // Stacked icons must be created with the FA function.
-func Stack(children ...any) *b.Element {
+func Stack(children ...any) b.Element {
 	s := &stack{}
 	s.addChildren(children)
 	return s.elem()
@@ -39,6 +39,6 @@ func (s *stack) addChildren(children []any) {
 	}
 }
 
-func (s *stack) elem() *b.Element {
+func (s *stack) elem() b.Element {
 	return b.Elem(html.Span, b.Class("fa-stack"), s.children)
 }

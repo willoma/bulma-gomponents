@@ -28,7 +28,7 @@ type htmlElem struct {
 	title       string
 	description string
 	head        []gomponents.Node
-	body        *Element
+	body        *element
 }
 
 // Head identifies children as part of the head section

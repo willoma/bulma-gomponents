@@ -6,14 +6,14 @@ import (
 )
 
 // Checkbox creates a checkbox input element.
-func Checkbox(children ...any) *Element {
+func Checkbox(children ...any) Element {
 	cb := &checkbox{}
 	cb.addChildren(children)
 	return cb.elem()
 }
 
 // CheckboxDisabled creates a disabled checkbox input element.
-func CheckboxDisabled(children ...any) *Element {
+func CheckboxDisabled(children ...any) Element {
 	cb := &checkbox{disabled: true}
 	cb.addChildren(children)
 	return cb.elem()
@@ -36,7 +36,7 @@ func (cb *checkbox) addChildren(children []any) {
 			} else {
 				cb.labelChildren = append(cb.labelChildren, c)
 			}
-		case *Element, container:
+		case Element:
 			cb.labelChildren = append(cb.labelChildren, c)
 		case []any:
 			cb.addChildren(c)
@@ -46,7 +46,7 @@ func (cb *checkbox) addChildren(children []any) {
 	}
 }
 
-func (cb *checkbox) elem() *Element {
+func (cb *checkbox) elem() Element {
 	input := Elem(html.Input, html.Type("checkbox"), cb.inputChildren)
 
 	label := Elem(

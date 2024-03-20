@@ -12,7 +12,7 @@ import "github.com/maragudk/gomponents/html"
 //
 // Add one of the the following modifiers to Ol elements in order to change the
 // list style: OlLowerAlpha, OlLowerRoman, OlUpperAlpha, OlUpperRoman.
-func Content(children ...any) *Element {
+func Content(children ...any) Element {
 	ct := &content{}
 	ct.addChildren(children)
 	return ct.elem()
@@ -35,6 +35,6 @@ func (ct *content) addChildren(children []any) {
 	}
 }
 
-func (ct *content) elem() *Element {
+func (ct *content) elem() Element {
 	return Elem(html.Div, Class("content"), ct.children)
 }

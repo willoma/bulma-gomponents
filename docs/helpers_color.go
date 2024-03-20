@@ -6,7 +6,7 @@ import (
 	"github.com/willoma/bulma-gomponents/el"
 )
 
-func colorSample(class b.Class) *b.Element {
+func colorSample(class b.Class) b.Element {
 	return b.Box(
 		b.Style("display", "inline-block"),
 		b.Style("vertical-align", "bottom"),

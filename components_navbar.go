@@ -41,14 +41,14 @@ import (
 //   - Dark
 //   - Light
 //   - White
-func Navbar(children ...any) *Element {
+func Navbar(children ...any) Element {
 	n := &navbar{}
 	n.addChildren(children)
 	return n.elem()
 }
 
 type navbar struct {
-	intermediateContainer *Element
+	intermediateContainer Element
 	brandChildren         []any
 	startChildren         []any
 	endChildren           []any
@@ -74,10 +74,10 @@ func (n *navbar) addChildren(children []any) {
 	}
 }
 
-func (n *navbar) elem() *Element {
+func (n *navbar) elem() Element {
 	navbar := Elem(html.Nav, Class("navbar"), n.navbarChildren)
 
-	var target *Element
+	var target Element
 	if n.intermediateContainer != nil {
 		target = n.intermediateContainer
 		navbar.With(target)
@@ -137,7 +137,7 @@ func (n *navbar) elem() *Element {
 // "has-navbar-fixed-top" class to the body.
 //
 // Please refer to the Navbar documentation for description of its behaviour.
-func TopNavbar(children ...any) *Element {
+func TopNavbar(children ...any) Element {
 	return Navbar(children, FixedTop)
 }
 
@@ -146,7 +146,7 @@ func TopNavbar(children ...any) *Element {
 // the "has-navbar-fixed-bottom" class to the body.
 //
 // Please refer to the Navbar documentation for description of its behaviour.
-func BottomNavbar(children ...any) *Element {
+func BottomNavbar(children ...any) Element {
 	return Navbar(children, FixedBottom)
 }
 
@@ -187,7 +187,7 @@ func NavbarEnd(children ...any) navbarEnd {
 //     HasDropdown is not needed in conjuction with HasDropup)
 //   - Hoverable: makes the included dropdown automatically show on hover
 //   - Active: force the dropdown to be open
-func NavbarItem(children ...any) *Element {
+func NavbarItem(children ...any) Element {
 	return Elem(html.Div, Class("navbar-item"), children)
 }
 
@@ -198,7 +198,7 @@ func NavbarItem(children ...any) *Element {
 //   - Expanded: turn the item into a full-width element
 //   - Tab: add a bottom border on hover, always show the bottom border when
 //     adding Active
-func NavbarAHref(href string, children ...any) *Element {
+func NavbarAHref(href string, children ...any) Element {
 	return Elem(html.A, Class("navbar-item"), html.Href(href), children)
 }
 
@@ -212,7 +212,7 @@ func NavbarAHref(href string, children ...any) *Element {
 //
 // Creating a navbar dropdown is made easier with `easy.NavbarDropdown`, in
 // which case this function is not needed.
-func NavbarDropdown(children ...any) *Element {
+func NavbarDropdown(children ...any) Element {
 	return Elem(html.Div, Class("navbar-dropdown"), children)
 }
 
@@ -224,12 +224,12 @@ func NavbarDropdown(children ...any) *Element {
 //
 // Creating a navbar dropdown is made easier with `easy.NavbarDropdown`, in
 // which case this function is not needed.
-func NavbarLink(children ...any) *Element {
+func NavbarLink(children ...any) Element {
 	return Elem(html.A, Class("navbar-link"), children)
 }
 
 // NavbarDivider creates a divider element, to include in a NavbarDropdown or
 // an easy.NavbarDropdown.
-func NavbarDivider() *Element {
+func NavbarDivider() Element {
 	return Elem(html.Hr, Class("navbar-divider"))
 }

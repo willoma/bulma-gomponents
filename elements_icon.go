@@ -44,7 +44,7 @@ import (
 //   - Small
 //   - Medium
 //   - Large
-func Icon(children ...any) *Element {
+func Icon(children ...any) Element {
 	i := &icon{}
 	i.addChildren(children)
 	return i.elem()
@@ -67,7 +67,7 @@ func (i *icon) addChildren(children []any) {
 	}
 }
 
-func (i *icon) elem() *Element {
+func (i *icon) elem() Element {
 	return Elem(html.Span, Class("icon"), i.children)
 }
 
@@ -106,7 +106,7 @@ func (i *icon) elem() *Element {
 //   - SuccessDark
 //   - WarningDark
 //   - DangerDark
-func IconText(children ...any) *Element {
+func IconText(children ...any) Element {
 	i := &iconText{el: html.Span}
 	i.addChildren(children)
 	return i.elem()
@@ -147,7 +147,7 @@ func IconText(children ...any) *Element {
 //   - SuccessDark
 //   - WarningDark
 //   - DangerDark
-func FlexIconText(children ...any) *Element {
+func FlexIconText(children ...any) Element {
 	i := &iconText{el: html.Div}
 	i.addChildren(children)
 	return i.elem()
@@ -171,6 +171,6 @@ func (i *iconText) addChildren(children []any) {
 	}
 }
 
-func (i *iconText) elem() *Element {
+func (i *iconText) elem() Element {
 	return Elem(i.el, Class("icon-text"), elemOptionSpanAroundNonIconsAlways, i.children)
 }

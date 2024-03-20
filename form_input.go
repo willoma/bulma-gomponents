@@ -2,7 +2,7 @@ package bulma
 
 import "github.com/maragudk/gomponents/html"
 
-func input(inputType string, children []any) *Element {
+func input(inputType string, children []any) Element {
 	return Elem(html.Input, Class("input"), html.Type(inputType), children)
 }
 
@@ -30,7 +30,7 @@ func input(inputType string, children []any) *Element {
 //   - Normal
 //   - Medium
 //   - Large
-func InputText(children ...any) *Element {
+func InputText(children ...any) Element {
 	return input("text", children)
 }
 
@@ -58,7 +58,7 @@ func InputText(children ...any) *Element {
 //   - Normal
 //   - Medium
 //   - Large
-func InputPassword(children ...any) *Element {
+func InputPassword(children ...any) Element {
 	return input("password", children)
 }
 
@@ -86,7 +86,7 @@ func InputPassword(children ...any) *Element {
 //   - Normal
 //   - Medium
 //   - Large
-func InputEmail(children ...any) *Element {
+func InputEmail(children ...any) Element {
 	return input("email", children)
 }
 
@@ -114,6 +114,6 @@ func InputEmail(children ...any) *Element {
 //   - Normal
 //   - Medium
 //   - Large
-func InputTel(children ...any) *Element {
+func InputTel(children ...any) Element {
 	return input("tel", children)
 }

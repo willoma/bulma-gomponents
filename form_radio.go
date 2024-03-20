@@ -11,13 +11,12 @@ import (
 //     is added as an attribute to the input element
 //   - when a child is a gopmponents.Node with another type, it is added as a
 //     child to the label element
-//   - when a child is an *Element, it is added in the radio label
-//   - when a child is a container, it is added in the radio label
+//   - when a child is an Element, it is added in the radio label
 //   - other childs are added as children to the input element
 //
 // The following modifiers change the radio behaviour:
 //   - Checked: make it so the radio button is checked
-func Radio(children ...any) *Element {
+func Radio(children ...any) Element {
 	r := &radio{}
 	r.addChildren(children)
 	return r.elem()
@@ -30,13 +29,12 @@ func Radio(children ...any) *Element {
 //     is added as an attribute to the input element
 //   - when a child is a gopmponents.Node with another type, it is added as a
 //     child to the label element
-//   - when a child is an *Element, it is added in the radio label
-//   - when a child is a container, it is added in the radio label
+//   - when a child is an Element, it is added in the radio label
 //   - other childs are added as children to the input element
 //
 // The following modifiers change the radio behaviour:
 //   - Checked: make it so the radio button is checked
-func RadioDisabled(children ...any) *Element {
+func RadioDisabled(children ...any) Element {
 	r := &radio{disabled: true}
 	r.addChildren(children)
 	return r.elem()
@@ -63,7 +61,7 @@ func (r *radio) addChildren(children []any) {
 			} else {
 				r.labelChildren = append(r.labelChildren, c)
 			}
-		case *Element, container:
+		case Element:
 			r.labelChildren = append(r.labelChildren, c)
 		case []any:
 			r.addChildren(c)
@@ -73,7 +71,7 @@ func (r *radio) addChildren(children []any) {
 	}
 }
 
-func (r *radio) elem() *Element {
+func (r *radio) elem() Element {
 	input := Elem(html.Input, html.Type("radio"), r.inputChildren)
 	label := Elem(html.Label, Class("radio"), input, " ", r.labelChildren)
 

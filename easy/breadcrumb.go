@@ -30,7 +30,7 @@ import (
 // element. If the target starts with the "!" character, it makes it the active
 // element.
 //
-// Content may be either a string, a single *Element, a single gomponents.Node, or a []any.
+// Content may be either a string, a single Element, a single gomponents.Node, or a []any.
 //
 // For instance:
 //
@@ -39,7 +39,7 @@ import (
 //		"/", []any{fa.Icon(fa.Solid, "home"), "Root"},
 //		"/profile", "Profile",
 //	)
-func Breadcrumb(children ...any) *b.Element {
+func Breadcrumb(children ...any) b.Element {
 	newChildren := []any{}
 
 	currentHref := ""

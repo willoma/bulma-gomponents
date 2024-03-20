@@ -28,7 +28,7 @@ import (
 //   - Normal
 //   - Medium
 //   - Large
-func Tag(children ...any) *Element {
+func Tag(children ...any) Element {
 	return Elem(html.Span, Class("tag"), children)
 }
 
@@ -36,7 +36,7 @@ func Tag(children ...any) *Element {
 //
 // The following modifiers change the tags list behaviour:
 //   - Addons: attach the contained tags together
-func Tags(children ...any) *Element {
+func Tags(children ...any) Element {
 	t := &tags{}
 	t.addChildren(children)
 	return t.elem()
@@ -59,11 +59,11 @@ func (t *tags) addChildren(children []any) {
 	}
 }
 
-func (t *tags) elem() *Element {
+func (t *tags) elem() Element {
 	return Elem(html.Div, Class("tags"), t.children)
 }
 
 // DeleteTag creates a tag which is a delete button-looking a element.
-func DeleteTag(children ...any) *Element {
+func DeleteTag(children ...any) Element {
 	return Elem(html.A, Class("tag"), Class("is-delete"), children)
 }

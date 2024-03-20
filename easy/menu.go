@@ -5,7 +5,7 @@ import b "github.com/willoma/bulma-gomponents"
 // Menu creates a menu.
 //   - when a child is a string, it is wrapped in a menu label
 //   - when a child is anything else, it is added as an entry in a menu list
-func Menu(children ...any) *b.Element {
+func Menu(children ...any) b.Element {
 	menu := b.Menu()
 
 	var currentList []any

@@ -15,7 +15,7 @@ const (
 	NavbarDropdownActive
 )
 
-func NavbarDropdown(label string, children ...any) *b.Element {
+func NavbarDropdown(label string, children ...any) b.Element {
 	n := &navbarDropdown{label: label}
 	n.addChildren(children)
 	return n.elem()
@@ -54,7 +54,7 @@ func (n *navbarDropdown) addChildren(children []any) {
 	}
 }
 
-func (n *navbarDropdown) elem() *b.Element {
+func (n *navbarDropdown) elem() b.Element {
 	return b.NavbarItem(
 		b.HasDropdown,
 		n.itemChildren,

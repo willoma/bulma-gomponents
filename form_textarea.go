@@ -32,7 +32,7 @@ import (
 //   - Normal
 //   - Medium
 //   - Large
-func Textarea(children ...any) *Element {
+func Textarea(children ...any) Element {
 	return Elem(html.Textarea, Class("textarea"), children)
 }
 

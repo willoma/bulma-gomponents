@@ -211,7 +211,7 @@ var tiles = c.NewPage(
 |
 └───b.Tile
 	|
-	└───*b.Element`),
+	└───b.Element`),
 		el.Pre(`b.Tile
 |
 ├───b.VTile b.Size8
@@ -219,17 +219,17 @@ var tiles = c.NewPage(
 |   ├───b.Tile
 |   |   |
 |   |   ├───b.VTile
-|   |   |   ├───*b.Element
-|   |   |   └───*b.Element
+|   |   |   ├───b.Element
+|   |   |   └───b.Element
 |   |   |
 |   |   └───b.Tile
-|   |       └───*b.Element
+|   |       └───b.Element
 |   |
 |   └───b.Tile
-|       └───*b.Element
+|       └───b.Element
 |
 └───b.Tile
-	└───*b.Element`),
+	└───b.Element`),
 	),
 	c.HorizontalExample(
 		`b.Tile(
