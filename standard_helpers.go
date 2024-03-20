@@ -45,7 +45,11 @@ func ImgSrc(src string, children ...any) Element {
 // OList creates an ol element, with the provided children wrapped in li
 // elements.
 func OList(children ...any) Element {
-	return Elem(html.Ol, children...)
+	wrappedChildren := make([]any, len(children))
+	for i, c := range children {
+		wrappedChildren[i] = Elem(html.Li, c)
+	}
+	return Elem(html.Ol, wrappedChildren...)
 }
 
 // On adds a "on<event>" attribute to a gomponents.Node element.
@@ -61,5 +65,9 @@ func OnClick(script string) gomponents.Node {
 // UList creates an ul element, with the provided children wrapped in li
 // elements.
 func UList(children ...any) Element {
-	return Elem(html.Ul, children...)
+	wrappedChildren := make([]any, len(children))
+	for i, c := range children {
+		wrappedChildren[i] = Elem(html.Li, c)
+	}
+	return Elem(html.Ul, wrappedChildren...)
 }

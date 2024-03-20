@@ -58,5 +58,5 @@ func (t *tile) elem() Element {
 
 // VTile creates a tile element with the "is-vertical" class.
 func VTile(children ...any) Element {
-	return Tile(children, "is-vertical")
+	return Tile(children, Class("is-vertical"))
 }
