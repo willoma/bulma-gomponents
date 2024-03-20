@@ -14,15 +14,13 @@ import (
 //   - Active: open the menu
 //   - Hoverable: make it so the menu opens when the cursor hovers the button
 func Dropdown(triggerButton, menu *Element, children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("dropdown")).
-		Withs(children).
-		With(
-			Elem(html.Div).
-				With(Class("dropdown-trigger")).
-				With(triggerButton),
-		).
-		With(menu)
+	return Elem(
+		html.Div,
+		Class("dropdown"),
+		children,
+		Elem(html.Div, Class("dropdown-trigger"), triggerButton),
+		menu,
+	)
 }
 
 // Dropup creates a dropdown which opens to the top.
@@ -34,25 +32,22 @@ func Dropdown(triggerButton, menu *Element, children ...any) *Element {
 //   - Active: open the menu
 //   - Hoverable: make it so the menu opens when the cursor hovers the button
 func Dropup(triggerButton, menu *Element, children ...any) *Element {
-	return Dropdown(triggerButton, menu, children...).With(Class("is-up"))
+	return Dropdown(triggerButton, menu, children, Class("is-up"))
 }
 
 // DropdownItem creates a div which is a dropdown item.
 func DropdownItem(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("dropdown-item")).
-		Withs(children)
+	return Elem(html.Div, Class("dropdown-item"), children)
 }
 
 // DropdownAHref creates an AHref element which is a dropdown item.
 func DropdownAHref(href string, children ...any) *Element {
-	return AHref(href, Class("dropdown-item")).Withs(children)
+	return AHref(href, Class("dropdown-item"), children)
 }
 
 // DropdownDivider creates a dropdown divider.
 func DropdownDivider() *Element {
-	return Elem(html.Hr).
-		With(Class("dropdown-divider"))
+	return Elem(html.Hr, Class("dropdown-divider"))
 }
 
 // DropdownMenu creates a dropdown menu.
@@ -93,13 +88,11 @@ func (dm *dropdownMenu) addChildren(children []any) {
 }
 
 func (dm *dropdownMenu) elem() *Element {
-	return Elem(html.Div).
-		With(Class("dropdown-menu")).
-		With(html.Role("menu")).
-		Withs(dm.menuChildren).
-		With(
-			Elem(html.Div).
-				With(Class("dropdown-content")).
-				Withs(dm.contentChildren),
-		)
+	return Elem(
+		html.Div,
+		Class("dropdown-menu"),
+		html.Role("menu"),
+		dm.menuChildren,
+		Elem(html.Div, Class("dropdown-content"), dm.contentChildren),
+	)
 }

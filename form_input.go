@@ -3,10 +3,7 @@ package bulma
 import "github.com/maragudk/gomponents/html"
 
 func input(inputType string, children []any) *Element {
-	return Elem(html.Input).
-		With(Class("input")).
-		With(html.Type(inputType)).
-		Withs(children)
+	return Elem(html.Input, Class("input"), html.Type(inputType), children)
 }
 
 // InputText creates an input element of type text.

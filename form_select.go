@@ -121,11 +121,8 @@ func (s *selectEl) addChildren(children []any) {
 }
 
 func (s *selectEl) elem() *Element {
-	div := Elem(html.Div).
-		With(Class("select")).
-		Withs(s.divChildren)
-
-	sel := Elem(html.Select).Withs(s.selectChildren)
+	div := Elem(html.Div, Class("select"), s.divChildren)
+	sel := Elem(html.Select, s.selectChildren...)
 
 	if s.multiple {
 		div.With(Class("is-multiple"))
@@ -138,17 +135,12 @@ func (s *selectEl) elem() *Element {
 // Option creates an option element, to be used as a child of a Select or
 // SelectMultiple. The value argument is used as the option value attribute.
 func Option(value string, children ...any) *Element {
-	return Elem(html.Option).
-		With(html.Value(value)).
-		Withs(children)
+	return Elem(html.Option, html.Value(value), children)
 }
 
 // OptionSelected creates a selected option element, to be used as a child of a
 // Select or SelectMultiple. The value argument is used as the option value
 // attribute.
 func OptionSelected(value string, children ...any) *Element {
-	return Elem(html.Option).
-		With(html.Value(value)).
-		With(html.Selected()).
-		Withs(children)
+	return Elem(html.Option, html.Value(value), html.Selected(), children)
 }

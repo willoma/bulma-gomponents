@@ -66,7 +66,7 @@ func (cols *columns) addChildren(children []any) {
 }
 
 func (cols *columns) elem() *Element {
-	return Elem(html.Div).With(Class("columns")).Withs(cols.children)
+	return Elem(html.Div, Class("columns"), cols.children)
 }
 
 // Column creates a single column.
@@ -133,7 +133,5 @@ func (col *column) addChildren(children []any) {
 }
 
 func (col *column) elem() *Element {
-	return Elem(html.Div).
-		With(Class("column")).
-		Withs(col.children)
+	return Elem(html.Div, Class("column"), col.children)
 }

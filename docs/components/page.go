@@ -113,7 +113,8 @@ func (p *Page) InternalMenu() []any {
 							),
 						),
 					),
-				).Withs(p.internalMenu),
+					p.internalMenu,
+				),
 			),
 		),
 	}

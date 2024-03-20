@@ -26,11 +26,13 @@ import (
 //   - Medium
 //   - Large
 func Progress(value, max int, children ...any) *Element {
-	return Elem(html.Progress).
-		With(Class("progress")).
-		With(html.Value(strconv.Itoa(value))).
-		With(html.Max(strconv.Itoa(max))).
-		Withs(children)
+	return Elem(
+		html.Progress,
+		Class("progress"),
+		html.Value(strconv.Itoa(value)),
+		html.Max(strconv.Itoa(max)),
+		children,
+	)
 }
 
 // ProgressIndeterminate creates an animated progress bar with indeterminate
@@ -54,8 +56,10 @@ func Progress(value, max int, children ...any) *Element {
 //   - Medium
 //   - Large
 func ProgressIndeterminate(children ...any) *Element {
-	return Elem(html.Progress).
-		With(Class("progress")).
-		With(html.Max("100")).
-		Withs(children)
+	return Elem(
+		html.Progress,
+		Class("progress"),
+		html.Max("100"),
+		children,
+	)
 }

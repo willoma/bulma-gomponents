@@ -89,20 +89,24 @@ func (f *fa) addChildren(children []any) {
 }
 
 func (f *fa) elem() *b.Element {
-	e := b.Elem(html.I).With(b.Class(f.style)).With(b.Class("fa-" + f.name))
+	e := b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name))
 
 	switch {
 	case f.rotateClass != "" && f.rotateAngle != 0:
-		e.With(b.Class("fa-rotate-by"))
-		e.With(b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)))
+		e.With(
+			b.Class("fa-rotate-by"),
+			b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)),
+		)
 		return el.Span(
 			b.Class(f.rotateClass),
 			b.Style("display", "inline-block"),
 			e,
 		)
 	case f.rotateAngle != 0:
-		e.With(b.Class("fa-rotate-by"))
-		e.With(b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)))
+		e.With(
+			b.Class("fa-rotate-by"),
+			b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)),
+		)
 	case f.rotateClass != "":
 		e.With(b.Class(f.rotateClass))
 	}
@@ -147,5 +151,5 @@ func (i *icon) addChildren(children []any) {
 }
 
 func (i *icon) elem() *b.Element {
-	return b.Icon(i.iconChildren...).With(FA(i.style, i.name, i.faChildren...))
+	return b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...))
 }

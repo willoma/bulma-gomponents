@@ -49,12 +49,9 @@ func (t *tabs) addChildren(children []any) {
 }
 
 func (t *tabs) elem() *Element {
-	tabs := Elem(html.Div).
-		With(Class("tabs")).
-		Withs(t.tabsChildren)
+	tabs := Elem(html.Div, Class("tabs"), t.tabsChildren)
 
-	content := Elem(html.Ul).
-		Withs(t.contentChildren)
+	content := Elem(html.Ul, t.contentChildren...)
 
 	if t.intermediateContainer != nil {
 		return tabs.With(t.intermediateContainer.With(content))
@@ -66,23 +63,44 @@ func (t *tabs) elem() *Element {
 // TabsLink creates a tab entry which is a link. Use html.Href as an argument
 // to define a link target if needed.
 func TabsLink(children ...any) *Element {
-	li := Elem(html.Li)
+	t := &tabsLink{}
+	t.addChildren(children)
+	return t.elem()
+}
 
-	a := Elem(html.A)
-	a.spanAroundNonIconsIfHasIcons = true
+type tabsLink struct {
+	active   bool
+	children []any
+}
 
+func (t *tabsLink) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
 			if c == Active {
-				li.With(Active)
+				t.active = true
 			} else {
-				a.With(c)
+				t.children = append(t.children, c)
 			}
+		case []any:
+			t.addChildren(c)
 		default:
-			a.With(c)
+			t.children = append(t.children, c)
 		}
 	}
+}
 
-	return li.With(a)
+func (t *tabsLink) elem() *Element {
+	li := Elem(html.Li)
+	if t.active {
+		li.With(Active)
+	}
+
+	return li.With(
+		Elem(
+			html.A,
+			elemOptionSpanAroundNonIconsIfHasIcons,
+			t.children,
+		),
+	)
 }

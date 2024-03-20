@@ -7,68 +7,45 @@ import (
 
 // Abbr creates an abbr element, with the provided title.
 func Abbr(title string, children ...any) *Element {
-	return Elem(html.Abbr).
-		With(html.TitleAttr(title)).
-		Withs(children)
+	return Elem(html.Abbr, html.TitleAttr(title), children)
 }
 
 // AHref creates an a element, with the provided href.
 func AHref(href string, children ...any) *Element {
-	return Elem(html.A).
-		With(html.Href(href)).
-		Withs(children)
+	return Elem(html.A, html.Href(href), children)
 }
 
 // DList creates a dl element, with the provided children as alternatively
 // dt and dd elements.
 func DList(dtDds ...any) *Element {
-	var limit int
-	if len(dtDds)%2 == 0 {
-		limit = len(dtDds)
-	} else {
-		limit = len(dtDds) - 1
-	}
+	var children []any
 
-	e := Elem(html.Dl)
-
-	for i := 0; i < limit; i += 2 {
+	for i := 0; i < len(dtDds)-len(dtDds)%2; i += 2 {
 		switch c := dtDds[i].(type) {
 		case []any:
-			e.With(Elem(html.Dt).Withs(c))
+			children = append(children, Elem(html.Dt, c...))
 		default:
-			e.With(Elem(html.Dt).With(c))
+			children = append(children, Elem(html.Dt, c))
 		}
 		switch c := dtDds[i+1].(type) {
 		case []any:
-			e.With(Elem(html.Dd).Withs(c))
+			children = append(children, Elem(html.Dd, c...))
 		default:
-			e.With(Elem(html.Dd).With(c))
+			children = append(children, Elem(html.Dd, c))
 		}
 	}
-	return e
+	return Elem(html.Dl, children...)
 }
 
 // ImgSrc creates an img element, with the provided src.
 func ImgSrc(src string, children ...any) *Element {
-	return Elem(html.Img).
-		With(html.Src(src)).
-		Withs(children)
+	return Elem(html.Img, html.Src(src), children)
 }
 
 // OList creates an ol element, with the provided children wrapped in li
-// elements. A child may be of type []any in order to add multiple elements in
-// a li.
+// elements.
 func OList(children ...any) *Element {
-	e := Elem(html.Ol)
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			e.With(Elem(html.Li).Withs(c))
-		default:
-			e.With(Elem(html.Li).With(c))
-		}
-	}
-	return e
+	return Elem(html.Ol, children...)
 }
 
 // On adds a "on<event>" attribute to a gomponents.Node element.
@@ -82,17 +59,7 @@ func OnClick(script string) gomponents.Node {
 }
 
 // UList creates an ul element, with the provided children wrapped in li
-// elements. A child may be of type []any in order to add multiple elements in
-// a li.
+// elements.
 func UList(children ...any) *Element {
-	e := Elem(html.Ul)
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			e.With(Elem(html.Li).Withs(c))
-		default:
-			e.With(Elem(html.Li).With(c))
-		}
-	}
-	return e
+	return Elem(html.Ul, children...)
 }

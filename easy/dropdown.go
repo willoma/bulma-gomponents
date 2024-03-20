@@ -62,7 +62,7 @@ func (d *easyDropdown) elem() *b.Element {
 		button.With(b.On("blur", b.JSCloseThisDropdown))
 	}
 
-	return elem.Withs(d.dropdownChildren)
+	return elem.With(d.dropdownChildren...)
 }
 
 // ClickableDropdown creates a dropdown which opens the menu when clicking on

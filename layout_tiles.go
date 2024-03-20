@@ -40,8 +40,7 @@ func (t *tile) addChildren(children []any) {
 		switch c := c.(type) {
 		case *Element:
 			if !c.hasClass("tile") {
-				c.With(Class("tile"))
-				c.With(Class("is-child"))
+				c.With(Class("tile"), Class("is-child"))
 				t.children = append(t.children, Class("is-parent"))
 			}
 			t.children = append(t.children, c)
@@ -54,13 +53,10 @@ func (t *tile) addChildren(children []any) {
 }
 
 func (t *tile) elem() *Element {
-	return Elem(html.Div).
-		With(Class("tile")).
-		Withs(t.children)
+	return Elem(html.Div, Class("tile"), t.children)
 }
 
 // VTile creates a tile element with the "is-vertical" class.
 func VTile(children ...any) *Element {
-	return Tile(children...).
-		With(Class("is-vertical"))
+	return Tile(children, "is-vertical")
 }

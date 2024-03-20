@@ -40,5 +40,5 @@ func (s *stack) addChildren(children []any) {
 }
 
 func (s *stack) elem() *b.Element {
-	return b.Elem(html.Span).With(b.Class("fa-stack")).Withs(s.children)
+	return b.Elem(html.Span, b.Class("fa-stack"), s.children)
 }

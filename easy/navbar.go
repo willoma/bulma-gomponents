@@ -15,7 +15,6 @@ const (
 	NavbarDropdownActive
 )
 
-// .TODO ICI
 func NavbarDropdown(label string, children ...any) *b.Element {
 	n := &navbarDropdown{label: label}
 	n.addChildren(children)
@@ -56,12 +55,10 @@ func (n *navbarDropdown) addChildren(children []any) {
 }
 
 func (n *navbarDropdown) elem() *b.Element {
-	return b.NavbarItem(b.HasDropdown).
-		Withs(n.itemChildren).
-		With(
-			b.NavbarLink(n.label).Withs(n.linkChildren),
-		).
-		With(
-			b.NavbarDropdown().Withs(n.dropdownChildren),
-		)
+	return b.NavbarItem(
+		b.HasDropdown,
+		n.itemChildren,
+		b.NavbarLink(n.label, n.linkChildren),
+		b.NavbarDropdown(n.dropdownChildren...),
+	)
 }

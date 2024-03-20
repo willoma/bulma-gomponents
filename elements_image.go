@@ -43,9 +43,7 @@ type ImgAlt string
 // to apply it the ratio (associate with an Img*By* modifier on the Image
 // element).
 func Image(children ...any) *Element {
-	return Elem(html.Figure).
-		With(Class("image")).
-		Withs(children)
+	return Elem(html.Figure, Class("image"), children)
 }
 
 // ImageImg creates a figure element with class "image" and the inner img
@@ -81,28 +79,9 @@ func Image(children ...any) *Element {
 //     (usually not needed)
 //   - Rounded: make the image rounded (associate with an ImgSq* modifier)
 func ImageImg(src string, children ...any) *Element {
-	figure := Elem(html.Figure).
-		With(Class("image"))
-
-	img := Elem(html.Img).
-		With(html.Src(src))
-
-	for _, c := range children {
-		switch c := c.(type) {
-		case Class:
-			if c == Rounded {
-				img.With(c)
-			} else {
-				figure.With(c)
-			}
-		case ImgAlt:
-			img.With(html.Alt(string(c)))
-		default:
-			figure.With(c)
-		}
-	}
-
-	return figure.With(img)
+	i := &imageImg{src: src}
+	i.addChildren(children)
+	return i.elem()
 }
 
 type imageImg struct {
@@ -131,12 +110,10 @@ func (i *imageImg) addChildren(children []any) {
 }
 
 func (i *imageImg) elem() *Element {
-	return Elem(html.Figure).
-		With(Class("image")).
-		Withs(i.figureChildren).
-		With(
-			Elem(html.Img).
-				With(html.Src(i.src)).
-				Withs(i.imgChildren),
-		)
+	return Elem(
+		html.Figure,
+		Class("image"),
+		i.figureChildren,
+		Elem(html.Img, html.Src(i.src), i.imgChildren),
+	)
 }

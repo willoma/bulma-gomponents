@@ -26,7 +26,7 @@ func (ct *content) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case string:
-			ct.children = append(ct.children, Elem(html.P).With(c))
+			ct.children = append(ct.children, Elem(html.P, c))
 		case []any:
 			ct.addChildren(c)
 		default:
@@ -36,7 +36,5 @@ func (ct *content) addChildren(children []any) {
 }
 
 func (ct *content) elem() *Element {
-	return Elem(html.Div).
-		With(Class("content")).
-		Withs(ct.children)
+	return Elem(html.Div, Class("content"), ct.children)
 }

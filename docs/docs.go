@@ -121,7 +121,7 @@ func Layout(p *c.Page) gomponents.Node {
 	if p.BulmaURL != "" {
 		content.With(b.Content(b.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")))
 	}
-	content.Withs(p.Children).Withs(p.InternalMenu())
+	content.With(p.Children, p.InternalMenu())
 
 	return b.HTML(
 		b.Script(path.Join(p.BaseURL, "htmx.min.js")),

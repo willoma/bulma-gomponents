@@ -18,57 +18,46 @@ type Li struct {
 // If the Child element is of type []any, all its elements are added as children
 // to the li element.
 func UList(lines ...Li) *b.Element {
-	elem := el.Ul(b.Class("fa-ul"))
+	var children []any
 
 	for _, li := range lines {
-		liElem := el.Li()
+		var icon *b.Element
 
 		if li.Icon == nil {
-			liElem.With(el.Span(b.Class("fa-li"), FA(Solid, "minus")))
+			icon = FA(Solid, "minus")
 		} else {
-			liElem.With(el.Span(b.Class("fa-li"), li.Icon))
+			icon = li.Icon
 		}
 
-		switch c := li.Child.(type) {
-		case []any:
-			liElem.Withs(c)
-		default:
-			liElem.With(c)
-		}
-
-		elem.With(liElem)
+		children = append(
+			children,
+			el.Li(el.Span(b.Class("fa-li"), icon), li.Child),
+		)
 	}
 
-	return elem
+	return el.Ul(b.Class("fa-ul"), children)
 }
 
 // OList replaces numbers with icons in ol lists. When the Icon attribute is
 // nil, the fa-minus icon is used. When not nil, the Icon attribute should be
 // a return value of FA.
-//
-// If the Child element is of type []any, all its elements are added as children
-// to the li element.
 func OList(lines ...Li) *b.Element {
-	elem := el.Ol(b.Class("fa-ul"))
+	var children []any
 
 	for _, li := range lines {
-		liElem := el.Li()
+		var icon *b.Element
 
 		if li.Icon == nil {
-			liElem.With(el.Span(b.Class("fa-li"), FA(Solid, "minus")))
+			icon = FA(Solid, "minus")
 		} else {
-			liElem.With(el.Span(b.Class("fa-li"), li.Icon))
+			icon = li.Icon
 		}
 
-		switch c := li.Child.(type) {
-		case []any:
-			liElem.Withs(c)
-		default:
-			liElem.With(c)
-		}
-
-		elem.With(liElem)
+		children = append(
+			children,
+			el.Li(el.Span(b.Class("fa-li"), icon), li.Child),
+		)
 	}
 
-	return elem
+	return el.Ol(b.Class("fa-ul"), children)
 }

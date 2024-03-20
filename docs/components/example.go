@@ -10,7 +10,8 @@ func ColParagraph(children ...any) *b.Element {
 		b.Style("outline", "1px dashed #36b6e0"),
 		b.Style("border-radius", "0.25em"),
 		b.TextCentered,
-	).Withs(children)
+		children,
+	)
 }
 
 func exampleContainer(children ...any) *b.Element {
@@ -33,7 +34,8 @@ func exampleContainer(children ...any) *b.Element {
 			b.Style("transform", "translateY(-50%) rotate(180deg)"),
 			"Example",
 		),
-	).Withs(children)
+		children,
+	)
 }
 
 func Example(code string, result ...any) *b.Element {

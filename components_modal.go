@@ -5,17 +5,17 @@ import (
 )
 
 func modalBackground() *Element {
-	return Elem(html.Div).
-		With(Class("modal-background")).
-		With(OnClick(JSCloseThisModal))
+	return Elem(html.Div, Class("modal-background"), OnClick(JSCloseThisModal))
 }
 
 func modalClose() *Element {
-	return Elem(html.Button).
-		With(Class("modal-close")).
-		With(Large).
-		With(html.Aria("label", "close")).
-		With(OnClick(JSCloseThisModal))
+	return Elem(
+		html.Button,
+		Class("modal-close"),
+		Large,
+		html.Aria("label", "close"),
+		OnClick(JSCloseThisModal),
+	)
 }
 
 // Modal creates a modal. The modal background and the modal close button are automatically added. The children are added to the modal content.
@@ -30,16 +30,14 @@ func modalClose() *Element {
 //	),
 //	b.Modal("myModal", [...])
 func Modal(id string, children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("modal")).
-		With(html.ID(id)).
-		With(modalBackground()).
-		With(
-			Elem(html.Div).
-				With(Class("modal-content")).
-				Withs(children),
-		).
-		With(modalClose())
+	return Elem(
+		html.Div,
+		Class("modal"),
+		html.ID(id),
+		modalBackground(),
+		Elem(html.Div, Class("modal-content"), children),
+		modalClose(),
+	)
 }
 
 // ModalCard creates a modal card.
@@ -76,30 +74,20 @@ func (mc *modalCard) addChildren(children []any) {
 }
 
 func (mc *modalCard) elem() *Element {
-	return Elem(html.Div).
-		With(Class("modal")).
-		With(html.ID(mc.id)).
-		With(modalBackground()).
-		With(
-			Elem(html.Div).
-				With(Class("modal-card")).
-				With(
-					Elem(html.Div).
-						With(Class("modal-card-head")).
-						Withs(mc.headChildren),
-				).
-				With(
-					Elem(html.Div).
-						With(Class("modal-card-body")).
-						Withs(mc.bodyChildren),
-				).
-				With(
-					Elem(html.Div).
-						With(Class("modal-card-foot")).
-						Withs(mc.footChildren),
-				),
-		).
-		With(modalClose())
+	return Elem(
+		html.Div,
+		Class("modal"),
+		html.ID(mc.id),
+		modalBackground(),
+		Elem(
+			html.Div,
+			Class("modal-card"),
+			Elem(html.Div, Class("modal-card-head"), mc.headChildren),
+			Elem(html.Div, Class("modal-card-body"), mc.bodyChildren),
+			Elem(html.Div, Class("modal-card-foot"), mc.footChildren),
+		),
+		modalClose(),
+	)
 }
 
 type modalCardHead []any
@@ -111,9 +99,7 @@ func ModalCardHead(children ...any) modalCardHead {
 
 // ModalCardTitle creates a title for a card head.
 func ModalCardTitle(children ...any) *Element {
-	return Elem(html.P).
-		With(Class("modal-card-title")).
-		Withs(children)
+	return Elem(html.P, Class("modal-card-title"), children)
 }
 
 type modalCardFoot []any

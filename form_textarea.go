@@ -33,9 +33,7 @@ import (
 //   - Medium
 //   - Large
 func Textarea(children ...any) *Element {
-	return Elem(html.Textarea).
-		With(Class("textarea")).
-		Withs(children)
+	return Elem(html.Textarea, Class("textarea"), children)
 }
 
 // Rows changes a textarea height.

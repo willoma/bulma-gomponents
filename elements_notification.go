@@ -27,7 +27,5 @@ import "github.com/maragudk/gomponents/html"
 //   - WarningLight
 //   - DangerLight
 func Notification(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("notification")).
-		Withs(children)
+	return Elem(html.Div, Class("notification"), children)
 }

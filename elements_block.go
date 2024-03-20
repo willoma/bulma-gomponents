@@ -4,7 +4,5 @@ import "github.com/maragudk/gomponents/html"
 
 // Block creates a block element.
 func Block(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("block")).
-		Withs(children)
+	return Elem(html.Div, Class("block"), children)
 }

@@ -21,16 +21,12 @@ import (
 //     them and allow them to fill up multiple lines (Grouped is not required)
 //   - Horizontal: make the field horizontal ()
 func Field(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("field")).
-		Withs(children)
+	return Elem(html.Div, Class("field"), children)
 }
 
 // Label creates a label element, to be used as a child of a Field.
 func Label(children ...any) *Element {
-	return Elem(html.Label).
-		With(Class("label")).
-		Withs(children)
+	return Elem(html.Label, Class("label"), children)
 }
 
 // Control creates a control element, to be used as a child of a Field.
@@ -46,45 +42,33 @@ func Label(children ...any) *Element {
 //     this style to a Select, you also need to add the FullWidth modifier to
 //     the Select element
 func Control(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("control")).
-		Withs(children)
+	return Elem(html.Div, Class("control"), children)
 }
 
 // Help creates a help element, to be used as a child of a Field.
 func Help(children ...any) *Element {
-	return Elem(html.P).
-		With(Class("help")).
-		Withs(children)
+	return Elem(html.P, Class("help"), children)
 }
 
 // FieldBody creates a field-body element, to be used as a child of a
 // FieldHorizontal.
 func FieldBody(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("field-body")).
-		Withs(children)
+	return Elem(html.Div, Class("field-body"), children)
 }
 
 // FieldLabel creates a field-label element, to be used as a child of a
 // FieldHorizontal.
 func FieldLabel(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("field-label")).
-		Withs(children)
+	return Elem(html.Div, Class("field-label"), children)
 }
 
 // FieldHorizontal creates a horizontal field, including an empty body if
 func FieldHorizontal(children ...any) *Element {
-	e := Elem(html.Div).
-		With(Class("field")).
-		With(Horizontal)
+	e := Elem(html.Div, Class("field"), Horizontal)
 
-	label := Elem(html.Div).
-		With(Class("field-label"))
+	label := Elem(html.Div, Class("field-label"))
 
-	body := Elem(html.Div).
-		With(Class("field-body"))
+	body := Elem(html.Div, Class("field-body"))
 
 	for _, c := range children {
 		switch c := c.(type) {
@@ -102,9 +86,7 @@ func FieldHorizontal(children ...any) *Element {
 		}
 	}
 
-	return e.
-		With(label).
-		With(body)
+	return e.With(label, body)
 }
 
 type fieldHorizontal struct {
@@ -139,23 +121,22 @@ func (f *fieldHorizontal) elem() *Element {
 	if f.label != nil {
 		label = f.label
 	} else {
-		label = Elem(html.Div).
-			With(Class("field-label"))
+		label = Elem(html.Div, Class("field-label"))
 	}
 
 	var body *Element
 	if f.body != nil {
-		body = f.body.Withs(f.bodyChildren)
+		body = f.body.With(f.bodyChildren...)
 	} else {
-		body = Elem(html.Div).
-			With(Class("field-body")).
-			Withs(f.bodyChildren)
+		body = Elem(html.Div, Class("field-body"), f.bodyChildren)
 	}
 
-	return Elem(html.Div).
-		With(Class("field")).
-		With(Horizontal).
-		Withs(f.elemChildren).
-		With(label).
-		With(body)
+	return Elem(
+		html.Div,
+		Class("field"),
+		Horizontal,
+		f.elemChildren,
+		label,
+		body,
+	)
 }

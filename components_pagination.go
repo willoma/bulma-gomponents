@@ -35,7 +35,7 @@ func (p *pagination) addChildren(children []any) {
 		switch c := c.(type) {
 		case *Element:
 			if c.hasClass("pagination-link") || c.hasClass("pagination-ellipsis") {
-				p.listChildren = append(p.listChildren, Elem(html.Li).With(c))
+				p.listChildren = append(p.listChildren, Elem(html.Li, c))
 			} else {
 				p.paginationChildren = append(p.paginationChildren, c)
 			}
@@ -48,14 +48,12 @@ func (p *pagination) addChildren(children []any) {
 }
 
 func (p *pagination) elem() *Element {
-	return Elem(html.Nav).
-		With(Class("pagination")).
-		Withs(p.paginationChildren).
-		With(
-			Elem(html.Ul).
-				With(Class("pagination-list")).
-				Withs(p.listChildren),
-		)
+	return Elem(
+		html.Nav,
+		Class("pagination"),
+		p.paginationChildren,
+		Elem(html.Ul, Class("pagination-list"), p.listChildren),
+	)
 }
 
 // PaginationPrevious creates the "Previous" link button for a pagination.
@@ -63,9 +61,7 @@ func (p *pagination) elem() *Element {
 // The following modifiers change the link button behaviour:
 //   - Disabled: mark the link button as inactive
 func PaginationPrevious(children ...any) *Element {
-	return Elem(html.A).
-		With(Class("pagination-previous")).
-		Withs(children)
+	return Elem(html.A, Class("pagination-previous"), children)
 }
 
 // PaginationNext creates the "Next" link button for a pagination.
@@ -73,9 +69,7 @@ func PaginationPrevious(children ...any) *Element {
 // The following modifiers change the link button behaviour:
 //   - Disabled: mark the link button as inactive
 func PaginationNext(children ...any) *Element {
-	return Elem(html.A).
-		With(Class("pagination-next")).
-		Withs(children)
+	return Elem(html.A, Class("pagination-next"), children)
 }
 
 // PaginationLink creates a single page link button for a pagination.
@@ -84,14 +78,10 @@ func PaginationNext(children ...any) *Element {
 //   - Current: mark this link button as being the current page
 //   - Disabled: mark the link button as inactive
 func PaginationLink(children ...any) *Element {
-	return Elem(html.A).
-		With(Class("pagination-link")).
-		Withs(children)
+	return Elem(html.A, Class("pagination-link"), children)
 }
 
 // PaginationEllipsis creates an ellipsis element for a pagination.
 func PaginationEllipsis() *Element {
-	return Elem(html.Span).
-		With(Class("pagination-ellipsis")).
-		With(gomponents.Raw("&hellip;"))
+	return Elem(html.Span, Class("pagination-ellipsis"), gomponents.Raw("&hellip;"))
 }

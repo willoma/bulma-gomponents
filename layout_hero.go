@@ -81,31 +81,23 @@ func (h *hero) addChildren(children []any) {
 }
 
 func (h *hero) elem() *Element {
-	e := Elem(html.Section).
-		With(Class("hero")).
-		Withs(h.elemChildren)
+	e := Elem(html.Section, Class("hero"), h.elemChildren)
 
 	if len(h.headChildren) > 0 {
 		e.With(
-			Elem(html.Div).
-				With(Class("hero-head")).
-				Withs(h.headChildren),
+			Elem(html.Div, Class("hero-head"), h.headChildren),
 		)
 	}
 
 	if len(h.bodyChildren) > 0 {
 		e.With(
-			Elem(html.Div).
-				With(Class("hero-body")).
-				Withs(h.bodyChildren),
+			Elem(html.Div, Class("hero-body"), h.bodyChildren),
 		)
 	}
 
 	if len(h.footChildren) > 0 {
 		e.With(
-			Elem(html.Div).
-				With(Class("hero-foot")).
-				Withs(h.footChildren),
+			Elem(html.Div, Class("hero-foot"), h.footChildren),
 		)
 	}
 

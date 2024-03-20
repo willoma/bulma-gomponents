@@ -7,11 +7,9 @@ import (
 
 func buttonElem(
 	fn func(...gomponents.Node) gomponents.Node,
+	children ...any,
 ) *Element {
-	e := Elem(fn).
-		With(Class("button"))
-	e.spanAroundNonIconsIfHasIcons = true
-	return e
+	return Elem(fn, Class("button"), elemOptionSpanAroundNonIconsIfHasIcons, children)
 }
 
 // Button creates a button.
@@ -62,45 +60,35 @@ func buttonElem(
 //   - WarningLight
 //   - DangerLight
 func Button(children ...any) *Element {
-	return buttonElem(html.Button).
-		Withs(children)
+	return buttonElem(html.Button, children...)
 }
 
 // ButtonA creates a button-looking link.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonA(children ...any) *Element {
-	return buttonElem(html.A).
-		Withs(children)
+	return buttonElem(html.A, children...)
 }
 
 // ButtonSubmit creates a submit button.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonSubmit(children ...any) *Element {
-	return buttonElem(html.Button).
-		With(html.Type("submit")).
-		Withs(children)
+	return buttonElem(html.Button, html.Type("submit"), children)
 }
 
 // ButtonInputSubmit creates an input of type submit.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonInputSubmit(value string, children ...any) *Element {
-	return buttonElem(html.Input).
-		With(html.Type("submit")).
-		With(html.Value(value)).
-		Withs(children)
+	return buttonElem(html.Input, html.Type("submit"), html.Value(value), children)
 }
 
 // ButtonInputReset creates an input of type reset.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonInputReset(value string, children ...any) *Element {
-	return buttonElem(html.Input).
-		With(html.Type("reset")).
-		With(html.Value(value)).
-		Withs(children)
+	return buttonElem(html.Input, html.Type("reset"), html.Value(value), children)
 }
 
 // Buttons creates a list of buttons.
@@ -138,7 +126,5 @@ func (b *buttons) addChildren(children []any) {
 }
 
 func (b *buttons) elem() *Element {
-	return Elem(html.Div).
-		With(Class("buttons")).
-		Withs(b.children)
+	return Elem(html.Div, Class("buttons"), b.children)
 }

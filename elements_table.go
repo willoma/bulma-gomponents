@@ -30,7 +30,7 @@ func (r *row) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case cell:
-			r.children = append(r.children, Elem(r.el).Withs(c))
+			r.children = append(r.children, Elem(r.el, c...))
 		case string:
 			r.children = append(r.children, r.el(gomponents.Text(c)))
 		case gomponents.Node:
@@ -48,7 +48,7 @@ func (r *row) addChildren(children []any) {
 }
 
 func (r *row) elem() *Element {
-	return Elem(html.Tr).Withs(r.children)
+	return Elem(html.Tr, r.children...)
 }
 
 // HeadRow creates a table header row (tr element).
@@ -147,9 +147,7 @@ func (t *table) addChildren(children []any) {
 }
 
 func (t *table) elem() *Element {
-	tb := Elem(html.Table).
-		With(Class("table")).
-		Withs(t.children)
+	tb := Elem(html.Table, Class("table"), t.children)
 
 	if len(t.head) > 0 {
 		tb.With(html.THead(t.head...))
@@ -171,7 +169,5 @@ func (t *table) elem() *Element {
 //
 // See the documentation on the Table function for modifiers details.
 func ScrollableTable(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("table-container")).
-		With(Table(children...))
+	return Elem(html.Div, Class("table-container"), Table(children...))
 }

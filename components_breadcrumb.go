@@ -52,19 +52,19 @@ func (b *breadcrumb) addChildren(children []any) {
 }
 
 func (b *breadcrumb) elem() *Element {
-	nav := Elem(html.Nav).
-		With(Class("breadcrumb")).
-		With(html.Aria("label", "breadcrumbs")).
-		Withs(b.navChildren)
-
-	nav.spanAroundNonIconsIfHasIcons = true
-
-	return nav.With(Elem(html.Ul).Withs(b.ulChildren))
+	return Elem(
+		html.Nav,
+		Class("breadcrumb"),
+		html.Aria("label", "breadcrumbs"),
+		b.navChildren,
+		elemOptionSpanAroundNonIconsIfHasIcons,
+		Elem(html.Ul, b.ulChildren...),
+	)
 }
 
 // BreadcrumbEntry creates a generic breadcrumb entry.
 func BreadcrumbEntry(children ...any) *Element {
-	return Elem(html.Li).Withs(children)
+	return Elem(html.Li, children...)
 }
 
 // BreadcrumbAHref creates a breadcrumb entry which contains
@@ -73,10 +73,14 @@ func BreadcrumbEntry(children ...any) *Element {
 // It is better than BreadcrumbEntry(AHref(href, children...)),
 // because it ensures text is enclosed in span if a child is an icon.
 func BreadcrumbAHref(href string, children ...any) *Element {
-	ahref := AHref(href, children...)
-	ahref.spanAroundNonIconsIfHasIcons = true
-
-	return Elem(html.Li).With(ahref)
+	return Elem(
+		html.Li,
+		AHref(
+			href,
+			elemOptionSpanAroundNonIconsIfHasIcons,
+			children,
+		),
+	)
 }
 
 // BreadcrumbActiveAHref creates an active breadcrumb entry which contains
@@ -85,10 +89,13 @@ func BreadcrumbAHref(href string, children ...any) *Element {
 // It is better than BreadcrumbEntry(Active, AHref(href, children)),
 // because it ensures text is enclosed in span if a child is an icon.
 func BreadcrumbActiveAHref(href string, children ...any) *Element {
-	ahref := AHref(href, children...).
-		With(html.Aria("current", "page"))
-
-	ahref.spanAroundNonIconsIfHasIcons = true
-
-	return Elem(html.Li).With(Active).With(ahref)
+	return Elem(
+		html.Li, Active,
+		AHref(
+			href,
+			elemOptionSpanAroundNonIconsIfHasIcons,
+			children,
+			html.Aria("current", "page"),
+		),
+	)
 }

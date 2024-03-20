@@ -7,9 +7,7 @@ type container *Element
 // Container creates a container element.
 func Container(children ...any) container {
 	return container(
-		Elem(html.Div).
-			With(Class("container")).
-			Withs(children),
+		Elem(html.Div, Class("container"), children),
 	)
 }
 
@@ -17,10 +15,7 @@ func Container(children ...any) container {
 // widescreen breakpoint.
 func ContainerWidescreen(children ...any) container {
 	return container(
-		Elem(html.Div).
-			With(Class("container")).
-			With(Class("is-widescreen")).
-			Withs(children),
+		Elem(html.Div, Class("container"), Class("is-widescreen"), children),
 	)
 }
 
@@ -28,10 +23,7 @@ func ContainerWidescreen(children ...any) container {
 // full HD breakpoint.
 func ContainerFullHD(children ...any) container {
 	return container(
-		Elem(html.Div).
-			With(Class("container")).
-			With(Class("is-fullhd")).
-			Withs(children),
+		Elem(html.Div, Class("container"), Class("is-fullhd"), children),
 	)
 }
 
@@ -39,10 +31,7 @@ func ContainerFullHD(children ...any) container {
 // the desktop breakpoint.
 func ContainerMaxDesktop(children ...any) container {
 	return container(
-		Elem(html.Div).
-			With(Class("container")).
-			With(Class("is-max-desktop")).
-			Withs(children),
+		Elem(html.Div, Class("container"), Class("is-max-desktop"), children),
 	)
 }
 
@@ -50,10 +39,7 @@ func ContainerMaxDesktop(children ...any) container {
 // the widescreen breakpoint.
 func ContainerMaxWidescreen(children ...any) container {
 	return container(
-		Elem(html.Div).
-			With(Class("container")).
-			With(Class("is-max-widescreen")).
-			Withs(children),
+		Elem(html.Div, Class("container"), Class("is-max-widescreen"), children),
 	)
 }
 
@@ -61,9 +47,6 @@ func ContainerMaxWidescreen(children ...any) container {
 // keeps the left and right margins.
 func ContainerFluid(children ...any) container {
 	return container(
-		Elem(html.Div).
-			With(Class("container")).
-			With(Class("is-fluid")).
-			Withs(children),
+		Elem(html.Div, Class("container"), Class("is-fluid"), children),
 	)
 }

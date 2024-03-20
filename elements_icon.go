@@ -68,9 +68,7 @@ func (i *icon) addChildren(children []any) {
 }
 
 func (i *icon) elem() *Element {
-	return Elem(html.Span).
-		With(Class("icon")).
-		Withs(i.children)
+	return Elem(html.Span, Class("icon"), i.children)
 }
 
 // IconText creates an icon-text span and embed all its non-icons children into
@@ -174,8 +172,5 @@ func (i *iconText) addChildren(children []any) {
 }
 
 func (i *iconText) elem() *Element {
-	e := Elem(i.el).
-		With(Class("icon-text"))
-	e.spanAroundNonIconsAlways = true
-	return e.Withs(i.children)
+	return Elem(i.el, Class("icon-text"), elemOptionSpanAroundNonIconsAlways, i.children)
 }

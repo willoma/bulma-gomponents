@@ -66,9 +66,7 @@ func (f *file) addChildren(children []any) {
 		case string:
 			f.ctaChildren = append(
 				f.ctaChildren,
-				Elem(html.Span).
-					With(Class("file-label")).
-					With(c),
+				Elem(html.Span, Class("file-label"), c),
 			)
 		case FileName:
 			f.divChildren = append(f.divChildren, Class("has-name"))
@@ -92,29 +90,16 @@ func (f *file) addChildren(children []any) {
 }
 
 func (f *file) elem() *Element {
-	label := Elem(html.Label).
-		With(Class("file-label")).
-		With(
-			Elem(html.Input).
-				With(Class("file-input")).
-				With(html.Type("file")).
-				Withs(f.inputChildren),
-		).
-		With(
-			Elem(html.Span).
-				With(Class("file-cta")).
-				Withs(f.ctaChildren),
-		)
+	label := Elem(
+		html.Label,
+		Class("file-label"),
+		Elem(html.Input, Class("file-input"), html.Type("file"), f.inputChildren),
+		Elem(html.Span, Class("file-cta"), f.ctaChildren),
+	)
 
 	if f.fileName != "" {
-		label.With(Elem(html.Span).
-			With(Class("file-name")).
-			With(f.fileName),
-		)
+		label.With(Elem(html.Span, Class("file-name"), f.fileName))
 	}
 
-	return Elem(html.Div).
-		With(Class("file")).
-		Withs(f.divChildren).
-		With(label)
+	return Elem(html.Div, Class("file"), f.divChildren, label)
 }

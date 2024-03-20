@@ -7,13 +7,21 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
+type elemOption int
+
+const (
+	elemOptionSpanAroundNonIconsAlways elemOption = iota
+	elemOptionSpanAroundNonIconsIfHasIcons
+)
+
 // Elem creates a base element, based on the provided gomponents.Node function.
-func Elem(elemFn func(...gomponents.Node) gomponents.Node) *Element {
+func Elem(elemFn func(...gomponents.Node) gomponents.Node, children ...any) *Element {
 	e := &Element{
 		elemFn:           elemFn,
 		classes:          map[string]bool{},
 		stylesCollection: map[string]string{},
 	}
+	e.With(children...)
 	return e
 }
 
@@ -43,7 +51,7 @@ func IsAttribute(node any) bool {
 	return ok && desc.Type() == gomponents.AttributeType
 }
 
-// With adds a child to the element. It accepts the following arguments types:
+// With adds childs to the element. It accepts the following arguments types:
 //   - func(...gomponents.Node) gomponents.Node: change the gomponents.Node
 //     element for this element
 //   - Class: add a class to the element
@@ -58,86 +66,88 @@ func IsAttribute(node any) bool {
 //   - gomponents.Node with type gomponents.AttributeType: add the provided
 //     attribute to this element
 //   - gomponents.Node with another time: add the provided element as a child
-//   - []any: add the slice items by executing e.Withs
+//   - []any: add the slice items by executing With recursively
 //
 // Any other type is ignored.
-func (e *Element) With(c any) *Element {
+func (e *Element) With(children ...any) *Element {
 	if e == nil {
 		e = Elem(html.Div)
 	}
 
-	switch c := c.(type) {
-	case func(...gomponents.Node) gomponents.Node:
-		e.elemFn = c
-	case Class:
-		e.classes[string(c)] = true
-	case MultiClass:
-		for _, cl := range c.Responsive {
-			e.classes[cl] = true
-		}
-		for _, cl := range c.Static {
-			e.classes[cl] = true
-		}
-	case ColorClass:
-		e.classes["is-"+c.class] = true
-		if c.light {
-			e.classes["is-light"] = true
-		}
-	case Styles:
-		for prop, val := range c {
-			e.stylesCollection[prop] = val
-		}
-	case string:
-		e.elements = append(e.elements, gomponents.Text(c))
-	case *Element:
-		if c.hasClass("icon") {
-			e.hasIcons = true
-		}
-
-		if c.hasClass("tile") && !e.hasClass("tile") {
-			c.classes["is-ancestor"] = true
-		}
-
-		if c.hasClass("navbar") {
-			if c.hasClass(string(FixedBottom)) {
-				e.With(NavbarFixedBottom)
-			} else if c.hasClass(string(FixedTop)) {
-				e.With(NavbarFixedTop)
-			}
-		}
-
-		e.elements = append(e.elements, c)
-	case container:
-		elem := Element(*c)
-		e.elements = append(e.elements, &elem)
-	case func(...any) *Element:
-		other := c()
-		for c := range other.classes {
-			e.classes[c] = true
-		}
-		for p, v := range other.stylesCollection {
-			e.stylesCollection[p] = v
-		}
-		e.attributes = append(e.attributes, other.attributes...)
-		e.elements = append(e.elements, other.elements...)
-	case gomponents.Node:
-		if IsAttribute(c) {
-			e.attributes = append(e.attributes, c)
-		} else {
-			e.elements = append(e.elements, c)
-		}
-	case []any:
-		e.Withs(c)
-	}
-	return e
-}
-
-// Withs adds multiple childs to the element. It simply calls e.With, for all
-// elements in the slice.
-func (e *Element) Withs(children []any) *Element {
 	for _, c := range children {
-		e.With(c)
+		switch c := c.(type) {
+		case elemOption:
+			switch c {
+			case elemOptionSpanAroundNonIconsIfHasIcons:
+				e.spanAroundNonIconsIfHasIcons = true
+			case elemOptionSpanAroundNonIconsAlways:
+				e.spanAroundNonIconsAlways = true
+			}
+		case func(...gomponents.Node) gomponents.Node:
+			e.elemFn = c
+		case Class:
+			e.classes[string(c)] = true
+		case MultiClass:
+			for _, cl := range c.Responsive {
+				e.classes[cl] = true
+			}
+			for _, cl := range c.Static {
+				e.classes[cl] = true
+			}
+		case ColorClass:
+			e.classes["is-"+c.class] = true
+			if c.light {
+				e.classes["is-light"] = true
+			}
+		case Styles:
+			for prop, val := range c {
+				e.stylesCollection[prop] = val
+			}
+		case string:
+			e.elements = append(e.elements, gomponents.Text(c))
+		case *Element:
+			if c.hasClass("icon") {
+				e.hasIcons = true
+			}
+
+			if c.hasClass("tile") && !e.hasClass("tile") {
+				c.classes["is-ancestor"] = true
+			}
+
+			// If the child is a navbar, add the "navbar-fixed-bottom" or "navbar-fixed-top" class to its parent
+			if c.hasClass("navbar") {
+				if c.hasClass(string(FixedBottom)) {
+					e.classes[string(NavbarFixedBottom)] = true
+				} else if c.hasClass(string(FixedTop)) {
+					e.classes[string(NavbarFixedTop)] = true
+				}
+			}
+
+			e.elements = append(e.elements, c)
+		case container:
+			elem := Element(*c)
+			e.elements = append(e.elements, &elem)
+		case func(...any) *Element:
+			other := c()
+			for c := range other.classes {
+				e.classes[c] = true
+			}
+			for p, v := range other.stylesCollection {
+				e.stylesCollection[p] = v
+			}
+			e.attributes = append(e.attributes, other.attributes...)
+			e.elements = append(e.elements, other.elements...)
+		case gomponents.Node:
+			if IsAttribute(c) {
+				e.attributes = append(e.attributes, c)
+			} else {
+				e.elements = append(e.elements, c)
+			}
+		case []any:
+			e.With(c...)
+		}
 	}
+
 	return e
 }
 
@@ -178,10 +188,10 @@ func (e *Element) getChildren() []gomponents.Node {
 				if c.hasClass("icon") {
 					children = append(children, c)
 				} else {
-					children = append(children, Elem(html.Span).With(c))
+					children = append(children, Elem(html.Span, c))
 				}
 			default:
-				children = append(children, Elem(html.Span).With(c))
+				children = append(children, Elem(html.Span, c))
 			}
 		}
 	} else {

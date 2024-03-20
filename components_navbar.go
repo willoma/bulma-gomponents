@@ -75,9 +75,7 @@ func (n *navbar) addChildren(children []any) {
 }
 
 func (n *navbar) elem() *Element {
-	navbar := Elem(html.Nav).
-		With(Class("navbar")).
-		Withs(n.navbarChildren)
+	navbar := Elem(html.Nav, Class("navbar"), n.navbarChildren)
 
 	var target *Element
 	if n.intermediateContainer != nil {
@@ -88,24 +86,25 @@ func (n *navbar) elem() *Element {
 	}
 
 	if len(n.brandChildren) > 0 || len(n.startChildren) > 0 || len(n.endChildren) > 0 {
-		brandElem := Elem(html.Div).
-			With(Class("navbar-brand"))
+		brandElem := Elem(html.Div, Class("navbar-brand"))
 
 		if len(n.brandChildren) > 0 {
-			brandElem.Withs(n.brandChildren)
+			brandElem.With(n.brandChildren...)
 		}
 
 		if len(n.startChildren) > 0 || len(n.endChildren) > 0 {
 			brandElem.With(
-				Elem(html.A).
-					With(html.Role("button")).
-					With(Class("navbar-burger")).
-					With(html.Aria("label", "menu")).
-					With(html.Aria("expanded", "false")).
-					With(Elem(html.Span).With(html.Aria("hidden", "true"))).
-					With(Elem(html.Span).With(html.Aria("hidden", "true"))).
-					With(Elem(html.Span).With(html.Aria("hidden", "true"))).
-					With(OnClick(`this.classList.toggle("is-active");this.closest(".navbar").getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`)),
+				Elem(
+					html.A,
+					html.Role("button"),
+					Class("navbar-burger"),
+					html.Aria("label", "menu"),
+					html.Aria("expanded", "false"),
+					Elem(html.Span, html.Aria("hidden", "true")),
+					Elem(html.Span, html.Aria("hidden", "true")),
+					Elem(html.Span, html.Aria("hidden", "true")),
+					OnClick(`this.classList.toggle("is-active");this.closest(".navbar").getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
+				),
 			)
 		}
 
@@ -113,22 +112,17 @@ func (n *navbar) elem() *Element {
 	}
 
 	if len(n.startChildren) > 0 || len(n.endChildren) > 0 {
-		menu := Elem(html.Div).
-			With(Class("navbar-menu"))
+		menu := Elem(html.Div, Class("navbar-menu"))
 
 		if len(n.startChildren) > 0 {
 			menu.With(
-				Elem(html.Div).
-					With(Class("navbar-start")).
-					Withs(n.startChildren),
+				Elem(html.Div, Class("navbar-start"), n.startChildren),
 			)
 		}
 
 		if len(n.endChildren) > 0 {
 			menu.With(
-				Elem(html.Div).
-					With(Class("navbar-end")).
-					Withs(n.endChildren),
+				Elem(html.Div, Class("navbar-end"), n.endChildren),
 			)
 		}
 
@@ -144,8 +138,7 @@ func (n *navbar) elem() *Element {
 //
 // Please refer to the Navbar documentation for description of its behaviour.
 func TopNavbar(children ...any) *Element {
-	return Navbar(children...).
-		With(FixedTop)
+	return Navbar(children, FixedTop)
 }
 
 // BottomNavbar, which must be used as an argument to HTML (which means it will
@@ -154,8 +147,7 @@ func TopNavbar(children ...any) *Element {
 //
 // Please refer to the Navbar documentation for description of its behaviour.
 func BottomNavbar(children ...any) *Element {
-	return Navbar(children...).
-		With(FixedBottom)
+	return Navbar(children, FixedBottom)
 }
 
 type navbarBrand []any
@@ -196,9 +188,7 @@ func NavbarEnd(children ...any) navbarEnd {
 //   - Hoverable: makes the included dropdown automatically show on hover
 //   - Active: force the dropdown to be open
 func NavbarItem(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("navbar-item")).
-		Withs(children)
+	return Elem(html.Div, Class("navbar-item"), children)
 }
 
 // NavbarAHref creates a link item to add to a navbar brand, start or end
@@ -209,10 +199,7 @@ func NavbarItem(children ...any) *Element {
 //   - Tab: add a bottom border on hover, always show the bottom border when
 //     adding Active
 func NavbarAHref(href string, children ...any) *Element {
-	return Elem(html.A).
-		With(Class("navbar-item")).
-		With(html.Href(href)).
-		Withs(children)
+	return Elem(html.A, Class("navbar-item"), html.Href(href), children)
 }
 
 // NavbarDropdown creates a dropdown element, to include in a NavbarItem with
@@ -226,9 +213,7 @@ func NavbarAHref(href string, children ...any) *Element {
 // Creating a navbar dropdown is made easier with `easy.NavbarDropdown`, in
 // which case this function is not needed.
 func NavbarDropdown(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("navbar-dropdown")).
-		Withs(children)
+	return Elem(html.Div, Class("navbar-dropdown"), children)
 }
 
 // NavbarLink creates a link element, to include in a NavbarItem with the
@@ -240,14 +225,11 @@ func NavbarDropdown(children ...any) *Element {
 // Creating a navbar dropdown is made easier with `easy.NavbarDropdown`, in
 // which case this function is not needed.
 func NavbarLink(children ...any) *Element {
-	return Elem(html.A).
-		With(Class("navbar-link")).
-		Withs(children)
+	return Elem(html.A, Class("navbar-link"), children)
 }
 
 // NavbarDivider creates a divider element, to include in a NavbarDropdown or
 // an easy.NavbarDropdown.
 func NavbarDivider() *Element {
-	return Elem(html.Hr).
-		With(Class("navbar-divider"))
+	return Elem(html.Hr, Class("navbar-divider"))
 }

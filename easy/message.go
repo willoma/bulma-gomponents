@@ -66,20 +66,12 @@ func (m *message) addChildren(children []any) {
 }
 
 func (m *message) elem() *b.Element {
-	message := b.Elem(html.Article).
-		With(b.Class("message")).
-		Withs(m.messageChildren)
+	message := b.Elem(html.Article, b.Class("message"), m.messageChildren)
 
-	body := b.Elem(html.Div).
-		With(b.Class("message-body")).
-		Withs(m.bodyChildren)
+	body := b.Elem(html.Div, b.Class("message-body"), m.bodyChildren)
 
 	if m.title != "" {
-		header := b.Elem(html.Div).
-			With(b.Class("message-header")).
-			With(b.Elem(html.P).
-				With(m.title),
-			)
+		header := b.Elem(html.Div, b.Class("message-header"), b.Elem(html.P, m.title))
 
 		if m.delete != nil {
 			header.With(m.delete)

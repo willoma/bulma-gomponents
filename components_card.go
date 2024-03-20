@@ -6,16 +6,12 @@ import (
 
 // Card creates a card.
 func Card(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("card")).
-		Withs(children)
+	return Elem(html.Div, Class("card"), children)
 }
 
 // CardContent creates a card content.
 func CardContent(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("card-content")).
-		Withs(children)
+	return Elem(html.Div, Class("card-content"), children)
 }
 
 // CardFooter creates a card footer.
@@ -49,9 +45,7 @@ func (cf *cardFooter) addChildren(children []any) {
 }
 
 func (cf *cardFooter) elem() *Element {
-	return Elem(html.Footer).
-		With(Class("card-footer")).
-		Withs(cf.children)
+	return Elem(html.Footer, Class("card-footer"), cf.children)
 }
 
 // CardHeader creates a card header.
@@ -77,9 +71,11 @@ func (ch *cardHeader) addChildren(children []any) {
 			if c.hasClass("icon") {
 				ch.children = append(
 					ch.children,
-					Elem(html.Button).
-						With(Class("card-header-icon")).
-						With(c),
+					Elem(
+						html.Button,
+						Class("card-header-icon"),
+						c,
+					),
 				)
 			} else {
 				ch.children = append(ch.children, c)
@@ -87,9 +83,11 @@ func (ch *cardHeader) addChildren(children []any) {
 		case string:
 			ch.children = append(
 				ch.children,
-				Elem(html.P).
-					With(Class("card-header-title")).
-					With(c),
+				Elem(
+					html.P,
+					Class("card-header-title"),
+					c,
+				),
 			)
 		case []any:
 			ch.addChildren(c)
@@ -100,9 +98,7 @@ func (ch *cardHeader) addChildren(children []any) {
 }
 
 func (ch *cardHeader) elem() *Element {
-	return Elem(html.Header).
-		With(Class("card-header")).
-		Withs(ch.children)
+	return Elem(html.Header, Class("card-header"), ch.children)
 }
 
 // CardHeaderIcon creates an icon for a card header.
@@ -110,9 +106,7 @@ func (ch *cardHeader) elem() *Element {
 // If you provide an *Element with class "icon" to the CardHeader function (ie.
 // / the result of the Icon function), you don't need CardHeaderIcon.
 func CardHeaderIcon(children ...any) *Element {
-	return Elem(html.Button).
-		With(Class("card-header-icon")).
-		Withs(children)
+	return Elem(html.Button, Class("card-header-icon"), children)
 }
 
 // CardHeaderTitle creates a title for a card header.
@@ -120,18 +114,14 @@ func CardHeaderIcon(children ...any) *Element {
 // If you provide a string to the CardHeader function, you don't need
 // CardHeaderTitle.
 func CardHeaderTitle(children ...any) *Element {
-	return Elem(html.P).
-		With(Class("card-header-title")).
-		Withs(children)
+	return Elem(html.P, Class("card-header-title"), children)
 }
 
 // CardImage creates a card image.
 //
 // See the Image function documentation for the list of allowed modifiers.
 func CardImage(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("card-image")).
-		With(Image(children...))
+	return Elem(html.Div, Class("card-image"), Image(children...))
 }
 
 // CardImageImg creates a card image which contains an img element with the
@@ -139,7 +129,5 @@ func CardImage(children ...any) *Element {
 //
 // See the ImageImg function documentation for the list of allowed modifiers.
 func CardImageImg(src string, children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("card-image")).
-		With(ImageImg(src, children...))
+	return Elem(html.Div, Class("card-image"), ImageImg(src, children...))
 }

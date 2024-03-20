@@ -63,31 +63,23 @@ func (m *media) addChildren(children []any) {
 }
 
 func (m *media) elem() *Element {
-	e := Elem(html.Article).
-		With(Class("media")).
-		Withs(m.elemChildren)
+	e := Elem(html.Article, Class("media"), m.elemChildren)
 
 	if len(m.leftChildren) > 0 {
 		e.With(
-			Elem(html.Div).
-				With(Class("media-left")).
-				Withs(m.leftChildren),
+			Elem(html.Div, Class("media-left"), m.leftChildren),
 		)
 	}
 
 	if len(m.contentChildren) > 0 {
 		e.With(
-			Elem(html.Div).
-				With(Class("media-content")).
-				Withs(m.contentChildren),
+			Elem(html.Div, Class("media-content"), m.contentChildren),
 		)
 	}
 
 	if len(m.rightChildren) > 0 {
 		e.With(
-			Elem(html.Div).
-				With(Class("media-right")).
-				Withs(m.rightChildren),
+			Elem(html.Div, Class("media-right"), m.rightChildren),
 		)
 	}
 

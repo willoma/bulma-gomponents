@@ -29,9 +29,7 @@ import (
 //   - Medium
 //   - Large
 func Tag(children ...any) *Element {
-	return Elem(html.Span).
-		With(Class("tag")).
-		Withs(children)
+	return Elem(html.Span, Class("tag"), children)
 }
 
 // Tags create a list of tags element.
@@ -62,15 +60,10 @@ func (t *tags) addChildren(children []any) {
 }
 
 func (t *tags) elem() *Element {
-	return Elem(html.Div).
-		With(Class("tags")).
-		Withs(t.children)
+	return Elem(html.Div, Class("tags"), t.children)
 }
 
 // DeleteTag creates a tag which is a delete button-looking a element.
 func DeleteTag(children ...any) *Element {
-	return Elem(html.A).
-		With(Class("tag")).
-		With(Class("is-delete")).
-		Withs(children)
+	return Elem(html.A, Class("tag"), Class("is-delete"), children)
 }

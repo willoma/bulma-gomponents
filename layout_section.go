@@ -8,7 +8,5 @@ import "github.com/maragudk/gomponents/html"
 //   - Medium: medium spacing
 //   - Large: large spacing
 func Section(children ...any) *Element {
-	return Elem(html.Section).
-		With(Class("section")).
-		Withs(children)
+	return Elem(html.Section, Class("section"), children)
 }

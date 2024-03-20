@@ -12,7 +12,5 @@ import (
 //   - Medium
 //   - Large
 func Delete(children ...any) *Element {
-	return Elem(html.Button).
-		With(Class("delete")).
-		Withs(children)
+	return Elem(html.Button, Class("delete"), children)
 }

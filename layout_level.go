@@ -60,15 +60,13 @@ func (l *level) addChildren(children []any) {
 }
 
 func (l *level) elem() *Element {
-	return Elem(html.Nav).With(Class("level")).Withs(l.children)
+	return Elem(html.Nav, Class("level"), l.children)
 }
 
 // LevelItem creates a level item, to be used as a child for LevelLeft,
 // LevelRight or Level elements.
 func LevelItem(children ...any) *Element {
-	return Elem(html.Div).
-		With(Class("level-item")).
-		Withs(children)
+	return Elem(html.Div, Class("level-item"), children)
 }
 
 // LevelLeft creates the left section of a level.
@@ -150,5 +148,5 @@ func (l *levelSection) elem() *Element {
 		e.With(Class("level-left"))
 	}
 
-	return e.Withs(l.children)
+	return e.With(l.children...)
 }

@@ -74,15 +74,8 @@ func (r *radio) addChildren(children []any) {
 }
 
 func (r *radio) elem() *Element {
-	input := Elem(html.Input).
-		With(html.Type("radio")).
-		Withs(r.inputChildren)
-
-	label := Elem(html.Label).
-		With(Class("radio")).
-		With(input).
-		With(" ").
-		Withs(r.labelChildren)
+	input := Elem(html.Input, html.Type("radio"), r.inputChildren)
+	label := Elem(html.Label, Class("radio"), input, " ", r.labelChildren)
 
 	if r.disabled {
 		label.With(html.Disabled())

@@ -47,15 +47,15 @@ func (cb *checkbox) addChildren(children []any) {
 }
 
 func (cb *checkbox) elem() *Element {
-	input := Elem(html.Input).
-		With(html.Type("checkbox")).
-		Withs(cb.inputChildren)
+	input := Elem(html.Input, html.Type("checkbox"), cb.inputChildren)
 
-	label := Elem(html.Label).
-		With(Class("checkbox")).
-		With(input).
-		With(" ").
-		Withs(cb.labelChildren)
+	label := Elem(
+		html.Label,
+		Class("checkbox"),
+		input,
+		" ",
+		cb.labelChildren,
+	)
 
 	if cb.disabled {
 		label.With(html.Disabled())
