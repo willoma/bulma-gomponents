@@ -2,7 +2,7 @@ package bulma
 
 type Styles map[string]string
 
-// Style applies a single style to the element
+// Style applies styles to the element.
 func Style(propertiesValues ...string) Styles {
 	stylesObj := Styles{}
 	var limit int

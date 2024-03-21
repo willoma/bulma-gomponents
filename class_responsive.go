@@ -1,6 +1,6 @@
 package bulma
 
-// Mobile makes the class apply on mobile and larger screens
+// Mobile makes the class apply on mobile screens
 // (only for classes supporting responsiveness).
 func (c Class) Mobile() Class {
 	return c + "-mobile"
