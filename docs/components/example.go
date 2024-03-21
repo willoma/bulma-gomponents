@@ -1,6 +1,8 @@
 package components
 
 import (
+	"strings"
+
 	b "github.com/willoma/bulma-gomponents"
 	"github.com/willoma/bulma-gomponents/el"
 )
@@ -46,19 +48,19 @@ func Example(code string, result ...any) b.Element {
 				b.Clipped,
 				b.FlexGrow1, b.FlexShrink1,
 				b.PaddingVertical(b.Spacing0),
-				b.Tag(b.Primary, "Code", b.MarginBottom(b.Spacing1)),
-				el.Pre(
-					b.Padding(b.Spacing2),
-					b.FontSize7,
-					b.Style("tab-size", "4"),
-					code,
-				),
+				codeTag(),
+				examplePre(code),
 			),
 			b.Column(
+				b.Class("exampleresult"),
 				b.FlexGrow1, b.FlexShrink1,
 				b.PaddingVertical(b.Spacing0),
-				b.Tag(b.Info, "Result", b.MarginBottom(b.Spacing1)),
-				el.Div(result...),
+				resultTags(),
+				el.Div(
+					b.Style("position", "relative"),
+					el.Div(result...),
+					htmlPre(result),
+				),
 			),
 		),
 	)
@@ -67,19 +69,75 @@ func Example(code string, result ...any) b.Element {
 func HorizontalExample(code string, result ...any) b.Element {
 	return exampleContainer(
 		el.Div(
-			b.Tag(b.Info, "Result", b.MarginBottom(b.Spacing1)),
-			el.Div(result...),
+			b.Class("exampleresult"),
 			b.MarginBottom(b.Spacing1),
+			resultTags(),
+			el.Div(
+				b.Style("position", "relative"),
+				el.Div(result...),
+				htmlPre(result),
+			),
 		),
 		el.Div(
 			b.Clipped,
-			b.Tag(b.Primary, "Code", b.MarginBottom(b.Spacing1)),
-			el.Pre(
-				b.Padding(b.Spacing2),
-				b.FontSize7,
-				b.Style("tab-size", "4"),
-				code,
-			),
+			codeTag(),
+			examplePre(code),
 		),
+	)
+}
+
+func codeTag() b.Element {
+	return b.Tags(
+		b.MarginBottom(b.Spacing1),
+		b.Tag(b.Primary, "Code", b.MarginBottom(b.Spacing0)),
+	)
+}
+
+func resultTags() b.Element {
+	return b.Tags(
+		b.MarginBottom(b.Spacing1),
+		b.Tag(b.Info, "Result", b.MarginBottom(b.Spacing0)),
+		b.Tag(
+			b.WarningLight, "HTML",
+			b.MarginBottom(b.Spacing0),
+			b.Style("cursor", "pointer"),
+			b.OnClick(`
+			this.closest(".exampleresult").getElementsByClassName("html")[0].classList.toggle("is-hidden")
+			this.classList.toggle("is-light")
+			`),
+		),
+	)
+}
+
+func examplePre(children ...any) b.Element {
+	return el.Pre(
+		b.Padding(b.Spacing2),
+		b.FontSize7,
+		b.Style("tab-size", "4"),
+		children,
+	)
+}
+
+func htmlPre(elements []any) b.Element {
+	var result strings.Builder
+	for _, e := range elements {
+		if elem, ok := e.(b.Element); ok {
+			elem.Render(&result)
+		}
+		result.WriteByte('\n')
+	}
+
+	return examplePre(
+		b.Class("html"),
+		b.Hidden,
+		b.Style(
+			"position", "absolute",
+			"width", "100%",
+			"top", "0",
+			"left", "0",
+			"white-space", "pre-wrap",
+			"z-index", "10",
+		),
+		result.String(),
 	)
 }
