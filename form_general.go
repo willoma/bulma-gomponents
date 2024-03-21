@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -72,9 +74,7 @@ type fieldLabel struct {
 
 // FieldHorizontal creates a horizontal field, including an empty body if
 func FieldHorizontal(children ...any) Element {
-	f := &fieldHorizontal{}
-	f.addChildren(children)
-	return f.elem()
+	return new(fieldHorizontal).With(children...)
 }
 
 type fieldHorizontal struct {
@@ -84,7 +84,7 @@ type fieldHorizontal struct {
 	elemChildren []any
 }
 
-func (f *fieldHorizontal) addChildren(children []any) {
+func (f *fieldHorizontal) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *fieldBody:
@@ -94,14 +94,16 @@ func (f *fieldHorizontal) addChildren(children []any) {
 		case Element:
 			f.bodyChildren = append(f.bodyChildren, c)
 		case []any:
-			f.addChildren(c)
+			f.With(c...)
 		default:
 			f.elemChildren = append(f.elemChildren, c)
 		}
 	}
+
+	return f
 }
 
-func (f *fieldHorizontal) elem() Element {
+func (f *fieldHorizontal) Render(w io.Writer) error {
 	var label Element
 	if f.label != nil {
 		label = f.label
@@ -123,5 +125,5 @@ func (f *fieldHorizontal) elem() Element {
 		f.elemChildren,
 		label,
 		body,
-	)
+	).Render(w)
 }

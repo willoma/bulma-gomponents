@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -37,30 +39,30 @@ func Tag(children ...any) Element {
 // The following modifiers change the tags list behaviour:
 //   - Addons: attach the contained tags together
 func Tags(children ...any) Element {
-	t := &tags{}
-	t.addChildren(children)
-	return t.elem()
+	return new(tags).With(children...)
 }
 
 type tags struct {
 	children []any
 }
 
-func (t *tags) addChildren(children []any) {
+func (t *tags) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
 			t.children = append(t.children, changeSizePrefix("are-", c))
 		case []any:
-			t.addChildren(c)
+			t.With(c...)
 		default:
 			t.children = append(t.children, c)
 		}
 	}
+
+	return t
 }
 
-func (t *tags) elem() Element {
-	return Elem(html.Div, Class("tags"), t.children)
+func (t *tags) Render(w io.Writer) error {
+	return Elem(html.Div, Class("tags"), t.children).Render(w)
 }
 
 // DeleteTag creates a tag which is a delete button-looking a element.

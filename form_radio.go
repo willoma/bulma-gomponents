@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -17,9 +19,7 @@ import (
 // The following modifiers change the radio behaviour:
 //   - Checked: make it so the radio button is checked
 func Radio(children ...any) Element {
-	r := &radio{}
-	r.addChildren(children)
-	return r.elem()
+	return new(radio).With(children...)
 }
 
 // RadioDisabled creates a disabled radio element, together with its label
@@ -35,9 +35,7 @@ func Radio(children ...any) Element {
 // The following modifiers change the radio behaviour:
 //   - Checked: make it so the radio button is checked
 func RadioDisabled(children ...any) Element {
-	r := &radio{disabled: true}
-	r.addChildren(children)
-	return r.elem()
+	return (&radio{disabled: true}).With(children...)
 }
 
 // Checked, when provided as a child of Radio or RadioDisabled, makes it so the
@@ -50,7 +48,7 @@ type radio struct {
 	inputChildren []any
 }
 
-func (r *radio) addChildren(children []any) {
+func (r *radio) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case string:
@@ -64,14 +62,16 @@ func (r *radio) addChildren(children []any) {
 		case Element:
 			r.labelChildren = append(r.labelChildren, c)
 		case []any:
-			r.addChildren(c)
+			r.With(c...)
 		default:
 			r.inputChildren = append(r.inputChildren, c)
 		}
 	}
+
+	return r
 }
 
-func (r *radio) elem() Element {
+func (r *radio) Render(w io.Writer) error {
 	input := Elem(html.Input, html.Type("radio"), r.inputChildren)
 	label := Elem(html.Label, Class("radio"), input, " ", r.labelChildren)
 
@@ -80,5 +80,5 @@ func (r *radio) elem() Element {
 		input.With(html.Disabled())
 	}
 
-	return label
+	return label.Render(w)
 }

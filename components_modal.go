@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -46,9 +48,7 @@ func Modal(id string, children ...any) Element {
 // children with ModalCardFoot in order to add them to the card footer. Any
 // unwrapped child is added to the card body.
 func ModalCard(id string, children ...any) Element {
-	mc := &modalCard{id: id}
-	mc.addChildren(children)
-	return mc.elem()
+	return (&modalCard{id: id}).With(children...)
 }
 
 type modalCard struct {
@@ -58,7 +58,7 @@ type modalCard struct {
 	bodyChildren []any
 }
 
-func (mc *modalCard) addChildren(children []any) {
+func (mc *modalCard) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case modalCardHead:
@@ -66,14 +66,16 @@ func (mc *modalCard) addChildren(children []any) {
 		case modalCardFoot:
 			mc.footChildren = append(mc.footChildren, c...)
 		case []any:
-			mc.addChildren(c)
+			mc.With(c...)
 		default:
 			mc.bodyChildren = append(mc.bodyChildren, c)
 		}
 	}
+
+	return mc
 }
 
-func (mc *modalCard) elem() Element {
+func (mc *modalCard) Render(w io.Writer) error {
 	return Elem(
 		html.Div,
 		Class("modal"),
@@ -87,24 +89,28 @@ func (mc *modalCard) elem() Element {
 			Elem(html.Div, Class("modal-card-foot"), mc.footChildren),
 		),
 		modalClose(),
-	)
+	).Render(w)
 }
 
-type modalCardHead []any
-
 // ModalCardHead designates children to be part of the card head.
+//
+// It cannot be used as a node by itself.
 func ModalCardHead(children ...any) modalCardHead {
 	return modalCardHead(children)
 }
+
+type modalCardHead []any
 
 // ModalCardTitle creates a title for a card head.
 func ModalCardTitle(children ...any) Element {
 	return Elem(html.P, Class("modal-card-title"), children)
 }
 
-type modalCardFoot []any
-
 // ModalCardFoot designates children to be part of the card head.
+//
+// It cannot be used as a node by itself.
 func ModalCardFoot(children ...any) modalCardFoot {
 	return modalCardFoot(children)
 }
+
+type modalCardFoot []any

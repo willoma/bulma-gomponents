@@ -1,6 +1,8 @@
 package easy
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 	b "github.com/willoma/bulma-gomponents"
@@ -15,7 +17,7 @@ type easyDropdown struct {
 	menuChildren     []any
 }
 
-func (d *easyDropdown) addChildren(children []any) {
+func (d *easyDropdown) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case b.Class, b.ColorClass, b.Styles:
@@ -27,14 +29,16 @@ func (d *easyDropdown) addChildren(children []any) {
 				d.menuChildren = append(d.menuChildren, c)
 			}
 		case []any:
-			d.addChildren(c)
+			d.With(c...)
 		default:
 			d.menuChildren = append(d.menuChildren, c)
 		}
 	}
+
+	return d
 }
 
-func (d *easyDropdown) elem() b.Element {
+func (d *easyDropdown) Render(w io.Writer) error {
 	var (
 		dropdown   func(triggerButton, menu b.Element, children ...any) b.Element
 		faIconName string
@@ -62,7 +66,7 @@ func (d *easyDropdown) elem() b.Element {
 		button.With(b.On("blur", b.JSCloseThisDropdown))
 	}
 
-	return elem.With(d.dropdownChildren...)
+	return elem.With(d.dropdownChildren...).Render(w)
 }
 
 // ClickableDropdown creates a dropdown which opens the menu when clicking on
@@ -75,9 +79,7 @@ func (d *easyDropdown) elem() b.Element {
 //     menu element
 //   - other children types are added to the menu element
 func ClickableDropdown(buttonText string, children ...any) b.Element {
-	d := &easyDropdown{buttonText: buttonText}
-	d.addChildren(children)
-	return d.elem()
+	return (&easyDropdown{buttonText: buttonText}).With(children...)
 }
 
 // HoverableDropdown creates a dropdown which opens the menu when hovering
@@ -90,9 +92,7 @@ func ClickableDropdown(buttonText string, children ...any) b.Element {
 //     menu element
 //   - other children types are added to the menu element
 func HoverableDropdown(buttonText string, children ...any) b.Element {
-	d := &easyDropdown{hover: true, buttonText: buttonText}
-	d.addChildren(children)
-	return d.elem()
+	return (&easyDropdown{hover: true, buttonText: buttonText}).With(children...)
 }
 
 // ClickableDropup creates a dropdown which opens the menu to the top when
@@ -105,9 +105,7 @@ func HoverableDropdown(buttonText string, children ...any) b.Element {
 //     menu element
 //   - other children types are added to the menu element
 func ClickableDropup(buttonText string, children ...any) b.Element {
-	d := &easyDropdown{up: true, buttonText: buttonText}
-	d.addChildren(children)
-	return d.elem()
+	return (&easyDropdown{up: true, buttonText: buttonText}).With(children...)
 }
 
 // HoverableDropup creates a dropdown which opens the menu to the top when
@@ -120,7 +118,5 @@ func ClickableDropup(buttonText string, children ...any) b.Element {
 //     menu element
 //   - other children types are added to the menu element
 func HoverableDropup(buttonText string, children ...any) b.Element {
-	d := &easyDropdown{hover: true, up: true, buttonText: buttonText}
-	d.addChildren(children)
-	return d.elem()
+	return (&easyDropdown{hover: true, up: true, buttonText: buttonText}).With(children...)
 }

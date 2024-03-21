@@ -25,16 +25,14 @@ import (
 //   - Mobile: show the level horizontally on mobile too (otherwise, the level
 //     items are placed vertically)
 func Level(children ...any) Element {
-	l := &level{}
-	l.addChildren(children)
-	return l.elem()
+	return new(level).With(children...)
 }
 
 type level struct {
 	children []any
 }
 
-func (l *level) addChildren(children []any) {
+func (l *level) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *levelItem, *levelLeft, *levelRight:
@@ -48,15 +46,17 @@ func (l *level) addChildren(children []any) {
 				l.children = append(l.children, c)
 			}
 		case []any:
-			l.addChildren(c)
+			l.With(c...)
 		default:
 			l.children = append(l.children, c)
 		}
 	}
+
+	return l
 }
 
-func (l *level) elem() Element {
-	return Elem(html.Nav, Class("level"), l.children)
+func (l *level) Render(w io.Writer) error {
+	return Elem(html.Nav, Class("level"), l.children).Render(w)
 }
 
 // LevelItem creates a level item, to be used as a child for LevelLeft,

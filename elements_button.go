@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -103,28 +105,28 @@ func ButtonInputReset(value string, children ...any) Element {
 //   - Medium
 //   - Large
 func Buttons(children ...any) Element {
-	b := &buttons{}
-	b.addChildren(children)
-	return b.elem()
+	return new(buttons).With(children...)
 }
 
 type buttons struct {
 	children []any
 }
 
-func (b *buttons) addChildren(children []any) {
+func (b *buttons) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
 			b.children = append(b.children, changeSizePrefix("are-", c))
 		case []any:
-			b.addChildren(c)
+			b.With(c...)
 		default:
 			b.children = append(b.children, c)
 		}
 	}
+
+	return b
 }
 
-func (b *buttons) elem() Element {
-	return Elem(html.Div, Class("buttons"), b.children)
+func (b *buttons) Render(w io.Writer) error {
+	return Elem(html.Div, Class("buttons"), b.children).Render(w)
 }

@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -22,9 +24,7 @@ import (
 //   - Medium
 //   - Large
 func Breadcrumb(children ...any) Element {
-	b := &breadcrumb{}
-	b.addChildren(children)
-	return b.elem()
+	return new(breadcrumb).With(children...)
 }
 
 type breadcrumb struct {
@@ -32,7 +32,7 @@ type breadcrumb struct {
 	navChildren []any
 }
 
-func (b *breadcrumb) addChildren(children []any) {
+func (b *breadcrumb) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -44,14 +44,15 @@ func (b *breadcrumb) addChildren(children []any) {
 				b.ulChildren = append(b.ulChildren, c)
 			}
 		case []any:
-			b.addChildren(c)
+			b.With(c...)
 		default:
 			b.ulChildren = append(b.ulChildren, c)
 		}
 	}
+	return b
 }
 
-func (b *breadcrumb) elem() Element {
+func (b *breadcrumb) Render(w io.Writer) error {
 	return Elem(
 		html.Nav,
 		Class("breadcrumb"),
@@ -59,7 +60,7 @@ func (b *breadcrumb) elem() Element {
 		b.navChildren,
 		elemOptionSpanAroundNonIconsIfHasIcons,
 		Elem(html.Ul, b.ulChildren...),
-	)
+	).Render(w)
 }
 
 // BreadcrumbEntry creates a generic breadcrumb entry.

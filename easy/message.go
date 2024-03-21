@@ -1,6 +1,8 @@
 package easy
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 
@@ -28,9 +30,7 @@ type (
 // When there is no MessageTitle in the children, the message is displayed
 // with the "message body only" style.
 func Message(children ...any) b.Element {
-	m := &message{}
-	m.addChildren(children)
-	return m.elem()
+	return new(message).With(children...)
 }
 
 type message struct {
@@ -40,7 +40,7 @@ type message struct {
 	bodyChildren    []any
 }
 
-func (m *message) addChildren(children []any) {
+func (m *message) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case MessageTitle:
@@ -58,14 +58,16 @@ func (m *message) addChildren(children []any) {
 				m.bodyChildren = append(m.bodyChildren, c)
 			}
 		case []any:
-			m.addChildren(c)
+			m.With(c...)
 		default:
 			m.bodyChildren = append(m.bodyChildren, c)
 		}
 	}
+
+	return m
 }
 
-func (m *message) elem() b.Element {
+func (m *message) Render(w io.Writer) error {
 	message := b.Elem(html.Article, b.Class("message"), m.messageChildren)
 
 	body := b.Elem(html.Div, b.Class("message-body"), m.bodyChildren)
@@ -79,5 +81,5 @@ func (m *message) elem() b.Element {
 		message.With(header)
 	}
 
-	return message.With(body)
+	return message.With(body).Render(w)
 }

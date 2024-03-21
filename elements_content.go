@@ -1,6 +1,10 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	"io"
+
+	"github.com/maragudk/gomponents/html"
+)
 
 // Content creates a content element.
 //
@@ -13,28 +17,28 @@ import "github.com/maragudk/gomponents/html"
 // Add one of the the following modifiers to Ol elements in order to change the
 // list style: OlLowerAlpha, OlLowerRoman, OlUpperAlpha, OlUpperRoman.
 func Content(children ...any) Element {
-	ct := &content{}
-	ct.addChildren(children)
-	return ct.elem()
+	return new(content).With(children...)
 }
 
 type content struct {
 	children []any
 }
 
-func (ct *content) addChildren(children []any) {
+func (ct *content) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case string:
 			ct.children = append(ct.children, Elem(html.P, c))
 		case []any:
-			ct.addChildren(c)
+			ct.With(c...)
 		default:
 			ct.children = append(ct.children, c)
 		}
 	}
+
+	return ct
 }
 
-func (ct *content) elem() Element {
-	return Elem(html.Div, Class("content"), ct.children)
+func (ct *content) Render(w io.Writer) error {
+	return Elem(html.Div, Class("content"), ct.children).Render(w)
 }

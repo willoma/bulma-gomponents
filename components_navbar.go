@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -42,9 +44,7 @@ import (
 //   - Light
 //   - White
 func Navbar(children ...any) Element {
-	n := &navbar{}
-	n.addChildren(children)
-	return n.elem()
+	return new(navbar).With(children...)
 }
 
 type navbar struct {
@@ -55,7 +55,7 @@ type navbar struct {
 	navbarChildren        []any
 }
 
-func (n *navbar) addChildren(children []any) {
+func (n *navbar) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case navbarBrand:
@@ -67,14 +67,16 @@ func (n *navbar) addChildren(children []any) {
 		case func(children ...any) container:
 			n.intermediateContainer = c()
 		case []any:
-			n.addChildren(c)
+			n.With(c...)
 		default:
 			n.navbarChildren = append(n.navbarChildren, c)
 		}
 	}
+
+	return n
 }
 
-func (n *navbar) elem() Element {
+func (n *navbar) Render(w io.Writer) error {
 	navbar := Elem(html.Nav, Class("navbar"), n.navbarChildren)
 
 	var target Element
@@ -129,7 +131,7 @@ func (n *navbar) elem() Element {
 		target.With(menu)
 	}
 
-	return navbar
+	return navbar.Render(w)
 }
 
 // TopNavbar, which must be used as an argument to HTML (which means it will be
@@ -158,26 +160,32 @@ type bottomNavbar struct {
 	Element
 }
 
-type navbarBrand []any
-
 // NavbarBrand designates children to be part of the navbar brand section.
+//
+// It cannot be used as a node by itself.
 func NavbarBrand(children ...any) navbarBrand {
 	return navbarBrand(children)
 }
 
-type navbarStart []any
+type navbarBrand []any
 
 // NavbarStart designates children to be part of the navbar start section.
+//
+// It cannot be used as a node by itself.
 func NavbarStart(children ...any) navbarStart {
 	return navbarStart(children)
 }
 
-type navbarEnd []any
+type navbarStart []any
 
 // NavbarEnd designates children to be part of the navbar end section.
+//
+// It cannot be used as a node by itself.
 func NavbarEnd(children ...any) navbarEnd {
 	return navbarEnd(children)
 }
+
+type navbarEnd []any
 
 // NavbarItem creates an item to add to a navbar brand, start or end section, or
 // to a NavbarDropdown or easy.NavbarDropdown.

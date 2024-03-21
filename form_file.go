@@ -1,6 +1,10 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	"io"
+
+	"github.com/maragudk/gomponents/html"
+)
 
 const (
 	fileNameAutoUpdateScript = `if (this.files.length>0) { this.parentNode.getElementsByClassName("file-name")[0].textContent = this.files[0].name }`
@@ -46,9 +50,7 @@ type FileNameAutoUpdate string
 //   - Medium
 //   - Large
 func File(children ...any) Element {
-	f := &file{}
-	f.addChildren(children)
-	return f.elem()
+	return new(file).With(children...)
 }
 
 type file struct {
@@ -58,7 +60,7 @@ type file struct {
 	inputChildren []any
 }
 
-func (f *file) addChildren(children []any) {
+func (f *file) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class, ColorClass:
@@ -81,14 +83,16 @@ func (f *file) addChildren(children []any) {
 		case Element:
 			f.ctaChildren = append(f.ctaChildren, c)
 		case []any:
-			f.addChildren(c)
+			f.With(c...)
 		default:
 			f.inputChildren = append(f.inputChildren, c)
 		}
 	}
+
+	return f
 }
 
-func (f *file) elem() Element {
+func (f *file) Render(w io.Writer) error {
 	label := Elem(
 		html.Label,
 		Class("file-label"),
@@ -100,5 +104,5 @@ func (f *file) elem() Element {
 		label.With(Elem(html.Span, Class("file-name"), f.fileName))
 	}
 
-	return Elem(html.Div, Class("file"), f.divChildren, label)
+	return Elem(html.Div, Class("file"), f.divChildren, label).Render(w)
 }

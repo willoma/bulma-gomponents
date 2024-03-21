@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -25,9 +27,7 @@ type mediaPart struct {
 //
 // Each of the left, content and right parts is only included if it has content.
 func Media(children ...any) Element {
-	m := &media{}
-	m.addChildren(children)
-	return m.elem()
+	return new(media).With(children...)
 }
 
 type media struct {
@@ -37,7 +37,7 @@ type media struct {
 	elemChildren    []any
 }
 
-func (m *media) addChildren(children []any) {
+func (m *media) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case mediaPart:
@@ -54,13 +54,17 @@ func (m *media) addChildren(children []any) {
 			} else {
 				m.contentChildren = append(m.contentChildren, c)
 			}
+		case []any:
+			m.With(c...)
 		default:
 			m.elemChildren = append(m.elemChildren, c)
 		}
 	}
+
+	return m
 }
 
-func (m *media) elem() Element {
+func (m *media) Render(w io.Writer) error {
 	e := Elem(html.Article, Class("media"), m.elemChildren)
 
 	if len(m.leftChildren) > 0 {
@@ -81,7 +85,7 @@ func (m *media) elem() Element {
 		)
 	}
 
-	return e
+	return e.Render(w)
 }
 
 // MediaLeft marks children as belonging to the left part of a media element.

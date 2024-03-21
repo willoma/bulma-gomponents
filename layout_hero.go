@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -41,9 +43,7 @@ type heroPart struct {
 //   - FullHeight
 //   - FullHeightWithNavbar
 func Hero(children ...any) Element {
-	h := &hero{}
-	h.addChildren(children)
-	return h.elem()
+	return new(hero).With(children...)
 }
 
 type hero struct {
@@ -53,7 +53,7 @@ type hero struct {
 	footChildren []any
 }
 
-func (h *hero) addChildren(children []any) {
+func (h *hero) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case heroPart:
@@ -71,14 +71,16 @@ func (h *hero) addChildren(children []any) {
 				h.bodyChildren = append(h.bodyChildren, c)
 			}
 		case []any:
-			h.addChildren(c)
+			h.With(c...)
 		default:
 			h.elemChildren = append(h.elemChildren, c)
 		}
 	}
+
+	return h
 }
 
-func (h *hero) elem() Element {
+func (h *hero) Render(w io.Writer) error {
 	e := Elem(html.Section, Class("hero"), h.elemChildren)
 
 	if len(h.headChildren) > 0 {
@@ -99,7 +101,7 @@ func (h *hero) elem() Element {
 		)
 	}
 
-	return e
+	return e.Render(w)
 }
 
 // HeroHead marks children as belonging to the head part of a hero element.

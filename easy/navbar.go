@@ -1,6 +1,8 @@
 package easy
 
 import (
+	"io"
+
 	b "github.com/willoma/bulma-gomponents"
 )
 
@@ -16,9 +18,7 @@ const (
 )
 
 func NavbarDropdown(label string, children ...any) b.Element {
-	n := &navbarDropdown{label: label}
-	n.addChildren(children)
-	return n.elem()
+	return (&navbarDropdown{label: label}).With(children...)
 }
 
 type navbarDropdown struct {
@@ -28,7 +28,7 @@ type navbarDropdown struct {
 	linkChildren     []any
 }
 
-func (n *navbarDropdown) addChildren(children []any) {
+func (n *navbarDropdown) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case navbarDropdownOption:
@@ -47,18 +47,20 @@ func (n *navbarDropdown) addChildren(children []any) {
 				n.itemChildren = append(n.itemChildren, b.Active)
 			}
 		case []any:
-			n.addChildren(c)
+			n.With(c...)
 		default:
 			n.dropdownChildren = append(n.dropdownChildren, c)
 		}
 	}
+
+	return n
 }
 
-func (n *navbarDropdown) elem() b.Element {
+func (n *navbarDropdown) Render(w io.Writer) error {
 	return b.NavbarItem(
 		b.HasDropdown,
 		n.itemChildren,
 		b.NavbarLink(n.label, n.linkChildren),
 		b.NavbarDropdown(n.dropdownChildren...),
-	)
+	).Render(w)
 }

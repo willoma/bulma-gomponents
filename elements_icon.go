@@ -110,9 +110,7 @@ func (i *icon) Render(w io.Writer) error {
 //   - WarningDark
 //   - DangerDark
 func IconText(children ...any) Element {
-	i := &iconText{el: html.Span}
-	i.addChildren(children)
-	return i.elem()
+	return (&iconText{el: html.Span}).With(children...)
 }
 
 // IconText creates a flex icon-text span and embed all its non-icons children
@@ -151,9 +149,7 @@ func IconText(children ...any) Element {
 //   - WarningDark
 //   - DangerDark
 func FlexIconText(children ...any) Element {
-	i := &iconText{el: html.Div}
-	i.addChildren(children)
-	return i.elem()
+	return (&iconText{el: html.Div}).With(children...)
 }
 
 type iconText struct {
@@ -161,19 +157,21 @@ type iconText struct {
 	children []any
 }
 
-func (i *iconText) addChildren(children []any) {
+func (i *iconText) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case ColorClass:
 			i.children = append(i.children, c.Text())
 		case []any:
-			i.addChildren(c)
+			i.With(c...)
 		default:
 			i.children = append(i.children, c)
 		}
 	}
+
+	return i
 }
 
-func (i *iconText) elem() Element {
-	return Elem(i.el, Class("icon-text"), elemOptionSpanAroundNonIconsAlways, i.children)
+func (i *iconText) Render(w io.Writer) error {
+	return Elem(i.el, Class("icon-text"), elemOptionSpanAroundNonIconsAlways, i.children).Render(w)
 }

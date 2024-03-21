@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -20,9 +22,7 @@ import (
 //   - Medium
 //   - Large
 func Pagination(children ...any) Element {
-	p := pagination{}
-	p.addChildren(children)
-	return p.elem()
+	return new(pagination).With(children...)
 }
 
 type pagination struct {
@@ -30,7 +30,7 @@ type pagination struct {
 	paginationChildren []any
 }
 
-func (p *pagination) addChildren(children []any) {
+func (p *pagination) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *paginationEllipsis, *paginationLink:
@@ -38,20 +38,22 @@ func (p *pagination) addChildren(children []any) {
 		case Element:
 			p.paginationChildren = append(p.paginationChildren, c)
 		case []any:
-			p.addChildren(c)
+			p.With(c...)
 		default:
 			p.paginationChildren = append(p.paginationChildren, c)
 		}
 	}
+
+	return p
 }
 
-func (p *pagination) elem() Element {
+func (p *pagination) Render(w io.Writer) error {
 	return Elem(
 		html.Nav,
 		Class("pagination"),
 		p.paginationChildren,
 		Elem(html.Ul, Class("pagination-list"), p.listChildren),
-	)
+	).Render(w)
 }
 
 // PaginationPrevious creates the "Previous" link button for a pagination.

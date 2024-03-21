@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -37,16 +39,14 @@ func PanelTabs(children ...any) Element {
 
 // PanelLink creates a link which is a panel block element.
 func PanelLink(children ...any) Element {
-	p := panelLink{}
-	p.addChildren(children)
-	return p.elem()
+	return new(panelLink).With(children...)
 }
 
 type panelLink struct {
 	children []any
 }
 
-func (p *panelLink) addChildren(children []any) {
+func (p *panelLink) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *icon:
@@ -55,15 +55,17 @@ func (p *panelLink) addChildren(children []any) {
 		case Element:
 			p.children = append(p.children, c)
 		case []any:
-			p.addChildren(c)
+			p.With(c...)
 		default:
 			p.children = append(p.children, c)
 		}
 	}
+
+	return p
 }
 
-func (p *panelLink) elem() Element {
-	return Elem(html.A, Class("panel-block"), p.children)
+func (p *panelLink) Render(w io.Writer) error {
+	return Elem(html.A, Class("panel-block"), p.children).Render(w)
 }
 
 // PanelLabel creates a label which is a panel block element, which must contain

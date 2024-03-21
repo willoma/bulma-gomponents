@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -79,9 +81,7 @@ func Image(children ...any) Element {
 //     (usually not needed)
 //   - Rounded: make the image rounded (associate with an ImgSq* modifier)
 func ImageImg(src string, children ...any) Element {
-	i := &imageImg{src: src}
-	i.addChildren(children)
-	return i.elem()
+	return (&imageImg{src: src}).With(children...)
 }
 
 type imageImg struct {
@@ -90,7 +90,7 @@ type imageImg struct {
 	figureChildren []any
 }
 
-func (i *imageImg) addChildren(children []any) {
+func (i *imageImg) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -102,18 +102,20 @@ func (i *imageImg) addChildren(children []any) {
 		case ImgAlt:
 			i.imgChildren = append(i.imgChildren, html.Alt(string(c)))
 		case []any:
-			i.addChildren(c)
+			i.With(c...)
 		default:
 			i.figureChildren = append(i.figureChildren, c)
 		}
 	}
+
+	return i
 }
 
-func (i *imageImg) elem() Element {
+func (i *imageImg) Render(w io.Writer) error {
 	return Elem(
 		html.Figure,
 		Class("image"),
 		i.figureChildren,
 		Elem(html.Img, html.Src(i.src), i.imgChildren),
-	)
+	).Render(w)
 }

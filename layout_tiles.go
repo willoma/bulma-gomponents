@@ -30,7 +30,7 @@ import (
 //   - Size2: 16.66%
 //   - Size1: 8.33%
 func Tile(children ...any) Element {
-	return (&tile{}).With(children...)
+	return new(tile).With(children...)
 }
 
 type tile struct {

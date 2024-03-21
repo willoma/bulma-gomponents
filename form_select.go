@@ -1,6 +1,7 @@
 package bulma
 
 import (
+	"io"
 	"strconv"
 
 	"github.com/maragudk/gomponents"
@@ -41,9 +42,7 @@ type Name string
 //   - Medium
 //   - Large
 func Select(children ...any) Element {
-	s := &selectEl{}
-	s.addChildren(children)
-	return s.elem()
+	return new(selectEl).With(children...)
 }
 
 // SelectMultiple creates a multiple select element. It should contain one or
@@ -77,9 +76,7 @@ func Select(children ...any) Element {
 //   - Medium
 //   - Large
 func SelectMultiple(children ...any) Element {
-	s := &selectEl{multiple: true}
-	s.addChildren(children)
-	return s.elem()
+	return (&selectEl{multiple: true}).With(children...)
 }
 
 type selectEl struct {
@@ -88,7 +85,7 @@ type selectEl struct {
 	divChildren    []any
 }
 
-func (s *selectEl) addChildren(children []any) {
+func (s *selectEl) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Size:
@@ -111,14 +108,16 @@ func (s *selectEl) addChildren(children []any) {
 		case Name:
 			s.selectChildren = append(s.selectChildren, html.Name(string(c)))
 		case []any:
-			s.addChildren(c)
+			s.With(c...)
 		default:
 			s.divChildren = append(s.divChildren, c)
 		}
 	}
+
+	return s
 }
 
-func (s *selectEl) elem() Element {
+func (s *selectEl) Render(w io.Writer) error {
 	div := Elem(html.Div, Class("select"), s.divChildren)
 	sel := Elem(html.Select, s.selectChildren...)
 
@@ -127,7 +126,7 @@ func (s *selectEl) elem() Element {
 		sel.With(html.Multiple())
 	}
 
-	return div.With(sel)
+	return div.With(sel).Render(w)
 }
 
 // Option creates an option element, to be used as a child of a Select or

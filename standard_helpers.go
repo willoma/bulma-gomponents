@@ -17,6 +17,8 @@ func AHref(href string, children ...any) Element {
 
 // DList creates a dl element, with the provided children as alternatively
 // dt and dd elements.
+//
+// TODO work with "With"
 func DList(dtDds ...any) Element {
 	var children []any
 
@@ -44,6 +46,8 @@ func ImgSrc(src string, children ...any) Element {
 
 // OList creates an ol element, with the provided children wrapped in li
 // elements.
+//
+// TODO work with "With"
 func OList(children ...any) Element {
 	wrappedChildren := make([]any, len(children))
 	for i, c := range children {
@@ -64,6 +68,8 @@ func OnClick(script string) gomponents.Node {
 
 // UList creates an ul element, with the provided children wrapped in li
 // elements.
+//
+// TODO work with "With"
 func UList(children ...any) Element {
 	wrappedChildren := make([]any, len(children))
 	for i, c := range children {

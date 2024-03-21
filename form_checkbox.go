@@ -1,22 +1,20 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
 // Checkbox creates a checkbox input element.
 func Checkbox(children ...any) Element {
-	cb := &checkbox{}
-	cb.addChildren(children)
-	return cb.elem()
+	return new(checkbox).With(children...)
 }
 
 // CheckboxDisabled creates a disabled checkbox input element.
 func CheckboxDisabled(children ...any) Element {
-	cb := &checkbox{disabled: true}
-	cb.addChildren(children)
-	return cb.elem()
+	return (&checkbox{disabled: true}).With(children...)
 }
 
 type checkbox struct {
@@ -25,7 +23,7 @@ type checkbox struct {
 	inputChildren []any
 }
 
-func (cb *checkbox) addChildren(children []any) {
+func (cb *checkbox) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case string:
@@ -39,14 +37,16 @@ func (cb *checkbox) addChildren(children []any) {
 		case Element:
 			cb.labelChildren = append(cb.labelChildren, c)
 		case []any:
-			cb.addChildren(c)
+			cb.With(c...)
 		default:
 			cb.inputChildren = append(cb.inputChildren, c)
 		}
 	}
+
+	return cb
 }
 
-func (cb *checkbox) elem() Element {
+func (cb *checkbox) Render(w io.Writer) error {
 	input := Elem(html.Input, html.Type("checkbox"), cb.inputChildren)
 
 	label := Elem(
@@ -62,5 +62,5 @@ func (cb *checkbox) elem() Element {
 		input.With(html.Disabled())
 	}
 
-	return label
+	return label.Render(w)
 }

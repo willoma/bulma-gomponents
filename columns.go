@@ -35,7 +35,7 @@ import (
 //   - Multiline: create a new line when columns do not fit in a single line
 //   - VCentered: align columns vertically
 func Columns(children ...any) Element {
-	return (&columns{}).With(children...)
+	return new(columns).With(children...)
 }
 
 type columns struct {
@@ -113,7 +113,7 @@ func (cols *columns) Render(w io.Writer) error {
 //
 // the narrow behaviour may be breakpoint-based, by using Narrow.Mobile() to Narrow.FullHD().
 func Column(children ...any) Element {
-	return (&column{}).With(children...)
+	return new(column).With(children...)
 }
 
 type column struct {

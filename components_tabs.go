@@ -1,6 +1,10 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	"io"
+
+	"github.com/maragudk/gomponents/html"
+)
 
 // Tabs create a tabs container.
 //
@@ -22,9 +26,7 @@ import "github.com/maragudk/gomponents/html"
 //   - Medium
 //   - Large
 func Tabs(children ...any) Element {
-	t := &tabs{}
-	t.addChildren(children)
-	return t.elem()
+	return new(tabs).With(children...)
 }
 
 type tabs struct {
@@ -33,7 +35,7 @@ type tabs struct {
 	contentChildren       []any
 }
 
-func (t *tabs) addChildren(children []any) {
+func (t *tabs) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -41,31 +43,31 @@ func (t *tabs) addChildren(children []any) {
 		case func(children ...any) container:
 			t.intermediateContainer = c()
 		case []any:
-			t.addChildren(c)
+			t.With(c...)
 		default:
 			t.contentChildren = append(t.contentChildren, c)
 		}
 	}
+
+	return t
 }
 
-func (t *tabs) elem() Element {
-	tabs := Elem(html.Div, Class("tabs"), t.tabsChildren)
+func (t *tabs) Render(w io.Writer) error {
+	tabsEl := Elem(html.Div, Class("tabs"), t.tabsChildren)
 
 	content := Elem(html.Ul, t.contentChildren...)
 
 	if t.intermediateContainer != nil {
-		return tabs.With(t.intermediateContainer.With(content))
+		return tabsEl.With(t.intermediateContainer.With(content)).Render(w)
 	}
 
-	return tabs.With(content)
+	return tabsEl.With(content).Render(w)
 }
 
 // TabsLink creates a tab entry which is a link. Use html.Href as an argument
 // to define a link target if needed.
 func TabsLink(children ...any) Element {
-	t := &tabsLink{}
-	t.addChildren(children)
-	return t.elem()
+	return new(tabsLink).With(children...)
 }
 
 type tabsLink struct {
@@ -73,7 +75,7 @@ type tabsLink struct {
 	children []any
 }
 
-func (t *tabsLink) addChildren(children []any) {
+func (t *tabsLink) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -83,14 +85,16 @@ func (t *tabsLink) addChildren(children []any) {
 				t.children = append(t.children, c)
 			}
 		case []any:
-			t.addChildren(c)
+			t.With(c...)
 		default:
 			t.children = append(t.children, c)
 		}
 	}
+
+	return t
 }
 
-func (t *tabsLink) elem() Element {
+func (t *tabsLink) Render(w io.Writer) error {
 	li := Elem(html.Li)
 	if t.active {
 		li.With(Active)
@@ -102,5 +106,5 @@ func (t *tabsLink) elem() Element {
 			elemOptionSpanAroundNonIconsIfHasIcons,
 			t.children,
 		),
-	)
+	).Render(w)
 }

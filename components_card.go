@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -22,30 +24,30 @@ func CardContent(children ...any) Element {
 //
 // Children may be provided in []any arguments, recursively if needed.
 func CardFooter(children ...any) Element {
-	cf := &cardFooter{}
-	cf.addChildren(children)
-	return cf.elem()
+	return new(cardFooter).With(children...)
 }
 
 type cardFooter struct {
 	children []any
 }
 
-func (cf *cardFooter) addChildren(children []any) {
+func (cf *cardFooter) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Element:
 			cf.children = append(cf.children, c.With(Class("card-footer-item")))
 		case []any:
-			cf.addChildren(c)
+			cf.With(c...)
 		default:
 			cf.children = append(cf.children, c)
 		}
 	}
+
+	return cf
 }
 
-func (cf *cardFooter) elem() Element {
-	return Elem(html.Footer, Class("card-footer"), cf.children)
+func (cf *cardFooter) Render(w io.Writer) error {
+	return Elem(html.Footer, Class("card-footer"), cf.children).Render(w)
 }
 
 // CardHeader creates a card header.
@@ -55,16 +57,14 @@ func (cf *cardFooter) elem() Element {
 // If a child is an Element with class "icon", it is wrapped into a
 // CardHeaderIcon element.
 func CardHeader(children ...any) Element {
-	ch := &cardHeader{}
-	ch.addChildren(children)
-	return ch.elem()
+	return new(cardHeader).With(children...)
 }
 
 type cardHeader struct {
 	children []any
 }
 
-func (ch *cardHeader) addChildren(children []any) {
+func (ch *cardHeader) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *icon:
@@ -88,15 +88,17 @@ func (ch *cardHeader) addChildren(children []any) {
 				),
 			)
 		case []any:
-			ch.addChildren(c)
+			ch.With(c...)
 		default:
 			ch.children = append(ch.children, c)
 		}
 	}
+
+	return ch
 }
 
-func (ch *cardHeader) elem() Element {
-	return Elem(html.Header, Class("card-header"), ch.children)
+func (ch *cardHeader) Render(w io.Writer) error {
+	return Elem(html.Header, Class("card-header"), ch.children).Render(w)
 }
 
 // CardHeaderIcon creates an icon for a card header.

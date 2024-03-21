@@ -2,6 +2,7 @@ package fa
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/maragudk/gomponents/html"
 
@@ -48,9 +49,7 @@ const (
 // The rotating+flipping combination is supported and the needed span element
 // is automatically created when needed.
 func FA(style Style, name string, children ...any) b.Element {
-	f := &fa{style: style, name: name}
-	f.addChildren(children)
-	return f.elem()
+	return (&fa{style: style, name: name}).With(children...)
 }
 
 type fa struct {
@@ -61,7 +60,7 @@ type fa struct {
 	children    []any
 }
 
-func (f *fa) addChildren(children []any) {
+func (f *fa) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -81,14 +80,16 @@ func (f *fa) addChildren(children []any) {
 				f.children = append(f.children, styles)
 			}
 		case []any:
-			f.addChildren(c)
+			f.With(c...)
 		default:
 			f.children = append(f.children, c)
 		}
 	}
+
+	return f
 }
 
-func (f *fa) elem() b.Element {
+func (f *fa) Render(w io.Writer) error {
 	e := b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name))
 
 	switch {
@@ -101,7 +102,7 @@ func (f *fa) elem() b.Element {
 			b.Class(f.rotateClass),
 			b.Style("display", "inline-block"),
 			e,
-		)
+		).Render(w)
 	case f.rotateAngle != 0:
 		e.With(
 			b.Class("fa-rotate-by"),
@@ -111,7 +112,7 @@ func (f *fa) elem() b.Element {
 		e.With(b.Class(f.rotateClass))
 	}
 
-	return e
+	return e.Render(w)
 }
 
 // Icon returns a Font-Awesome icon, in an i element within a b.Icon element,
@@ -123,9 +124,7 @@ func (f *fa) elem() b.Element {
 //
 // See the FA documentation for more information.
 func Icon(style Style, name string, children ...any) b.Element {
-	i := &icon{style: style, name: name}
-	i.addChildren(children)
-	return i.elem()
+	return (&icon{style: style, name: name}).With(children...)
 }
 
 type icon struct {
@@ -135,7 +134,7 @@ type icon struct {
 	faChildren   []any
 }
 
-func (i *icon) addChildren(children []any) {
+func (i *icon) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -143,13 +142,15 @@ func (i *icon) addChildren(children []any) {
 		case b.ColorClass:
 			i.iconChildren = append(i.iconChildren, c.Text())
 		case []any:
-			i.addChildren(c)
+			i.With(c...)
 		default:
 			i.iconChildren = append(i.iconChildren, c)
 		}
 	}
+
+	return i
 }
 
-func (i *icon) elem() b.Element {
-	return b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...))
+func (i *icon) Render(w io.Writer) error {
+	return b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...)).Render(w)
 }

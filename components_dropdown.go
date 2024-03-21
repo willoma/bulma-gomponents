@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -68,9 +70,7 @@ type dropdownDivider struct {
 //   - it is an Element but not generated with DropdownItem or DropdownHref or DropdownDivider
 //   - it is a gomponents.Node with type gomponents.ElementType
 func DropdownMenu(children ...any) Element {
-	dm := &dropdownMenu{}
-	dm.addChildren(children)
-	return dm.elem()
+	return new(dropdownMenu).With(children...)
 }
 
 type dropdownMenu struct {
@@ -78,7 +78,7 @@ type dropdownMenu struct {
 	menuChildren    []any
 }
 
-func (dm *dropdownMenu) addChildren(children []any) {
+func (dm *dropdownMenu) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *dropdownDivider, *dropdownItem, *dropdownAhref:
@@ -91,18 +91,22 @@ func (dm *dropdownMenu) addChildren(children []any) {
 			} else {
 				dm.contentChildren = append(dm.contentChildren, c)
 			}
+		case []any:
+			dm.With(c...)
 		default:
 			dm.menuChildren = append(dm.menuChildren, c)
 		}
 	}
+
+	return dm
 }
 
-func (dm *dropdownMenu) elem() Element {
+func (dm *dropdownMenu) Render(w io.Writer) error {
 	return Elem(
 		html.Div,
 		Class("dropdown-menu"),
 		html.Role("menu"),
 		dm.menuChildren,
 		Elem(html.Div, Class("dropdown-content"), dm.contentChildren),
-	)
+	).Render(w)
 }

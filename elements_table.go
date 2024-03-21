@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -26,7 +28,7 @@ type row struct {
 	children []any
 }
 
-func (r *row) addChildren(children []any) {
+func (r *row) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case cell:
@@ -40,15 +42,17 @@ func (r *row) addChildren(children []any) {
 				r.children = append(r.children, r.el(c))
 			}
 		case []any:
-			r.addChildren(c)
+			r.With(c...)
 		default:
 			r.children = append(r.children, c)
 		}
 	}
+
+	return r
 }
 
-func (r *row) elem() Element {
-	return Elem(html.Tr, r.children...)
+func (r *row) Render(w io.Writer) error {
+	return Elem(html.Tr, r.children...).Render(w)
 }
 
 // HeadRow creates a table header row (tr element).
@@ -62,10 +66,8 @@ func (r *row) elem() Element {
 //
 // The following modifiers change the row behaviour:
 //   - Selected: mark the row as selected
-func HeadRow(children ...any) *row {
-	r := &row{section: rowSectionHead, el: html.Th}
-	r.addChildren(children)
-	return r
+func HeadRow(children ...any) Element {
+	return (&row{section: rowSectionHead, el: html.Th}).With(children...)
 }
 
 // FootRow creates a table footer row (tr element).
@@ -79,10 +81,8 @@ func HeadRow(children ...any) *row {
 //
 // The following modifiers change the row behaviour:
 //   - Selected: mark the row as selected
-func FootRow(children ...any) *row {
-	r := &row{section: rowSectionFoot, el: html.Th}
-	r.addChildren(children)
-	return r
+func FootRow(children ...any) Element {
+	return (&row{section: rowSectionFoot, el: html.Th}).With(children...)
 }
 
 // Row creates a table body row (tr element).
@@ -96,10 +96,8 @@ func FootRow(children ...any) *row {
 //
 // The following modifiers change the row behaviour:
 //   - Selected: mark the row as selected
-func Row(children ...any) *row {
-	r := &row{section: rowSectionBody, el: html.Td}
-	r.addChildren(children)
-	return r
+func Row(children ...any) Element {
+	return (&row{section: rowSectionBody, el: html.Td}).With(children...)
 }
 
 // Table creates a table element.
@@ -114,9 +112,7 @@ func Row(children ...any) *row {
 //   - Table: add a hover effect on each body row
 //   - FullWidth: take the whole width
 func Table(children ...any) Element {
-	t := &table{}
-	t.addChildren(children)
-	return t.elem()
+	return new(table).With(children...)
 }
 
 type table struct {
@@ -126,27 +122,29 @@ type table struct {
 	body     []gomponents.Node
 }
 
-func (t *table) addChildren(children []any) {
+func (t *table) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *row:
 			switch c.section {
 			case rowSectionHead:
-				t.head = append(t.head, c.elem())
+				t.head = append(t.head, c)
 			case rowSectionFoot:
-				t.foot = append(t.foot, c.elem())
+				t.foot = append(t.foot, c)
 			case rowSectionBody:
-				t.body = append(t.body, c.elem())
+				t.body = append(t.body, c)
 			}
 		case []any:
-			t.addChildren(c)
+			t.With(c...)
 		default:
 			t.children = append(t.children, c)
 		}
 	}
+
+	return t
 }
 
-func (t *table) elem() Element {
+func (t *table) Render(w io.Writer) error {
 	tb := Elem(html.Table, Class("table"), t.children)
 
 	if len(t.head) > 0 {
@@ -161,7 +159,7 @@ func (t *table) elem() Element {
 		tb.With(html.TBody(t.body...))
 	}
 
-	return tb
+	return tb.Render(w)
 }
 
 // ScrollableTable creates a table in a table-container element, making the
