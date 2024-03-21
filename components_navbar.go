@@ -138,7 +138,11 @@ func (n *navbar) elem() Element {
 //
 // Please refer to the Navbar documentation for description of its behaviour.
 func TopNavbar(children ...any) Element {
-	return Navbar(children, FixedTop)
+	return &topNavbar{Navbar(children, FixedTop)}
+}
+
+type topNavbar struct {
+	Element
 }
 
 // BottomNavbar, which must be used as an argument to HTML (which means it will
@@ -147,7 +151,11 @@ func TopNavbar(children ...any) Element {
 //
 // Please refer to the Navbar documentation for description of its behaviour.
 func BottomNavbar(children ...any) Element {
-	return Navbar(children, FixedBottom)
+	return &topNavbar{Navbar(children, FixedBottom)}
+}
+
+type bottomNavbar struct {
+	Element
 }
 
 type navbarBrand []any

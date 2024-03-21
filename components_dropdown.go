@@ -37,17 +37,29 @@ func Dropup(triggerButton, menu Element, children ...any) Element {
 
 // DropdownItem creates a div which is a dropdown item.
 func DropdownItem(children ...any) Element {
-	return Elem(html.Div, Class("dropdown-item"), children)
+	return &dropdownItem{Elem(html.Div, Class("dropdown-item"), children)}
+}
+
+type dropdownItem struct {
+	Element
 }
 
 // DropdownAHref creates an AHref element which is a dropdown item.
 func DropdownAHref(href string, children ...any) Element {
-	return AHref(href, Class("dropdown-item"), children)
+	return &dropdownAhref{AHref(href, Class("dropdown-item"), children)}
+}
+
+type dropdownAhref struct {
+	Element
 }
 
 // DropdownDivider creates a dropdown divider.
 func DropdownDivider() Element {
-	return Elem(html.Hr, Class("dropdown-divider"))
+	return &dropdownDivider{Elem(html.Hr, Class("dropdown-divider"))}
+}
+
+type dropdownDivider struct {
+	Element
 }
 
 // DropdownMenu creates a dropdown menu.
@@ -69,12 +81,10 @@ type dropdownMenu struct {
 func (dm *dropdownMenu) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *dropdownDivider, *dropdownItem, *dropdownAhref:
+			dm.contentChildren = append(dm.contentChildren, c)
 		case Element:
-			if c.hasClass("dropdown-item") || c.hasClass("dropdown-divider") {
-				dm.contentChildren = append(dm.contentChildren, c)
-			} else {
-				dm.contentChildren = append(dm.contentChildren, DropdownItem(c))
-			}
+			dm.contentChildren = append(dm.contentChildren, DropdownItem(c))
 		case gomponents.Node:
 			if IsAttribute(c) {
 				dm.menuChildren = append(dm.menuChildren, c)

@@ -75,11 +75,10 @@ func (f *file) addChildren(children []any) {
 			f.divChildren = append(f.divChildren, Class("has-name"))
 			f.fileName = string(c)
 			f.inputChildren = append(f.inputChildren, On("change", fileNameAutoUpdateScript))
+		case *icon:
+			c.iconClass = Class("file-icon")
+			f.ctaChildren = append(f.ctaChildren, c)
 		case Element:
-			if c.hasClass("icon") {
-				c.With(Class("file-icon"))
-				c.removeClass("icon")
-			}
 			f.ctaChildren = append(f.ctaChildren, c)
 		case []any:
 			f.addChildren(c)

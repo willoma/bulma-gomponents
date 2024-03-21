@@ -1,6 +1,10 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	"io"
+
+	"github.com/maragudk/gomponents/html"
+)
 
 // Tile creates a tile element.
 //
@@ -26,34 +30,33 @@ import "github.com/maragudk/gomponents/html"
 //   - Size2: 16.66%
 //   - Size1: 8.33%
 func Tile(children ...any) Element {
-	t := &tile{}
-	t.addChildren(children)
-	return t.elem()
+	return (&tile{}).With(children...)
 }
 
 type tile struct {
 	children []any
 }
 
-func (t *tile) addChildren(children []any) {
+func (t *tile) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Element:
-			if !c.hasClass("tile") {
-				c.With(Class("tile"), Class("is-child"))
-				t.children = append(t.children, Class("is-parent"))
-			}
+		case *tile:
 			t.children = append(t.children, c)
+		case Element:
+			c.With(Class("tile"), Class("is-child"))
+			t.children = append(t.children, Class("is-parent"), c)
 		case []any:
-			t.addChildren(c)
+			t.With(c...)
 		default:
 			t.children = append(t.children, c)
 		}
 	}
+
+	return t
 }
 
-func (t *tile) elem() Element {
-	return Elem(html.Div, Class("tile"), t.children)
+func (t *tile) Render(w io.Writer) error {
+	return Elem(html.Div, Class("tile"), t.children).Render(w)
 }
 
 // VTile creates a tile element with the "is-vertical" class.

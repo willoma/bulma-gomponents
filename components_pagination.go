@@ -33,12 +33,10 @@ type pagination struct {
 func (p *pagination) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *paginationEllipsis, *paginationLink:
+			p.listChildren = append(p.listChildren, Elem(html.Li, c))
 		case Element:
-			if c.hasClass("pagination-link") || c.hasClass("pagination-ellipsis") {
-				p.listChildren = append(p.listChildren, Elem(html.Li, c))
-			} else {
-				p.paginationChildren = append(p.paginationChildren, c)
-			}
+			p.paginationChildren = append(p.paginationChildren, c)
 		case []any:
 			p.addChildren(c)
 		default:
@@ -78,10 +76,18 @@ func PaginationNext(children ...any) Element {
 //   - Current: mark this link button as being the current page
 //   - Disabled: mark the link button as inactive
 func PaginationLink(children ...any) Element {
-	return Elem(html.A, Class("pagination-link"), children)
+	return &paginationLink{Elem(html.A, Class("pagination-link"), children)}
+}
+
+type paginationLink struct {
+	Element
 }
 
 // PaginationEllipsis creates an ellipsis element for a pagination.
 func PaginationEllipsis() Element {
-	return Elem(html.Span, Class("pagination-ellipsis"), gomponents.Raw("&hellip;"))
+	return &paginationEllipsis{Elem(html.Span, Class("pagination-ellipsis"), gomponents.Raw("&hellip;"))}
+}
+
+type paginationEllipsis struct {
+	Element
 }

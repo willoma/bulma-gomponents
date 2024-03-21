@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -33,24 +35,20 @@ import (
 //   - Multiline: create a new line when columns do not fit in a single line
 //   - VCentered: align columns vertically
 func Columns(children ...any) Element {
-	cols := &columns{}
-	cols.addChildren(children)
-	return cols.elem()
+	return (&columns{}).With(children...)
 }
 
 type columns struct {
 	children []any
 }
 
-func (cols *columns) addChildren(children []any) {
+func (cols *columns) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *column:
+			cols.children = append(cols.children, c)
 		case Element:
-			if !c.hasClass("column") {
-				cols.children = append(cols.children, Column(c))
-			} else {
-				cols.children = append(cols.children, c)
-			}
+			cols.children = append(cols.children, Column(c))
 		case gomponents.Node:
 			if IsAttribute(c) {
 				cols.children = append(cols.children, c)
@@ -58,15 +56,17 @@ func (cols *columns) addChildren(children []any) {
 				cols.children = append(cols.children, Column(c))
 			}
 		case []any:
-			cols.addChildren(c)
+			cols.With(c...)
 		default:
 			cols.children = append(cols.children, c)
 		}
 	}
+
+	return cols
 }
 
-func (cols *columns) elem() Element {
-	return Elem(html.Div, Class("columns"), cols.children)
+func (cols *columns) Render(w io.Writer) error {
+	return Elem(html.Div, Class("columns"), cols.children).Render(w)
 }
 
 // Column creates a single column.
@@ -113,25 +113,25 @@ func (cols *columns) elem() Element {
 //
 // the narrow behaviour may be breakpoint-based, by using Narrow.Mobile() to Narrow.FullHD().
 func Column(children ...any) Element {
-	col := &column{}
-	col.addChildren(children)
-	return col.elem()
+	return (&column{}).With(children...)
 }
 
 type column struct {
 	children []any
 }
 
-func (col *column) addChildren(children []any) {
+func (col *column) With(children ...any) Element {
 	for _, c := range children {
 		if slice, ok := c.([]any); ok {
-			col.addChildren(slice)
-			continue
+			col.With(slice...)
+		} else {
+			col.children = append(col.children, c)
 		}
-		col.children = append(col.children, c)
 	}
+
+	return col
 }
 
-func (col *column) elem() Element {
-	return Elem(html.Div, Class("column"), col.children)
+func (col *column) Render(w io.Writer) error {
+	return Elem(html.Div, Class("column"), col.children).Render(w)
 }

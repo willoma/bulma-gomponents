@@ -11,8 +11,6 @@ type Element interface {
 	gomponents.Node
 
 	With(...any) Element
-	hasClass(string) bool
-	removeClass(cl string)
 }
 
 type elemOption int
@@ -111,24 +109,23 @@ func (e *element) With(children ...any) Element {
 			}
 		case string:
 			e.elements = append(e.elements, gomponents.Text(c))
-		case Element:
-			if c.hasClass("icon") {
-				e.hasIcons = true
-			}
-
-			if c.hasClass("tile") && !e.hasClass("tile") {
+		case *icon:
+			e.hasIcons = true
+			e.elements = append(e.elements, c)
+		case *topNavbar:
+			// If the child is a top-fixed navbar, add the "navbar-fixed-top" class to its parent
+			e.classes[string(NavbarFixedTop)] = true
+			e.elements = append(e.elements, c)
+		case *bottomNavbar:
+			// If the child is a bottom-fixed navbar, add the "navbar-fixed-bottom" class to its parent
+			e.classes[string(NavbarFixedBottom)] = true
+			e.elements = append(e.elements, c)
+		case *tile:
+			if !e.classes["tile"] {
 				c.With(Class("is-ancestor"))
 			}
-
-			// If the child is a navbar, add the "navbar-fixed-bottom" or "navbar-fixed-top" class to its parent
-			if c.hasClass("navbar") {
-				if c.hasClass(string(FixedBottom)) {
-					e.classes[string(NavbarFixedBottom)] = true
-				} else if c.hasClass(string(FixedTop)) {
-					e.classes[string(NavbarFixedTop)] = true
-				}
-			}
-
+			e.elements = append(e.elements, c)
+		case Element:
 			e.elements = append(e.elements, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
@@ -142,14 +139,6 @@ func (e *element) With(children ...any) Element {
 	}
 
 	return e
-}
-
-func (e *element) hasClass(cl string) bool {
-	return e.classes[cl]
-}
-
-func (e *element) removeClass(cl string) {
-	delete(e.classes, cl)
 }
 
 func (e *element) getChildren() []gomponents.Node {
@@ -180,14 +169,9 @@ func (e *element) getChildren() []gomponents.Node {
 
 	if e.spanAroundNonIconsAlways || (e.spanAroundNonIconsIfHasIcons && e.hasIcons) {
 		for _, c := range e.elements {
-			switch c := c.(type) {
-			case Element:
-				if c.hasClass("icon") {
-					children = append(children, c)
-				} else {
-					children = append(children, Elem(html.Span, c))
-				}
-			default:
+			if ic, ok := c.(*icon); ok {
+				children = append(children, ic)
+			} else {
 				children = append(children, Elem(html.Span, c))
 			}
 		}

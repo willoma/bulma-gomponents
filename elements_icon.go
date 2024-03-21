@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -45,30 +47,31 @@ import (
 //   - Medium
 //   - Large
 func Icon(children ...any) Element {
-	i := &icon{}
-	i.addChildren(children)
-	return i.elem()
+	return (&icon{iconClass: Class("icon")}).With(children...)
 }
 
 type icon struct {
-	children []any
+	iconClass Class
+	children  []any
 }
 
-func (i *icon) addChildren(children []any) {
+func (i *icon) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case ColorClass:
 			i.children = append(i.children, c.Text())
 		case []any:
-			i.addChildren(c)
+			i.With(c...)
 		default:
 			i.children = append(i.children, c)
 		}
 	}
+
+	return i
 }
 
-func (i *icon) elem() Element {
-	return Elem(html.Span, Class("icon"), i.children)
+func (i *icon) Render(w io.Writer) error {
+	return Elem(html.Span, i.iconClass, i.children).Render(w)
 }
 
 // IconText creates an icon-text span and embed all its non-icons children into

@@ -1,6 +1,8 @@
 package bulma
 
 import (
+	"io"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -35,13 +37,9 @@ type level struct {
 func (l *level) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Element:
-			if c.hasClass("level-left") || c.hasClass("level-right") || c.hasClass("level-item") {
-				l.children = append(l.children, c)
-			} else {
-				l.children = append(l.children, LevelItem(c))
-			}
-		case string:
+		case *levelItem, *levelLeft, *levelRight:
+			l.children = append(l.children, c)
+		case Element, string:
 			l.children = append(l.children, LevelItem(c))
 		case gomponents.Node:
 			if !IsAttribute(c) {
@@ -63,8 +61,12 @@ func (l *level) elem() Element {
 
 // LevelItem creates a level item, to be used as a child for LevelLeft,
 // LevelRight or Level elements.
-func LevelItem(children ...any) Element {
-	return Elem(html.Div, Class("level-item"), children)
+func LevelItem(children ...any) *levelItem {
+	return &levelItem{Elem(html.Div, Class("level-item"), children)}
+}
+
+type levelItem struct {
+	Element
 }
 
 // LevelLeft creates the left section of a level.
@@ -79,10 +81,14 @@ func LevelItem(children ...any) Element {
 //   - when a child is a gopmponents.Node with another type, it is wrapped into
 //     a LevelItem and added as a child to the level section
 //   - other children types are added as children to the level section
-func LevelLeft(children ...any) Element {
-	l := &levelSection{}
-	l.addChildren(children)
-	return l.elem()
+func LevelLeft(children ...any) *levelLeft {
+	return &levelLeft{
+		(&levelSection{positionClass: Class("level-left")}).With(children),
+	}
+}
+
+type levelLeft struct {
+	Element
 }
 
 // LevelLeft creates the right section of a level.
@@ -97,26 +103,28 @@ func LevelLeft(children ...any) Element {
 //   - when a child is a gopmponents.Node with another type, it is wrapped into
 //     a LevelItem and added as a child to the level section
 //   - other children types are added as children to the level section
-func LevelRight(children ...any) Element {
-	l := &levelSection{right: true}
-	l.addChildren(children)
-	return l.elem()
+func LevelRight(children ...any) *levelRight {
+	return &levelRight{
+		(&levelSection{positionClass: Class("level-right")}).With(children),
+	}
+}
+
+type levelRight struct {
+	Element
 }
 
 type levelSection struct {
-	right    bool
-	children []any
+	positionClass Class
+	children      []any
 }
 
-func (l *levelSection) addChildren(children []any) {
+func (l *levelSection) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *levelItem:
+			l.children = append(l.children, c)
 		case Element:
-			if c.hasClass("level-item") {
-				l.children = append(l.children, c)
-			} else {
-				l.children = append(l.children, LevelItem(c))
-			}
+			l.children = append(l.children, LevelItem(c))
 		case string:
 			l.children = append(l.children, LevelItem(c))
 		case gomponents.Node:
@@ -126,21 +134,15 @@ func (l *levelSection) addChildren(children []any) {
 				l.children = append(l.children, c)
 			}
 		case []any:
-			l.addChildren(c)
+			l.With(c...)
 		default:
 			l.children = append(l.children, c)
 		}
 	}
+
+	return l
 }
 
-func (l *levelSection) elem() Element {
-	e := Elem(html.Div)
-
-	if l.right {
-		e.With(Class("level-right"))
-	} else {
-		e.With(Class("level-left"))
-	}
-
-	return e.With(l.children...)
+func (l *levelSection) Render(w io.Writer) error {
+	return Elem(html.Div, l.positionClass, l.children).Render(w)
 }

@@ -53,40 +53,28 @@ func Help(children ...any) Element {
 // FieldBody creates a field-body element, to be used as a child of a
 // FieldHorizontal.
 func FieldBody(children ...any) Element {
-	return Elem(html.Div, Class("field-body"), children)
+	return &fieldBody{Elem(html.Div, Class("field-body"), children)}
+}
+
+type fieldBody struct {
+	Element
 }
 
 // FieldLabel creates a field-label element, to be used as a child of a
 // FieldHorizontal.
 func FieldLabel(children ...any) Element {
-	return Elem(html.Div, Class("field-label"), children)
+	return &fieldLabel{Elem(html.Div, Class("field-label"), children)}
+}
+
+type fieldLabel struct {
+	Element
 }
 
 // FieldHorizontal creates a horizontal field, including an empty body if
 func FieldHorizontal(children ...any) Element {
-	e := Elem(html.Div, Class("field"), Horizontal)
-
-	var label Element = Elem(html.Div, Class("field-label"))
-
-	var body Element = Elem(html.Div, Class("field-body"))
-
-	for _, c := range children {
-		switch c := c.(type) {
-		case Element:
-			switch {
-			case c.hasClass("field-label"):
-				label = c
-			case c.hasClass("field-body"):
-				body = c
-			default:
-				body.With(c)
-			}
-		default:
-			e.With(c)
-		}
-	}
-
-	return e.With(label, body)
+	f := &fieldHorizontal{}
+	f.addChildren(children)
+	return f.elem()
 }
 
 type fieldHorizontal struct {
@@ -99,15 +87,12 @@ type fieldHorizontal struct {
 func (f *fieldHorizontal) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *fieldBody:
+			f.body = c
+		case *fieldLabel:
+			f.label = c
 		case Element:
-			switch {
-			case c.hasClass("field-label"):
-				f.label = c
-			case c.hasClass("field-body"):
-				f.body = c
-			default:
-				f.bodyChildren = append(f.bodyChildren, c)
-			}
+			f.bodyChildren = append(f.bodyChildren, c)
 		case []any:
 			f.addChildren(c)
 		default:

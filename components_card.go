@@ -67,19 +67,17 @@ type cardHeader struct {
 func (ch *cardHeader) addChildren(children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *icon:
+			ch.children = append(
+				ch.children,
+				Elem(
+					html.Button,
+					Class("card-header-icon"),
+					c,
+				),
+			)
 		case Element:
-			if c.hasClass("icon") {
-				ch.children = append(
-					ch.children,
-					Elem(
-						html.Button,
-						Class("card-header-icon"),
-						c,
-					),
-				)
-			} else {
-				ch.children = append(ch.children, c)
-			}
+			ch.children = append(ch.children, c)
 		case string:
 			ch.children = append(
 				ch.children,
