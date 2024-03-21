@@ -160,7 +160,7 @@ el.Div().
 			el.Code("b.Element"), "append the element",
 			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")}, "apply the attribute",
 			[]any{"Other ", el.Code("gomponents.Node")}, "append the element",
-			el.Code("[]any"), "apply or append each of the contained objects",
+			el.Code("[]any"), "apply or append each of the contained objects (recursively)",
 			el.Code("fmt.Stringer"), "append the string as a text node",
 		),
 		el.P("Specific elements may also recognize other children types, see the other documentation pages. Any other child type is ignored."),
