@@ -109,7 +109,7 @@ func (e *element) With(children ...any) Element {
 			}
 		case string:
 			e.elements = append(e.elements, gomponents.Text(c))
-		case *icon:
+		case IconElem:
 			e.hasIcons = true
 			e.elements = append(e.elements, c)
 		case *topNavbar:
@@ -169,7 +169,7 @@ func (e *element) getChildren() []gomponents.Node {
 
 	if e.spanAroundNonIconsAlways || (e.spanAroundNonIconsIfHasIcons && e.hasIcons) {
 		for _, c := range e.elements {
-			if ic, ok := c.(*icon); ok {
+			if ic, ok := c.(IconElem); ok {
 				children = append(children, ic)
 			} else {
 				children = append(children, Elem(html.Span, c))

@@ -67,7 +67,7 @@ type cardHeader struct {
 func (ch *cardHeader) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *icon:
+		case IconElem:
 			ch.children = append(
 				ch.children,
 				Elem(

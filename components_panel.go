@@ -49,8 +49,8 @@ type panelLink struct {
 func (p *panelLink) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *icon:
-			c.iconClass = Class("panel-icon")
+		case IconElem:
+			c.SetIconClass(Class("panel-icon"))
 			p.children = append(p.children, c)
 		case Element:
 			p.children = append(p.children, c)

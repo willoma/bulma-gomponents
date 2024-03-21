@@ -128,10 +128,15 @@ func Icon(style Style, name string, children ...any) b.Element {
 }
 
 type icon struct {
+	iconClass    b.Class
 	style        Style
 	name         string
 	iconChildren []any
 	faChildren   []any
+}
+
+func (i *icon) SetIconClass(c b.Class) {
+	i.iconClass = c
 }
 
 func (i *icon) With(children ...any) b.Element {
@@ -152,5 +157,9 @@ func (i *icon) With(children ...any) b.Element {
 }
 
 func (i *icon) Render(w io.Writer) error {
-	return b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...)).Render(w)
+	ic := b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...))
+	if i.iconClass != "" {
+		ic.(b.IconElem).SetIconClass(i.iconClass)
+	}
+	return ic.Render(w)
 }

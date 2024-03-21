@@ -55,6 +55,10 @@ type icon struct {
 	children  []any
 }
 
+func (i *icon) SetIconClass(c Class) {
+	i.iconClass = c
+}
+
 func (i *icon) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
@@ -72,6 +76,11 @@ func (i *icon) With(children ...any) Element {
 
 func (i *icon) Render(w io.Writer) error {
 	return Elem(html.Span, i.iconClass, i.children).Render(w)
+}
+
+type IconElem interface {
+	Element
+	SetIconClass(Class)
 }
 
 // IconText creates an icon-text span and embed all its non-icons children into
