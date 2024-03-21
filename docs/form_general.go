@@ -374,7 +374,31 @@ b.Field(
 		),
 	),
 	c.Example(
-		`TODO`,
+		`b.Field(
+	b.Label(b.Medium, "Medium input"),
+	b.Control(
+		b.IconsLeft, b.IconsRight,
+		b.InputEmail(b.Medium, html.Placeholder("Extra small")),
+		fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
+		fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
+	),
+),
+b.Field(
+	b.Control(
+		b.IconsLeft, b.IconsRight,
+		b.InputEmail(b.Medium, html.Placeholder("Small")),
+		fa.Icon(fa.Solid, "envelope", fa.SizeSm, b.Left),
+		fa.Icon(fa.Solid, "check", fa.SizeSm, b.Right),
+	),
+),
+b.Field(
+	b.Control(
+		b.IconsLeft, b.IconsRight,
+		b.InputEmail(b.Medium, html.Placeholder("Normal")),
+		fa.Icon(fa.Solid, "envelope", b.Medium, b.Left),
+		fa.Icon(fa.Solid, "check", b.Medium, b.Right),
+	),
+)`,
 		b.Field(
 			b.Label(b.Medium, "Medium input"),
 			b.Control(
