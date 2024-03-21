@@ -3,6 +3,7 @@ package components
 import (
 	"strings"
 
+	"github.com/maragudk/gomponents"
 	b "github.com/willoma/bulma-gomponents"
 	"github.com/willoma/bulma-gomponents/el"
 )
@@ -121,7 +122,7 @@ func examplePre(children ...any) b.Element {
 func htmlPre(elements []any) b.Element {
 	var result strings.Builder
 	for _, e := range elements {
-		if elem, ok := e.(b.Element); ok {
+		if elem, ok := e.(gomponents.Node); ok {
 			elem.Render(&result)
 		}
 		result.WriteByte('\n')

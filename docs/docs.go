@@ -26,6 +26,9 @@ var Sections = []docSection{
 		"",
 		[]*c.Page{
 			intro,
+			documentRoot,
+			elements,
+			classes,
 		},
 	},
 	{

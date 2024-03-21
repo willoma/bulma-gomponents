@@ -60,21 +60,24 @@ func (p *Page) Section(title, bulmaURL string, content ...any) *Page {
 
 	p.Children = append(
 		p.Children,
-		gomponents.Group([]gomponents.Node{
-			b.Title4(
-				html.H2,
-				title,
-				" ",
-				b.AHref(
-					"#"+titleSlug,
-					b.FontSize5,
-					html.Name(titleSlug),
-					fa.Icon(fa.Solid, "link"),
-				),
+		b.Title4(
+			html.H2,
+			title,
+			" ",
+			b.AHref(
+				"#"+titleSlug,
+				b.FontSize5,
+				html.Name(titleSlug),
+				fa.Icon(fa.Solid, "link"),
 			),
-			b.Content(b.AHref(bulmaURL, html.Target("_blank"), "Bulma documentation")),
-		}),
+		),
 	)
+	if bulmaURL != "" {
+		p.Children = append(
+			p.Children,
+			b.Content(b.AHref(bulmaURL, html.Target("_blank"), "Bulma documentation")),
+		)
+	}
 	p.Children = append(p.Children, content...)
 
 	p.internalMenu = append(
