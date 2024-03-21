@@ -12,15 +12,15 @@ var columnsBasics = c.NewPage(
 	c.Example(
 		`b.Columns(
 	b.Column(el.P("First column")),
-	b.Column(el.P("Second column")),
+	el.P("Second column"),
 	b.Column(el.P("Third column")),
-	b.Column(el.P("Fourth column")),
+	el.P("Fourth column"),
 )`,
 		b.Columns(
 			b.Column(c.ColParagraph("First column")),
-			b.Column(c.ColParagraph("Second column")),
+			c.ColParagraph("Second column"),
 			b.Column(c.ColParagraph("Third column")),
-			b.Column(c.ColParagraph("Fourth column")),
+			c.ColParagraph("Fourth column"),
 		),
 	),
 )

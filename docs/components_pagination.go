@@ -34,7 +34,7 @@ var pagination = c.NewPage(
 			b.PaginationLink(html.Aria("label", "Goto page 86"), "86"),
 		),
 	),
-	c.Example(
+	c.HorizontalExample(
 		`b.Pagination(
 	b.PaginationPrevious(b.Disabled, "Previous", html.TitleAttr("This is the first page")),
 	b.PaginationNext("Next page"),
