@@ -1,6 +1,7 @@
 package bulma
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/maragudk/gomponents"
@@ -135,6 +136,8 @@ func (e *element) With(children ...any) Element {
 			}
 		case []any:
 			e.With(c...)
+		case fmt.Stringer:
+			e.elements = append(e.elements, gomponents.Text(c.String()))
 		}
 	}
 
