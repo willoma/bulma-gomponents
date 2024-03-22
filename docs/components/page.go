@@ -13,13 +13,14 @@ import (
 )
 
 type Page struct {
-	menuentry    string
-	Title        string
-	Path         string
-	BaseURL      string
-	BulmaURL     string
-	Children     []any
-	internalMenu []any
+	menuentry          string
+	Title              string
+	Path               string
+	BaseURL            string
+	BulmaURL           string
+	Children           []any
+	internalMenu       []any
+	internalMenuScript string
 }
 
 func (p *Page) URL() string {
@@ -28,62 +29,108 @@ func (p *Page) URL() string {
 
 func NewPage(menuentry, title, path, bulmaURL string, content ...any) *Page {
 	return &Page{
-		menuentry: menuentry,
-		Title:     title,
-		Path:      path,
-		BaseURL:   "/",
-		BulmaURL:  bulmaURL,
-		Children:  content,
+		menuentry:          menuentry,
+		Title:              title,
+		Path:               path,
+		BaseURL:            "/",
+		BulmaURL:           bulmaURL,
+		Children:           content,
+		internalMenuScript: "acnc='has-background-link-light'", // ACtive Navigation Class
 	}
 }
 
 func (p *Page) MenuEntry(activePath string) b.Element {
-	var active any
+	a := b.AHref(
+		p.URL(),
+		gomponents.Attr("hx-get", p.URL()),
+		p.menuentry,
+	)
 	if activePath == p.Path {
-		active = b.Active
+		a.With(b.Active)
 	}
 
-	return b.MenuEntry(
-		b.AHref(
-			p.URL(),
-			p.menuentry,
-			active,
-			gomponents.Attr("hx-get", p.URL()),
-			gomponents.Attr("hx-push-url", p.URL()),
-			gomponents.Attr("hx-select-oob", "#menu,#content"),
-		),
-	)
+	return b.MenuEntry(a)
 }
 
 func (p *Page) Section(title, bulmaURL string, content ...any) *Page {
+	return p.section(1, title, bulmaURL, content...)
+}
+
+func (p *Page) Subsection(title, bulmaURL string, content ...any) *Page {
+	return p.section(2, title, bulmaURL, content...)
+}
+
+func (p *Page) section(level int, title, bulmaURL string, content ...any) *Page {
 	titleSlug := slug(title)
 
-	p.Children = append(
-		p.Children,
-		b.Title4(
-			html.H2,
-			title,
-			" ",
-			b.AHref(
-				"#"+titleSlug,
-				b.FontSize5,
-				html.Name(titleSlug),
-				fa.Icon(fa.Solid, "link"),
+	section := b.Block(html.ID(titleSlug))
+
+	switch level {
+	case 1:
+		section.With(
+			b.Title4(
+				html.H2,
+				title,
+				" ",
+				b.AHref(
+					"#"+titleSlug,
+					b.FontSize5,
+					fa.Icon(fa.Solid, "link"),
+				),
 			),
-		),
-	)
+		)
+
+		p.internalMenu = append(
+			p.internalMenu,
+			b.MenuEntry(
+				b.AHref(
+					"#"+titleSlug,
+					html.ID("bgd-nav-"+titleSlug),
+					title,
+				),
+			),
+		)
+	case 2:
+		section.With(
+			b.Title5(
+				html.ID(titleSlug),
+				html.H3,
+				title,
+				" ",
+				b.AHref(
+					"#"+titleSlug,
+					b.FontSize6,
+					html.Name(titleSlug),
+					fa.Icon(fa.Solid, "link"),
+				),
+			),
+		)
+
+		p.internalMenu = append(
+			p.internalMenu,
+			b.MenuEntry(
+				b.AHref("#"+titleSlug,
+					html.ID("bgd-nav-"+titleSlug),
+					fa.Icon(
+						fa.Solid, "caret-right",
+						b.Style("height", "1em", "width", "1em"),
+						fa.SizeSm,
+					),
+					title,
+				),
+			),
+		)
+	}
 	if bulmaURL != "" {
-		p.Children = append(
-			p.Children,
+		section.With(
 			b.Content(b.AHref(bulmaURL, html.Target("_blank"), "Bulma documentation")),
 		)
 	}
-	p.Children = append(p.Children, content...)
+	section.With(content...)
 
-	p.internalMenu = append(
-		p.internalMenu,
-		b.MenuEntry(b.AHref("#"+titleSlug, title)),
-	)
+	p.internalMenuScript += ";new IntersectionObserver(([entry])=>{d=document.getElementById('bgd-nav-" + titleSlug + "');if(!d)return;entry.isIntersecting?d.classList.add(acnc):d.classList.remove(acnc)}).observe(document.getElementById('" + titleSlug + "'))"
+	p.Children = append(p.Children, section)
+
 	return p
 }
 
@@ -93,6 +140,7 @@ func (p *Page) InternalMenu() []any {
 	}
 
 	return []any{
+		html.Script(gomponents.Raw(p.internalMenuScript)),
 		b.Style("margin-right", "9rem"),
 		b.Box(
 			b.Style(

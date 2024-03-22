@@ -113,7 +113,7 @@ var Sections = []docSection{
 
 func Layout(p *c.Page) gomponents.Node {
 	content := el.Div(
-		html.ID("content"),
+		html.ID("bgd-content"),
 		b.Style("margin-left", "11.25rem"),
 		b.Padding(b.Spacing4),
 		b.Title(
@@ -174,7 +174,9 @@ func Layout(p *c.Page) gomponents.Node {
 
 func navMenu(currentPath string) b.Element {
 	navmenu := b.Menu(
-		html.ID("menu"),
+		html.ID("bgd-menu"),
+		gomponents.Attr("hx-select-oob", "#bgd-menu,#bgd-content"),
+		gomponents.Attr("hx-push-url", "true"),
 	)
 
 	for _, section := range Sections {
