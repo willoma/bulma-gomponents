@@ -131,6 +131,7 @@ func Layout(p *c.Page) gomponents.Node {
 		b.HTitle(p.Title+" | Bulma-Gomponents"),
 		b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
 		fa.CSSHead(path.Join(p.BaseURL, "fa")),
+		gomponents.Attr("hx-on:htmx:load", `if(event.detail.elt.id ==='bgd-content')window.scrollTo(0,0)`),
 		b.TopNavbar(
 			b.Shadow,
 			b.NavbarBrand(
