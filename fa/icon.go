@@ -112,7 +112,7 @@ func (f *fa) Render(w io.Writer) error {
 		e.With(b.Class(f.rotateClass))
 	}
 
-	return e.Render(w)
+	return e.With(f.children...).Render(w)
 }
 
 // Icon returns a Font Awesome icon, in an i element within a b.Icon element,
