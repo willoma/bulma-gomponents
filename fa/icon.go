@@ -37,7 +37,7 @@ const (
 	Pulse      = Class("fa-pulse")
 )
 
-// FA returns a Font-Awesome icon, in an i element, with the provided style and
+// FA returns a Font Awesome icon, in an i element, with the provided style and
 // name (without the "fa-" prefix).
 //   - when a child id a Class, it is added as a class to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to
@@ -115,7 +115,7 @@ func (f *fa) Render(w io.Writer) error {
 	return e.Render(w)
 }
 
-// Icon returns a Font-Awesome icon, in an i element within a b.Icon element,
+// Icon returns a Font Awesome icon, in an i element within a b.Icon element,
 // with the provided style and name (without the "fa-" prefix).
 //   - when a child id a Class, it is added to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to

@@ -13,7 +13,7 @@ const (
 	Stack2x = Class("fa-stack-2x")
 )
 
-// Stack stacks Font-Awesome children icons.
+// Stack stacks Font Awesome children icons.
 //   - when a child is a Class, it is added as a b.Class to the stack element
 //   - other children types are added as-is to the stack element
 //

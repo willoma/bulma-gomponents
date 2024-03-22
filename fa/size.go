@@ -1,6 +1,6 @@
 package fa
 
-// Font-Awesome icons sizes
+// Font Awesome icons sizes
 var (
 	Size2Xs = Class("fa-2xs")
 	SizeXs  = Class("fa-xs")

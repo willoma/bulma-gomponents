@@ -15,7 +15,7 @@ var Assets embed.FS
 // CSSHandler is a http handler function for Font Awesome assets.
 var CSSHandler = http.FileServer(http.FS(Assets))
 
-// CSSHead returns head section elements for the Font-Awesome CSS at the
+// CSSHead returns head section elements for the Font Awesome CSS at the
 // provided base path, for inclusion as a child of b.HTML.
 func CSSHead(basePath string) any {
 	return b.Head(
