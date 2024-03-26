@@ -8,6 +8,8 @@ import (
 )
 
 // Breadcrumb creates a breadcrumb.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <ul> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <nav> element
 //
 // The following modifiers change the breadcrumb behaviour:
 //   - Centered: center the breadcrumb in its container
@@ -35,6 +37,10 @@ type breadcrumb struct {
 func (b *breadcrumb) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			b.ulChildren = append(b.ulChildren, c.Child)
+		case *ApplyToOuter:
+			b.navChildren = append(b.navChildren, c.Child)
 		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			b.navChildren = append(b.navChildren, c)
 		case gomponents.Node:

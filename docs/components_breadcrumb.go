@@ -19,6 +19,10 @@ var breadcrumb = c.NewPage(
 			"The ", el.Code("b.Breadcrumb"), " constructor creates a breadcrumb. It accepts the following values additionally to the standard set of children types:",
 		),
 		b.DList(
+			el.Code("b.Inner(any)"),
+			[]any{"forcibly apply the child to the ", el.Code("<ul>"), " element"},
+			el.Code("b.Outer(any)"),
+			[]any{"forcibly apply the child to the ", el.Code("<nav>"), " element"},
 			el.Code("b.Centered"),
 			"center the breadcrumb in its container",
 			el.Code("b.Right"),

@@ -13,6 +13,8 @@ type heroPart struct {
 }
 
 // Hero creates a hero element.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="hero-body"> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <section class="hero"> element
 //   - when a child is a return value of HeroHead, it is added in the head part
 //     of the hero element
 //   - when a child is a return value of HeroFoot, it is added in the foot part
@@ -56,6 +58,10 @@ type hero struct {
 func (h *hero) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			h.bodyChildren = append(h.bodyChildren, c.Child)
+		case *ApplyToOuter:
+			h.elemChildren = append(h.elemChildren, c.Child)
 		case heroPart:
 			if c.foot {
 				h.footChildren = append(h.footChildren, c.children...)

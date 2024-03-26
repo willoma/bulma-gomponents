@@ -72,7 +72,9 @@ type fieldLabel struct {
 	Element
 }
 
-// FieldHorizontal creates a horizontal field, including an empty body if
+// FieldHorizontal creates a horizontal field, including an empty body if needed.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="field-body"> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="field"> element
 func FieldHorizontal(children ...any) Element {
 	return new(fieldHorizontal).With(children...)
 }
@@ -87,6 +89,10 @@ type fieldHorizontal struct {
 func (f *fieldHorizontal) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			f.bodyChildren = append(f.bodyChildren, c.Child)
+		case *ApplyToOuter:
+			f.elemChildren = append(f.elemChildren, c.Child)
 		case *fieldBody:
 			f.body = c
 		case *fieldLabel:

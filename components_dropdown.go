@@ -65,6 +65,8 @@ type dropdownDivider struct {
 }
 
 // DropdownMenu creates a dropdown menu.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="dropdown-content"> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="dropdown-menu"> element
 //
 // Each child is automatically wrapped in a new dropdown-item element if:
 //   - it is an Element but not generated with DropdownItem or DropdownHref or DropdownDivider
@@ -81,6 +83,10 @@ type dropdownMenu struct {
 func (dm *dropdownMenu) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			dm.contentChildren = append(dm.contentChildren, c.Child)
+		case *ApplyToOuter:
+			dm.menuChildren = append(dm.menuChildren, c.Child)
 		case *dropdownDivider, *dropdownItem, *dropdownAhref:
 			dm.contentChildren = append(dm.contentChildren, c)
 		case Element:

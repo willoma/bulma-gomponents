@@ -43,16 +43,18 @@ func Modal(id string, children ...any) Element {
 }
 
 // ModalCard creates a modal card.
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="modal"> element
+//   - the b.Inner mark is ignored
 //
 // Wrap children in ModalCardHead in order to add them to the card header. Wrap
 // children with ModalCardFoot in order to add them to the card footer. Any
 // unwrapped child is added to the card body.
 func ModalCard(id string, children ...any) Element {
-	return (&modalCard{id: id}).With(children...)
+	return (&modalCard{ownChildren: []any{html.ID(id)}}).With(children...)
 }
 
 type modalCard struct {
-	id           string
+	ownChildren  []any
 	headChildren []any
 	footChildren []any
 	bodyChildren []any
@@ -61,6 +63,8 @@ type modalCard struct {
 func (mc *modalCard) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToOuter:
+			mc.ownChildren = append(mc.ownChildren, c.Child)
 		case modalCardHead:
 			mc.headChildren = append(mc.headChildren, c...)
 		case modalCardFoot:
@@ -79,7 +83,7 @@ func (mc *modalCard) Render(w io.Writer) error {
 	return Elem(
 		html.Div,
 		Class("modal"),
-		html.ID(mc.id),
+		mc.ownChildren,
 		modalBackground(),
 		Elem(
 			html.Div,

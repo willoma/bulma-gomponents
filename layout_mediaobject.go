@@ -13,6 +13,8 @@ type mediaPart struct {
 }
 
 // Media creates a media element.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="media-content"> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <article class="media"> element
 //   - when a child is a return value of MediaLeft, it is added in the left part
 //     of the media element
 //   - when a child is a return value of MediaRight, it is added in the right
@@ -40,6 +42,10 @@ type media struct {
 func (m *media) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			m.contentChildren = append(m.contentChildren, c.Child)
+		case *ApplyToOuter:
+			m.elemChildren = append(m.elemChildren, c.Child)
 		case mediaPart:
 			if c.right {
 				m.rightChildren = append(m.rightChildren, c.children...)

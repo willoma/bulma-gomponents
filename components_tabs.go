@@ -7,6 +7,8 @@ import (
 )
 
 // Tabs create a tabs container.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <ul> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="tabs"> element
 //
 // Its arguments must include TabsLink. The ul element is automatically created.
 //
@@ -38,6 +40,10 @@ type tabs struct {
 func (t *tabs) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			t.contentChildren = append(t.contentChildren, c.Child)
+		case *ApplyToOuter:
+			t.tabsChildren = append(t.tabsChildren, c.Child)
 		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			t.tabsChildren = append(t.tabsChildren, c)
 		case func(children ...any) container:

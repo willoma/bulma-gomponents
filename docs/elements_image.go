@@ -71,7 +71,21 @@ var image = c.NewPage(
 		),
 		el.P(
 			b.Style("column-span", "all"),
-			"The ", el.Code("b.ImageImg"), " constructor returns a Bulma image element with an inner img. It accepts the same values as ", el.Code("b.Image"), ", and ", el.Code("b.ImgAlt"), " to define the image alt text. Use ", el.Code("b.ImgSrc"), " to create an <img> element with the provided URL as its src attribute. Apply ", el.Code("b.Rounded"), " to the inner image to make it rounded, associated with an ", el.Code("b.Img*By*"), " modifier on the ", el.Code("b.Image"), " element. Apply ", el.Code("b.Ratio"), " to an inner element to apply the parent ratio to that element.",
+			"Use ", el.Code("b.ImgSrc"), " to create an <img> element with the provided URL as its src attribute. Apply ", el.Code("b.Rounded"), " to the inner image to make it rounded, associated with an ", el.Code("b.Img*By*"), " modifier on the ", el.Code("b.Image"), " element. Apply ", el.Code("b.Ratio"), " to an inner element to apply the parent ratio to that element.",
+		),
+		el.P(
+			b.Style("column-span", "all"),
+			"The ", el.Code("b.ImageImg"), " constructor returns a Bulma image element with an inner img. It accepts the same values as ", el.Code("b.Image"), ", as well as the following values: ",
+		),
+		b.DList(
+			el.Code("b.Inner(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code("<img>"), " element"},
+			el.Code("b.Outer(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code("<figure>"), " element"},
+			el.Code("b.Rounded"),
+			"Make the image rounded",
+			el.Code("b.ImgAlt"),
+			"Define the image alt text",
 		),
 	),
 ).Section(

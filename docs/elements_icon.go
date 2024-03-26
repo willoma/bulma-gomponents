@@ -98,7 +98,7 @@ var icon = c.NewPage(
 	b.Content(
 		el.P("The", el.Code("github.com/willoma/bulma-gomponents/fa"), " package provides helpers for ", el.Em("Font Awesome"), " icons."),
 		el.P(
-			"The ", el.Code("fa.Icon"), " constructor returns a ", el.Em("Font Awesome"), " icon, embedded in an icon container, dealing with appropriately applying children to the icon element or to the span container. It accepts the same values as ", el.Code("b.Icon"), ", as well as the ", el.Em("Font Awesome"), "-specific values described below.",
+			"The ", el.Code("fa.Icon"), " constructor returns a ", el.Em("Font Awesome"), " icon, embedded in an icon container, dealing with appropriately applying children to the icon element or to the span container. It accepts the same values as ", el.Code("b.Icon"), ", as well as the ", el.Em("Font Awesome"), "-specific values described below. You may use ", el.Code("b.Inner"), " to force a child to be applied to the ", el.Code("<i>"), " element, or ", el.Code("b.Outer"), " to force a child to be applied to the ", el.Code("<span>"), " element.",
 		),
 		el.P(
 			"The ", el.Code("fa.FA"), " constructor returns a ", el.Em("Font Awesome"), " icon. It accepts the ", el.Em("Font Awesome"), "-specific values described below.",

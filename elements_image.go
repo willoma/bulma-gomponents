@@ -50,6 +50,8 @@ func Image(children ...any) Element {
 
 // ImageImg creates a figure element with class "image" and the inner img
 // element, with the provided src.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <img> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <figure> element
 //
 // Use ImgAlt to define the image alt text.
 //
@@ -93,6 +95,10 @@ type imageImg struct {
 func (i *imageImg) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			i.imgChildren = append(i.imgChildren, c.Child)
+		case *ApplyToOuter:
+			i.figureChildren = append(i.figureChildren, c.Child)
 		case Class:
 			if c == Rounded {
 				i.imgChildren = append(i.imgChildren, c)

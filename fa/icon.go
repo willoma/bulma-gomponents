@@ -94,6 +94,8 @@ func (f *fa) Render(w io.Writer) error {
 
 // Icon returns a Font Awesome icon, in an i element within a b.Icon element,
 // with the provided style and name (without the "fa-" prefix).
+//   - when a child is marked with b.Inner, it is forcibly applied to the <i> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <span> element
 //   - when a child id a Class, it is added to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to
 //     the b.Icon
@@ -119,6 +121,10 @@ func (i *icon) SetIconClass(c b.Class) {
 func (i *icon) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *b.ApplyToInner:
+			i.faChildren = append(i.faChildren, c.Child)
+		case *b.ApplyToOuter:
+			i.iconChildren = append(i.iconChildren, c.Child)
 		case Class, rotateOrFlip, Rotate, Animation:
 			i.faChildren = append(i.faChildren, c)
 		case b.ColorClass:

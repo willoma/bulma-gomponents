@@ -47,12 +47,15 @@ func Select(children ...any) Element {
 
 // SelectMultiple creates a multiple select element. It should contain one or
 // multiple Option elements.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <select> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="select"> element
 //   - when a child is a Size, it defines the select size
 //   - when a child is a Class, it is applied to the select element if it is
 //     Hovered or Focused, otherwise it is applied to the div element
 //   - when a child is an Element, it is added as a child to the select element
 //   - when a child is a Name, it is used as the name attribute of the select
 //     element
+//   - when a child is a gomponents.Node, it is applied to the select element
 //   - other children types are added as children to the div element
 //
 // The following modifiers change the select behaviour:
@@ -88,6 +91,10 @@ type selectEl struct {
 func (s *selectEl) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			s.selectChildren = append(s.selectChildren, c.Child)
+		case *ApplyToOuter:
+			s.divChildren = append(s.divChildren, c.Child)
 		case Size:
 			s.selectChildren = append(
 				s.selectChildren,
@@ -107,6 +114,8 @@ func (s *selectEl) With(children ...any) Element {
 			s.selectChildren = append(s.selectChildren, c)
 		case Name:
 			s.selectChildren = append(s.selectChildren, html.Name(string(c)))
+		case gomponents.Node:
+			s.selectChildren = append(s.selectChildren, c)
 		case []any:
 			s.With(c...)
 		default:
