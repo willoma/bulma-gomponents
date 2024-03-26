@@ -61,6 +61,12 @@ func buttonElem(
 //   - SuccessLight
 //   - WarningLight
 //   - DangerLight
+//   - PrimaryDark
+//   - LinkDark
+//   - InfoDark
+//   - SuccessDark
+//   - WarningDark
+//   - DangerDark
 func Button(children ...any) Element {
 	return buttonElem(html.Button, children...)
 }

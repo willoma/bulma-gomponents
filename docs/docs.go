@@ -29,17 +29,7 @@ var Sections = []docSection{
 			documentRoot,
 			elements,
 			classes,
-		},
-	},
-	{
-		"Columns",
-		[]*c.Page{
-			columnsBasics,
-			columnsSizes,
-			columnsResponsiveness,
-			columnsNesting,
-			columnsGap,
-			columnsOptions,
+			extending,
 		},
 	},
 	{
@@ -75,6 +65,17 @@ var Sections = []docSection{
 		},
 	},
 	{
+		"Columns",
+		[]*c.Page{
+			columnsBasics,
+			columnsSizes,
+			columnsResponsiveness,
+			columnsNesting,
+			columnsGap,
+			columnsOptions,
+		},
+	},
+	{
 		"Form",
 		[]*c.Page{
 			formGeneral,
@@ -99,8 +100,9 @@ var Sections = []docSection{
 		},
 	},
 	{
-		"Helpers",
+		"Helpers and features",
 		[]*c.Page{
+			skeletons,
 			color,
 			spacing,
 			typography,

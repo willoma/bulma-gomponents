@@ -1,8 +1,8 @@
 package docs
 
 import (
-	g "github.com/maragudk/gomponents"
-	h "github.com/maragudk/gomponents/html"
+	"github.com/maragudk/gomponents"
+	"github.com/maragudk/gomponents/html"
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
 	"github.com/willoma/bulma-gomponents/el"
@@ -23,8 +23,8 @@ var elements = c.NewPage(
 	),
 	c.Example(
 		`import (
-	g "github.com/maragudk/gomponents"
-	h "github.com/maragudk/gomponents/html"
+	"github.com/maragudk/gomponents"
+	"github.com/maragudk/gomponents/html"
 	b "github.com/willoma/bulma-gomponents"
 	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
@@ -39,14 +39,14 @@ h.Div(
 			"The library",
 		),
 		" that makes it easier to create web GUIs, based on ",
-		el.A(h.Href("https://www.gomponents.com/"), "Gomponents"),
+		el.A(html.Href("https://www.gomponents.com/"), "Gomponents"),
 		" and ",
-		h.A(h.Href("https://bulma.io/"), g.Text("Bulma")),
+		html.A(h.Href("https://bulma.io/"), gomponents.Text("Bulma")),
 		"!",
 	),
 )`,
-		h.Div(
-			h.Class("someClass otherClass"),
+		html.Div(
+			html.Class("someClass otherClass"),
 			b.Box(
 				b.Title3("Here it is"),
 				b.IconText(
@@ -54,9 +54,9 @@ h.Div(
 					"The library",
 				),
 				" that makes it easier to create web GUIs, based on ",
-				el.A(h.Href("https://www.gomponents.com/"), "Gomponents"),
+				el.A(html.Href("https://www.gomponents.com/"), "Gomponents"),
 				" and ",
-				h.A(h.Href("https://bulma.io/"), g.Text("Bulma")),
+				html.A(html.Href("https://bulma.io/"), gomponents.Text("Bulma")),
 				"!",
 			),
 		),
@@ -149,19 +149,50 @@ el.Div().
 	b.Content(
 		el.P("All ", el.Em("Bulma-Gomponents"), " elements recognize the following children types, either as constructor arguments or arguments to the ", el.Code("With"), " function :"),
 		b.DList(
-			el.Code("b.Class"), "apply the class",
-			el.Code("b.MultiClass"), "apply the classes",
-			el.Code("b.ColorClass"), "apply the class, as its light variant when required",
-			[]any{"Result of ", el.Code("b.Style")}, "apply the styles",
-			el.Code("string"), "append the string as a text node",
-			[]any{el.Code("b.IconElem"), " (ie. result of ", el.Code("b.Icon"), " or ", el.Code("fa.Icon"), ")"}, "append the icon",
-			[]any{"Result of ", el.Code("b.TopNavbar"), " or ", el.Code("b.BottomNavbar")}, "append the navbar and mark the element as having a top or bottom navbar (useful only directly on the body)",
-			[]any{"Result of ", el.Code("b.Tile")}, "append the tile and mark it as an ancestor if the current element is not a tile",
-			el.Code("b.Element"), "append the element",
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")}, "apply the attribute",
-			[]any{"Other ", el.Code("gomponents.Node")}, "append the element",
-			el.Code("[]any"), "apply or append each of the contained objects (recursively)",
-			el.Code("fmt.Stringer"), "append the string as a text node",
+			el.Code("b.Class"),
+			"apply the class",
+
+			el.Code("b.ColorClass"),
+			"apply the class, as its light or dark variant when required",
+
+			el.Code("b.ExternalClass"),
+			"apply the class",
+
+			el.Code("b.ExternalClassesAndStyles"),
+			"apply the classes and styles",
+
+			el.Code("b.MultiClass"),
+			"apply the classes",
+
+			[]any{"Result of ", el.Code("b.Style")},
+			"apply the styles",
+
+			el.Code("string"),
+			"append the string as a text node",
+
+			[]any{el.Code("b.IconElem"), " (ie. result of ", el.Code("b.Icon"), " or ", el.Code("fa.Icon"), ")"},
+			"append the icon",
+
+			[]any{"Result of ", el.Code("b.TopNavbar"), " or ", el.Code("b.BottomNavbar")},
+			"append the navbar and mark the element as having a top or bottom navbar (useful only directly on the body)",
+
+			[]any{"Result of ", el.Code("b.Tile")},
+			"append the tile and mark it as an ancestor if the current element is not a tile",
+
+			el.Code("b.Element"),
+			"append the element",
+
+			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			"apply the attribute",
+
+			[]any{"Other ", el.Code("gomponents.Node")},
+			"append the element",
+
+			el.Code("[]any"),
+			"apply or append each of the contained objects (recursively)",
+
+			el.Code("fmt.Stringer"),
+			"append the string as a text node",
 		),
 		el.P("Specific elements may also recognize other children types, see the other documentation pages. Any other child type is ignored."),
 	),

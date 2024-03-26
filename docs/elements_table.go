@@ -24,7 +24,39 @@ var tableHeadFoot = []any{
 
 var table = c.NewPage(
 	"Table", "Table", "/table",
-	"https://bulma.io/documentation/elements/table/",
+	"",
+
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Table"), " constructor creates a table. The ", el.Code("b.ScrollableTable"), " constructor creates a table in a table-container element, making the table scrollable. These constructors accept the following values additionally to the standard set of children types:",
+		),
+		b.DList(
+			el.Code("b.Bordered"),
+			"Add borders to the table",
+			el.Code("b.Striped"),
+			"Add stripes to the body rows",
+			el.Code("b.Narrow"),
+			"Make the cells narrower",
+			el.Code("b.Hoverable"),
+			"Add a hover effect on the body rows",
+			el.Code("b.FullWidth"),
+			"Take the whole width",
+		),
+		el.P(
+			"The following constructors must be provided as children to ", el.Code("b.Table"), " or ", el.Code("b.ScrollableTable"), " in order to add rows to the table:",
+		),
+		b.DList(
+			el.Code("b.Row"),
+			"Add a row to the table body, its cells are defined as <td> elements",
+			el.Code("b.HeadRow"),
+			"Add a row to the table header, its cells are defined as <th> elements",
+			el.Code("b.FootRow"),
+			"Add a row to the table footer, its cells are defined as <th> elements",
+		),
+		el.P("These rows constructors accept either elements embedded in ", el.Code("b.Cell"), " constructors, or embed elements automatically."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/elements/table/",
 
 	b.Content(el.P("Bulma-styled table are implemented with the ", el.Code("b.Table"), " function.")),
 
@@ -676,7 +708,7 @@ b.Table(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Modifiers",
 	"https://bulma.io/documentation/elements/table/#modifiers",
 	c.Example(
@@ -799,7 +831,7 @@ b.Table(
 			b.Row("Eleven", "Twelve"),
 		),
 	),
-).Section(
+).Subsection(
 	"Table container",
 	"https://bulma.io/documentation/elements/table/#table-container",
 	c.HorizontalExample(

@@ -2,6 +2,7 @@ package fa
 
 import (
 	"io"
+	"strconv"
 
 	"github.com/maragudk/gomponents/html"
 
@@ -11,13 +12,10 @@ import (
 const (
 	Stack1x = Class("fa-stack-1x")
 	Stack2x = Class("fa-stack-2x")
+	Inverse = Class("fa-inverse")
 )
 
 // Stack stacks Font Awesome children icons.
-//   - when a child is a Class, it is added as a b.Class to the stack element
-//   - other children types are added as-is to the stack element
-//
-// Stacked icons must be created with the FA function.
 func Stack(children ...any) b.Element {
 	return new(stack).With(children...)
 }
@@ -29,8 +27,6 @@ type stack struct {
 func (s *stack) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class:
-			s.children = append(s.children, b.Class(c))
 		case []any:
 			s.With(c...)
 		default:
@@ -43,4 +39,14 @@ func (s *stack) With(children ...any) b.Element {
 
 func (s *stack) Render(w io.Writer) error {
 	return b.Elem(html.Span, b.Class("fa-stack"), s.children).Render(w)
+}
+
+// ZIndex sets the z-index of a stacked icon
+func ZIndex(value int) b.Styles {
+	return b.Style("--fa-stack-z-index", strconv.Itoa(value))
+}
+
+// InverseColor sets the color of an inversed stacked icon
+func InverseColor(value string) b.Styles {
+	return b.Style("--fa-inverse", value)
 }

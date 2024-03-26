@@ -109,7 +109,7 @@ func Row(children ...any) Element {
 //   - Bordered: add borders
 //   - Striped: add stripes
 //   - Narrow: make the cells narrower
-//   - Table: add a hover effect on each body row
+//   - Hoverable: add a hover effect on each body row
 //   - FullWidth: take the whole width
 func Table(children ...any) Element {
 	return new(table).With(children...)

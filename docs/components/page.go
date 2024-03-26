@@ -52,18 +52,26 @@ func (p *Page) MenuEntry(activePath string) b.Element {
 	return b.MenuEntry(a)
 }
 
-func (p *Page) Section(title, bulmaURL string, content ...any) *Page {
-	return p.section(1, title, bulmaURL, content...)
+func (p *Page) Section(title, peerURL string, content ...any) *Page {
+	return p.section(1, title, peerURL, content...)
 }
 
-func (p *Page) Subsection(title, bulmaURL string, content ...any) *Page {
-	return p.section(2, title, bulmaURL, content...)
+func (p *Page) Subsection(title, peerURL string, content ...any) *Page {
+	return p.section(2, title, peerURL, content...)
 }
 
-func (p *Page) section(level int, title, bulmaURL string, content ...any) *Page {
+func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 	titleSlug := slug(title)
 
 	section := b.Block(html.ID(titleSlug))
+
+	peerName := "Bulma"
+
+	if strings.Contains(peerURL, "::") {
+		splat := strings.SplitN(peerURL, "::", 2)
+		peerName = splat[0]
+		peerURL = splat[1]
+	}
 
 	switch level {
 	case 1:
@@ -121,9 +129,9 @@ func (p *Page) section(level int, title, bulmaURL string, content ...any) *Page 
 			),
 		)
 	}
-	if bulmaURL != "" {
+	if peerURL != "" {
 		section.With(
-			b.Content(b.AHref(bulmaURL, html.Target("_blank"), "Bulma documentation")),
+			b.Content(b.AHref(peerURL, html.Target("_blank"), peerName+" documentation")),
 		)
 	}
 	section.With(content...)

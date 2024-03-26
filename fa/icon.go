@@ -1,7 +1,6 @@
 package fa
 
 import (
-	"fmt"
 	"io"
 
 	"github.com/maragudk/gomponents/html"
@@ -14,6 +13,10 @@ type (
 	Style string
 	Class string
 )
+
+func (c Class) Class() b.Class {
+	return b.Class(c)
+}
 
 // Styles
 const (
@@ -31,10 +34,7 @@ const (
 
 // Variations
 const (
-	Border     = Class("fa-border")
 	FixedWidth = Class("fa-fw")
-	Inverse    = Class("fa-inverse")
-	Pulse      = Class("fa-pulse")
 )
 
 // FA returns a Font Awesome icon, in an i element, with the provided style and
@@ -42,8 +42,7 @@ const (
 //   - when a child id a Class, it is added as a class to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to
 //     the i element
-//   - when a child is a Rotate, the provided rotation (in degree) is applied to
-//     the icon
+//   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added as-is to the i element
 //
 // The rotating+flipping combination is supported and the needed span element
@@ -53,32 +52,22 @@ func FA(style Style, name string, children ...any) b.Element {
 }
 
 type fa struct {
-	style       Style
-	name        string
-	rotateClass Class
-	rotateAngle Rotate
-	children    []any
+	style         Style
+	name          string
+	rotateOrFlips []any
+	// animation    Animation
+	children []any
 }
 
 func (f *fa) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			if c == Rotate90 || c == Rotate180 || c == Rotate270 || c == FlipHorizontal || c == FlipVertical || c == FlipBoth {
-				f.rotateClass = c
-			} else {
-				f.children = append(f.children, b.Class(c))
-			}
+			f.children = append(f.children, c)
+		case rotateOrFlip, Rotate, Animation:
+			f.rotateOrFlips = append(f.rotateOrFlips, c)
 		case b.ColorClass:
 			f.children = append(f.children, c.Text())
-		case Rotate:
-			f.rotateAngle = c
-		case Animation:
-			class, styles := c.attrs()
-			f.children = append(f.children, class)
-			if len(styles) > 0 {
-				f.children = append(f.children, styles)
-			}
 		case []any:
 			f.With(c...)
 		default:
@@ -90,29 +79,17 @@ func (f *fa) With(children ...any) b.Element {
 }
 
 func (f *fa) Render(w io.Writer) error {
-	e := b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name))
-
-	switch {
-	case f.rotateClass != "" && f.rotateAngle != 0:
-		e.With(
-			b.Class("fa-rotate-by"),
-			b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)),
-		)
-		return el.Span(
-			b.Class(f.rotateClass),
-			b.Style("display", "inline-block"),
-			e,
-		).Render(w)
-	case f.rotateAngle != 0:
-		e.With(
-			b.Class("fa-rotate-by"),
-			b.Style("--fa-rotate-angle", fmt.Sprintf("%vdeg", f.rotateAngle)),
-		)
-	case f.rotateClass != "":
-		e.With(b.Class(f.rotateClass))
+	if len(f.rotateOrFlips) == 0 {
+		return b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name)).With(f.children...).Render(w)
 	}
 
-	return e.With(f.children...).Render(w)
+	e := b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name), f.rotateOrFlips[len(f.rotateOrFlips)-1]).With(f.children...)
+
+	for i := len(f.rotateOrFlips) - 2; i >= 0; i-- {
+		e = el.Span(b.Style("display", "inline-block"), f.rotateOrFlips[i], e)
+	}
+
+	return e.Render(w)
 }
 
 // Icon returns a Font Awesome icon, in an i element within a b.Icon element,
@@ -120,17 +97,17 @@ func (f *fa) Render(w io.Writer) error {
 //   - when a child id a Class, it is added to the i element
 //   - when a child is a b.ColorClass, its Text() variant is added as a class to
 //     the b.Icon
+//   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added as-is to the b.Icon
-//
-// See the FA documentation for more information.
 func Icon(style Style, name string, children ...any) b.Element {
 	return (&icon{style: style, name: name}).With(children...)
 }
 
 type icon struct {
-	iconClass    b.Class
-	style        Style
-	name         string
+	iconClass b.Class
+	style     Style
+	name      string
+	// animation    Animation
 	iconChildren []any
 	faChildren   []any
 }
@@ -142,7 +119,7 @@ func (i *icon) SetIconClass(c b.Class) {
 func (i *icon) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class:
+		case Class, rotateOrFlip, Rotate, Animation:
 			i.faChildren = append(i.faChildren, c)
 		case b.ColorClass:
 			i.iconChildren = append(i.iconChildren, c.Text())

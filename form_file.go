@@ -63,7 +63,7 @@ type file struct {
 func (f *file) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class, ColorClass:
+		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			f.divChildren = append(f.divChildren, c)
 		case string:
 			f.ctaChildren = append(

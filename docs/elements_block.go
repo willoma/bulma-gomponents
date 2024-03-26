@@ -8,8 +8,15 @@ import (
 
 var block = c.NewPage(
 	"Block", "Block", "/block",
-	"https://bulma.io/documentation/elements/block/",
+	"",
 
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Block"), " constructor returns a container that ensures siblings to have a consistent margin. It accepts the standard set of children types.",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/elements/block/",
 	c.Example(
 		`b.Block("This text is within a ", el.Strong("block"), "."),
 b.Block("This text is within a ", el.Strong("second block"), ". Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis."),

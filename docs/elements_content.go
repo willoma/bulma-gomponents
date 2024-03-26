@@ -10,7 +10,33 @@ import (
 
 var content = c.NewPage(
 	"Content", "Content", "/content",
-	"https://bulma.io/documentation/elements/content/",
+	"",
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Content"), " constructor returns a block make to contain ", el.Strong("WYSIWYG"), " text. It accepts the following values additionally to the standard set of children types:",
+		),
+		b.DList(
+			el.Code("b.Small"),
+			"set content size to small",
+			el.Code("b.Normal"),
+			"set content size to normal",
+			el.Code("b.Medium"),
+			"set content size to medium",
+			el.Code("b.Large"),
+			"set content size to large",
+		),
+		el.P("You may apply the following modifiers on ", el.Code("el.Ol"), " children in order to change their style:"),
+		b.DList(
+			el.Code("b.OlLowerAlpha"),
+			"lowercase letters",
+			el.Code("b.OlLowerRoman"),
+			"lowercase roman numbers",
+			el.Code("b.OlUpperAlpha"),
+			"uppercase letters",
+			el.Code("b.OlUpperRoman"),
+			"uppercase roman numbers",
+		),
+	),
 ).Section(
 	"Full example",
 	"https://bulma.io/documentation/elements/content/#full-example",
@@ -108,8 +134,8 @@ var content = c.NewPage(
 	el.H5("Fifth level"),
 	"Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.",
 	el.Figure(
-		b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
-		b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
+		b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+		b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
 		el.FigCaption("Figure 1: Some beautiful placeholders"),
 	),
 	el.H6("Sixth level"),
@@ -209,8 +235,8 @@ var content = c.NewPage(
 			el.H5("Fifth level"),
 			"Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.",
 			el.Figure(
-				b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
-				b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
+				b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+				b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
 				el.FigCaption("Figure 1: Some beautiful placeholders"),
 			),
 			el.H6("Sixth level"),
