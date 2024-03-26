@@ -61,7 +61,7 @@ func Breadcrumb(children ...any) b.Element {
 
 	for _, c := range children {
 		switch c := c.(type) {
-		case b.Class:
+		case b.Class, b.ColorClass, b.ExternalClass, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
 			newChildren = append(newChildren, c)
 
 		case string:

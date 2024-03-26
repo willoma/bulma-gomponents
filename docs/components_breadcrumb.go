@@ -12,7 +12,70 @@ import (
 
 var breadcrumb = c.NewPage(
 	"Breadcrumb", "Breadcrumb", "/breadcrumb",
-	"https://bulma.io/documentation/components/breadcrumb/",
+	"",
+
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Breadcrumb"), " constructor creates a breadcrumb. It accepts the following values additionally to the standard set of children types:",
+		),
+		b.DList(
+			el.Code("b.Centered"),
+			"center the breadcrumb in its container",
+			el.Code("b.Right"),
+			"align the breadcrumb to the right",
+			el.Code("b.ArrowSeparator"),
+			[]any{"use an arrow (", el.Code("→"), ") as the separator"},
+			el.Code("b.BulletSeparator"),
+			[]any{"use a bullet (", el.Code("•"), ") as the separator"},
+			el.Code("b.DotSeparator"),
+			[]any{"use a dot (", el.Code("·"), ") as the separator"},
+			el.Code("b.SucceedsSeparator"),
+			[]any{`use a "succeeds" character (`, el.Code("≻"), `) as the separator`},
+			el.Code("b.Small"),
+			"set breadcrumb size to small",
+			el.Code("b.Medium"),
+			"set breadcrumb size to medium",
+			el.Code("b.Large"),
+			"set breadcrumb size to large",
+		),
+		el.P(
+			"The ", el.Code("b.BreadcrumbEntry"), " constructor creates a breadcrumb entry (which is a regular <li> element). The ", el.Code("b.BreadcrumbAHref"), " constructor creates a breadcrumb link entry. The ", el.Code("b.BreadcrumbActiveAHref"), " constructor creates an active breadcrumb link entry.",
+		),
+	),
+).Section(
+	"Easy helper", "",
+
+	b.Content(
+		el.P("The ", el.Code("easy.Breadcrumb"), " constructor builds a breadcrumb from a single list of target/element pairs. Targets must be strings, which are used as the href attribute of the ", el.Code("<a>"), ` element. If the target starts with the "`, el.Code("!"), `" character, it makes it the active element. Content may be either a string, a single `, el.Code("b.Element"), ", a single ", el.Code("gomponents.Node"), ", or a ", el.Code("[]any"), ". When children are classes, styles or other attributes, they are applied to the breadcrumb component."),
+	),
+	c.Example(
+		`easy.Breadcrumb(
+	b.ArrowSeparator,
+
+	"/",
+	[]any{fa.Icon(fa.Solid, "home"), "Root"},
+
+	"/profile",
+	"Profile",
+
+	"!/profile/email",
+	"Email",
+)`,
+		easy.Breadcrumb(
+			b.ArrowSeparator,
+
+			"/",
+			[]any{fa.Icon(fa.Solid, "home"), "Root"},
+
+			"/profile",
+			"Profile",
+
+			"!/profile/email",
+			"Email",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/breadcrumb/",
 	c.Example(
 		`b.Breadcrumb(
 	b.BreadcrumbEntry(
@@ -75,7 +138,7 @@ var breadcrumb = c.NewPage(
 			"!#", "Breadcrumb",
 		),
 	),
-).Section(
+).Subsection(
 	"Alignment",
 	"https://bulma.io/documentation/components/breadcrumb/#alignment",
 	c.Example(
@@ -138,7 +201,7 @@ easy.Breadcrumb(
 			"!#", "Breadcrumb",
 		),
 	),
-).Section(
+).Subsection(
 	"Icons",
 	"https://bulma.io/documentation/components/breadcrumb/#icons",
 	c.Example(
@@ -167,7 +230,7 @@ easy.Breadcrumb(
 			"!#", []any{fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"},
 		),
 	),
-).Section(
+).Subsection(
 	"Alternative separators",
 	"https://bulma.io/documentation/components/breadcrumb/#alternative-separators",
 	c.Example(
@@ -234,7 +297,7 @@ easy.Breadcrumb(
 			"!#", "Breadcrumb",
 		),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/components/breadcrumb/#sizes",
 	c.Example(

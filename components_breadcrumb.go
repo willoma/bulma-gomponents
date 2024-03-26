@@ -11,13 +11,13 @@ import (
 //
 // The following modifiers change the breadcrumb behaviour:
 //   - Centered: center the breadcrumb in its container
-//   - Right: align the breadcrumb on the right
+//   - Right: align the breadcrumb to the right
 //
 // The following modifiers change the separator:
 //   - ArrowSeparator: use an arrow as the separator
 //   - BulletSeparator: use a bullet as the separator
 //   - DotSeparator: use a small dot as the separator
-//   - SucceedsSeparator: use a "succeed" character as the separator
+//   - SucceedsSeparator: use a "succeeds" character as the separator
 //
 // The following modifiers change the breadcrumb size:
 //   - Small
@@ -35,7 +35,7 @@ type breadcrumb struct {
 func (b *breadcrumb) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class:
+		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			b.navChildren = append(b.navChildren, c)
 		case gomponents.Node:
 			if IsAttribute(c) {
