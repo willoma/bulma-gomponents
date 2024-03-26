@@ -8,6 +8,8 @@ import (
 )
 
 // Pagination creates a pagination element.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <ul class="pagination-list"> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="pagination"> element
 //
 // The results of PaginationLink and PaginationEllipsis are automatically added
 // in the auto-created "pagination-list" element.
@@ -33,6 +35,10 @@ type pagination struct {
 func (p *pagination) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			p.listChildren = append(p.listChildren, c.Child)
+		case *ApplyToOuter:
+			p.paginationChildren = append(p.paginationChildren, c.Child)
 		case *paginationEllipsis, *paginationLink:
 			p.listChildren = append(p.listChildren, Elem(html.Li, c))
 		case Element:

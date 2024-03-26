@@ -47,6 +47,8 @@ func Select(children ...any) Element {
 
 // SelectMultiple creates a multiple select element. It should contain one or
 // multiple Option elements.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <select> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="select"> element
 //   - when a child is a Size, it defines the select size
 //   - when a child is a Class, it is applied to the select element if it is
 //     Hovered or Focused, otherwise it is applied to the div element
@@ -89,6 +91,10 @@ type selectEl struct {
 func (s *selectEl) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			s.selectChildren = append(s.selectChildren, c.Child)
+		case *ApplyToOuter:
+			s.divChildren = append(s.divChildren, c.Child)
 		case Size:
 			s.selectChildren = append(
 				s.selectChildren,

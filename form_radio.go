@@ -8,6 +8,8 @@ import (
 )
 
 // Radio creates a radio element, together with its label container.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
 //   - when a child is a string, it is added in the radio label
 //   - when a child is a gomponents.Node with type gomponents.AttributeType, it
 //     is added as an attribute to the input element
@@ -24,6 +26,8 @@ func Radio(children ...any) Element {
 
 // RadioDisabled creates a disabled radio element, together with its label
 // container.
+//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
 //   - when a child is a string, it is added in the radio label
 //   - when a child is a gomponents.Node with type gomponents.AttributeType, it
 //     is added as an attribute to the input element
@@ -51,6 +55,10 @@ type radio struct {
 func (r *radio) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			r.inputChildren = append(r.inputChildren, c.Child)
+		case *ApplyToOuter:
+			r.labelChildren = append(r.labelChildren, c.Child)
 		case string:
 			r.labelChildren = append(r.labelChildren, c)
 		case gomponents.Node:

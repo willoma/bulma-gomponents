@@ -20,6 +20,8 @@ type FileName string
 type FileNameAutoUpdate string
 
 // File creates a file input element.
+//   - when a child is marked with b.Inner, it is forcibly applied to the call-to-action element
+//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="file"> element
 //   - when a child is a string, it is used as the call-to-action label
 //   - when a child is a FileName, it is the content of the file-name element
 //   - when a child is a FileNameAutoUpdate, it is the content of the file-name
@@ -63,6 +65,10 @@ type file struct {
 func (f *file) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *ApplyToInner:
+			f.ctaChildren = append(f.ctaChildren, c.Child)
+		case *ApplyToOuter:
+			f.divChildren = append(f.divChildren, c.Child)
 		case Class, ColorClass:
 			f.divChildren = append(f.divChildren, c)
 		case string:
