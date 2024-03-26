@@ -53,6 +53,7 @@ func Select(children ...any) Element {
 //   - when a child is an Element, it is added as a child to the select element
 //   - when a child is a Name, it is used as the name attribute of the select
 //     element
+//   - when a child is a gomponents.Node, it is applied to the select element
 //   - other children types are added as children to the div element
 //
 // The following modifiers change the select behaviour:
@@ -107,6 +108,8 @@ func (s *selectEl) With(children ...any) Element {
 			s.selectChildren = append(s.selectChildren, c)
 		case Name:
 			s.selectChildren = append(s.selectChildren, html.Name(string(c)))
+		case gomponents.Node:
+			s.selectChildren = append(s.selectChildren, c)
 		case []any:
 			s.With(c...)
 		default:
