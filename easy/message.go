@@ -49,7 +49,7 @@ func (m *message) With(children ...any) b.Element {
 			m.delete = b.Delete(
 				b.OnClick(string(c)),
 			)
-		case b.Class, b.ColorClass, b.Styles:
+		case b.Class, b.ColorClass, b.ExternalClass, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
 			m.messageChildren = append(m.messageChildren, c)
 		case gomponents.Node:
 			if b.IsAttribute(c) {

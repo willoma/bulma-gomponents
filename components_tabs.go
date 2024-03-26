@@ -38,7 +38,7 @@ type tabs struct {
 func (t *tabs) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class:
+		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			t.tabsChildren = append(t.tabsChildren, c)
 		case func(children ...any) container:
 			t.intermediateContainer = c()
