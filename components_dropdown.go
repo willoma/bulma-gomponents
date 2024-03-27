@@ -34,34 +34,7 @@ func Dropdown(triggerButton, menu Element, children ...any) Element {
 //   - Active: open the menu
 //   - Hoverable: make it so the menu opens when the cursor hovers the button
 func Dropup(triggerButton, menu Element, children ...any) Element {
-	return Dropdown(triggerButton, menu, children, Class("is-up"))
-}
-
-// DropdownItem creates a div which is a dropdown item.
-func DropdownItem(children ...any) Element {
-	return &dropdownItem{Elem(html.Div, Class("dropdown-item"), children)}
-}
-
-type dropdownItem struct {
-	Element
-}
-
-// DropdownAHref creates an AHref element which is a dropdown item.
-func DropdownAHref(href string, children ...any) Element {
-	return &dropdownAhref{AHref(href, Class("dropdown-item"), children)}
-}
-
-type dropdownAhref struct {
-	Element
-}
-
-// DropdownDivider creates a dropdown divider.
-func DropdownDivider() Element {
-	return &dropdownDivider{Elem(html.Hr, Class("dropdown-divider"))}
-}
-
-type dropdownDivider struct {
-	Element
+	return Dropdown(triggerButton, menu, Class("is-up"), children)
 }
 
 // DropdownMenu creates a dropdown menu.
@@ -115,4 +88,31 @@ func (dm *dropdownMenu) Render(w io.Writer) error {
 		dm.menuChildren,
 		Elem(html.Div, Class("dropdown-content"), dm.contentChildren),
 	).Render(w)
+}
+
+// DropdownItem creates a div which is a dropdown item.
+func DropdownItem(children ...any) Element {
+	return &dropdownItem{Elem(html.Div, Class("dropdown-item"), children)}
+}
+
+type dropdownItem struct {
+	Element
+}
+
+// DropdownAHref creates an AHref element which is a dropdown item.
+func DropdownAHref(href string, children ...any) Element {
+	return &dropdownAhref{AHref(href, Class("dropdown-item"), children)}
+}
+
+type dropdownAhref struct {
+	Element
+}
+
+// DropdownDivider creates a dropdown divider.
+func DropdownDivider() Element {
+	return &dropdownDivider{Elem(html.Hr, Class("dropdown-divider"))}
+}
+
+type dropdownDivider struct {
+	Element
 }
