@@ -20,7 +20,11 @@ type easyDropdown struct {
 func (d *easyDropdown) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case b.Class, b.ColorClass, b.Styles:
+		case *b.ApplyToInner:
+			d.menuChildren = append(d.menuChildren, c.Child)
+		case *b.ApplyToOuter:
+			d.dropdownChildren = append(d.dropdownChildren, c.Child)
+		case b.Class, b.ColorClass, b.ExternalClass, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
 			d.dropdownChildren = append(d.dropdownChildren, c)
 		case gomponents.Node:
 			if b.IsAttribute(c) {

@@ -65,7 +65,7 @@ func (t *tags) Render(w io.Writer) error {
 	return Elem(html.Div, Class("tags"), t.children).Render(w)
 }
 
-// DeleteTag creates a tag which is a delete button-looking a element.
+// DeleteTag creates a delete button-looking tag.
 func DeleteTag(children ...any) Element {
 	return Elem(html.A, Class("tag"), Class("is-delete"), children)
 }

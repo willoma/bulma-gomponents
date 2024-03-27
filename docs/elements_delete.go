@@ -3,14 +3,32 @@ package docs
 import (
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
+	"github.com/willoma/bulma-gomponents/el"
 )
 
 var delete = c.NewPage(
 	"Delete", "Delete", "/delete",
-	"https://bulma.io/documentation/elements/delete/",
+	"",
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Delete"), " constructor returns a delete cross. It accepts the following values additionally to the standard set of children types:",
+		),
+		b.DList(
+			el.Code("b.Small"),
+			"set delete icon size to small",
+			el.Code("b.Normal"),
+			"set delete icon size to normal",
+			el.Code("b.Medium"),
+			"set delete icon size to medium",
+			el.Code("b.Large"),
+			"set delete icon size to large",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/elements/delete/",
 
 	c.Example("b.Delete()", b.Delete()),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/elements/delete/#sizes",
 	c.Example(
@@ -23,7 +41,7 @@ b.Delete(b.Large)`,
 		b.Delete(b.Medium, b.MarginRight(b.Spacing2)),
 		b.Delete(b.Large, b.MarginRight(b.Spacing2)),
 	),
-).Section(
+).Subsection(
 	"Combinations",
 	"https://bulma.io/documentation/elements/delete/#combinations",
 	c.Example(

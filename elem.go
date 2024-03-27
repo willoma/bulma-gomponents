@@ -92,17 +92,30 @@ func (e *element) With(children ...any) Element {
 			e.elemFn = c
 		case Class:
 			e.classes[string(c)] = true
+		case ColorClass:
+			e.classes["is-"+c.class] = true
+			switch c.variant {
+			case colorLight:
+				e.classes["is-light"] = true
+			case colorDark:
+				e.classes["is-dark"] = true
+			}
+		case ExternalClass:
+			e.classes[string(c.Class())] = true
+		case ExternalClassesAndStyles:
+			cls, st := c.ClassesAndStyles()
+			for _, cl := range cls {
+				e.classes[string(cl)] = true
+			}
+			for prop, val := range st {
+				e.stylesCollection[prop] = val
+			}
 		case MultiClass:
 			for _, cl := range c.Responsive {
 				e.classes[cl] = true
 			}
 			for _, cl := range c.Static {
 				e.classes[cl] = true
-			}
-		case ColorClass:
-			e.classes["is-"+c.class] = true
-			if c.light {
-				e.classes["is-light"] = true
 			}
 		case Styles:
 			for prop, val := range c {

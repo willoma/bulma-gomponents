@@ -71,9 +71,20 @@ func OnClick(script string) gomponents.Node {
 //
 // TODO work with "With"
 func UList(children ...any) Element {
-	wrappedChildren := make([]any, len(children))
-	for i, c := range children {
-		wrappedChildren[i] = Elem(html.Li, c)
+	e := Elem(html.Ul)
+	for _, c := range children {
+		switch c := c.(type) {
+		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
+			e.With(c)
+		case gomponents.Node:
+			if IsAttribute(c) {
+				e.With(c)
+			} else {
+				e.With(Elem(html.Li, c))
+			}
+		default:
+			e.With(Elem(html.Li, c))
+		}
 	}
-	return Elem(html.Ul, wrappedChildren...)
+	return e
 }

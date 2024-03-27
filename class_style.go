@@ -1,5 +1,10 @@
 package bulma
 
+// For appending classes to an element
+
+// case b.Class, b.ColorClass, b.ExternalClass, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
+//
+
 // Class is an Element modifier to apply a HTML class.
 type Class string
 
@@ -7,6 +12,31 @@ type Class string
 type MultiClass struct {
 	Responsive []string // Classes that may be modified with one of the responsive functions
 	Static     []string // Classes that will not be modified with responsive functions
+}
+
+type ExternalClass interface {
+	Class() Class
+}
+
+type ExternalClassesAndStyles interface {
+	ClassesAndStyles() ([]Class, Styles)
+}
+
+type Styles map[string]string
+
+// Style applies styles to the element.
+func Style(propertiesValues ...string) Styles {
+	stylesObj := Styles{}
+	var limit int
+	if len(propertiesValues)%2 == 0 {
+		limit = len(propertiesValues)
+	} else {
+		limit = len(propertiesValues) - 1
+	}
+	for i := 0; i < limit; i += 2 {
+		stylesObj[propertiesValues[i]] = propertiesValues[i+1]
+	}
+	return stylesObj
 }
 
 // "is-" classes

@@ -44,7 +44,7 @@ func (t *tabs) With(children ...any) Element {
 			t.contentChildren = append(t.contentChildren, c.Child)
 		case *ApplyToOuter:
 			t.tabsChildren = append(t.tabsChildren, c.Child)
-		case Class:
+		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			t.tabsChildren = append(t.tabsChildren, c)
 		case func(children ...any) container:
 			t.intermediateContainer = c()

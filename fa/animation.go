@@ -1,119 +1,62 @@
 package fa
 
 import (
-	"fmt"
+	"strconv"
+	"time"
 
 	b "github.com/willoma/bulma-gomponents"
 )
 
-type Animation interface {
-	attrs() (Class, b.Styles)
-}
-
 type AnimationDirection string
 
 const (
-	AnimationDirectionNormal           AnimationDirection = "normal"
-	AnimationDirectionReverse          AnimationDirection = "reverse"
-	AnimationDirectionAlternate        AnimationDirection = "alternate"
-	AnimationDirectionAlternateReverse AnimationDirection = "alternate-reverse"
+	Normal           AnimationDirection = "normal"
+	Reverse          AnimationDirection = "reverse"
+	Alternate        AnimationDirection = "alternate"
+	AlternateReverse AnimationDirection = "alternate-reverse"
 )
 
 type AnimationTiming string
 
 const (
-	AnimationTimingEase      AnimationTiming = "ease"
-	AnimationTimingLinear    AnimationTiming = "linear"
-	AnimationTimingEaseIn    AnimationTiming = "ease-in"
-	AnimationTimingEaseOut   AnimationTiming = "ease-out"
-	AnimationTimingEaseInOut AnimationTiming = "ease-in-out"
-	AnimationTimingStepStart AnimationTiming = "step-start"
-	AnimationTimingStepEnd   AnimationTiming = "step-end"
+	Ease      AnimationTiming = "ease"
+	Linear    AnimationTiming = "linear"
+	EaseIn    AnimationTiming = "ease-in"
+	EaseOut   AnimationTiming = "ease-out"
+	EaseInOut AnimationTiming = "ease-in-out"
+	StepStart AnimationTiming = "step-start"
+	StepEnd   AnimationTiming = "step-end"
 )
 
-type AnimationBase struct {
-	Delay          float64 // seconds
+type AnimationType int
+
+const (
+	Beat AnimationType = iota
+	Fade
+	BeatFade
+	Bounce
+	Flip
+	Shake
+	Spin
+)
+
+type Animation struct {
+	Type AnimationType
+
+	// Common parameters
+	Delay          time.Duration
 	Direction      AnimationDirection
-	Duration       float64 // seconds
+	Duration       time.Duration
 	IterationCount float64
 	Timing         AnimationTiming
-}
 
-func (a AnimationBase) baseStyles() b.Styles {
-	styles := b.Styles{}
-	if a.Delay != 0 {
-		styles["--fa-animation-delay"] = fmt.Sprintf("%vs", a.Delay)
-	}
-	if a.Direction != "" {
-		styles["--fa-animation-direction"] = string(a.Direction)
-	}
-	if a.Duration != 0 {
-		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
-	}
-	if a.IterationCount != 0 {
-		styles["--fa-animation-iteration-count"] = fmt.Sprintf("%v", a.IterationCount)
-	}
-	if a.Timing != "" {
-		styles["--fa-animation-timing"] = string(a.Timing)
-	}
-	return styles
-}
-
-// Beat adds a beat animation to a FA icon.
-type Beat struct {
-	AnimationBase
+	// Beat and BeatFade parameters
 	MaxScale float64
-}
 
-func (a Beat) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	if a.MaxScale != 0 {
-		styles["--fa-beat-scale"] = fmt.Sprintf("%v", a.MaxScale)
-	}
-	return "fa-beat", styles
-}
-
-// Fade adds a fade animation to a FA icon.
-type Fade struct {
-	AnimationBase
+	// Fade and BeatFade parameters
 	MinOpacity float64
-}
 
-func (a Fade) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	if a.Duration != 0 {
-		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
-	}
-	if a.MinOpacity != 0 {
-		styles["--fa-fade-opacity"] = fmt.Sprintf("%v", a.MinOpacity)
-	}
-	return "fa-fade", styles
-}
-
-// BeatFade adds a beat and a fade animations to a FA icon.
-type BeatFade struct {
-	AnimationBase
-	MaxScale   float64
-	MinOpacity float64
-}
-
-func (a BeatFade) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	if a.Duration != 0 {
-		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
-	}
-	if a.MaxScale != 0 {
-		styles["--fa-beat-fade-scale"] = fmt.Sprintf("%v", a.MaxScale)
-	}
-	if a.MinOpacity != 0 {
-		styles["--fa-beat-fade-opacity"] = fmt.Sprintf("%v", a.MinOpacity)
-	}
-	return "fa-beat-fade", styles
-}
-
-// Bounce adds a bounce animation to a FA icon.
-type Bounce struct {
-	AnimationBase
+	// Bounce parameters
 	Rebound     float64
 	Height      float64
 	StartScaleX float64
@@ -122,116 +65,227 @@ type Bounce struct {
 	JumpScaleY  float64
 	LandScaleX  float64
 	LandScaleY  float64
-}
 
-func (a Bounce) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	if a.Duration != 0 {
-		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
-	}
-	if a.Rebound != 0 {
-		styles["--fa-bounce-rebound"] = fmt.Sprintf("%v", a.Rebound)
-	}
-	if a.Height != 0 {
-		styles["--fa-bounce-height"] = fmt.Sprintf("%v", a.Height)
-	}
-	if a.StartScaleX != 0 {
-		styles["--fa-bounce-start-scale-x"] = fmt.Sprintf("%v", a.StartScaleX)
-	}
-	if a.StartScaleY != 0 {
-		styles["--fa-bounce-start-scale-y"] = fmt.Sprintf("%v", a.StartScaleY)
-	}
-	if a.JumpScaleX != 0 {
-		styles["--fa-bounce-jump-scale-x"] = fmt.Sprintf("%v", a.JumpScaleX)
-	}
-	if a.JumpScaleY != 0 {
-		styles["--fa-bounce-jump-scale-y"] = fmt.Sprintf("%v", a.JumpScaleY)
-	}
-	if a.LandScaleX != 0 {
-		styles["--fa-bounce-land-scale-x"] = fmt.Sprintf("%v", a.LandScaleX)
-	}
-	if a.LandScaleY != 0 {
-		styles["--fa-bounce-land-scale-y"] = fmt.Sprintf("%v", a.LandScaleY)
-	}
-
-	return "fa-bounce", styles
-}
-
-// Flip adds a flip animation to a FA icon.
-type Flip struct {
-	AnimationBase
+	// Flip parameters
 	X     float64
 	Y     float64
 	Z     float64
 	Angle float64
+
+	// Spin parameters
+	Pulse   bool
+	Reverse bool
 }
 
-func (a Flip) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
+func (a Animation) ClassesAndStyles() ([]b.Class, b.Styles) {
+	var (
+		classes    []b.Class
+		stylesArgs []string
+	)
+	switch a.Type {
+	case Beat:
+		classes = append(classes, "fa-beat")
+		if a.MaxScale != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-beat-scale", strconv.FormatFloat(a.MaxScale, 'f', 2, 64),
+			)
+		}
+
+	case Fade:
+		classes = append(classes, "fa-fade")
+		if a.MinOpacity != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-fade-opacity", strconv.FormatFloat(a.MinOpacity, 'f', 2, 64),
+			)
+		}
+
+	case BeatFade:
+		classes = append(classes, "fa-beat-fade")
+		if a.MaxScale != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-beat-fade-scale", strconv.FormatFloat(a.MaxScale, 'f', 2, 64),
+			)
+		}
+		if a.MinOpacity != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-beat-fade-opacity", strconv.FormatFloat(a.MinOpacity, 'f', 2, 64),
+			)
+		}
+
+	case Bounce:
+		classes = append(classes, "fa-bounce")
+		if a.Rebound != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-rebound", strconv.FormatFloat(a.MaxScale, 'f', 2, 64),
+			)
+		}
+		if a.Height != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-height", strconv.FormatFloat(a.Height, 'f', 2, 64),
+			)
+		}
+		if a.StartScaleX != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-start-scale-x", strconv.FormatFloat(a.StartScaleX, 'f', 2, 64),
+			)
+		}
+		if a.StartScaleY != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-start-scale-y", strconv.FormatFloat(a.StartScaleY, 'f', 2, 64),
+			)
+		}
+		if a.JumpScaleX != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-jump-scale-x", strconv.FormatFloat(a.JumpScaleX, 'f', 2, 64),
+			)
+		}
+		if a.JumpScaleY != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-jump-scale-y", strconv.FormatFloat(a.JumpScaleY, 'f', 2, 64),
+			)
+		}
+		if a.LandScaleX != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-land-scale-x", strconv.FormatFloat(a.LandScaleX, 'f', 2, 64),
+			)
+		}
+		if a.LandScaleY != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-bounce-land-scale-y", strconv.FormatFloat(a.LandScaleY, 'f', 2, 64),
+			)
+		}
+
+	case Flip:
+		classes = append(classes, "fa-flip")
+		if a.X != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-flip-x", strconv.FormatFloat(a.X, 'f', 2, 64),
+			)
+		}
+		if a.Y != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-flip-y", strconv.FormatFloat(a.Y, 'f', 2, 64),
+			)
+		}
+		if a.Z != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-flip-z", strconv.FormatFloat(a.Z, 'f', 2, 64),
+			)
+		}
+		if a.Angle != 0 {
+			stylesArgs = append(
+				stylesArgs,
+				"--fa-flip-angle", strconv.FormatFloat(a.Angle, 'f', 2, 64),
+			)
+		}
+
+	case Shake:
+		classes = append(classes, "fa-shake")
+
+	case Spin:
+		if a.Pulse {
+			classes = append(classes, "fa-spin-pulse")
+		} else {
+			classes = append(classes, "fa-spin")
+		}
+		if a.Reverse {
+			classes = append(classes, "fa-spin-reverse")
+		}
+		// XXX XXX XXX XXX XXX
+
+	default:
+		return nil, nil
+	}
+
+	if a.Delay != 0 {
+		stylesArgs = append(
+			stylesArgs,
+			"--fa-animation-delay", strconv.FormatFloat(a.Delay.Seconds(), 'f', 2, 64)+"s",
+		)
+	}
+
+	if a.Direction != "" {
+		stylesArgs = append(
+			stylesArgs,
+			"--fa-animation-direction", string(a.Direction),
+		)
+	}
+
 	if a.Duration != 0 {
-		styles["--fa-animation-duration"] = fmt.Sprintf("%vs", a.Duration)
+		stylesArgs = append(
+			stylesArgs,
+			"--fa-animation-duration", strconv.FormatFloat(a.Duration.Seconds(), 'f', 2, 64)+"s",
+		)
 	}
-	if a.X != 0 {
-		styles["--fa-flip-x"] = fmt.Sprintf("%v", a.X)
+
+	if a.IterationCount != 0 {
+		stylesArgs = append(
+			stylesArgs,
+			"--fa-animation-iteration-count", strconv.FormatFloat(a.IterationCount, 'f', 2, 64),
+		)
 	}
-	if a.Y != 0 {
-		styles["--fa-flip-y"] = fmt.Sprintf("%v", a.Y)
+
+	if a.Timing != "" {
+		stylesArgs = append(
+			stylesArgs,
+			"--fa-animation-timing", string(a.Timing),
+		)
 	}
-	if a.Z != 0 {
-		styles["--fa-flip-z"] = fmt.Sprintf("%v", a.Z)
-	}
-	if a.Angle != 0 {
-		styles["--fa-flip-angle"] = fmt.Sprintf("%v", a.Angle)
-	}
-	return "fa-flip", styles
+
+	return classes, b.Style(stylesArgs...)
 }
 
-// Shake adds a shake animation to a FA icon.
-type Shake struct {
-	AnimationBase
-}
+// // Spin adds a spin animation to a FA icon.
+// type Spin struct {
+// 	AnimationBase
+// }
 
-func (a Shake) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	return "fa-shake", styles
-}
+// func (a Spin) attrs() (Class, b.Styles) {
+// 	styles := a.baseStyles()
+// 	return "fa-spin", styles
+// }
 
-// Spin adds a spin animation to a FA icon.
-type Spin struct {
-	AnimationBase
-}
+// // SpinReverse adds a reverse spin animation to a FA icon.
+// type SpinReverse struct {
+// 	AnimationBase
+// }
 
-func (a Spin) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	return "fa-spin", styles
-}
+// func (a SpinReverse) attrs() (Class, b.Styles) {
+// 	styles := a.baseStyles()
+// 	return "fa-spin fa-spin-reverse", styles
+// }
 
-// SpinReverse adds a reverse spin animation to a FA icon.
-type SpinReverse struct {
-	AnimationBase
-}
+// // SpinPulse adds a 8-steps spin animation to a FA icon.
+// type SpinPulse struct {
+// 	AnimationBase
+// }
 
-func (a SpinReverse) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	return "fa-spin fa-spin-reverse", styles
-}
+// func (a SpinPulse) attrs() (Class, b.Styles) {
+// 	styles := a.baseStyles()
+// 	return "fa-spin-pulse", styles
+// }
 
-// SpinPulse adds a 8-steps spin animation to a FA icon.
-type SpinPulse struct {
-	AnimationBase
-}
+// // SpinPulseReverse adds a 8-steps reverse spin animation to a FA icon.
+// type SpinPulseReverse struct {
+// 	AnimationBase
+// }
 
-func (a SpinPulse) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	return "fa-spin-pulse", styles
-}
-
-// SpinPulseReverse adds a 8-steps reverse spin animation to a FA icon.
-type SpinPulseReverse struct {
-	AnimationBase
-}
-
-func (a SpinPulseReverse) attrs() (Class, b.Styles) {
-	styles := a.baseStyles()
-	return "fa-spin-pulse fa-spin-reverse", styles
-}
+// func (a SpinPulseReverse) attrs() (Class, b.Styles) {
+// 	styles := a.baseStyles()
+// 	return "fa-spin-pulse fa-spin-reverse", styles
+// }

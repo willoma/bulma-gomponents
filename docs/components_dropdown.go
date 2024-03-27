@@ -12,7 +12,77 @@ import (
 
 var dropdown = c.NewPage(
 	"Dropdown", "Dropdown", "/dropdown",
-	"https://bulma.io/documentation/components/dropdown/",
+	"",
+
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Dropdown"), " constructor creates a dropdown menu. Its first child must be a button element and its second child must be a ", el.Code("b.DromdownMenu"), " element. In order to make the dropdown menu open to the top of the button, use ", el.Code("b.Dropup"), ". These constructors accept the following values additionally to the standard set of children types:",
+		),
+		b.DList(
+			el.Code("b.Active"),
+			"Open the menu",
+			el.Code("b.Hoverable"),
+			"Make the menu open when the cursor hovers the button",
+		),
+		el.P(
+			"The ", el.Code("b.DropdownMenu"), " constructor creates the menu part of a dropdown. It accepts the following values additionally to the standard set of children types:",
+		),
+		b.DList(
+			el.Code("b.Inner(any)"),
+			[]any{"forcibly apply the child to the ", el.Code(`<div class="dropdown-content">`), " element"},
+
+			el.Code("b.Outer(any)"),
+			[]any{"forcibly apply the child to the ", el.Code(`<div class="dropdown-menu">`), " element"},
+
+			[]any{el.Code("b.DropdownItem(...)"), ", ", el.Code("b.DropdownAHref(...)"), " and ", el.Code("b.DropdownDivider()")},
+			"Add the child to the content",
+
+			el.Code("b.Element"),
+			[]any{"Wrap the child with the ", el.Code("b.DropdownItem"), " constructor and add it to the content"},
+
+			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			"Apply the attribute to the menu",
+
+			[]any{"Other ", el.Code("gomponents.Node")},
+			"Add this element to the content",
+		),
+		el.P("The following constructors allow providing content to the menu:"),
+		b.DList(
+			el.Code("b.DropdownItem(children ...any)"),
+			"Wrap the children in a dropdown-item div",
+
+			el.Code("b.DropdownAHref(href string, children ...any)"),
+			"Create a dropdown-item link",
+
+			el.Code("b.DropdownDivider()"),
+			"Create a dropdown divider",
+		),
+	),
+).Section(
+	"Easy helper", "",
+
+	b.Content(
+		el.P("The ", el.Code("easy.ClickableDropdown"), ", ", el.Code("easy.HoverableDropdown"), ", ", el.Code("easy.ClickableDropup"), " and ", el.Code("easy.HoverableDropup"), " constructors build dropdown menus with the provided test on the trigger button and accept the following values additionally to the standard set of children types:"),
+		b.DList(
+			el.Code("b.Inner(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code(`<div class="dropdown-menu">`), " element"},
+
+			el.Code("b.Outer(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code(`<div class="dropdown">`), " element"},
+
+			"classes and styles",
+			"Apply to the dropdown element",
+
+			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			"Apply the attribute to the dropdown element",
+
+			[]any{"Other ", el.Code("gomponents.Node")},
+			"Add this element to the menu element",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/dropdown/",
+
 	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the ", el.Code(`b.DropdownAHref`), " helper.")),
 	c.Example(
 		`b.Dropdown(
@@ -53,7 +123,7 @@ var dropdown = c.NewPage(
 			b.OnClick(`this.classList.toggle("is-active")`),
 		),
 	),
-).Section(
+).Subsection(
 	"Dropdown content",
 	"https://bulma.io/documentation/components/dropdown/#dropdown-content",
 	b.Content(el.P(el.Em("Bulma-Gomponents"), " automatically embeds any content that is not a legit dropdown item or divider into a ", el.Code("b.DropdownItem"), ":")),
@@ -100,7 +170,7 @@ var dropdown = c.NewPage(
 			b.OnClick(`this.classList.toggle("is-active")`),
 		),
 	),
-).Section(
+).Subsection(
 	"Hoverable or Toggable",
 	"https://bulma.io/documentation/components/dropdown/#hoverable-or-toggable",
 	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the", el.Code("easy.ClickableDropdown"), " and ", el.Code("easy.HoverableDropdown"), "variants:")),
@@ -140,7 +210,7 @@ var dropdown = c.NewPage(
 			el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
 		),
 	),
-).Section(
+).Subsection(
 	"Right aligned",
 	"https://bulma.io/documentation/components/dropdown/#right-aligned",
 	c.Example(
@@ -165,7 +235,7 @@ var dropdown = c.NewPage(
 			el.P("Add the ", el.Code("b.Right"), " modifier for a ", el.Strong("right-aligned"), " dropdown."),
 		),
 	),
-).Section(
+).Subsection(
 	"Dropup",
 	"https://bulma.io/documentation/components/dropdown/#dropup",
 	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the ", el.Code("b.Dropup"), ", ", el.Code("easy.ClickableDropup"), " and ", el.Code("easy.HoverableDropup"), " variants:")),

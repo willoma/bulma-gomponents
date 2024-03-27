@@ -69,7 +69,7 @@ func (f *file) With(children ...any) Element {
 			f.ctaChildren = append(f.ctaChildren, c.Child)
 		case *ApplyToOuter:
 			f.divChildren = append(f.divChildren, c.Child)
-		case Class, ColorClass:
+		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
 			f.divChildren = append(f.divChildren, c)
 		case string:
 			f.ctaChildren = append(

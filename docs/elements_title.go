@@ -5,18 +5,44 @@ import (
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
+	"github.com/willoma/bulma-gomponents/el"
 )
 
 var title = c.NewPage(
 	"Title", "Title and subtitle", "/title",
-	"https://bulma.io/documentation/elements/title/",
+	"",
+
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Title"), " constructor creates a title. The ", el.Code("b.Subtitle"), " constructor creates a subtitle. These constructors accept the ", el.Code("b.Spaced"), " modifier additionally to the standard set of children types, to maintain normal spacing between title and the following subtitle - otherwise, a title followed by a subtitle are grouped together.",
+		),
+		el.P(
+			"The following constructors create titles and subtitles of sizes 1 to 6:",
+			b.UList(
+				el.Code("b.Title1"),
+				el.Code("b.Title2"),
+				el.Code("b.Title3"),
+				el.Code("b.Title4"),
+				el.Code("b.Title5"),
+				el.Code("b.Title6"),
+				el.Code("b.Subtitle1"),
+				el.Code("b.Subtitle2"),
+				el.Code("b.Subtitle3"),
+				el.Code("b.Subtitle4"),
+				el.Code("b.Subtitle5"),
+				el.Code("b.Subtitle6"),
+			),
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/elements/title/",
 	c.Example(
 		`b.Title("Title"),
 b.Subtitle("Subtitle")`,
 		b.Title("Title"),
 		b.Subtitle("Subtitle"),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/elements/title/#sizes",
 	c.Example(
