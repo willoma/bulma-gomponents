@@ -34,7 +34,7 @@ func Menu(children ...any) b.Element {
 
 // MenuEntryWithSublist creates a menu sublist, associated with a menu entry.
 //
-// Each if its children is included as a menu entry.
+// Each of its children is included as a submenu entry.
 func MenuEntryWithSublist(entry any, children ...any) []any {
 	list := b.MenuSublist()
 	for _, c := range children {
