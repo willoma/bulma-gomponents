@@ -43,6 +43,10 @@ type message struct {
 func (m *message) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case *b.ApplyToInner:
+			m.bodyChildren = append(m.bodyChildren, c.Child)
+		case *b.ApplyToOuter:
+			m.messageChildren = append(m.messageChildren, c.Child)
 		case MessageTitle:
 			m.title = string(c)
 		case MessageDeleteOnClick:
