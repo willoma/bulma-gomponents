@@ -62,7 +62,7 @@ func (i *icon) SetIconClass(c Class) {
 func (i *icon) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case ColorClass:
+		case Color:
 			i.children = append(i.children, c.Text())
 		case []any:
 			i.With(c...)
@@ -122,7 +122,7 @@ func IconText(children ...any) Element {
 	return (&iconText{el: html.Span}).With(children...)
 }
 
-// IconText creates a flex icon-text span and embed all its non-icons children
+// FlexIconText creates a flex icon-text span and embed all its non-icons children
 // into spans.
 //
 // The following modifiers change the icon and text color:
@@ -169,7 +169,7 @@ type iconText struct {
 func (i *iconText) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case ColorClass:
+		case Color:
 			i.children = append(i.children, c.Text())
 		case []any:
 			i.With(c...)

@@ -13,28 +13,40 @@ var content = c.NewPage(
 	"",
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Content"), " constructor returns a block make to contain ", el.Strong("WYSIWYG"), " text. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Content"), " constructor creates a block make to contain ", el.Strong("WYSIWYG"), " text. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.Small"),
-			"set content size to small",
+			"Set content size to small",
+
 			el.Code("b.Normal"),
-			"set content size to normal",
+			"Set content size to normal",
+
 			el.Code("b.Medium"),
-			"set content size to medium",
+			"Set content size to medium",
+
 			el.Code("b.Large"),
-			"set content size to large",
+			"Set content size to large",
+
+			el.Code("string"),
+			[]any{"Wrap the text in a ", el.Code("<p>"), " element"},
+
+			el.Code("b.NoP(...)"),
+			[]any{"Remove the ", el.Code("<p>"), " wrapper for the provided children"},
 		),
 		el.P("You may apply the following modifiers on ", el.Code("el.Ol"), " children in order to change their style:"),
 		b.DList(
 			el.Code("b.OlLowerAlpha"),
-			"lowercase letters",
+			"Lowercase letters",
+
 			el.Code("b.OlLowerRoman"),
-			"lowercase roman numbers",
+			"Lowercase roman numbers",
+
 			el.Code("b.OlUpperAlpha"),
-			"uppercase letters",
+			"Uppercase letters",
+
 			el.Code("b.OlUpperRoman"),
-			"uppercase roman numbers",
+			"Uppercase roman numbers",
 		),
 	),
 ).Section(
@@ -89,7 +101,7 @@ var content = c.NewPage(
 		b.Padding(b.Spacing2),
 		b.FontSize7,
 		b.Style("tab-size", "4"),
-		′<!DOCTYPE html>
+		`+"`"+`<!DOCTYPE html>
 <html>
 	<head>
 		<title>Hello World</title>
@@ -98,7 +110,7 @@ var content = c.NewPage(
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 		Donec viverra nec nulla vitae mollis.</p>
 	</body>
-</html>′),
+</html>`+"`"+`),
 	"Maecenas eleifend sollicitudin dui, faucibus sollicitudin augue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien.",
 	el.Table(
 		el.THead(

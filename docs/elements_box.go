@@ -15,7 +15,7 @@ var box = c.NewPage(
 
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Box"), " constructor returns a white box with some padding and a shadow. It accepts the standard set of children types.",
+			"The ", el.Code("b.Box"), " constructor returns a white box with some padding and a shadow.",
 		),
 	),
 ).Section(
@@ -80,21 +80,9 @@ var box = c.NewPage(
 		b.Level(
 			b.Mobile,
 			b.LevelLeft(
-				b.LevelItem(
-					html.A,
-					html.Aria("level", "reply"),
-					fa.Icon(fa.Solid, "reply", b.Small),
-				),
-				b.LevelItem(
-					html.A,
-					html.Aria("level", "retweet"),
-					fa.Icon(fa.Solid, "retweet", b.Small),
-				),
-				b.LevelItem(
-					html.A,
-					html.Aria("level", "like"),
-					fa.Icon(fa.Solid, "heart", b.Small),
-				),
+				el.A(html.Aria("level", "reply"), fa.Icon(fa.Solid, "reply", b.Small)),
+				el.A(html.Aria("level", "retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+				el.A(html.Aria("level", "like"), fa.Icon(fa.Solid, "heart", b.Small)),
 			),
 		),
 	),
@@ -118,21 +106,9 @@ var box = c.NewPage(
 				b.Level(
 					b.Mobile,
 					b.LevelLeft(
-						b.LevelItem(
-							html.A,
-							html.Aria("level", "reply"),
-							fa.Icon(fa.Solid, "reply", b.Small),
-						),
-						b.LevelItem(
-							html.A,
-							html.Aria("level", "retweet"),
-							fa.Icon(fa.Solid, "retweet", b.Small),
-						),
-						b.LevelItem(
-							html.A,
-							html.Aria("level", "like"),
-							fa.Icon(fa.Solid, "heart", b.Small),
-						),
+						el.A(html.Aria("level", "reply"), fa.Icon(fa.Solid, "reply", b.Small)),
+						el.A(html.Aria("level", "retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+						el.A(html.Aria("level", "like"), fa.Icon(fa.Solid, "heart", b.Small)),
 					),
 				),
 			),

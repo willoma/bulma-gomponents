@@ -8,8 +8,6 @@ import (
 )
 
 // Radio creates a radio element, together with its label container.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
 //   - when a child is a string, it is added in the radio label
 //   - when a child is a gomponents.Node with type gomponents.AttributeType, it
 //     is added as an attribute to the input element
@@ -20,29 +18,12 @@ import (
 //
 // The following modifiers change the radio behaviour:
 //   - Checked: make it so the radio button is checked
+//   - Disabled: disable the radio button
 func Radio(children ...any) Element {
 	return new(radio).With(children...)
 }
 
-// RadioDisabled creates a disabled radio element, together with its label
-// container.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
-//   - when a child is a string, it is added in the radio label
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as an attribute to the input element
-//   - when a child is a gopmponents.Node with another type, it is added as a
-//     child to the label element
-//   - when a child is an Element, it is added in the radio label
-//   - other childs are added as children to the input element
-//
-// The following modifiers change the radio behaviour:
-//   - Checked: make it so the radio button is checked
-func RadioDisabled(children ...any) Element {
-	return (&radio{disabled: true}).With(children...)
-}
-
-// Checked, when provided as a child of Radio or RadioDisabled, makes it so the
+// Checked, when provided as a child of Radio, makes it so the
 // radio button is checked.
 var Checked = gomponents.Attr("checked")
 
@@ -55,12 +36,20 @@ type radio struct {
 func (r *radio) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			r.inputChildren = append(r.inputChildren, c.Child)
-		case *ApplyToOuter:
-			r.labelChildren = append(r.labelChildren, c.Child)
+		case onInput:
+			r.inputChildren = append(r.inputChildren, c...)
+		case onLabel:
+			r.labelChildren = append(r.labelChildren, c...)
 		case string:
 			r.labelChildren = append(r.labelChildren, c)
+		case Class:
+			switch c {
+			case Disabled:
+				r.inputChildren = append(r.inputChildren, html.Disabled())
+				r.labelChildren = append(r.labelChildren, html.Disabled())
+			default:
+				r.inputChildren = append(r.inputChildren, c)
+			}
 		case gomponents.Node:
 			if IsAttribute(c) {
 				r.inputChildren = append(r.inputChildren, c)
@@ -80,13 +69,15 @@ func (r *radio) With(children ...any) Element {
 }
 
 func (r *radio) Render(w io.Writer) error {
-	input := Elem(html.Input, html.Type("radio"), r.inputChildren)
-	label := Elem(html.Label, Class("radio"), input, " ", r.labelChildren)
-
-	if r.disabled {
-		label.With(html.Disabled())
-		input.With(html.Disabled())
-	}
-
-	return label.Render(w)
+	return Elem(
+		html.Label,
+		Class("radio"),
+		Elem(
+			html.Input,
+			html.Type("radio"),
+			r.inputChildren,
+		),
+		" ",
+		r.labelChildren,
+	).Render(w)
 }

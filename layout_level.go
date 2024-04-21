@@ -7,46 +7,62 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
-// Level creates a level element, which should contain either LevelLeft and/or
-// LevelRight children, or LevelItem children.
-//   - when a child is the return value of LevelItem, LevelLeft or LevelRight,
-//     it is added as a child to the level
-//   - when a child is any other Element, it is wrapped into a LevelItem and
-//     added as a child to the level
-//   - when a child is a string, it is wrapped into a LevelItem and added as a
-//     child to the level
+// Level creates a level element.
+//   - when a child is the result of LevelLeft(...), its children are added to
+//     the level left section, with following rules applied
+//   - when a child is the result of LevelRight(...), its children are added to
+//     the level right section, with following rules applied
+//   - when a child is an Element, the "level-item" class is added to it and it
+//     is added as a child to the level
+//   - when a child is a string, it is wrapped in an Element with the
+//     "level-item" class which is added as a child to the level
 //   - when a child is a gomponents.Node with type gomponents.AttributeType, it
 //     is added as an attribute to the level
 //   - when a child is a gopmponents.Node with another type, it is wrapped into
-//     a LevelItem and added as a child to the level
+//     an Element with the "level-item" class and added as a child to the level
 //   - other children types are added as children to the level
 //
-// The following modifiers change the level behaviour:
-//   - Mobile: show the level horizontally on mobile too (otherwise, the level
-//     items are placed vertically)
+// For children included provided with LevelLeft or LevelRight:
+//   - when a child is an Element, the "level-item" class is added to it and it
+//     is added as a child to the level section
+//   - when a child is a string, it is wrapped in an Element with the
+//     "level-item" class which is added as a child to the level section
+//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
+//     is added as an attribute to the level section
+//   - when a child is a gopmponents.Node with another type, it is wrapped into
+//     an Element with the "level-item" class and added as a child to the level
+//     section
+//   - other children types are added as children to the level section
 func Level(children ...any) Element {
 	return new(level).With(children...)
 }
 
 type level struct {
-	children []any
+	leftChildren  []any
+	rightChildren []any
+	children      []any
 }
 
 func (l *level) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *levelItem, *levelLeft, *levelRight:
+		case levelLeft:
+			l.leftChildren = append(l.leftChildren, flattenLevelSection(c)...)
+		case levelRight:
+			l.rightChildren = append(l.rightChildren, flattenLevelSection(c)...)
+		case Element:
+			c.With(Class("level-item"))
 			l.children = append(l.children, c)
-		case Element, string:
-			l.children = append(l.children, LevelItem(c))
+		case string:
+			l.children = append(l.children, Elem(html.P, Class("level-item"), c))
 		case gomponents.Node:
 			if !IsAttribute(c) {
-				l.children = append(l.children, LevelItem(c))
+				l.children = append(l.children, Elem(html.Div, Class("level-item"), c))
 			} else {
 				l.children = append(l.children, c)
 			}
 		case []any:
-			l.With(c...)
+			l.children = append(l.children, c...)
 		default:
 			l.children = append(l.children, c)
 		}
@@ -56,93 +72,52 @@ func (l *level) With(children ...any) Element {
 }
 
 func (l *level) Render(w io.Writer) error {
-	return Elem(html.Nav, Class("level"), l.children).Render(w)
-}
-
-// LevelItem creates a level item, to be used as a child for LevelLeft,
-// LevelRight or Level elements.
-func LevelItem(children ...any) *levelItem {
-	return &levelItem{Elem(html.Div, Class("level-item"), children)}
-}
-
-type levelItem struct {
-	Element
-}
-
-// LevelLeft creates the left section of a level.
-//   - when a child is the return value of LevelItem, it is added as a child to
-//     the level section
-//   - when a child is any other Element, it is wrapped into a LevelItem and
-//     added as a child to the level section
-//   - when a child is a string, it is wrapped into a LevelItem and added as a
-//     child to the level section
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as an attribute to the level section
-//   - when a child is a gopmponents.Node with another type, it is wrapped into
-//     a LevelItem and added as a child to the level section
-//   - other children types are added as children to the level section
-func LevelLeft(children ...any) *levelLeft {
-	return &levelLeft{
-		(&levelSection{positionClass: Class("level-left")}).With(children),
+	elem := Elem(html.Nav, Class("level"), l.children)
+	if len(l.leftChildren) > 0 {
+		elem.With(Elem(html.Div, Class("level-left"), l.leftChildren))
 	}
-}
 
-type levelLeft struct {
-	Element
-}
-
-// LevelLeft creates the right section of a level.
-//   - when a child is the return value of LevelItem, it is added as a child to
-//     the level section
-//   - when a child is any other Element, it is wrapped into a LevelItem and
-//     added as a child to the level section
-//   - when a child is a string, it is wrapped into a LevelItem and added as a
-//     child to the level section
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as an attribute to the level section
-//   - when a child is a gopmponents.Node with another type, it is wrapped into
-//     a LevelItem and added as a child to the level section
-//   - other children types are added as children to the level section
-func LevelRight(children ...any) *levelRight {
-	return &levelRight{
-		(&levelSection{positionClass: Class("level-right")}).With(children),
+	if len(l.rightChildren) > 0 {
+		elem.With(Elem(html.Div, Class("level-right"), l.rightChildren))
 	}
+
+	return elem.Render(w)
 }
 
-type levelRight struct {
-	Element
+func LevelLeft(children ...any) levelLeft {
+	return levelLeft(children)
 }
 
-type levelSection struct {
-	positionClass Class
-	children      []any
+type levelLeft []any
+
+func LevelRight(children ...any) levelRight {
+	return levelRight(children)
 }
 
-func (l *levelSection) With(children ...any) Element {
+type levelRight []any
+
+func flattenLevelSection(children []any) []any {
+	var result []any
+
 	for _, c := range children {
 		switch c := c.(type) {
-		case *levelItem:
-			l.children = append(l.children, c)
 		case Element:
-			l.children = append(l.children, LevelItem(c))
+			c.With(Class("level-item"))
+			result = append(result, c)
 		case string:
-			l.children = append(l.children, LevelItem(c))
+			result = append(result, Elem(html.P, Class("level-item"), c))
 		case gomponents.Node:
 			if !IsAttribute(c) {
-				l.children = append(l.children, LevelItem(c))
+				result = append(result, Elem(html.Div, Class("level-item"), c))
 			} else {
-				l.children = append(l.children, c)
+				result = append(result, c)
 			}
 		case []any:
-			l.With(c...)
+			result = append(result, flattenLevelSection(c)...)
 		default:
-			l.children = append(l.children, c)
+			result = append(result, c)
 		}
 	}
 
-	return l
-}
-
-func (l *levelSection) Render(w io.Writer) error {
-	return Elem(html.Div, l.positionClass, l.children).Render(w)
+	return result
 }

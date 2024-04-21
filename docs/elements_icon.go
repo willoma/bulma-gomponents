@@ -7,7 +7,6 @@ import (
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/easy"
 	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
@@ -16,80 +15,208 @@ var icon = c.NewPage(
 	"Icon", "Icon", "/icon",
 	"",
 	b.Content(
-		b.Style("column-count", "3"),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Icon"), " constructor returns a container for an ", el.Strong("icon font"), ". It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Icon"), " constructor returns a container for an ", el.Strong("icon font"), ". The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.White"),
-			"set icon color to white",
+			"Set icon color to white",
+
 			el.Code("b.Black"),
-			"set icon color to black",
+			"Set icon color to black",
+
 			el.Code("b.Light"),
-			"set icon color to light",
+			"Set icon color to light",
+
 			el.Code("b.Dark"),
-			"set icon color to dark",
+			"Set icon color to dark",
+
 			el.Code("b.Primary"),
-			"set icon color to primary",
+			"Set icon color to primary",
+
 			el.Code("b.Link"),
-			"set icon color to link",
+			"Set icon color to link",
+
 			el.Code("b.Info"),
-			"set icon color to info",
+			"Set icon color to info",
+
 			el.Code("b.Success"),
-			"set icon color to success",
+			"Set icon color to success",
+
 			el.Code("b.Warning"),
-			"set icon color to warning",
+			"Set icon color to warning",
+
 			el.Code("b.Danger"),
-			"set icon color to danger",
+			"Set icon color to danger",
+
 			el.Code("b.BlackBis"),
-			"set icon color to black bis",
+			"Set icon color to black bis",
+
 			el.Code("b.BlackTer"),
-			"set icon color to black ter",
+			"Set icon color to black ter",
+
 			el.Code("b.GreyDarker"),
-			"set icon color to grey darker",
+			"Set icon color to grey darker",
+
 			el.Code("b.GreyDark"),
-			"set icon color to grey dark",
+			"Set icon color to grey dark",
+
 			el.Code("b.Grey"),
-			"set icon color to grey",
+			"Set icon color to grey",
+
 			el.Code("b.GreyLight"),
-			"set icon color to grey light",
+			"Set icon color to grey light",
+
 			el.Code("b.GreyLigher"),
-			"set icon color to grey lighter",
+			"Set icon color to grey lighter",
+
 			el.Code("b.WhiteTer"),
-			"set icon color to white ter",
+			"Set icon color to white ter",
+
 			el.Code("b.WhiteBis"),
-			"set icon color to white bis",
+			"Set icon color to white bis",
+
 			el.Code("b.PrimaryLight"),
-			"set icon color to primary light",
+			"Set icon color to primary light",
+
 			el.Code("b.LinkLight"),
-			"set icon color to link light",
+			"Set icon color to link light",
+
 			el.Code("b.InfoLight"),
-			"set icon color to info light",
+			"Set icon color to info light",
+
 			el.Code("b.SuccessLight"),
-			"set icon color to success light",
+			"Set icon color to success light",
+
 			el.Code("b.WarningLight"),
-			"set icon color to warning light",
+			"Set icon color to warning light",
+
 			el.Code("b.DangerLight"),
-			"set icon color to danger light",
+			"Set icon color to danger light",
+
 			el.Code("b.PrimaryDark"),
-			"set icon color to primary dark",
+			"Set icon color to primary dark",
+
 			el.Code("b.LinkDark"),
-			"set icon color to link dark",
+			"Set icon color to link dark",
+
 			el.Code("b.InfoDark"),
-			"set icon color to info dark",
+			"Set icon color to info dark",
+
 			el.Code("b.SuccessDark"),
-			"set icon color to success dark",
+			"Set icon color to success dark",
+
 			el.Code("b.WarningDark"),
-			"set icon color to warning dark",
+			"Set icon color to warning dark",
+
 			el.Code("b.DangerDark"),
-			"set icon color to danger dark",
+			"Set icon color to danger dark",
+
 			el.Code("b.Small"),
-			"set icon size to small",
+			"Set icon size to small",
+
 			el.Code("b.Medium"),
-			"set icon size to medium",
+			"Set icon size to medium",
+
 			el.Code("b.Large"),
-			"set icon size to large",
+			"Set icon size to large",
+		),
+
+		el.P(
+			"The ", el.Code("b.IconText"), " constructor creates an icon+text span container and embeds all its non-icon children into spans. The ", el.Code("b.FlexIconText"), " constructor creates a flex icon+text span container and embeds all its non-icon children into spans. The following children have a special meaning:",
+		),
+		b.DList(el.Code("b.White"),
+			"Set icon color to white",
+
+			el.Code("b.Black"),
+			"Set icon color to black",
+
+			el.Code("b.Light"),
+			"Set icon color to light",
+
+			el.Code("b.Dark"),
+			"Set icon color to dark",
+
+			el.Code("b.Primary"),
+			"Set icon color to primary",
+
+			el.Code("b.Link"),
+			"Set icon color to link",
+
+			el.Code("b.Info"),
+			"Set icon color to info",
+
+			el.Code("b.Success"),
+			"Set icon color to success",
+
+			el.Code("b.Warning"),
+			"Set icon color to warning",
+
+			el.Code("b.Danger"),
+			"Set icon color to danger",
+
+			el.Code("b.BlackBis"),
+			"Set icon color to black bis",
+
+			el.Code("b.BlackTer"),
+			"Set icon color to black ter",
+
+			el.Code("b.GreyDarker"),
+			"Set icon color to grey darker",
+
+			el.Code("b.GreyDark"),
+			"Set icon color to grey dark",
+
+			el.Code("b.Grey"),
+			"Set icon color to grey",
+
+			el.Code("b.GreyLight"),
+			"Set icon color to grey light",
+
+			el.Code("b.GreyLigher"),
+			"Set icon color to grey lighter",
+
+			el.Code("b.WhiteTer"),
+			"Set icon color to white ter",
+
+			el.Code("b.WhiteBis"),
+			"Set icon color to white bis",
+
+			el.Code("b.PrimaryLight"),
+			"Set icon color to primary light",
+
+			el.Code("b.LinkLight"),
+			"Set icon color to link light",
+
+			el.Code("b.InfoLight"),
+			"Set icon color to info light",
+
+			el.Code("b.SuccessLight"),
+			"Set icon color to success light",
+
+			el.Code("b.WarningLight"),
+			"Set icon color to warning light",
+
+			el.Code("b.DangerLight"),
+			"Set icon color to danger light",
+
+			el.Code("b.PrimaryDark"),
+			"Set icon color to primary dark",
+
+			el.Code("b.LinkDark"),
+			"Set icon color to link dark",
+
+			el.Code("b.InfoDark"),
+			"Set icon color to info dark",
+
+			el.Code("b.SuccessDark"),
+			"Set icon color to success dark",
+
+			el.Code("b.WarningDark"),
+			"Set icon color to warning dark",
+
+			el.Code("b.DangerDark"),
+			"Set icon color to danger dark",
 		),
 	),
 ).Section(
@@ -98,10 +225,18 @@ var icon = c.NewPage(
 	b.Content(
 		el.P("The", el.Code("github.com/willoma/bulma-gomponents/fa"), " package provides helpers for ", el.Em("Font Awesome"), " icons."),
 		el.P(
-			"The ", el.Code("fa.Icon"), " constructor returns a ", el.Em("Font Awesome"), " icon, embedded in an icon container, dealing with appropriately applying children to the icon element or to the span container. It accepts the same values as ", el.Code("b.Icon"), ", as well as the ", el.Em("Font Awesome"), "-specific values described below. You may use ", el.Code("b.Inner"), " to force a child to be applied to the ", el.Code("<i>"), " element, or ", el.Code("b.Outer"), " to force a child to be applied to the ", el.Code("<span>"), " element.",
+			"The ", el.Code("fa.Icon"), " constructor creates a ", el.Em("Font Awesome"), " icon, embedded in an icon container, dealing with appropriately applying children to the icon element or to the span container. It accepts the same values as ", el.Code("b.Icon"), ", as well as the ", el.Em("Font Awesome"), "-specific values described below. The following children have a special meaning:",
 		),
+		b.DList(
+			el.Code("fa.OnFA(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<i>"), " element"},
+
+			el.Code("fa.OnSpan(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<span>"), " element"},
+		),
+		el.P("Other children are added to the ", el.Code("<span>"), " element."),
 		el.P(
-			"The ", el.Code("fa.FA"), " constructor returns a ", el.Em("Font Awesome"), " icon. It accepts the ", el.Em("Font Awesome"), "-specific values described below.",
+			"The ", el.Code("fa.FA"), " constructor creates a ", el.Em("Font Awesome"), " icon. It accepts the ", el.Em("Font Awesome"), "-specific values described below.",
 		),
 	),
 ).Subsection(
@@ -176,9 +311,7 @@ el.Span(
 	"Sizing icons", "Font Awesome::https://docs.fontawesome.com/web/style/size",
 
 	b.Content(
-		b.Style("column-count", "4"),
 		el.P(
-			b.Style("column-span", "all"),
 			"The following size modifiers are available:",
 		),
 		b.UList(
@@ -259,9 +392,7 @@ el.Div(fa.FA(fa.Solid, "snowplow", fa.FixedWidth, b.Style("background", "DodgerB
 	"Rotate icons", "Font Awesome::https://docs.fontawesome.com/web/style/rotate",
 
 	b.Content(
-		b.Style("column-count", "2"),
 		el.P(
-			b.Style("column-span", "all"),
 			"To arbitrarily rotate and flip icons, use one of the following modifiers on ", el.Code("fa.Icon"), ", ", el.Code("fa.FA"), " or ", el.Code("fa.Li"), ":",
 		),
 		b.UList(
@@ -683,7 +814,7 @@ fa.Stack(
 			"Set secondary layer color",
 		),
 	),
-	easy.Message(
+	b.Message(
 		b.Danger,
 		"Please note these icons require pro plan, which ", el.Em("Bulma-Gomponents"), " do not have, therefore no example may be shown.",
 	),
@@ -691,13 +822,10 @@ fa.Stack(
 	"Bulma examples", "https://bulma.io/documentation/elements/icon/",
 
 	c.Example(
-		`b.Icon(el.I(b.Class("fas"), b.Class("fa-home")))`,
-		b.Icon(el.I(b.Class("fas"), b.Class("fa-home"))),
-	),
-	b.Content(el.P("The ", el.Code("bulma/fa"), " package includes helper functions and values for using ", el.Em("Font Awesome"), " icons with ", el.Em("Bulma-Gomponents"), ":")),
-	c.Example(
-		`b.Icon(fa.FA(fa.Solid, "home")),
+		`b.Icon(el.I(b.Class("fas"), b.Class("fa-home"))),
+b.Icon(fa.FA(fa.Solid, "home")),
 fa.Icon(fa.Solid, "home")`,
+		b.Icon(el.I(b.Class("fas"), b.Class("fa-home"))),
 		b.Icon(fa.FA(fa.Solid, "home")),
 		fa.Icon(fa.Solid, "home"),
 	),
@@ -904,12 +1032,12 @@ b.IconText(
 	"https://bulma.io/documentation/elements/icon/#font-awesome-variations",
 
 	c.Example(
-		`fa.Icon(fa.Solid, "home", fa.FixedWidth, b.WarningLight.Background()),
+		`fa.Icon(fa.Solid, "home", fa.FixedWidth, b.BackgroundWarningLight),
 el.Br(),
 fa.Icon(fa.Solid, "home", fa.Border),
 el.Br(),
 fa.Icon(fa.Solid, "spinner", fa.Animation{Type: fa.Spin, Pulse: true})`,
-		fa.Icon(fa.Solid, "home", fa.FixedWidth, b.WarningLight.Background()),
+		fa.Icon(fa.Solid, "home", fa.FixedWidth, b.BackgroundWarningLight),
 		el.Br(),
 		fa.Icon(fa.Solid, "home", fa.Border),
 		el.Br(),

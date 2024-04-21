@@ -1,6 +1,7 @@
 package docs
 
 import (
+	"github.com/maragudk/gomponents/html"
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
 	"github.com/willoma/bulma-gomponents/el"
@@ -8,37 +9,56 @@ import (
 
 var container = c.NewPage(
 	"Container", "Container", "/container",
-	"https://bulma.io/documentation/layout/container/",
-).Section(
-	"Overview",
-	"https://bulma.io/documentation/layout/container/#overview",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Container"), " constructor creates a container element. Its ", el.Strong("maximum width"), " depends on the applied modifier:"),
+	),
 	b.Table(
 		b.HeadRow(
-			"Bulma classes",
-			"Bulma-Gomponents component",
+			"Modifier",
+			"Up to 1023px",
+			"Desktop (1024px-1215px)",
+			"Widescreen (1216px-1407px)",
+			"FullHD (1408px and above)",
 		),
 		b.Row(
-			el.Code(".container"),
-			el.Code("b.Container"),
+			"None",
+			b.TCell(b.Light, "Full width"),
+			"960px",
+			"1152px",
+			"1344px",
 		),
 		b.Row(
-			el.Code(".container.is-widescreen"),
-			el.Code("b.ContainerWidescreen"),
+			el.Code("b.Widescreen"),
+			b.TCell(html.ColSpan("2"), b.Light, "Full width"),
+			"1152px",
+			"1344px",
 		),
 		b.Row(
-			el.Code(".container.is-fullhd"),
-			el.Code("b.ContainerFullHD"),
+			el.Code("b.FullHD"),
+			b.TCell(html.ColSpan("3"), b.Light, "Full width"),
+			"1344px",
 		),
 		b.Row(
-			el.Code(".container.is-max-desktop"),
-			el.Code("b.ContainerMaxDesktop"),
+			el.Code("b.MaxDesktop"),
+			b.TCell(b.Light, "Full width"),
+			b.TCell(html.ColSpan("3"), "960px"),
 		),
 		b.Row(
-			el.Code(".container.is-max-widescreen"),
-			el.Code("b.ContainerMaxWidescreen"),
+			el.Code("b.MaxWidescreen"),
+			b.TCell(b.Light, "Full width"),
+			"960px",
+			b.TCell(html.ColSpan("2"), "1152px"),
+		),
+		b.Row(
+			el.Code("b.Fluid"),
+			b.TCell(html.ColSpan("4"), "100% with 32px gap on both sides"),
 		),
 	),
 ).Section(
+	"Bulma examples", "https://bulma.io/documentation/layout/container/",
+).Subsection(
 	"Default behavior",
 	"https://bulma.io/documentation/layout/container/#default-behavior",
 	c.HorizontalExample(
@@ -55,17 +75,19 @@ var container = c.NewPage(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Widescreen or FullHD only",
 	"https://bulma.io/documentation/layout/container/#widescreen-or-fullhd-only",
 	c.HorizontalExample(
-		`b.ContainerWidescreen(
+		`b.Container(
+	b.Widescreen,
 	b.Notification(
 		b.Primary,
 		"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$widescreen"), " breakpoint.",
 	),
 )`,
-		b.ContainerWidescreen(
+		b.Container(
+			b.Widescreen,
 			b.Notification(
 				b.Primary,
 				"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$widescreen"), " breakpoint.",
@@ -73,30 +95,34 @@ var container = c.NewPage(
 		),
 	),
 	c.HorizontalExample(
-		`b.ContainerFullHD(
+		`b.Container(
+	b.FullHD,
 	b.Notification(
 		b.Primary,
 		"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$fullhd"), " breakpoint.",
 	),
 )`,
-		b.ContainerFullHD(
+		b.Container(
+			b.FullHD,
 			b.Notification(
 				b.Primary,
 				"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$fullhd"), " breakpoint.",
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Desktop and Widescreen maximum widths",
 	"https://bulma.io/documentation/layout/container/#desktop-and-widescreen-maximum-widths",
 	c.HorizontalExample(
-		`b.ContainerMaxDesktop(
+		`b.Container(
+	b.MaxDesktop,
 	b.Notification(
 		b.Primary,
 		"This container has a ", el.Code("max-width"), " of ", el.Code("$desktop - $container-offset"), " on widescreen and fullhd.",
 	),
 )`,
-		b.ContainerMaxDesktop(
+		b.Container(
+			b.MaxDesktop,
 			b.Notification(
 				b.Primary,
 				"This container has a ", el.Code("max-width"), " of ", el.Code("$desktop - $container-offset"), " on widescreen and fullhd.",
@@ -104,30 +130,34 @@ var container = c.NewPage(
 		),
 	),
 	c.HorizontalExample(
-		`b.ContainerMaxWidescreen(
+		`b.Container(
+	b.MaxWidescreen,
 	b.Notification(
 		b.Primary,
 		"This container has a ", el.Code("max-width"), " of ", el.Code("$widescreen - $container-offset"), " on fullhd.",
 	),
 )`,
-		b.ContainerMaxWidescreen(
+		b.Container(
+			b.MaxWidescreen,
 			b.Notification(
 				b.Primary,
 				"This container has a ", el.Code("max-width"), " of ", el.Code("$widescreen - $container-offset"), " on fullhd.",
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Fluid container",
 	"https://bulma.io/documentation/layout/container/#fluid-container",
 	c.HorizontalExample(
-		`b.ContainerFluid(
+		`b.Container(
+	b.Fluid,
 	b.Notification(
 		b.Primary,
 		"This container is ", el.Strong("fluid"), ": it will have a 32px gap on either side, on any viewport size.",
 	),
 )`,
-		b.ContainerFluid(
+		b.Container(
+			b.Fluid,
 			b.Notification(
 				b.Primary,
 				"This container is ", el.Strong("fluid"), ": it will have a 32px gap on either side, on any viewport size.",

@@ -17,7 +17,7 @@ var extending = c.NewPage(
 	"Implementing icon element", "",
 
 	b.Content(
-		el.P("If you need to provide new icon elements to ", el.Em("Bulma-Gomponents"), " functinos, you must implement the ", el.Code("b.IconElem"), " interface. This interface is implemented by the elements returned by ", el.Code("b.Icon"), " and ", el.Code("fa.Icon"), "."),
+		el.P("If you need to provide new icon elements to ", el.Em("Bulma-Gomponents"), " functions, you must implement the ", el.Code("b.IconElem"), " interface. This interface is implemented by the elements returned by ", el.Code("b.Icon"), " and ", el.Code("fa.Icon"), "."),
 	),
 ).Section(
 	"Implementing classes and styles", "",
@@ -26,7 +26,7 @@ var extending = c.NewPage(
 		el.P("If you need to provide new classes and/or styles to ", el.Em("Bulma-Gomponents"), " functions, the following possibilities arise:"),
 		el.Ul(
 			el.Li("Create a simple constant or variable with type ", el.Code("b.Class"), " - for instance: ", el.Code(`const myClass = b.Class("my-class")`)),
-			el.Li("Create a collection of classes, of which some can be made responsibe, with type ", el.Code("b.MultiClass")),
+			el.Li("Create a collection of classes, of which some can be made responsive, with type ", el.Code("b.MultiClass")),
 			el.Li("Implement the ", el.Code("b.ExternalClass"), " interface to return a single class"),
 			el.Li("Implement the ", el.Code("b.ExternalClassesAndStyles"), " interface to return multiple classes and/or styles"),
 			el.Li("Execute the ", el.Code("b.Style"), " function to generate additional styles"),
@@ -49,7 +49,7 @@ type myElement struct {
 func (m *myElement) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case b.Class, b.ColorClass, b.ExternalClass, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
+		case b.Class, b.Classer, b.Classeser, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
 			// Apply classes and styles to some content
 		case b.Element:
 			// Add element to some content

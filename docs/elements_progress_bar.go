@@ -11,43 +11,53 @@ var progress = c.NewPage(
 	"",
 
 	b.Content(
-		b.Style("column-count", "2"),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Progress"), " constructor creates a progress bar. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Progress"), " constructor creates a progress bar. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.White"),
-			"set progress bar color to white",
+			"Set progress bar color to white",
+
 			el.Code("b.Black"),
-			"set progress bar color to black",
+			"Set progress bar color to black",
+
 			el.Code("b.Light"),
-			"set progress bar color to light",
+			"Set progress bar color to light",
+
 			el.Code("b.Dark"),
-			"set progress bar color to dark",
+			"Set progress bar color to dark",
+
 			el.Code("b.Primary"),
-			"set progress bar color to primary",
+			"Set progress bar color to primary",
+
 			el.Code("b.Link"),
-			"set progress bar color to link",
+			"Set progress bar color to link",
+
 			el.Code("b.Info"),
-			"set progress bar color to info",
+			"Set progress bar color to info",
+
 			el.Code("b.Success"),
-			"set progress bar color to success",
+			"Set progress bar color to success",
+
 			el.Code("b.Warning"),
-			"set progress bar color to warning",
+			"Set progress bar color to warning",
+
 			el.Code("b.Danger"),
-			"set progress bar color to danger",
+			"Set progress bar color to danger",
+
 			el.Code("b.Small"),
-			"set progress bar size to small",
+			"Set progress bar size to small",
+
 			el.Code("b.Normal"),
-			"set progress bar size to normal",
+			"Set progress bar size to normal",
+
 			el.Code("b.Medium"),
-			"set progress bar size to medium",
+			"Set progress bar size to medium",
+
 			el.Code("b.Large"),
-			"set progress bar size to large",
+			"Set progress bar size to large",
 		),
 		el.P(
-			b.Style("column-span", "all"),
 			"The ", el.Code("b.ProgressIndeterminate"), " constructor creates an indeterminate progress bar. It accepts the same values as ", el.Code("b.Progress"), ".",
 		),
 	),

@@ -12,5 +12,9 @@ import (
 //   - Medium
 //   - Large
 func Delete(children ...any) Element {
-	return Elem(html.Button, Class("delete"), children)
+	return &delete{Elem(html.Button, Class("delete"), children)}
+}
+
+type delete struct {
+	Element
 }

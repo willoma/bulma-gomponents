@@ -11,21 +11,22 @@ import (
 //
 // Each child is automatically wrapped in a new Column element if:
 //   - it is an Element but not generated with Column
+//   - it is a string
 //   - it is a gomponents.Node with type gomponents.ElementType
 //
 // The following modifiers change the gap:
 //   - Gapless: no gap
-//   - Gap0: no gap ("is-variable" is automatically added)
-//   - Gap1: 0.25rem gap ("is-variable" is automatically added)
-//   - Gap2: 0.5rem gap ("is-variable" is automatically added)
-//   - Gap3: 0.75rem gap ("is-variable" is automatically added)
-//   - Gap4: 1rem gap ("is-variable" is automatically added)
-//   - Gap5: 1.25rem gap ("is-variable" is automatically added)
-//   - Gap6: 1.5rem gap ("is-variable" is automatically added)
-//   - Gap7: 1.75rem gap ("is-variable" is automatically added)
-//   - Gap8: 2rem gap ("is-variable" is automatically added)
+//   - ColumnGap0: no gap ("is-variable" is automatically added)
+//   - ColumnGap1: 0.25rem gap ("is-variable" is automatically added)
+//   - ColumnGap2: 0.5rem gap ("is-variable" is automatically added)
+//   - ColumnGap3: 0.75rem gap ("is-variable" is automatically added)
+//   - ColumnGap4: 1rem gap ("is-variable" is automatically added)
+//   - ColumnGap5: 1.25rem gap ("is-variable" is automatically added)
+//   - ColumnGap6: 1.5rem gap ("is-variable" is automatically added)
+//   - ColumnGap7: 1.75rem gap ("is-variable" is automatically added)
+//   - ColumnGap8: 2rem gap ("is-variable" is automatically added)
 //
-// The gap may be breakpoint-based, with Gap*.Mobile() to Gap*.FullHD().
+// The gap may be breakpoint-based, with ColumnGap*.Mobile() to ColumnGap*.FullHD().
 //
 // The following modifiers change the columns behaviour:
 //
@@ -33,7 +34,7 @@ import (
 //   - Desktop: allow columns only on desktops upward (not on tablets)
 //   - Mobile: allow columns on mobile phones too
 //   - Multiline: create a new line when columns do not fit in a single line
-//   - VCentered: align columns vertically
+//   - VCentered: center columns vertically
 func Columns(children ...any) Element {
 	return new(columns).With(children...)
 }
@@ -48,6 +49,8 @@ func (cols *columns) With(children ...any) Element {
 		case *column:
 			cols.children = append(cols.children, c)
 		case Element:
+			cols.children = append(cols.children, Column(c))
+		case string:
 			cols.children = append(cols.children, Column(c))
 		case gomponents.Node:
 			if IsAttribute(c) {

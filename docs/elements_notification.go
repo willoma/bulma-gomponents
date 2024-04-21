@@ -11,48 +11,60 @@ var notification = c.NewPage(
 	"",
 
 	b.Content(
-		b.Style("column-count", "2"),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Notification"), " constructor returns a simple color block meant to draw the attention to the user about something. As such, it an be used as a pinned notification in the corner of the viewport. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Notification"), " constructor creates a simple color block meant to draw the attention to the user about something. As such, it an be used as a pinned notification in the corner of the viewport. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.White"),
 			"Set the notification color to white",
+
 			el.Code("b.Black"),
 			"Set the notification color to black",
+
 			el.Code("b.Light"),
 			"Set the notification color to light",
+
 			el.Code("b.Dark"),
 			"Set the notification color to dark",
+
 			el.Code("b.Primary"),
 			"Set the notification color to primary",
+
 			el.Code("b.Link"),
 			"Set the notification color to link",
+
 			el.Code("b.Info"),
 			"Set the notification color to info",
+
 			el.Code("b.Success"),
 			"Set the notification color to success",
+
 			el.Code("b.Warning"),
 			"Set the notification color to warning",
+
 			el.Code("b.Danger"),
 			"Set the notification color to danger",
+
 			el.Code("b.PrimaryLight"),
 			"Set the notification color to primary light",
+
 			el.Code("b.LinkLight"),
 			"Set the notification color to link light",
+
 			el.Code("b.InfoLight"),
 			"Set the notification color to info light",
+
 			el.Code("b.SuccessLight"),
 			"Set the notification color to success light",
+
 			el.Code("b.WarningLight"),
 			"Set the notification color to warning light",
+
 			el.Code("b.DangerLight"),
 			"Set the notification color to danger light",
 		),
 		el.P(
-			b.Style("column-span", "all"),
-			"You may add ", el.Code("b.OnClick(b.JSRemoveThisNotification)"), " to the ", el.Code("b.Delete"), " inner element in order to close the notification when the user clicks on that element.",
+			"When you provide ", el.Code("b.Delete(...)"), " as a child, you may add ", el.Code("b.OnClick(b.JSRemoveThisNotification)"), " to its children in order to close the notification when the user clicks on it.",
 		),
 	),
 ).Section(

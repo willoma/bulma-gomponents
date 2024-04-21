@@ -3,7 +3,6 @@ package docs
 import (
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/easy"
 	"github.com/willoma/bulma-gomponents/el"
 )
 
@@ -11,7 +10,7 @@ var classes = c.NewPage(
 	"Classes and styles", "CSS Classes and styles", "/classes",
 	"",
 
-	easy.Message(
+	b.Message(
 		b.Danger,
 		"Please note the ", el.Em("Bulma-Gomponents"), " classes and styles do not work on traditional ", el.Code("gomponents.Node"), " elements, only on ", el.Code("b.Element"), ".",
 	),

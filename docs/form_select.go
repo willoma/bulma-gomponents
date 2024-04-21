@@ -3,12 +3,79 @@ package docs
 import (
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
+	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
 var formSelect = c.NewPage(
 	"Select", "Select", "/form/select",
-	"https://bulma.io/documentation/form/select/",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Select"), " constructor creates a dropdown select. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.OnDiv(...)"),
+			[]any{"Force childen to be applied to the ", el.Code(`<div class="select">`), " element"},
+
+			el.Code("b.OnSelect(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<select>"), " element"},
+
+			el.Code("b.Size(int)"),
+			"For multiple selects, set the select size to the specified number of options",
+
+			el.Code("b.Rounded"),
+			"Make the select rounded",
+
+			el.Code("b.Hovered"),
+			"Apply the hovered style",
+
+			el.Code("b.Focused"),
+			"Apply the focused style",
+
+			el.Code("b.Multiple"),
+			"Make the select a multiple select",
+
+			el.Code("b.Disabled"),
+			"Disable the select",
+
+			el.Code("b.Loading"),
+			"Add a loading spinner to the right of the select",
+
+			el.Code("b.Primary"),
+			"Set select color to primary",
+
+			el.Code("b.Link"),
+			"Set select color to link",
+
+			el.Code("b.Info"),
+			"Set select color to info",
+
+			el.Code("b.Success"),
+			"Set select color to success",
+
+			el.Code("b.Warning"),
+			"Set select color to warning",
+
+			el.Code("b.Danger"),
+			"Set select color to danger",
+
+			el.Code("b.Small"),
+			"Set select size to small",
+
+			el.Code("b.Normal"),
+			"Set select size to normal",
+
+			el.Code("b.Medium"),
+			"Set select size to medium",
+
+			el.Code("b.Large"),
+			"Set select size to large",
+		),
+
+		el.P("The ", el.Code("b.Option"), " constructor creates an option element to be used as a child of ", el.Code("b.Select"), ". The ", el.Code("b.OptionSelected"), " constructor creates a selected option element."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/form/select/",
 	c.Example(
 		`b.Select(
 	b.Option("", "Select dropdown"),
@@ -19,11 +86,12 @@ var formSelect = c.NewPage(
 			b.Option("", "With options"),
 		),
 	),
-).Section(
+).Subsection(
 	"Multiple select",
 	"https://bulma.io/documentation/form/select/#multiple-select",
 	c.Example(
-		`b.SelectMultiple(
+		`b.Select(
+	b.Multiple,
 	b.Size(8),
 	b.Option("Argentina", "Argentina"),
 	b.Option("Bolivia", "Bolivia"),
@@ -38,7 +106,8 @@ var formSelect = c.NewPage(
 	b.Option("Uruguay", "Uruguay"),
 	b.Option("Venezuela", "Venezuela"),
 )`,
-		b.SelectMultiple(
+		b.Select(
+			b.Multiple,
 			b.Size(8),
 			b.Option("Argentina", "Argentina"),
 			b.Option("Bolivia", "Bolivia"),
@@ -54,7 +123,7 @@ var formSelect = c.NewPage(
 			b.Option("Venezuela", "Venezuela"),
 		),
 	),
-).Section(
+).Subsection(
 	"Colors",
 	"https://bulma.io/documentation/form/select/#colors",
 	c.Example(
@@ -129,7 +198,7 @@ var formSelect = c.NewPage(
 			b.Option("", "With options"),
 		),
 	),
-).Section(
+).Subsection(
 	"Styles",
 	"https://bulma.io/documentation/form/select/#styles",
 	c.Example(
@@ -144,7 +213,7 @@ var formSelect = c.NewPage(
 			b.Option("", "With options"),
 		),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/form/select/#sizes",
 	c.Example(
@@ -195,7 +264,7 @@ var formSelect = c.NewPage(
 			b.Option("", "With options"),
 		),
 	),
-).Section(
+).Subsection(
 	"States",
 	"https://bulma.io/documentation/form/select/#states",
 	c.Example(
@@ -244,7 +313,7 @@ var formSelect = c.NewPage(
 			b.Option("", "With options"),
 		),
 	),
-).Section(
+).Subsection(
 	"With icons",
 	"https://bulma.io/documentation/form/select/#with-icons",
 	c.Example(

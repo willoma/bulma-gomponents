@@ -7,14 +7,9 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
-type mediaPart struct {
-	right    bool
-	children []any
-}
-
 // Media creates a media element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="media-content"> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <article class="media"> element
+//   - when a child is marked with OnContent, it is forcibly applied to the <div class="media-content"> element
+//   - when a child is marked with OnMedia, it is forcibly applied to the <article class="media"> element
 //   - when a child is a return value of MediaLeft, it is added in the left part
 //     of the media element
 //   - when a child is a return value of MediaRight, it is added in the right
@@ -42,16 +37,14 @@ type media struct {
 func (m *media) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			m.contentChildren = append(m.contentChildren, c.Child)
-		case *ApplyToOuter:
-			m.elemChildren = append(m.elemChildren, c.Child)
-		case mediaPart:
-			if c.right {
-				m.rightChildren = append(m.rightChildren, c.children...)
-			} else {
-				m.leftChildren = append(m.leftChildren, c.children...)
-			}
+		case onContent:
+			m.contentChildren = append(m.contentChildren, c...)
+		case onMedia:
+			m.elemChildren = append(m.elemChildren, c...)
+		case mediaLeft:
+			m.leftChildren = append(m.leftChildren, c...)
+		case mediaRight:
+			m.rightChildren = append(m.rightChildren, c...)
 		case Element:
 			m.contentChildren = append(m.contentChildren, c)
 		case gomponents.Node:
@@ -95,11 +88,15 @@ func (m *media) Render(w io.Writer) error {
 }
 
 // MediaLeft marks children as belonging to the left part of a media element.
-func MediaLeft(children ...any) mediaPart {
-	return mediaPart{false, children}
+func MediaLeft(children ...any) mediaLeft {
+	return mediaLeft(children)
 }
 
+type mediaLeft []any
+
 // MediaRight marks children as belonging to the right part of a media element.
-func MediaRight(children ...any) mediaPart {
-	return mediaPart{true, children}
+func MediaRight(children ...any) mediaRight {
+	return mediaRight(children)
 }
+
+type mediaRight []any

@@ -7,11 +7,26 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
-func buttonElem(
-	fn func(...gomponents.Node) gomponents.Node,
-	children ...any,
-) Element {
-	return Elem(fn, Class("button"), elemOptionSpanAroundNonIconsIfHasIcons, children)
+type button struct {
+	fn       func(...gomponents.Node) gomponents.Node
+	children []any
+}
+
+func (b *button) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case []any:
+			b.With(c...)
+		default:
+			b.children = append(b.children, c)
+		}
+	}
+
+	return b
+}
+
+func (b *button) Render(w io.Writer) error {
+	return Elem(b.fn, Class("button"), elemOptionSpanAroundNonIconsIfHasIcons, b.children).Render(w)
 }
 
 // Button creates a button.
@@ -68,35 +83,39 @@ func buttonElem(
 //   - WarningDark
 //   - DangerDark
 func Button(children ...any) Element {
-	return buttonElem(html.Button, children...)
+	return (&button{fn: html.Button}).With(children...)
 }
 
 // ButtonA creates a button-looking link.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonA(children ...any) Element {
-	return buttonElem(html.A, children...)
+	return (&button{fn: html.A}).With(children...)
 }
 
 // ButtonSubmit creates a submit button.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonSubmit(children ...any) Element {
-	return buttonElem(html.Button, html.Type("submit"), children)
+	return (&button{fn: html.Button}).With(html.Type("submit"), children)
 }
 
 // ButtonInputSubmit creates an input of type submit.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonInputSubmit(value string, children ...any) Element {
-	return buttonElem(html.Input, html.Type("submit"), html.Value(value), children)
+	return (&button{fn: html.Input}).With(
+		html.Type("submit"), html.Value(value), children,
+	)
 }
 
 // ButtonInputReset creates an input of type reset.
 //
 // See the documentation on the Button function for modifiers details.
 func ButtonInputReset(value string, children ...any) Element {
-	return buttonElem(html.Input, html.Type("reset"), html.Value(value), children)
+	return (&button{fn: html.Input}).With(
+		html.Type("reset"), html.Value(value), children,
+	)
 }
 
 // Buttons creates a list of buttons.

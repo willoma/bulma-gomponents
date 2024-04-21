@@ -3,6 +3,7 @@ package bulma
 import (
 	"io"
 
+	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -22,7 +23,8 @@ func modalClose() Element {
 
 // Modal creates a modal. The modal background and the modal close button are automatically added. The children are added to the modal content.
 //
-// The id is needed at least in order to open the modal from another element.
+// Provide an ID with html.ID in order to identify the modal and, for example,
+// open it from another element.
 //
 // JSOpen may be used to get a javascript code to execute in order to open
 // the modal, for instance:
@@ -30,31 +32,59 @@ func modalClose() Element {
 //	b.Button(
 //		b.OnClick(b.JSOpen("myModal"))
 //	),
-//	b.Modal("myModal", [...])
-func Modal(id string, children ...any) Element {
+//	b.Modal(html.ID("myModal"), [...])
+func Modal(children ...any) Element {
+	return new(modal).With(children...)
+}
+
+type modal struct {
+	ownChildren     []any
+	contentChildren []any
+}
+
+func (m *modal) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case onModal:
+			m.ownChildren = append(m.ownChildren, c...)
+		case gomponents.Node:
+			if IsAttribute(c) {
+				m.ownChildren = append(m.ownChildren, c)
+			} else {
+				m.contentChildren = append(m.contentChildren, c)
+			}
+		case []any:
+			m.With(c...)
+		default:
+			m.contentChildren = append(m.contentChildren, c)
+		}
+	}
+	return m
+}
+
+func (m *modal) Render(w io.Writer) error {
 	return Elem(
 		html.Div,
 		Class("modal"),
-		html.ID(id),
 		modalBackground(),
-		Elem(html.Div, Class("modal-content"), children),
+		m.ownChildren,
+		Elem(html.Div, Class("modal-content"), m.contentChildren),
 		modalClose(),
-	)
+	).Render(w)
 }
 
 // ModalCard creates a modal card.
-//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="modal"> element
-//   - the b.Inner mark is ignored
 //
 // Wrap children in ModalCardHead in order to add them to the card header. Wrap
 // children with ModalCardFoot in order to add them to the card footer. Any
 // unwrapped child is added to the card body.
-func ModalCard(id string, children ...any) Element {
-	return (&modalCard{ownChildren: []any{html.ID(id)}}).With(children...)
+func ModalCard(children ...any) Element {
+	return new(modalCard).With(children...)
 }
 
 type modalCard struct {
 	ownChildren  []any
+	cardChildren []any
 	headChildren []any
 	footChildren []any
 	bodyChildren []any
@@ -63,12 +93,22 @@ type modalCard struct {
 func (mc *modalCard) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToOuter:
-			mc.ownChildren = append(mc.ownChildren, c.Child)
+		case onModal:
+			mc.ownChildren = append(mc.ownChildren, c...)
+		case onCard:
+			mc.cardChildren = append(mc.cardChildren, c...)
 		case modalCardHead:
 			mc.headChildren = append(mc.headChildren, c...)
+		case modalCardTitle:
+			mc.headChildren = append(mc.headChildren, c)
 		case modalCardFoot:
 			mc.footChildren = append(mc.footChildren, c...)
+		case gomponents.Node:
+			if IsAttribute(c) {
+				mc.ownChildren = append(mc.ownChildren, c)
+			} else {
+				mc.bodyChildren = append(mc.bodyChildren, c)
+			}
 		case []any:
 			mc.With(c...)
 		default:
@@ -88,6 +128,7 @@ func (mc *modalCard) Render(w io.Writer) error {
 		Elem(
 			html.Div,
 			Class("modal-card"),
+			mc.cardChildren,
 			Elem(html.Div, Class("modal-card-head"), mc.headChildren),
 			Elem(html.Div, Class("modal-card-body"), mc.bodyChildren),
 			Elem(html.Div, Class("modal-card-foot"), mc.footChildren),
@@ -107,7 +148,39 @@ type modalCardHead []any
 
 // ModalCardTitle creates a title for a card head.
 func ModalCardTitle(children ...any) Element {
-	return Elem(html.P, Class("modal-card-title"), children)
+	return new(modalCardTitle).With(children...)
+}
+
+type modalCardTitle struct {
+	children []any
+}
+
+func (mct *modalCardTitle) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case []any:
+			mct.With(c...)
+		default:
+			mct.children = append(mct.children, c)
+		}
+	}
+
+	return mct
+}
+
+func (mct *modalCardTitle) Render(w io.Writer) error {
+	return Elem(html.P, Class("modal-card-title"), mct.children).Render(w)
+}
+
+// ModalCardHeadTitle creates a card head with a text title and a close button.
+func ModalCardTitleWithClose(title string) any {
+	return ModalCardHead(
+		ModalCardTitle(title),
+		Delete(
+			OnClick(JSCloseThisModal),
+			html.Aria("label", "close"),
+		),
+	)
 }
 
 // ModalCardFoot designates children to be part of the card head.

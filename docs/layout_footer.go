@@ -8,6 +8,13 @@ import (
 
 var footer = c.NewPage(
 	"Footer", "Footer", "/footer",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Footer"), " constructor creates a page footer."),
+	),
+).Section(
+	"Bulma example",
 	"https://bulma.io/documentation/layout/footer/",
 	c.Example(
 		`b.Footer(

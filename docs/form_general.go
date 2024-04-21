@@ -5,13 +5,80 @@ import (
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
+	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
 var formGeneral = c.NewPage(
 	"General", "Form controls", "/form",
-	"https://bulma.io/documentation/form/general/",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Field"), " constructor creates a field. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.Addons"),
+			"Attach the child controls together",
+
+			el.Code("b.AddonsCentered"),
+			"Attach the child controls together and center them",
+
+			el.Code("b.AddonsRight"),
+			"Attach the child controls together and align them to the right",
+
+			el.Code("b.Grouped"),
+			"Group child controls together",
+
+			el.Code("b.GroupedCentered"),
+			"Group child controls together and center them",
+
+			el.Code("b.GroupedRight"),
+			"Group child controls together and align them to the right",
+
+			el.Code("b.GroupedMultiline"),
+			"Group child controls together and allow them to fill up multiple lines",
+
+			el.Code("b.Horizontal"),
+			"Make the field horizontal",
+		),
+
+		el.P("The ", el.Code("b.Label"), " constructor creates a label."),
+
+		el.P("The ", el.Code("b.Control"), " constructor creates a control element. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.IconsLeft"),
+			"Leave space on the left side of the input or select child for an icon - the ", el.Code("b.Icon"), " element must be a direct child of ", el.Code("b.Control"), " and have the ", el.Code("b.Left"), " modifier",
+
+			el.Code("b.IconsRight"),
+			"Leave space on the right side of the input or select child for an icon - the ", el.Code("b.Icon"), " element must be a direct child of ", el.Code("b.Control"), " and have the ", el.Code("b.Right"), " modifier",
+
+			el.Code("b.Expanded"),
+			"Expand the control to fill the available width - to apply this style to a ", el.Code("<select>"), " element, you must also add the ", el.Code("b.FullWidth"), " modifier to the ", el.Code("b.Select"), " constructor",
+		),
+
+		el.P("The ", el.Code("b.Help"), " constructor creates a help element, to be used as a child of a ", el.Code("b.Field"), "."),
+
+		el.P("The ", el.Code("b.FieldHorizontal"), " constructor creates a horizontal field. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.OnField(...)"),
+			[]any{"Force childen to be applied to the ", el.Code(`< class="field">`), " element"},
+
+			el.Code("b.OnLabel(...)"),
+			[]any{"Force childen to be applied to the ", el.Code(`< class="field-label">`), " element"},
+
+			el.Code("b.OnBody(...)"),
+			[]any{"Force childen to be applied to the ", el.Code(`< class="field-body">`), " element"},
+
+			el.Code("b.Label(...)"),
+			"Add the label to the field label section",
+
+			el.Code("b.Element"),
+			"Add the element to the field body section",
+		),
+		el.P("Other children are added to the ", el.Code(`<div class="field">`), " element."),
+	),
 ).Section(
+	"Bulma examples", "https://bulma.io/documentation/form/general/",
+).Subsection(
 	"Complete form example",
 	"https://bulma.io/documentation/form/general/#complete-form-example",
 	c.Example(
@@ -170,7 +237,7 @@ b.Field(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Form field",
 	"https://bulma.io/documentation/form/general/#form-field",
 	c.Example(
@@ -215,7 +282,7 @@ b.Field(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Form control",
 	"https://bulma.io/documentation/form/general/#form-control",
 	c.Example(
@@ -248,7 +315,7 @@ b.Field(
 			b.Button(b.Primary, "Submit"),
 		),
 	),
-).Section(
+).Subsection(
 	"With icons",
 	"https://bulma.io/documentation/form/general/#with-icons",
 	c.Example(
@@ -493,7 +560,7 @@ b.Field(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Form addons",
 	"https://bulma.io/documentation/form/general/#form-addons",
 	c.Example(
@@ -615,7 +682,7 @@ b.Field(
 		b.Expanded,
 		b.Select(
 			b.FullWidth,
-			b.Name("country"),
+			html.Name("country"),
 			b.Option("Argentina", "Argentina"),
 			b.Option("Bolivia", "Bolivia"),
 			b.Option("Brazil", "Brazil"),
@@ -640,7 +707,7 @@ b.Field(
 				b.Expanded,
 				b.Select(
 					b.FullWidth,
-					b.Name("country"),
+					html.Name("country"),
 					b.Option("Argentina", "Argentina"),
 					b.Option("Bolivia", "Bolivia"),
 					b.Option("Brazil", "Brazil"),
@@ -732,7 +799,7 @@ b.Field(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Form group",
 	"https://bulma.io/documentation/form/general/#form-group",
 	c.Example(
@@ -853,7 +920,7 @@ b.Field(
 			b.Control(b.ButtonA("Thirteen")),
 		),
 	),
-).Section(
+).Subsection(
 	"Horizontal form",
 	"https://bulma.io/documentation/form/general/#horizontal-form",
 	c.HorizontalExample(
@@ -936,7 +1003,8 @@ b.FieldHorizontal(
 	),
 )`,
 		b.FieldHorizontal(
-			b.FieldLabel(b.Normal, b.Label("From")),
+			b.OnLabel(b.Normal),
+			b.Label("From"),
 			b.Field(
 				b.Control(
 					html.P,
@@ -959,7 +1027,6 @@ b.FieldHorizontal(
 			),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(),
 			b.Field(
 				b.Expanded,
 				b.Field(
@@ -970,7 +1037,8 @@ b.FieldHorizontal(
 			),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Normal, b.Label("Department")),
+			b.OnLabel(b.Normal),
+			b.Label("Department"),
 			b.Field(
 				b.Narrow,
 				b.Control(b.Select(
@@ -982,7 +1050,7 @@ b.FieldHorizontal(
 			),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Label("Already a member?")),
+			b.Label("Already a member?"),
 			b.Field(
 				b.Narrow,
 				b.Control(
@@ -992,7 +1060,8 @@ b.FieldHorizontal(
 			),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Normal, b.Label("Subject")),
+			b.OnLabel(b.Normal),
+			b.Label("Subject"),
 			b.Field(
 				b.Control(b.InputText(
 					b.Danger,
@@ -1002,13 +1071,13 @@ b.FieldHorizontal(
 			),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Normal, b.Label("Question")),
+			b.OnLabel(b.Normal),
+			b.Label("Question"),
 			b.Field(
 				b.Control(b.Textarea(html.Placeholder("Explain how we can help you"))),
 			),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(),
 			b.Field(
 				b.Control(b.Button(b.Primary, "Send message")),
 			),
@@ -1036,27 +1105,31 @@ b.FieldHorizontal(
 	b.Field(b.Control(b.InputText(b.Large, html.Placeholder("Large sized input")))),
 )`,
 		b.FieldHorizontal(
-			b.FieldLabel(b.Label("No padding")),
+			b.Label("No padding"),
 			b.Field(b.Control(b.Checkbox("Checkbox"))),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Small, b.Label("Small padding")),
+			b.OnLabel(b.Small),
+			b.Label("Small padding"),
 			b.Field(b.Control(b.InputText(b.Small, html.Placeholder("Small sized input")))),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Normal, b.Label("Normal label")),
+			b.OnLabel(b.Normal),
+			b.Label("Normal label"),
 			b.Field(b.Control(b.InputText(html.Placeholder("Normal sized input")))),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Medium, b.Label("Medium label")),
+			b.OnLabel(b.Medium),
+			b.Label("Medium label"),
 			b.Field(b.Control(b.InputText(b.Medium, html.Placeholder("Medium sized input")))),
 		),
 		b.FieldHorizontal(
-			b.FieldLabel(b.Large, b.Label("Large label")),
+			b.OnLabel(b.Large),
+			b.Label("Large label"),
 			b.Field(b.Control(b.InputText(b.Large, html.Placeholder("Large sized input")))),
 		),
 	),
-).Section(
+).Subsection(
 	"Disabled form",
 	"https://bulma.io/documentation/form/general/#disabled-form",
 	c.Example(

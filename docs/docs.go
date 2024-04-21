@@ -26,7 +26,6 @@ var Sections = []docSection{
 		"",
 		[]*c.Page{
 			intro,
-			documentRoot,
 			elements,
 			classes,
 			extending,
@@ -65,17 +64,6 @@ var Sections = []docSection{
 		},
 	},
 	{
-		"Columns",
-		[]*c.Page{
-			columnsBasics,
-			columnsSizes,
-			columnsResponsiveness,
-			columnsNesting,
-			columnsGap,
-			columnsOptions,
-		},
-	},
-	{
 		"Form",
 		[]*c.Page{
 			formGeneral,
@@ -88,15 +76,21 @@ var Sections = []docSection{
 		},
 	},
 	{
+		"Columns and grid",
+		[]*c.Page{
+			columns,
+			grid,
+		},
+	},
+	{
 		"Layout",
 		[]*c.Page{
 			container,
-			level,
-			mediaObject,
 			hero,
 			section,
+			level,
+			mediaObject,
 			footer,
-			tiles,
 		},
 	},
 	{
@@ -104,6 +98,7 @@ var Sections = []docSection{
 		[]*c.Page{
 			skeletons,
 			color,
+			positioning,
 			spacing,
 			typography,
 			visibility,
@@ -134,8 +129,10 @@ func Layout(p *c.Page) gomponents.Node {
 		b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
 		fa.CSSHead(path.Join(p.BaseURL, "fa")),
 		gomponents.Attr("hx-on:htmx:load", `if(event.detail.elt.id ==='bgd-content')window.scrollTo(0,0)`),
-		b.TopNavbar(
+		b.Navbar(
+			b.Style("z-index", "100"),
 			b.Shadow,
+			b.FixedTop,
 			b.NavbarBrand(
 				b.NavbarItem(
 					b.Title(

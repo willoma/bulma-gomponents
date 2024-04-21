@@ -10,7 +10,7 @@ import (
 //   - when a child is marked with b.Inner, it is forcibly applied to the <ul> element
 //   - when a child is marked with b.Outer, it is forcibly applied to the <div class="tabs"> element
 //
-// Its arguments must include TabsLink. The ul element is automatically created.
+// Its arguments must include TabLink. The ul element is automatically created.
 //
 // If a child is the Container function or one of its derivative (Container*),
 // this function is executed and its result is used as an intermediate container.
@@ -32,26 +32,26 @@ func Tabs(children ...any) Element {
 }
 
 type tabs struct {
-	intermediateContainer Element
+	intermediateContainer *container
 	tabsChildren          []any
-	contentChildren       []any
+	ulChildren            []any
 }
 
 func (t *tabs) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			t.contentChildren = append(t.contentChildren, c.Child)
-		case *ApplyToOuter:
-			t.tabsChildren = append(t.tabsChildren, c.Child)
-		case Class, ColorClass, ExternalClass, ExternalClassesAndStyles, MultiClass, Styles:
+		case onTabs:
+			t.tabsChildren = append(t.tabsChildren, c...)
+		case onUl:
+			t.ulChildren = append(t.ulChildren, c...)
+		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
 			t.tabsChildren = append(t.tabsChildren, c)
-		case func(children ...any) container:
-			t.intermediateContainer = c()
+		case *container:
+			t.intermediateContainer = c
 		case []any:
 			t.With(c...)
 		default:
-			t.contentChildren = append(t.contentChildren, c)
+			t.ulChildren = append(t.ulChildren, c)
 		}
 	}
 
@@ -61,7 +61,7 @@ func (t *tabs) With(children ...any) Element {
 func (t *tabs) Render(w io.Writer) error {
 	tabsEl := Elem(html.Div, Class("tabs"), t.tabsChildren)
 
-	content := Elem(html.Ul, t.contentChildren...)
+	content := Elem(html.Ul, t.ulChildren...)
 
 	if t.intermediateContainer != nil {
 		return tabsEl.With(t.intermediateContainer.With(content)).Render(w)
@@ -70,18 +70,18 @@ func (t *tabs) Render(w io.Writer) error {
 	return tabsEl.With(content).Render(w)
 }
 
-// TabsLink creates a tab entry which is a link. Use html.Href as an argument
+// TabLink creates a tab entry which is a link. Use html.Href as an argument
 // to define a link target if needed.
-func TabsLink(children ...any) Element {
-	return new(tabsLink).With(children...)
+func TabLink(children ...any) Element {
+	return new(tabLink).With(children...)
 }
 
-type tabsLink struct {
+type tabLink struct {
 	active   bool
 	children []any
 }
 
-func (t *tabsLink) With(children ...any) Element {
+func (t *tabLink) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -100,7 +100,7 @@ func (t *tabsLink) With(children ...any) Element {
 	return t
 }
 
-func (t *tabsLink) Render(w io.Writer) error {
+func (t *tabLink) Render(w io.Writer) error {
 	li := Elem(html.Li)
 	if t.active {
 		li.With(Active)
@@ -113,4 +113,8 @@ func (t *tabsLink) Render(w io.Writer) error {
 			t.children,
 		),
 	).Render(w)
+}
+
+func TabAHref(href string, children ...any) Element {
+	return new(tabLink).With(html.Href(href), children)
 }

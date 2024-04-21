@@ -5,11 +5,70 @@ import (
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
+	"github.com/willoma/bulma-gomponents/el"
 )
 
 var formTextarea = c.NewPage(
 	"Textarea", "Textarea", "/form/textarea",
-	"https://bulma.io/documentation/form/textarea/",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Textarea"), " constructor creates a text area. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.Rows(int)"),
+			"Set the text area height, in number of rows",
+
+			el.Code("b.Hovered"),
+			"Apply the hovered style",
+
+			el.Code("b.Focused"),
+			"Apply the focused style",
+
+			el.Code("b.Loading"),
+			"Add a loading spinner to the right of the text area",
+
+			el.Code("b.Disabled"),
+			"Disable the text area",
+
+			el.Code("html.ReadOnly()"),
+			"Read only text area",
+
+			el.Code("b.FixedSize"),
+			"Disable the text area resizing capability",
+
+			el.Code("b.Primary"),
+			"Set text area color to primary",
+
+			el.Code("b.Link"),
+			"Set text area color to link",
+
+			el.Code("b.Info"),
+			"Set text area color to info",
+
+			el.Code("b.Success"),
+			"Set text area color to success",
+
+			el.Code("b.Warning"),
+			"Set text area color to warning",
+
+			el.Code("b.Danger"),
+			"Set text area color to danger",
+
+			el.Code("b.Small"),
+			"Set text area size to small",
+
+			el.Code("b.Normal"),
+			"Set text area size to normal",
+
+			el.Code("b.Medium"),
+			"Set text area size to medium",
+
+			el.Code("b.Large"),
+			"Set text area size to large",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/form/textarea/",
 	c.Example(
 		`b.Textarea(html.Placeholder("e.g. Hello world"))`,
 		b.Textarea(html.Placeholder("e.g. Hello world")),
@@ -18,7 +77,7 @@ var formTextarea = c.NewPage(
 		`b.Textarea(html.Placeholder("10 lines of textarea"), b.Rows(10))`,
 		b.Textarea(html.Placeholder("10 lines of textarea"), b.Rows(10)),
 	),
-).Section(
+).Subsection(
 	"Colors",
 	"https://bulma.io/documentation/form/textarea/#colors",
 	c.Example(
@@ -45,7 +104,7 @@ var formTextarea = c.NewPage(
 		`b.Textarea(b.Danger, html.Placeholder("Danger textarea"))`,
 		b.Textarea(b.Danger, html.Placeholder("Danger textarea")),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/form/textarea/#sizes",
 	c.Example(
@@ -90,7 +149,7 @@ b.Field(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"States",
 	"https://bulma.io/documentation/form/textarea/#states",
 	c.Example(
@@ -185,10 +244,10 @@ b.Field(
 	),
 	c.Example(
 		`b.Control(
-	b.Textarea(html.Placeholder("Disabled textarea"), html.Disabled()),
+	b.Textarea(html.Placeholder("Disabled textarea"), b.Disabled),
 )`,
 		b.Control(
-			b.Textarea(html.Placeholder("Disabled textarea"), html.Disabled()),
+			b.Textarea(html.Placeholder("Disabled textarea"), b.Disabled),
 		),
 	),
 	c.Example(

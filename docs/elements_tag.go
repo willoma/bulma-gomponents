@@ -11,58 +11,75 @@ var tag = c.NewPage(
 	"",
 
 	b.Content(
-		b.Style("column-count", "3"),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Tag"), " constructor creates a tag. The ", el.Code("b.DeleteTag"), " constructor creates a delete button-looking tag. These constructors accept the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Tag"), " constructor creates a tag. The ", el.Code("b.DeleteTag"), " constructor creates a delete button-looking tag. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.White"),
-			"set tag color to white",
+			"Set tag color to white",
+
 			el.Code("b.Black"),
-			"set tag color to black",
+			"Set tag color to black",
+
 			el.Code("b.Light"),
-			"set tag color to light",
+			"Set tag color to light",
+
 			el.Code("b.Dark"),
-			"set tag color to dark",
+			"Set tag color to dark",
+
 			el.Code("b.Primary"),
-			"set tag color to primary",
+			"Set tag color to primary",
+
 			el.Code("b.Link"),
-			"set tag color to link",
+			"Set tag color to link",
+
 			el.Code("b.Info"),
-			"set tag color to info",
+			"Set tag color to info",
+
 			el.Code("b.Success"),
-			"set tag color to success",
+			"Set tag color to success",
+
 			el.Code("b.Warning"),
-			"set tag color to warning",
+			"Set tag color to warning",
+
 			el.Code("b.Danger"),
-			"set tag color to danger",
+			"Set tag color to danger",
+
 			el.Code("b.PrimaryLight"),
-			"set tag color to primary light",
+			"Set tag color to primary light",
+
 			el.Code("b.LinkLight"),
-			"set tag color to link light",
+			"Set tag color to link light",
+
 			el.Code("b.InfoLight"),
-			"set tag color to info light",
+			"Set tag color to info light",
+
 			el.Code("b.SuccessLight"),
-			"set tag color to success light",
+			"Set tag color to success light",
+
 			el.Code("b.WarningLight"),
-			"set tag color to warning light",
+			"Set tag color to warning light",
+
 			el.Code("b.DangerLight"),
-			"set tag color to danger light",
+			"Set tag color to danger light",
+
 			el.Code("b.Small"),
-			"set tag size to small",
+			"Set tag size to small",
+
 			el.Code("b.Normal"),
-			"set tag size to normal",
+			"Set tag size to normal",
+
 			el.Code("b.Medium"),
-			"set tag size to medium",
+			"Set tag size to medium",
+
 			el.Code("b.Large"),
-			"set tag size to large",
+			"Set tag size to large",
+
 			el.Code("b.Rounded"),
-			"make a rounded tag",
+			"Make a rounded tag",
 		),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Tags"), " constructor creates a list of tags. It accepts the ", el.Code("b.Addons"), " modifier to attach the contained tags together.",
+			"The ", el.Code("b.Tags"), " constructor creates a list of tags. It accepts the ", el.Code("b.Addons"), " modifier to attach the contained tags together and may contain any number of ", el.Code("b.Tag"), " or ", el.Code("b.DeleteTag"), ".",
 		),
 	),
 ).Section(

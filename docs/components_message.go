@@ -5,7 +5,6 @@ import (
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/easy"
 	"github.com/willoma/bulma-gomponents/el"
 )
 
@@ -15,7 +14,7 @@ var message = c.NewPage(
 
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Message"), " constructor creates a message. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Message"), " constructor creates a message. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.Dark"),
@@ -45,7 +44,7 @@ var message = c.NewPage(
 	"Easy helper", "",
 
 	el.P(
-		"The ", el.Code("easy.Message"), " constructor creates a message. It accepts the same colors definitions as the ", el.Code("b.Message"), " constructor as well as the following values additionally to the standard set of children types:",
+		"The ", el.Code("b.Message"), " constructor creates a message. It accepts the same colors definitions as the ", el.Code("b.Message"), " constructor as well as the following values additionally to the standard set of children types:",
 	),
 	b.DList(
 		el.Code("b.Inner(any)"),
@@ -54,10 +53,10 @@ var message = c.NewPage(
 		el.Code("b.Outer(any)"),
 		[]any{"forcibly apply the child to the message element"},
 
-		el.Code("easy.MessageTitle"),
+		el.Code("b.MessageTitle"),
 		"Include a header with the provided title",
 
-		el.Code("easy.MessageDeleteOnClick"),
+		el.Code("b.MessageDeleteOnClick"),
 		"Include a delete button in the header, with the provided script as an onclick event",
 
 		"A class or style",
@@ -76,34 +75,13 @@ var message = c.NewPage(
 	"Bulma examples", "https://bulma.io/documentation/components/message/",
 	c.Example(
 		`b.Message(
-	b.MessageHeader(
-		el.P("Hello world"),
-		b.Delete(html.Aria("label", "delete")),
-	),
-	b.MessageBody(
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
-	),
-)`,
-		b.Message(
-			b.MessageHeader(
-				el.P("Hello world"),
-				b.Delete(html.Aria("label", "delete")),
-			),
-			b.MessageBody(
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
-			),
-		),
-	),
-	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the ", el.Code("easy.Message"), " helper:")),
-	c.Example(
-		`easy.Message(
-	easy.MessageTitle("Hello world"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Hello world"),
+	b.Delete(html.Aria("label", "delete")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
-			easy.MessageTitle("Hello world"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+		b.Message(
+			b.MessageTitle("Hello world"),
+			b.Delete(html.Aria("label", "delete")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
@@ -111,100 +89,100 @@ var message = c.NewPage(
 	"Colors",
 	"https://bulma.io/documentation/components/message/#colors",
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Dark,
-	easy.MessageTitle("Dark"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Dark"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
-)`,
-		easy.Message(
+),`,
+		b.Message(
 			b.Dark,
-			easy.MessageTitle("Dark"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Dark"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Primary,
-	easy.MessageTitle("Primary"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Primary"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Primary,
-			easy.MessageTitle("Primary"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Primary"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Link,
-	easy.MessageTitle("Link"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Link"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Link,
-			easy.MessageTitle("Link"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Link"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Info,
-	easy.MessageTitle("Info"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Info"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Info,
-			easy.MessageTitle("Info"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Info"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Success,
-	easy.MessageTitle("Success"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Success"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Success,
-			easy.MessageTitle("Success"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Success"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Primary,
-	easy.MessageTitle("Warning"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Warning"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Warning,
-			easy.MessageTitle("Warning"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Warning"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Danger,
-	easy.MessageTitle("Danger"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Danger"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Danger,
-			easy.MessageTitle("Danger"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Danger"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
@@ -212,79 +190,79 @@ var message = c.NewPage(
 	"Message body only",
 	"https://bulma.io/documentation/components/message/#message-body-only",
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Dark,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Dark,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Primary,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Primary,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Link,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Link,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Info,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Info,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Success,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Success,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Warning,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Warning,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Danger,
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Danger,
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
@@ -293,54 +271,54 @@ var message = c.NewPage(
 	"Sizes",
 	"https://bulma.io/documentation/components/message/#sizes",
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Small,
-	easy.MessageTitle("Small message"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Small message"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Small,
-			easy.MessageTitle("Small message"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Small message"),
+			b.Delete(b.Small, b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus.",
 		),
 	),
 	c.Example(
-		`easy.Message(
-	easy.MessageTitle("Normal message"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+		`b.Message(
+	b.MessageTitle("Normal message"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus.",
 )`,
-		easy.Message(
-			easy.MessageTitle("Normal message"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+		b.Message(
+			b.MessageTitle("Normal message"),
+			b.Delete(b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus."),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Medium,
-	easy.MessageTitle("Medium message"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Medium message"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Medium,
-			easy.MessageTitle("Medium message"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Medium message"),
+			b.Delete(b.Medium, b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus."),
 	),
 	c.Example(
-		`easy.Message(
+		`b.Message(
 	b.Large,
-	easy.MessageTitle("Large message"),
-	easy.MessageDeleteOnClick(′alert("click")′),
+	b.MessageTitle("Large message"),
+	b.Delete(b.OnClick("alert('click')")),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus.",
 )`,
-		easy.Message(
+		b.Message(
 			b.Large,
-			easy.MessageTitle("Large message"),
-			easy.MessageDeleteOnClick(`alert("click")`),
+			b.MessageTitle("Large message"),
+			b.Delete(b.Large, b.OnClick("alert('click')")),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", el.Strong("Pellentesque risus mi"), " tempus quis placerat ut, porta nec nulla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur. Aenean ac ", el.Em("eleifend lacus"), " in mollis lectus."),
 	),
 )

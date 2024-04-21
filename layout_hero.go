@@ -7,14 +7,7 @@ import (
 	"github.com/maragudk/gomponents/html"
 )
 
-type heroPart struct {
-	foot     bool
-	children []any
-}
-
 // Hero creates a hero element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="hero-body"> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <section class="hero"> element
 //   - when a child is a return value of HeroHead, it is added in the head part
 //     of the hero element
 //   - when a child is a return value of HeroFoot, it is added in the foot part
@@ -58,16 +51,14 @@ type hero struct {
 func (h *hero) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			h.bodyChildren = append(h.bodyChildren, c.Child)
-		case *ApplyToOuter:
-			h.elemChildren = append(h.elemChildren, c.Child)
-		case heroPart:
-			if c.foot {
-				h.footChildren = append(h.footChildren, c.children...)
-			} else {
-				h.headChildren = append(h.headChildren, c.children...)
-			}
+		case onBody:
+			h.bodyChildren = append(h.bodyChildren, c...)
+		case onSection:
+			h.elemChildren = append(h.elemChildren, c...)
+		case heroHead:
+			h.headChildren = append(h.headChildren, c...)
+		case heroFoot:
+			h.footChildren = append(h.footChildren, c...)
 		case Element:
 			h.bodyChildren = append(h.bodyChildren, c)
 		case gomponents.Node:
@@ -111,11 +102,15 @@ func (h *hero) Render(w io.Writer) error {
 }
 
 // HeroHead marks children as belonging to the head part of a hero element.
-func HeroHead(children ...any) heroPart {
-	return heroPart{false, children}
+func HeroHead(children ...any) heroHead {
+	return heroHead(children)
 }
 
+type heroHead []any
+
 // HeroFoot marks children as belonging to the foot part of a hero element.
-func HeroFoot(children ...any) heroPart {
-	return heroPart{true, children}
+func HeroFoot(children ...any) heroFoot {
+	return heroFoot(children)
 }
+
+type heroFoot []any

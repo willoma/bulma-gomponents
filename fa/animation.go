@@ -206,7 +206,6 @@ func (a Animation) ClassesAndStyles() ([]b.Class, b.Styles) {
 		if a.Reverse {
 			classes = append(classes, "fa-spin-reverse")
 		}
-		// XXX XXX XXX XXX XXX
 
 	default:
 		return nil, nil
@@ -249,43 +248,3 @@ func (a Animation) ClassesAndStyles() ([]b.Class, b.Styles) {
 
 	return classes, b.Style(stylesArgs...)
 }
-
-// // Spin adds a spin animation to a FA icon.
-// type Spin struct {
-// 	AnimationBase
-// }
-
-// func (a Spin) attrs() (Class, b.Styles) {
-// 	styles := a.baseStyles()
-// 	return "fa-spin", styles
-// }
-
-// // SpinReverse adds a reverse spin animation to a FA icon.
-// type SpinReverse struct {
-// 	AnimationBase
-// }
-
-// func (a SpinReverse) attrs() (Class, b.Styles) {
-// 	styles := a.baseStyles()
-// 	return "fa-spin fa-spin-reverse", styles
-// }
-
-// // SpinPulse adds a 8-steps spin animation to a FA icon.
-// type SpinPulse struct {
-// 	AnimationBase
-// }
-
-// func (a SpinPulse) attrs() (Class, b.Styles) {
-// 	styles := a.baseStyles()
-// 	return "fa-spin-pulse", styles
-// }
-
-// // SpinPulseReverse adds a 8-steps reverse spin animation to a FA icon.
-// type SpinPulseReverse struct {
-// 	AnimationBase
-// }
-
-// func (a SpinPulseReverse) attrs() (Class, b.Styles) {
-// 	styles := a.baseStyles()
-// 	return "fa-spin-pulse fa-spin-reverse", styles
-// }

@@ -14,6 +14,12 @@ type Element interface {
 	With(...any) Element
 }
 
+type ParentModifier interface {
+	Element
+
+	ModifyParent(parent Element)
+}
+
 type elemOption int
 
 const (
@@ -62,9 +68,13 @@ func IsAttribute(node any) bool {
 //   - func(...gomponents.Node) gomponents.Node: change the gomponents.Node
 //     element for this element
 //   - Class: add a class to the element
+//   - Classer: add a class to the element
+//   - Classeser: add multiple classes to the element
+//   - ExternalClassesAndStyles: add one or multiple classes and CSS styles to
+//     the element
 //   - MultiClass: add multiple classes to the element
-//   - ColorClass: add a color class to the element
 //   - Styles: add one or multiple CSS styles to the element
+//   - ID: define the ID attribute for the element
 //   - string: add a string to the element (using gomponents.Text)
 //   - Element: add the provided element as a child
 //   - container: add the provided element as a child
@@ -92,16 +102,12 @@ func (e *element) With(children ...any) Element {
 			e.elemFn = c
 		case Class:
 			e.classes[string(c)] = true
-		case ColorClass:
-			e.classes["is-"+c.class] = true
-			switch c.variant {
-			case colorLight:
-				e.classes["is-light"] = true
-			case colorDark:
-				e.classes["is-dark"] = true
-			}
-		case ExternalClass:
+		case Classer:
 			e.classes[string(c.Class())] = true
+		case Classeser:
+			for _, cl := range c.Classes() {
+				e.classes[string(cl)] = true
+			}
 		case ExternalClassesAndStyles:
 			cls, st := c.ClassesAndStyles()
 			for _, cl := range cls {
@@ -121,23 +127,15 @@ func (e *element) With(children ...any) Element {
 			for prop, val := range c {
 				e.stylesCollection[prop] = val
 			}
+		case ID:
+			e.attributes = append(e.attributes, html.ID(string(c)))
 		case string:
 			e.elements = append(e.elements, gomponents.Text(c))
 		case IconElem:
 			e.hasIcons = true
 			e.elements = append(e.elements, c)
-		case *topNavbar:
-			// If the child is a top-fixed navbar, add the "navbar-fixed-top" class to its parent
-			e.classes[string(NavbarFixedTop)] = true
-			e.elements = append(e.elements, c)
-		case *bottomNavbar:
-			// If the child is a bottom-fixed navbar, add the "navbar-fixed-bottom" class to its parent
-			e.classes[string(NavbarFixedBottom)] = true
-			e.elements = append(e.elements, c)
-		case *tile:
-			if !e.classes["tile"] {
-				c.With(Class("is-ancestor"))
-			}
+		case ParentModifier:
+			c.ModifyParent(e)
 			e.elements = append(e.elements, c)
 		case Element:
 			e.elements = append(e.elements, c)

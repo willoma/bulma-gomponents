@@ -27,8 +27,23 @@ type content struct {
 func (ct *content) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case noP:
+			ct.withNoP(c)
 		case string:
 			ct.children = append(ct.children, Elem(html.P, c))
+		case []any:
+			ct.With(c...)
+		default:
+			ct.children = append(ct.children, c)
+		}
+	}
+
+	return ct
+}
+
+func (ct *content) withNoP(children []any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
 		case []any:
 			ct.With(c...)
 		default:
@@ -42,3 +57,9 @@ func (ct *content) With(children ...any) Element {
 func (ct *content) Render(w io.Writer) error {
 	return Elem(html.Div, Class("content"), ct.children).Render(w)
 }
+
+func NoP(children ...any) noP {
+	return noP(children)
+}
+
+type noP []any

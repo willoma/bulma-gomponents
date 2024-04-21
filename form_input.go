@@ -1,9 +1,39 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	"io"
 
-func input(inputType string, children []any) Element {
-	return Elem(html.Input, Class("input"), html.Type(inputType), children)
+	"github.com/maragudk/gomponents/html"
+)
+
+type input struct {
+	inputType string
+	children  []any
+}
+
+func (i *input) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case onInput:
+			i.children = append(i.children, c...)
+		case Class:
+			switch c {
+			case Disabled:
+				i.children = append(i.children, html.Disabled())
+			default:
+				i.children = append(i.children, c)
+			}
+		case []any:
+			i.With(c...)
+		default:
+			i.children = append(i.children, c)
+		}
+	}
+	return i
+}
+
+func (i *input) Render(w io.Writer) error {
+	return Elem(html.Input, Class("input"), html.Type(i.inputType), i.children).Render(w)
 }
 
 // InputText creates an input element of type text.
@@ -31,7 +61,7 @@ func input(inputType string, children []any) Element {
 //   - Medium
 //   - Large
 func InputText(children ...any) Element {
-	return input("text", children)
+	return (&input{inputType: "text"}).With(children...)
 }
 
 // InputPassword creates an input element of type password.
@@ -59,7 +89,7 @@ func InputText(children ...any) Element {
 //   - Medium
 //   - Large
 func InputPassword(children ...any) Element {
-	return input("password", children)
+	return (&input{inputType: "password"}).With(children...)
 }
 
 // InputEmail creates an input element of type email.
@@ -87,7 +117,7 @@ func InputPassword(children ...any) Element {
 //   - Medium
 //   - Large
 func InputEmail(children ...any) Element {
-	return input("email", children)
+	return (&input{inputType: "email"}).With(children...)
 }
 
 // InputTel creates an input element of type tel.
@@ -115,5 +145,5 @@ func InputEmail(children ...any) Element {
 //   - Medium
 //   - Large
 func InputTel(children ...any) Element {
-	return input("tel", children)
+	return (&input{inputType: "tel"}).With(children...)
 }

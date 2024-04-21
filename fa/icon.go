@@ -40,8 +40,7 @@ const (
 // FA returns a Font Awesome icon, in an i element, with the provided style and
 // name (without the "fa-" prefix).
 //   - when a child id a Class, it is added as a class to the i element
-//   - when a child is a b.ColorClass, its Text() variant is added as a class to
-//     the i element
+//   - when a child is a color, its text variant is applied to the i element
 //   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added as-is to the i element
 //
@@ -55,8 +54,7 @@ type fa struct {
 	style         Style
 	name          string
 	rotateOrFlips []any
-	// animation    Animation
-	children []any
+	children      []any
 }
 
 func (f *fa) With(children ...any) b.Element {
@@ -66,7 +64,7 @@ func (f *fa) With(children ...any) b.Element {
 			f.children = append(f.children, c)
 		case rotateOrFlip, Rotate, Animation:
 			f.rotateOrFlips = append(f.rotateOrFlips, c)
-		case b.ColorClass:
+		case b.Color:
 			f.children = append(f.children, c.Text())
 		case []any:
 			f.With(c...)
@@ -97,8 +95,7 @@ func (f *fa) Render(w io.Writer) error {
 //   - when a child is marked with b.Inner, it is forcibly applied to the <i> element
 //   - when a child is marked with b.Outer, it is forcibly applied to the <span> element
 //   - when a child id a Class, it is added to the i element
-//   - when a child is a b.ColorClass, its Text() variant is added as a class to
-//     the b.Icon
+//   - when a child is a color, its text variant is applied to the b.Icon
 //   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added as-is to the b.Icon
 func Icon(style Style, name string, children ...any) b.Element {
@@ -106,10 +103,9 @@ func Icon(style Style, name string, children ...any) b.Element {
 }
 
 type icon struct {
-	iconClass b.Class
-	style     Style
-	name      string
-	// animation    Animation
+	iconClass    b.Class
+	style        Style
+	name         string
 	iconChildren []any
 	faChildren   []any
 }
@@ -121,13 +117,13 @@ func (i *icon) SetIconClass(c b.Class) {
 func (i *icon) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *b.ApplyToInner:
-			i.faChildren = append(i.faChildren, c.Child)
-		case *b.ApplyToOuter:
-			i.iconChildren = append(i.iconChildren, c.Child)
+		case onFA:
+			i.faChildren = append(i.faChildren, c...)
+		case onSpan:
+			i.iconChildren = append(i.iconChildren, c...)
 		case Class, rotateOrFlip, Rotate, Animation:
 			i.faChildren = append(i.faChildren, c)
-		case b.ColorClass:
+		case b.Color:
 			i.iconChildren = append(i.iconChildren, c.Text())
 		case []any:
 			i.With(c...)
@@ -146,3 +142,15 @@ func (i *icon) Render(w io.Writer) error {
 	}
 	return ic.Render(w)
 }
+
+func OnFA(children ...any) onFA {
+	return onFA(children)
+}
+
+type onFA []any
+
+func OnSpan(children ...any) onSpan {
+	return onSpan(children)
+}
+
+type onSpan []any

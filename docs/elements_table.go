@@ -28,32 +28,44 @@ var table = c.NewPage(
 
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Table"), " constructor creates a table. The ", el.Code("b.ScrollableTable"), " constructor creates a table in a table-container element, making the table scrollable. These constructors accept the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Table"), " constructor creates a table. The ", el.Code("b.ScrollableTable"), " constructor creates a table in a table-container element, making the table scrollable. The following children have a special meaning:",
 		),
 		b.DList(
+			el.Code("b.OnHead(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code("<thead>"), " element"},
+
+			el.Code("b.OnBody(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code("<tbody>"), " element"},
+
+			el.Code("b.OnFoot(any)"),
+			[]any{"Forcibly apply the child to the ", el.Code("<tfoot>"), " element"},
+
 			el.Code("b.Bordered"),
 			"Add borders to the table",
+
 			el.Code("b.Striped"),
 			"Add stripes to the body rows",
+
 			el.Code("b.Narrow"),
 			"Make the cells narrower",
+
 			el.Code("b.Hoverable"),
 			"Add a hover effect on the body rows",
+
 			el.Code("b.FullWidth"),
 			"Take the whole width",
+
+			el.Code("b.Row(...)"),
+			[]any{"Add a row to the table body, its cells are defined as ", el.Code("<td>"), " elements"},
+
+			el.Code("b.HeadRow(...)"),
+			[]any{"Add a row to the table header, its cells are defined as ", el.Code("<th>"), " elements"},
+
+			el.Code("b.FootRow(...)"),
+			[]any{"Add a row to the table footer, its cells are defined as ", el.Code("<th>"), " elements"},
 		),
-		el.P(
-			"The following constructors must be provided as children to ", el.Code("b.Table"), " or ", el.Code("b.ScrollableTable"), " in order to add rows to the table:",
-		),
-		b.DList(
-			el.Code("b.Row"),
-			"Add a row to the table body, its cells are defined as <td> elements",
-			el.Code("b.HeadRow"),
-			"Add a row to the table header, its cells are defined as <th> elements",
-			el.Code("b.FootRow"),
-			"Add a row to the table footer, its cells are defined as <th> elements",
-		),
-		el.P("These rows constructors accept either elements embedded in ", el.Code("b.Cell"), " constructors, or embed elements automatically."),
+		el.P("Other children are added to the ", el.Code("<table>"), " element."),
+		el.P("The rows constructors accept either children embedded in ", el.Code("b.TCell(...)"), " constructors, or embed their children automatically."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/elements/table/",
@@ -78,8 +90,8 @@ b.Table(
 	b.HeadRow(headFoot...),
 	b.FootRow(headFoot...),
 	b.Row(
-		b.Cell(html.Th, "1"),
-		b.Cell(
+		b.TCell(html.Th, "1"),
+		b.TCell(
 			el.A(
 				html.Href("https://en.wikipedia.org/wiki/Leicester_City_F.C."),
 				html.TitleAttr("Leicester City F.C."),
@@ -96,12 +108,12 @@ b.Table(
 		"36",
 		"+32",
 		"81",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League group stage"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "2"),
+		b.TCell(html.Th, "2"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Arsenal_F.C."), html.TitleAttr("Arsenal F.C."), "Arsenal"),
 		"38",
 		"20",
@@ -111,12 +123,12 @@ b.Table(
 		"36",
 		"+29",
 		"71",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League group stage"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "3"),
+		b.TCell(html.Th, "3"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C."), html.TitleAttr("Tottenham Hotspur F.C."), "Tottenham Hotspur"),
 		"38",
 		"19",
@@ -126,13 +138,13 @@ b.Table(
 		"35",
 		"+34",
 		"70",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League group stage"),
 		),
 	),
 	b.Row(
 		b.Selected,
-		b.Cell(html.Th, "4"),
+		b.TCell(html.Th, "4"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Manchester_City_F.C."), html.TitleAttr("Manchester City F.C."), "Manchester City"),
 		"38",
 		"19",
@@ -142,12 +154,12 @@ b.Table(
 		"41",
 		"+30",
 		"66",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Play-off_round"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League play-off round"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "5"),
+		b.TCell(html.Th, "5"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Manchester_United_F.C."), html.TitleAttr("Manchester United F.C."), "Manchester United"),
 		"38",
 		"19",
@@ -157,12 +169,12 @@ b.Table(
 		"35",
 		"+14",
 		"66",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage"), html.TitleAttr("2016–17 UEFA Europa League"), "Europa League group stage"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "6"),
+		b.TCell(html.Th, "6"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Southampton_F.C."), html.TitleAttr("Southampton F.C."), "Southampton"),
 		"38",
 		"18",
@@ -172,12 +184,12 @@ b.Table(
 		"41",
 		"+18",
 		"63",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage"), html.TitleAttr("2016–17 UEFA Europa League"), "Europa League group stage"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "7"),
+		b.TCell(html.Th, "7"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/West_Ham_United_F.C."), html.TitleAttr("West Ham United F.C."), "West Ham United"),
 		"38",
 		"16",
@@ -187,12 +199,12 @@ b.Table(
 		"51",
 		"+14",
 		"62",
-		b.Cell(
+		b.TCell(
 			"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Third_qualifying_round"), html.TitleAttr("2016–17 UEFA Europa League"), "Europa League third qualifying round"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "8"),
+		b.TCell(html.Th, "8"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Liverpool_F.C."), html.TitleAttr("Liverpool F.C."), "Liverpool"),
 		"38",
 		"16",
@@ -205,7 +217,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "9"),
+		b.TCell(html.Th, "9"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Stoke_City_F.C."), html.TitleAttr("Stoke City F.C."), "Stoke City"),
 		"38",
 		"14",
@@ -213,12 +225,12 @@ b.Table(
 		"15",
 		"41",
 		"55",
-		b.Cell("-14"),
+		b.TCell("-14"),
 		"51",
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "10"),
+		b.TCell(html.Th, "10"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Chelsea_F.C."), html.TitleAttr("Chelsea F.C."), "Chelsea"),
 		"38",
 		"12",
@@ -231,7 +243,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "11"),
+		b.TCell(html.Th, "11"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Everton_F.C."), html.TitleAttr("Everton F.C."), "Everton"),
 		"38",
 		"11",
@@ -244,7 +256,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "12"),
+		b.TCell(html.Th, "12"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Swansea_City_A.F.C."), html.TitleAttr("Swansea City A.F.C."), "Swansea City"),
 		"38",
 		"12",
@@ -257,7 +269,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "13"),
+		b.TCell(html.Th, "13"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Watford_F.C."), html.TitleAttr("Watford F.C."), "Watford"),
 		"38",
 		"12",
@@ -270,7 +282,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "14"),
+		b.TCell(html.Th, "14"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/West_Bromwich_Albion_F.C."), html.TitleAttr("West Bromwich Albion F.C."), "West Bromwich Albion"),
 		"38",
 		"10",
@@ -283,7 +295,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "15"),
+		b.TCell(html.Th, "15"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Crystal_Palace_F.C."), html.TitleAttr("Crystal Palace F.C."), "Crystal Palace"),
 		"38",
 		"11",
@@ -296,7 +308,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "16"),
+		b.TCell(html.Th, "16"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/A.F.C._Bournemouth"), html.TitleAttr("A.F.C. Bournemouth"), "AFC Bournemouth"),
 		"38",
 		"11",
@@ -309,7 +321,7 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "17"),
+		b.TCell(html.Th, "17"),
 		el.A(html.Href("https://en.wikipedia.org/wiki/Sunderland_A.F.C."), html.TitleAttr("Sunderland A.F.C."), "Sunderland"),
 		"38",
 		"9",
@@ -322,8 +334,8 @@ b.Table(
 		"",
 	),
 	b.Row(
-		b.Cell(html.Th, "18"),
-		b.Cell(
+		b.TCell(html.Th, "18"),
+		b.TCell(
 			el.A(
 				html.Href("https://en.wikipedia.org/wiki/Newcastle_United_F.C."),
 				html.TitleAttr("Newcastle United F.C."), "Newcastle United",
@@ -339,13 +351,13 @@ b.Table(
 		"65",
 		"-21",
 		"37",
-		b.Cell(
+		b.TCell(
 			"Relegation to the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"), html.TitleAttr("2016–17 Football League Championship"), "Football League Championship"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "19"),
-		b.Cell(
+		b.TCell(html.Th, "19"),
+		b.TCell(
 			el.A(
 				html.Href("https://en.wikipedia.org/wiki/Norwich_City_F.C."),
 				html.TitleAttr("Norwich City F.C."),
@@ -362,13 +374,13 @@ b.Table(
 		"67",
 		"-28",
 		"34",
-		b.Cell(
+		b.TCell(
 			"Relegation to the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"), html.TitleAttr("2016–17 Football League Championship"), "Football League Championship"),
 		),
 	),
 	b.Row(
-		b.Cell(html.Th, "20"),
-		b.Cell(
+		b.TCell(html.Th, "20"),
+		b.TCell(
 			el.A(
 				html.Href("https://en.wikipedia.org/wiki/Aston_Villa_F.C."),
 				html.TitleAttr("Aston Villa F.C."),
@@ -385,7 +397,7 @@ b.Table(
 		"76",
 		"-49",
 		"17",
-		b.Cell(
+		b.TCell(
 			"Relegation to the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"), html.TitleAttr("2016–17 Football League Championship"), "Football League Championship"),
 		),
 	),
@@ -394,8 +406,8 @@ b.Table(
 			b.HeadRow(tableHeadFoot...),
 			b.FootRow(tableHeadFoot...),
 			b.Row(
-				b.Cell(html.Th, "1"),
-				b.Cell(
+				b.TCell(html.Th, "1"),
+				b.TCell(
 					el.A(
 						html.Href("https://en.wikipedia.org/wiki/Leicester_City_F.C."),
 						html.TitleAttr("Leicester City F.C."),
@@ -412,12 +424,12 @@ b.Table(
 				"36",
 				"+32",
 				"81",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League group stage"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "2"),
+				b.TCell(html.Th, "2"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Arsenal_F.C."), html.TitleAttr("Arsenal F.C."), "Arsenal"),
 				"38",
 				"20",
@@ -427,12 +439,12 @@ b.Table(
 				"36",
 				"+29",
 				"71",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League group stage"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "3"),
+				b.TCell(html.Th, "3"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C."), html.TitleAttr("Tottenham Hotspur F.C."), "Tottenham Hotspur"),
 				"38",
 				"19",
@@ -442,13 +454,13 @@ b.Table(
 				"35",
 				"+34",
 				"70",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League group stage"),
 				),
 			),
 			b.Row(
 				b.Selected,
-				b.Cell(html.Th, "4"),
+				b.TCell(html.Th, "4"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Manchester_City_F.C."), html.TitleAttr("Manchester City F.C."), "Manchester City"),
 				"38",
 				"19",
@@ -458,12 +470,12 @@ b.Table(
 				"41",
 				"+30",
 				"66",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Play-off_round"), html.TitleAttr("2016–17 UEFA Champions League"), "Champions League play-off round"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "5"),
+				b.TCell(html.Th, "5"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Manchester_United_F.C."), html.TitleAttr("Manchester United F.C."), "Manchester United"),
 				"38",
 				"19",
@@ -473,12 +485,12 @@ b.Table(
 				"35",
 				"+14",
 				"66",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage"), html.TitleAttr("2016–17 UEFA Europa League"), "Europa League group stage"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "6"),
+				b.TCell(html.Th, "6"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Southampton_F.C."), html.TitleAttr("Southampton F.C."), "Southampton"),
 				"38",
 				"18",
@@ -488,12 +500,12 @@ b.Table(
 				"41",
 				"+18",
 				"63",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage"), html.TitleAttr("2016–17 UEFA Europa League"), "Europa League group stage"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "7"),
+				b.TCell(html.Th, "7"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/West_Ham_United_F.C."), html.TitleAttr("West Ham United F.C."), "West Ham United"),
 				"38",
 				"16",
@@ -503,12 +515,12 @@ b.Table(
 				"51",
 				"+14",
 				"62",
-				b.Cell(
+				b.TCell(
 					"Qualification for the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Third_qualifying_round"), html.TitleAttr("2016–17 UEFA Europa League"), "Europa League third qualifying round"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "8"),
+				b.TCell(html.Th, "8"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Liverpool_F.C."), html.TitleAttr("Liverpool F.C."), "Liverpool"),
 				"38",
 				"16",
@@ -521,7 +533,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "9"),
+				b.TCell(html.Th, "9"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Stoke_City_F.C."), html.TitleAttr("Stoke City F.C."), "Stoke City"),
 				"38",
 				"14",
@@ -529,12 +541,12 @@ b.Table(
 				"15",
 				"41",
 				"55",
-				b.Cell("-14"),
+				b.TCell("-14"),
 				"51",
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "10"),
+				b.TCell(html.Th, "10"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Chelsea_F.C."), html.TitleAttr("Chelsea F.C."), "Chelsea"),
 				"38",
 				"12",
@@ -547,7 +559,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "11"),
+				b.TCell(html.Th, "11"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Everton_F.C."), html.TitleAttr("Everton F.C."), "Everton"),
 				"38",
 				"11",
@@ -560,7 +572,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "12"),
+				b.TCell(html.Th, "12"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Swansea_City_A.F.C."), html.TitleAttr("Swansea City A.F.C."), "Swansea City"),
 				"38",
 				"12",
@@ -573,7 +585,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "13"),
+				b.TCell(html.Th, "13"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Watford_F.C."), html.TitleAttr("Watford F.C."), "Watford"),
 				"38",
 				"12",
@@ -586,7 +598,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "14"),
+				b.TCell(html.Th, "14"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/West_Bromwich_Albion_F.C."), html.TitleAttr("West Bromwich Albion F.C."), "West Bromwich Albion"),
 				"38",
 				"10",
@@ -599,7 +611,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "15"),
+				b.TCell(html.Th, "15"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Crystal_Palace_F.C."), html.TitleAttr("Crystal Palace F.C."), "Crystal Palace"),
 				"38",
 				"11",
@@ -612,7 +624,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "16"),
+				b.TCell(html.Th, "16"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/A.F.C._Bournemouth"), html.TitleAttr("A.F.C. Bournemouth"), "AFC Bournemouth"),
 				"38",
 				"11",
@@ -625,7 +637,7 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "17"),
+				b.TCell(html.Th, "17"),
 				el.A(html.Href("https://en.wikipedia.org/wiki/Sunderland_A.F.C."), html.TitleAttr("Sunderland A.F.C."), "Sunderland"),
 				"38",
 				"9",
@@ -638,8 +650,8 @@ b.Table(
 				"",
 			),
 			b.Row(
-				b.Cell(html.Th, "18"),
-				b.Cell(
+				b.TCell(html.Th, "18"),
+				b.TCell(
 					el.A(
 						html.Href("https://en.wikipedia.org/wiki/Newcastle_United_F.C."),
 						html.TitleAttr("Newcastle United F.C."),
@@ -656,13 +668,13 @@ b.Table(
 				"65",
 				"-21",
 				"37",
-				b.Cell(
+				b.TCell(
 					"Relegation to the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"), html.TitleAttr("2016–17 Football League Championship"), "Football League Championship"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "19"),
-				b.Cell(
+				b.TCell(html.Th, "19"),
+				b.TCell(
 					el.A(
 						html.Href("https://en.wikipedia.org/wiki/Norwich_City_F.C."),
 						html.TitleAttr("Norwich City F.C."),
@@ -679,13 +691,13 @@ b.Table(
 				"67",
 				"-28",
 				"34",
-				b.Cell(
+				b.TCell(
 					"Relegation to the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"), html.TitleAttr("2016–17 Football League Championship"), "Football League Championship"),
 				),
 			),
 			b.Row(
-				b.Cell(html.Th, "20"),
-				b.Cell(
+				b.TCell(html.Th, "20"),
+				b.TCell(
 					el.A(
 						html.Href("https://en.wikipedia.org/wiki/Aston_Villa_F.C."),
 						html.TitleAttr("Aston Villa F.C."),
@@ -702,10 +714,45 @@ b.Table(
 				"76",
 				"-49",
 				"17",
-				b.Cell(
+				b.TCell(
 					"Relegation to the ", el.A(html.Href("https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship"), html.TitleAttr("2016–17 Football League Championship"), "Football League Championship"),
 				),
 			),
+		),
+	),
+).Subsection(
+	"Colors",
+	"https://bulma.io/documentation/elements/table/#colors",
+	c.Example(
+		`b.Table(
+	b.Bordered,
+	b.Row(b.TCell(html.Th, b.Link, "Link th cell"), "Two", b.TCell(b.Link, "Link td cell"), "Four", "Five"),
+	b.Row(b.Link, b.TCell(html.Th, "Link row"), "Two", "Three", "Four", "Five"),
+	b.Row(b.TCell(html.Th, b.Primary, "Primary th cell"), "Two", b.TCell(b.Primary, "Primary td cell"), "Four", "Five"),
+	b.Row(b.Primary, b.TCell(html.Th, "Primary row"), "Two", "Three", "Four", "Five"),
+	b.Row(b.TCell(html.Th, b.Info, "Info th cell"), "Two", b.TCell(b.Info, "Info td cell"), "Four", "Five"),
+	b.Row(b.Info, b.TCell(html.Th, "Info row"), "Two", "Three", "Four", "Five"),
+	b.Row(b.TCell(html.Th, b.Success, "Success th cell"), "Two", b.TCell(b.Success, "Success td cell"), "Four", "Five"),
+	b.Row(b.Success, b.TCell(html.Th, "Success row"), "Two", "Three", "Four", "Five"),
+	b.Row(b.TCell(html.Th, b.Warning, "Warning th cell"), "Two", b.TCell(b.Warning, "Warning td cell"), "Four", "Five"),
+	b.Row(b.Warning, b.TCell(html.Th, "Warning row"), "Two", "Three", "Four", "Five"),
+	b.Row(b.TCell(html.Th, b.Danger, "Danger th cell"), "Two", b.TCell(b.Danger, "Danger td cell"), "Four", "Five"),
+	b.Row(b.Danger, b.TCell(html.Th, "Danger row"), "Two", "Three", "Four", "Five"),
+)`,
+		b.Table(
+			b.Bordered,
+			b.Row(b.TCell(html.Th, b.Link, "Link th cell"), "Two", b.TCell(b.Link, "Link td cell"), "Four", "Five"),
+			b.Row(b.Link, b.TCell(html.Th, "Link row"), "Two", "Three", "Four", "Five"),
+			b.Row(b.TCell(html.Th, b.Primary, "Primary th cell"), "Two", b.TCell(b.Primary, "Primary td cell"), "Four", "Five"),
+			b.Row(b.Primary, b.TCell(html.Th, "Primary row"), "Two", "Three", "Four", "Five"),
+			b.Row(b.TCell(html.Th, b.Info, "Info th cell"), "Two", b.TCell(b.Info, "Info td cell"), "Four", "Five"),
+			b.Row(b.Info, b.TCell(html.Th, "Info row"), "Two", "Three", "Four", "Five"),
+			b.Row(b.TCell(html.Th, b.Success, "Success th cell"), "Two", b.TCell(b.Success, "Success td cell"), "Four", "Five"),
+			b.Row(b.Success, b.TCell(html.Th, "Success row"), "Two", "Three", "Four", "Five"),
+			b.Row(b.TCell(html.Th, b.Warning, "Warning th cell"), "Two", b.TCell(b.Warning, "Warning td cell"), "Four", "Five"),
+			b.Row(b.Warning, b.TCell(html.Th, "Warning row"), "Two", "Three", "Four", "Five"),
+			b.Row(b.TCell(html.Th, b.Danger, "Danger th cell"), "Two", b.TCell(b.Danger, "Danger td cell"), "Four", "Five"),
+			b.Row(b.Danger, b.TCell(html.Th, "Danger row"), "Two", "Three", "Four", "Five"),
 		),
 	),
 ).Subsection(

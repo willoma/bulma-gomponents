@@ -11,7 +11,86 @@ import (
 
 var formFile = c.NewPage(
 	"File", "File upload", "/form/file",
-	"https://bulma.io/documentation/form/file/",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.File"), " constructor creates a file input. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.OnCTA(...)"),
+			[]any{"Force childen to be applied to the ", el.Code(`<span class="file-cta">`), " element"},
+
+			el.Code("b.OnDiv(...)"),
+			[]any{"Force childen to be applied to the ", el.Code(`<div class="file">`), " element"},
+
+			el.Code("b.OnInput(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<input>"), " element"},
+
+			el.Code("string"),
+			"Define the call-to-action label",
+
+			el.Code("b.FileName"),
+			"Define the content of the file-name element",
+
+			el.Code("b.FileNameAutoUpdate"),
+			"Define the content of the file-name element, which changes when a file is selected",
+
+			el.Code("b.Right"),
+			"Move the call-to-action to the right side, align the file input to the right",
+
+			el.Code("b.FullWidth"),
+			"Expand the name to fill up the space",
+
+			el.Code("b.Boxed"),
+			"Make the input a boxed block",
+
+			el.Code("b.Centered"),
+			"Alight the file input to the center",
+
+			el.Code("b.White"),
+			"Set file input color to white",
+
+			el.Code("b.Black"),
+			"Set file input color to black",
+
+			el.Code("b.Light"),
+			"Set file input color to light",
+
+			el.Code("b.Dark"),
+			"Set file input color to dark",
+
+			el.Code("b.Primary"),
+			"Set file input color to primary",
+
+			el.Code("b.Link"),
+			"Set file input color to link",
+
+			el.Code("b.Info"),
+			"Set file input color to info",
+
+			el.Code("b.Success"),
+			"Set file input color to success",
+
+			el.Code("b.Warning"),
+			"Set file input color to warning",
+
+			el.Code("b.Danger"),
+			"Set file input color to danger",
+
+			el.Code("b.Small"),
+			"Set file input size to small",
+
+			el.Code("b.Normal"),
+			"Set file input size to normal",
+
+			el.Code("b.Medium"),
+			"Set file input size to medium",
+
+			el.Code("b.Large"),
+			"Set file input size to large",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/form/file/",
 	c.Example(
 		`b.File(
 	html.Name("resume"),
@@ -24,7 +103,7 @@ var formFile = c.NewPage(
 			"Choose a file…",
 		),
 	),
-).Section(
+).Subsection(
 	"Modifiers",
 	"https://bulma.io/documentation/form/file/#modifiers",
 	c.Example(
@@ -103,7 +182,7 @@ var formFile = c.NewPage(
 			b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 		),
 	),
-).Section(
+).Subsection(
 	"Colors",
 	"https://bulma.io/documentation/form/file/#colors",
 	c.Example(
@@ -170,7 +249,7 @@ var formFile = c.NewPage(
 			b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 		),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/form/file/#sizes",
 	c.Example(
@@ -429,7 +508,7 @@ var formFile = c.NewPage(
 			b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 		),
 	),
-).Section(
+).Subsection(
 	"Alignment",
 	"https://bulma.io/documentation/form/file/#alignment",
 	c.Example(
@@ -470,7 +549,7 @@ var formFile = c.NewPage(
 			b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 		),
 	),
-).Section(
+).Subsection(
 	"JavaScript",
 	"https://bulma.io/documentation/form/file/#javascript",
 	b.Content(el.P("In order to automatically change the file name when the user has selected a file, use ", el.Code("b.FileNameAutoUpdate"), " with a placeholder:")),

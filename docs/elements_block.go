@@ -12,7 +12,7 @@ var block = c.NewPage(
 
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Block"), " constructor returns a container that ensures siblings to have a consistent margin. It accepts the standard set of children types.",
+			"The ", el.Code("b.Block"), " constructor returns a container that ensures siblings to have a consistent margin.",
 		),
 	),
 ).Section(

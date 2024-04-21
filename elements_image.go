@@ -95,10 +95,10 @@ type imageImg struct {
 func (i *imageImg) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			i.imgChildren = append(i.imgChildren, c.Child)
-		case *ApplyToOuter:
-			i.figureChildren = append(i.figureChildren, c.Child)
+		case onImg:
+			i.imgChildren = append(i.imgChildren, c...)
+		case onFigure:
+			i.figureChildren = append(i.figureChildren, c...)
 		case Class:
 			if c == Rounded {
 				i.imgChildren = append(i.imgChildren, c)

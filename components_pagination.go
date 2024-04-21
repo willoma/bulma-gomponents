@@ -8,8 +8,7 @@ import (
 )
 
 // Pagination creates a pagination element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <ul class="pagination-list"> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="pagination"> element
+//   - when a child is marked with b.OnList, it is forcibly applied to the <ul class="pagination-list"> element
 //
 // The results of PaginationLink and PaginationEllipsis are automatically added
 // in the auto-created "pagination-list" element.
@@ -35,14 +34,10 @@ type pagination struct {
 func (p *pagination) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			p.listChildren = append(p.listChildren, c.Child)
-		case *ApplyToOuter:
-			p.paginationChildren = append(p.paginationChildren, c.Child)
+		case onList:
+			p.listChildren = append(p.listChildren, c)
 		case *paginationEllipsis, *paginationLink:
 			p.listChildren = append(p.listChildren, Elem(html.Li, c))
-		case Element:
-			p.paginationChildren = append(p.paginationChildren, c)
 		case []any:
 			p.With(c...)
 		default:
@@ -84,18 +79,61 @@ func PaginationNext(children ...any) Element {
 //   - Current: mark this link button as being the current page
 //   - Disabled: mark the link button as inactive
 func PaginationLink(children ...any) Element {
-	return &paginationLink{Elem(html.A, Class("pagination-link"), children)}
+	return new(paginationLink).With(children...)
 }
 
 type paginationLink struct {
-	Element
+	children []any
+}
+
+func (p *paginationLink) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case []any:
+			p.With(c...)
+		default:
+			p.children = append(p.children, c)
+		}
+	}
+
+	return p
+}
+
+func (p *paginationLink) Render(w io.Writer) error {
+	return Elem(html.A, Class("pagination-link"), p.children).Render(w)
+}
+
+// PaginationAHref creates a single page link button for a pagination.
+//
+// The following modifiers change the link button behaviour:
+//   - Current: mark this link button as being the current page
+//   - Disabled: mark the link button as inactive
+func PaginationAHref(href string, children ...any) Element {
+	return new(paginationLink).With(html.Href(href), children)
 }
 
 // PaginationEllipsis creates an ellipsis element for a pagination.
-func PaginationEllipsis() Element {
-	return &paginationEllipsis{Elem(html.Span, Class("pagination-ellipsis"), gomponents.Raw("&hellip;"))}
+func PaginationEllipsis(children ...any) Element {
+	return new(paginationEllipsis).With(children...)
 }
 
 type paginationEllipsis struct {
-	Element
+	children []any
+}
+
+func (p *paginationEllipsis) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case []any:
+			p.With(c...)
+		default:
+			p.children = append(p.children, c)
+		}
+	}
+
+	return p
+}
+
+func (p *paginationEllipsis) Render(w io.Writer) error {
+	return Elem(html.Span, Class("pagination-ellipsis"), gomponents.Raw("&hellip;"), p.children).Render(w)
 }

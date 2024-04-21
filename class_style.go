@@ -1,10 +1,5 @@
 package bulma
 
-// For appending classes to an element
-
-// case b.Class, b.ColorClass, b.ExternalClass, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
-//
-
 // Class is an Element modifier to apply a HTML class.
 type Class string
 
@@ -14,8 +9,12 @@ type MultiClass struct {
 	Static     []string // Classes that will not be modified with responsive functions
 }
 
-type ExternalClass interface {
+type Classer interface {
 	Class() Class
+}
+
+type Classeser interface {
+	Classes() []Class
 }
 
 type ExternalClassesAndStyles interface {
@@ -76,6 +75,72 @@ const (
 	Clickable                  = Class("is-clickable")                     // any element
 	Clipped                    = Class("is-clipped")                       // any element
 	Code                       = Class("is-family-code")                   // any text element
+	ColFromEnd1                = Class("is-col-from-end-1")                // Cell
+	ColFromEnd2                = Class("is-col-from-end-2")                // Cell
+	ColFromEnd3                = Class("is-col-from-end-3")                // Cell
+	ColFromEnd4                = Class("is-col-from-end-4")                // Cell
+	ColFromEnd5                = Class("is-col-from-end-5")                // Cell
+	ColFromEnd6                = Class("is-col-from-end-6")                // Cell
+	ColFromEnd7                = Class("is-col-from-end-7")                // Cell
+	ColFromEnd8                = Class("is-col-from-end-8")                // Cell
+	ColFromEnd9                = Class("is-col-from-end-9")                // Cell
+	ColFromEnd10               = Class("is-col-from-end-10")               // Cell
+	ColFromEnd11               = Class("is-col-from-end-11")               // Cell
+	ColFromEnd12               = Class("is-col-from-end-12")               // Cell
+	ColGap0                    = Class("is-column-gap-0")                  // Grid
+	ColGap05                   = Class("is-column-gap-0.5")                // Grid
+	ColGap1                    = Class("is-column-gap-1")                  // Grid
+	ColGap15                   = Class("is-column-gap-1.5")                // Grid
+	ColGap2                    = Class("is-column-gap-2")                  // Grid
+	ColGap25                   = Class("is-column-gap-2.5")                // Grid
+	ColGap3                    = Class("is-column-gap-3")                  // Grid
+	ColGap35                   = Class("is-column-gap-3.5")                // Grid
+	ColGap4                    = Class("is-column-gap-4")                  // Grid
+	ColGap45                   = Class("is-column-gap-4.5")                // Grid
+	ColGap5                    = Class("is-column-gap-5")                  // Grid
+	ColGap55                   = Class("is-column-gap-5.5")                // Grid
+	ColGap6                    = Class("is-column-gap-6")                  // Grid
+	ColGap65                   = Class("is-column-gap-6.5")                // Grid
+	ColGap7                    = Class("is-column-gap-7")                  // Grid
+	ColGap75                   = Class("is-column-gap-7.5")                // Grid
+	ColGap8                    = Class("is-column-gap-8")                  // Grid
+	ColMin1                    = Class("is-col-min-1")                     // Grid
+	ColMin2                    = Class("is-col-min-2")                     // Grid
+	ColMin3                    = Class("is-col-min-3")                     // Grid
+	ColMin4                    = Class("is-col-min-4")                     // Grid
+	ColMin5                    = Class("is-col-min-5")                     // Grid
+	ColMin6                    = Class("is-col-min-6")                     // Grid
+	ColMin7                    = Class("is-col-min-7")                     // Grid
+	ColMin8                    = Class("is-col-min-8")                     // Grid
+	ColMin9                    = Class("is-col-min-9")                     // Grid
+	ColMin10                   = Class("is-col-min-10")                    // Grid
+	ColMin11                   = Class("is-col-min-11")                    // Grid
+	ColMin12                   = Class("is-col-min-12")                    // Grid
+	ColSpan1                   = Class("is-col-span-1")                    // Cell
+	ColSpan2                   = Class("is-col-span-2")                    // Cell
+	ColSpan3                   = Class("is-col-span-3")                    // Cell
+	ColSpan4                   = Class("is-col-span-4")                    // Cell
+	ColSpan5                   = Class("is-col-span-5")                    // Cell
+	ColSpan6                   = Class("is-col-span-6")                    // Cell
+	ColSpan7                   = Class("is-col-span-7")                    // Cell
+	ColSpan8                   = Class("is-col-span-8")                    // Cell
+	ColSpan9                   = Class("is-col-span-9")                    // Cell
+	ColSpan10                  = Class("is-col-span-10")                   // Cell
+	ColSpan11                  = Class("is-col-span-11")                   // Cell
+	ColSpan12                  = Class("is-col-span-12")                   // Cell
+	ColStart1                  = Class("is-col-start-1")                   // Cell
+	ColStart2                  = Class("is-col-start-2")                   // Cell
+	ColStart3                  = Class("is-col-start-3")                   // Cell
+	ColStart4                  = Class("is-col-start-4")                   // Cell
+	ColStart5                  = Class("is-col-start-5")                   // Cell
+	ColStart6                  = Class("is-col-start-6")                   // Cell
+	ColStart7                  = Class("is-col-start-7")                   // Cell
+	ColStart8                  = Class("is-col-start-8")                   // Cell
+	ColStart9                  = Class("is-col-start-9")                   // Cell
+	ColStart10                 = Class("is-col-start-10")                  // Cell
+	ColStart11                 = Class("is-col-start-11")                  // Cell
+	ColStart12                 = Class("is-col-start-12")                  // Cell
+	ColStartEnd                = Class("is-col-start-end")                 // Cell
 	Current                    = Class("is-current")                       // PaginationLink
 	Desktop                    = Class("is-desktop")                       // Columns
 	Disabled                   = Class("is-disabled")                      // PaginationLink, PaginationNext, PaginationPrevious
@@ -102,6 +167,7 @@ const (
 	FlexShrink5                = Class("is-flex-shrink-5")                 // any child of an element with Flex
 	FlexWrap                   = Class("is-flex-wrap-wrap")                // any child of an element with Flex
 	FlexWrapReverse            = Class("is-flex-wrap-wrap-reverse")        // any child of an element with Flex
+	Fluid                      = Class("is-fluid")                         // Container
 	Focused                    = Class("is-focused")                       // Button*, Input*, Select, SelectMultiple
 	FontSize1                  = Class("is-size-1")                        // any text element (responsive variants are supported)
 	FontSize2                  = Class("is-size-2")                        // any text element (responsive variants are supported)
@@ -112,14 +178,32 @@ const (
 	FontSize7                  = Class("is-size-7")                        // any text element (responsive variants are supported)
 	FourFifths                 = Class("is-four-fifths")                   // Column
 	Full                       = Class("is-full")                          // Column
-	FullHeight                 = Class("fullheight")                       // Hero
-	FullHeightWithNavbar       = Class("fullheight-with-navbar")           // Hero
+	FullHD                     = Class("is-fullhd")                        // Container
+	FullHeight                 = Class("is-fullheight")                    // Hero
+	FullHeightWithNavbar       = Class("is-fullheight-with-navbar")        // Hero
 	FullWidth                  = Class("is-fullwidth")                     // Button*, Image, ImageImg, Table, Tabs, File, Select
 	Gapless                    = Class("is-gapless")                       // Columns
+	Gap0                       = Class("is-gap-0")                         // Grid
+	Gap05                      = Class("is-gap-0.5")                       // Grid
+	Gap1                       = Class("is-gap-1")                         // Grid
+	Gap15                      = Class("is-gap-1.5")                       // Grid
+	Gap2                       = Class("is-gap-2")                         // Grid
+	Gap25                      = Class("is-gap-2.5")                       // Grid
+	Gap3                       = Class("is-gap-3")                         // Grid
+	Gap35                      = Class("is-gap-3.5")                       // Grid
+	Gap4                       = Class("is-gap-4")                         // Grid
+	Gap45                      = Class("is-gap-4.5")                       // Grid
+	Gap5                       = Class("is-gap-5")                         // Grid
+	Gap55                      = Class("is-gap-5.5")                       // Grid
+	Gap6                       = Class("is-gap-6")                         // Grid
+	Gap65                      = Class("is-gap-6.5")                       // Grid
+	Gap7                       = Class("is-gap-7")                         // Grid
+	Gap75                      = Class("is-gap-7.5")                       // Grid
+	Gap8                       = Class("is-gap-8")                         // Grid
 	Ghost                      = Class("is-ghost")                         // Button*
 	Grouped                    = Class("is-grouped")                       // Field
 	Half                       = Class("is-half")                          // Column
-	HalfHeight                 = Class("halfheight")                       // Hero
+	HalfHeight                 = Class("is-halfheight")                    // Hero
 	Hidden                     = Class("is-hidden")                        // any element (responsive variants are supported)
 	Horizontal                 = Class("is-horizontal")                    // Field
 	Hoverable                  = Class("is-hoverable")                     // Table, Dropdown, Dropup, NavbarItem
@@ -167,10 +251,13 @@ const (
 	Left                       = Class("is-left")                          // Label/input, Label/select
 	Loading                    = Class("is-loading")                       // Button*, Input*, Select, SelectMultiple
 	Lowercase                  = Class("is-lowercase")                     // any text element
+	MaxDesktop                 = Class("is-max-desktop")                   // Container
+	MaxWidescreen              = Class("is-max-widescreen")                // Container
 	Medium                     = Class("is-medium")                        // Button*, Buttons, Content, Delete, Icon, Tag, Breadcrumb, Pagination, File, Hero, Section
 	Mobile                     = Class("is-mobile")                        // Columns, Level
 	Monospace                  = Class("is-family-monospace")              // any text element
 	Multiline                  = Class("is-multiline")                     // Columns
+	Multiple                   = Class("is-multiple")                      // Select
 	Narrow                     = Class("is-narrow")                        // Column, Table
 	NavbarFixedBottom          = Class("has-navbar-fixed-bottom")          // HTML/body
 	NavbarFixedTop             = Class("has-navbar-fixed-top")             // HTML/body
@@ -204,6 +291,11 @@ const (
 	OneThird                   = Class("is-one-third")                     // Column
 	Outlined                   = Class("is-outlined")                      // Button*
 	Overlay                    = Class("is-overlay")                       // any element
+	PositionAbsolute           = Class("is-position-absolute")             // any element
+	PositionFixed              = Class("is-position-fixed")                // any element
+	PositionRelative           = Class("is-position-relative")             // any element
+	PositionStatic             = Class("is-position-static")               // any element
+	PositionSticky             = Class("is-position-sticky")               // any element
 	PulledLeft                 = Class("is-pulled-left")                   // any element
 	PulledRight                = Class("is-pulled-right")                  // any element
 	Radiusless                 = Class("is-radiusless")                    // any element
@@ -211,6 +303,60 @@ const (
 	Responsive                 = Class("is-responsive")                    // Button
 	Right                      = Class("is-right")                         // Buttons, Breadcrumb, NavbarDropdown, Tabs, File, Label/input, Label/select
 	Rounded                    = Class("is-rounded")                       // Button*, Image/img, ImageImg, Rounded, Pagination, Input*, Select, SelectMultiple
+	RowFromEnd1                = Class("is-row-from-end-1")                // Cell
+	RowFromEnd2                = Class("is-row-from-end-2")                // Cell
+	RowFromEnd3                = Class("is-row-from-end-3")                // Cell
+	RowFromEnd4                = Class("is-row-from-end-4")                // Cell
+	RowFromEnd5                = Class("is-row-from-end-5")                // Cell
+	RowFromEnd6                = Class("is-row-from-end-6")                // Cell
+	RowFromEnd7                = Class("is-row-from-end-7")                // Cell
+	RowFromEnd8                = Class("is-row-from-end-8")                // Cell
+	RowFromEnd9                = Class("is-row-from-end-9")                // Cell
+	RowFromEnd10               = Class("is-row-from-end-10")               // Cell
+	RowFromEnd11               = Class("is-row-from-end-11")               // Cell
+	RowFromEnd12               = Class("is-row-from-end-12")               // Cell
+	RowGap0                    = Class("is-row-gap-0")                     // Grid
+	RowGap05                   = Class("is-row-gap-0.5")                   // Grid
+	RowGap1                    = Class("is-row-gap-1")                     // Grid
+	RowGap15                   = Class("is-row-gap-1.5")                   // Grid
+	RowGap2                    = Class("is-row-gap-2")                     // Grid
+	RowGap25                   = Class("is-row-gap-2.5")                   // Grid
+	RowGap3                    = Class("is-row-gap-3")                     // Grid
+	RowGap35                   = Class("is-row-gap-3.5")                   // Grid
+	RowGap4                    = Class("is-row-gap-4")                     // Grid
+	RowGap45                   = Class("is-row-gap-4.5")                   // Grid
+	RowGap5                    = Class("is-row-gap-5")                     // Grid
+	RowGap55                   = Class("is-row-gap-5.5")                   // Grid
+	RowGap6                    = Class("is-row-gap-6")                     // Grid
+	RowGap65                   = Class("is-row-gap-6.5")                   // Grid
+	RowGap7                    = Class("is-row-gap-7")                     // Grid
+	RowGap75                   = Class("is-row-gap-7.5")                   // Grid
+	RowGap8                    = Class("is-row-gap-8")                     // Grid
+	RowSpan1                   = Class("is-row-span-1")                    // Cell
+	RowSpan2                   = Class("is-row-span-2")                    // Cell
+	RowSpan3                   = Class("is-row-span-3")                    // Cell
+	RowSpan4                   = Class("is-row-span-4")                    // Cell
+	RowSpan5                   = Class("is-row-span-5")                    // Cell
+	RowSpan6                   = Class("is-row-span-6")                    // Cell
+	RowSpan7                   = Class("is-row-span-7")                    // Cell
+	RowSpan8                   = Class("is-row-span-8")                    // Cell
+	RowSpan9                   = Class("is-row-span-9")                    // Cell
+	RowSpan10                  = Class("is-row-span-10")                   // Cell
+	RowSpan11                  = Class("is-row-span-11")                   // Cell
+	RowSpan12                  = Class("is-row-span-12")                   // Cell
+	RowStart1                  = Class("is-row-start-1")                   // Cell
+	RowStart2                  = Class("is-row-start-2")                   // Cell
+	RowStart3                  = Class("is-row-start-3")                   // Cell
+	RowStart4                  = Class("is-row-start-4")                   // Cell
+	RowStart5                  = Class("is-row-start-5")                   // Cell
+	RowStart6                  = Class("is-row-start-6")                   // Cell
+	RowStart7                  = Class("is-row-start-7")                   // Cell
+	RowStart8                  = Class("is-row-start-8")                   // Cell
+	RowStart9                  = Class("is-row-start-9")                   // Cell
+	RowStart10                 = Class("is-row-start-10")                  // Cell
+	RowStart11                 = Class("is-row-start-11")                  // Cell
+	RowStart12                 = Class("is-row-start-12")                  // Cell
+	RowStartEnd                = Class("is-row-start-end")                 // Cell
 	SansSerif                  = Class("is-family-sans-serif")             // any text element
 	Selected                   = Class("is-selected")                      // Button*, Table
 	Shadowless                 = Class("is-shadowless")                    // any element
@@ -226,15 +372,15 @@ const (
 	Size10                     = Class("is-10")                            // Column, Tile
 	Size11                     = Class("is-11")                            // Column, Tile
 	Size12                     = Class("is-12")                            // Column, Tile
+	Skeleton                   = Class("is-skeleton")                      // any components
 	Small                      = Class("is-small")                         // Button*, Buttons, Content, Delete, Icon, Breadcrumb, Pagination, File, Hero
 	Spaced                     = Class("is-spaced")                        // Title*, Subtitle*, Navbar
 	SrOnly                     = Class("is-sr-only")                       // any element
 	Static                     = Class("is-static")                        // Button*, Input*
 	Striped                    = Class("is-striped")                       // Table
 	Tab                        = Class("is-tab")                           // NavbarItem, NavbarAHref
-	Text                       = Class("is-text")                          // Button*
-	TextPrimary                = Class("is-family-primary")                // any text element
-	TextSecondary              = Class("is-family-secondary")              // any text element
+	FamilyPrimary              = Class("is-family-primary")                // any text element
+	FamilySecondary            = Class("is-family-secondary")              // any text element
 	ThreeFifths                = Class("is-three-fifths")                  // Column
 	ThreeQuarters              = Class("is-three-quarters")                // Column
 	Toggle                     = Class("is-toggle")                        // Tabs
@@ -243,47 +389,61 @@ const (
 	TwoThirds                  = Class("is-two-thirds")                    // Column
 	Underlined                 = Class("is-underlined")                    // any text element
 	Unselectable               = Class("is-unselectable")                  // any element
+	Up                         = Class("is-up")                            // Dropdown
 	Uppercase                  = Class("is-uppercase")                     // any text element
 	VCentered                  = Class("is-vcentered")                     // Columns
 	VisibilityBlock            = Class("is-block")                         // any element (responsive variants are supported)
+	Widescreen                 = Class("is-widescreen")                    // Container
 )
 
 // "has-" classes
 const (
-	Addons            = Class("has-addons")           // Buttons, Tags, Field
-	ArrowSeparator    = Class("has-arrow-separator")  // Breadcrumb
-	Bold              = Class("has-text-weight-bold") // any text element
-	BulletSeparator   = Class("has-bullet-separator") // Breadcrumb
-	DotSeparator      = Class("has-dot-separator")    // Breadcrumb
-	FixedSize         = Class("has-fixed-size")       // Textarea
-	HasDropdown       = Class("has-dropdown")         // NavbarItem
-	Heading           = Class("heading")
+	Addons            = Class("has-addons")               // Buttons, Tags, Field
+	ArrowSeparator    = Class("has-arrow-separator")      // Breadcrumb
+	AutoCount         = Class("has-auto-count")           // FixedGrid
+	BulletSeparator   = Class("has-bullet-separator")     // Breadcrumb
+	Cols1             = Class("has-1-cols")               // FixedGrid
+	Cols2             = Class("has-2-cols")               // FixedGrid
+	Cols3             = Class("has-3-cols")               // FixedGrid
+	Cols4             = Class("has-4-cols")               // FixedGrid
+	Cols5             = Class("has-5-cols")               // FixedGrid
+	Cols6             = Class("has-6-cols")               // FixedGrid
+	Cols7             = Class("has-7-cols")               // FixedGrid
+	Cols8             = Class("has-8-cols")               // FixedGrid
+	Cols9             = Class("has-9-cols")               // FixedGrid
+	Cols10            = Class("has-10-cols")              // FixedGrid
+	Cols11            = Class("has-11-cols")              // FixedGrid
+	Cols12            = Class("has-12-cols")              // FixedGrid
+	DotSeparator      = Class("has-dot-separator")        // Breadcrumb
+	FixedSize         = Class("has-fixed-size")           // Textarea
 	IconsLeft         = Class("has-icons-left")           // Control
 	IconsRight        = Class("has-icons-right")          // Control
-	SemiBold          = Class("has-text-weight-semibold") // any text element
 	Ratio             = Class("has-ratio")                // Image/*
 	Shadow            = Class("has-shadow")               // Navbar
+	HasSkeleton       = Class("has-skeleton")             // any component
 	SucceedsSeparator = Class("has-succeeds-separator")   // Breadcrumb
 	TextCentered      = Class("has-text-centered")        // any text element (responsive variants are supported)
 	TextJustified     = Class("has-text-justified")       // any text element (responsive variants are supported)
 	TextLeft          = Class("has-text-left")            // any text element (responsive variants are supported)
-	TextLight         = Class("has-text-weight-light")    // any text element
-	TextMedium        = Class("has-text-weight-medium")   // any text element
-	TextNormal        = Class("has-text-weight-normal")   // any text element
 	TextRight         = Class("has-text-right")           // any text element (responsive variants are supported)
+	WeightBold        = Class("has-text-weight-bold")     // any text element
+	WeightLight       = Class("has-text-weight-light")    // any text element
+	WeightMedium      = Class("has-text-weight-medium")   // any text element
+	WeightNormal      = Class("has-text-weight-normal")   // any text element
+	WeightSemiBold    = Class("has-text-weight-semibold") // any text element
 )
 
 // "is-" classes with automatic adding of other class
 var (
-	Gap0             = MultiClass{[]string{"is-0"}, []string{"is-variable"}}              // Columns
-	Gap1             = MultiClass{[]string{"is-1"}, []string{"is-variable"}}              // Columns
-	Gap2             = MultiClass{[]string{"is-2"}, []string{"is-variable"}}              // Columns
-	Gap3             = MultiClass{[]string{"is-3"}, []string{"is-variable"}}              // Columns
-	Gap4             = MultiClass{[]string{"is-4"}, []string{"is-variable"}}              // Columns
-	Gap5             = MultiClass{[]string{"is-5"}, []string{"is-variable"}}              // Columns
-	Gap6             = MultiClass{[]string{"is-6"}, []string{"is-variable"}}              // Columns
-	Gap7             = MultiClass{[]string{"is-7"}, []string{"is-variable"}}              // Columns
-	Gap8             = MultiClass{[]string{"is-8"}, []string{"is-variable"}}              // Columns
+	ColumnGap0       = MultiClass{[]string{"is-0"}, []string{"is-variable"}}              // Columns
+	ColumnGap1       = MultiClass{[]string{"is-1"}, []string{"is-variable"}}              // Columns
+	ColumnGap2       = MultiClass{[]string{"is-2"}, []string{"is-variable"}}              // Columns
+	ColumnGap3       = MultiClass{[]string{"is-3"}, []string{"is-variable"}}              // Columns
+	ColumnGap4       = MultiClass{[]string{"is-4"}, []string{"is-variable"}}              // Columns
+	ColumnGap5       = MultiClass{[]string{"is-5"}, []string{"is-variable"}}              // Columns
+	ColumnGap6       = MultiClass{[]string{"is-6"}, []string{"is-variable"}}              // Columns
+	ColumnGap7       = MultiClass{[]string{"is-7"}, []string{"is-variable"}}              // Columns
+	ColumnGap8       = MultiClass{[]string{"is-8"}, []string{"is-variable"}}              // Columns
 	GroupedCentered  = MultiClass{Static: []string{"is-grouped", "is-grouped-centered"}}  // Field
 	GroupedMultiline = MultiClass{Static: []string{"is-grouped", "is-grouped-multiline"}} // Field
 	GroupedRight     = MultiClass{Static: []string{"is-grouped", "is-grouped-right"}}     // Field
@@ -294,7 +454,6 @@ var (
 var (
 	AddonsCentered = MultiClass{Static: []string{"has-addons", "has-addons-centered"}} // Field
 	AddonsRight    = MultiClass{Static: []string{"has-addons", "has-addons-right"}}    // Field
-	HasDropup      = MultiClass{Static: []string{"has-dropdown", "has-dropdown-up"}}   // NavbarItem
 )
 
 func changeSizePrefix(prefix string, class Class) Class {

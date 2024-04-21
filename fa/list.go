@@ -20,9 +20,9 @@ func OList(children ...any) b.Element {
 // Li returns a list element with custom bullet in a UList or a OList,
 // with the provided style and name (without the "fa-" prefix).
 //   - when a child is a Class, it is added to the icon
-//   - when a child is a b.ColorClass, its Text() variant is added as a class to
-//     the icon (in order to apply a text color to the entire line, you must
-//     provide the Text() variant directly)
+//   - when a child is a color, its text variant is applied to the icon (in
+//     order ti apply the color to the entire line, you must use the Text*
+//     variant)
 //   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added to the li
 func Li(style Style, name string, children ...any) b.Element {
@@ -42,7 +42,7 @@ func (l *li) With(children ...any) b.Element {
 		switch c := c.(type) {
 		case Class, rotateOrFlip, Rotate, Animation:
 			l.faChildren = append(l.faChildren, c)
-		case b.ColorClass:
+		case b.Color:
 			l.spanChildren = append(l.spanChildren, c.Text())
 		case []any:
 			l.With(c...)

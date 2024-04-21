@@ -14,78 +14,103 @@ var image = c.NewPage(
 	"",
 
 	b.Content(
-		b.Style("column-count", "2"),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Image"), " constructor returns a Bulma image element. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Image"), " constructor creates a Bulma image element. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.ImgSq16"),
 			"Fixed square image, of 16x16px",
+
 			el.Code("b.ImgSq24"),
 			"Fixed square image, of 24x24px",
+
 			el.Code("b.ImgSq32"),
 			"Fixed square image, of 32x32px",
+
 			el.Code("b.ImgSq48"),
 			"Fixed square image, of 48x48px",
+
 			el.Code("b.ImgSq64"),
 			"Fixed square image, of 64x64px",
+
 			el.Code("b.ImgSq96"),
 			"Fixed square image, of 96x96px",
+
 			el.Code("b.ImgSq128"),
 			"Fixed square image, of 128x128px",
+
 			el.Code("b.ImgSquare"),
 			"Force image ratio to square",
+
 			el.Code("b.Img1By1"),
 			"Force image ratio to 1 by 1",
+
 			el.Code("b.Img5By4"),
 			"Force image ratio to 5 by 4",
+
 			el.Code("b.Img4By3"),
 			"Force image ratio to 4 by 3",
+
 			el.Code("b.Img3By2"),
 			"Force image ratio to 3 by 2",
+
 			el.Code("b.Img5By3"),
 			"Force image ratio to 5 by 3",
+
 			el.Code("b.Img16By9"),
 			"Force image ratio to 16 by 9",
+
 			el.Code("b.Img2By1"),
 			"Force image ratio to 2 by 1",
+
 			el.Code("b.Img3By1"),
 			"Force image ratio to 3 by 1",
+
 			el.Code("b.Img4By5"),
 			"Force image ratio to 4 by 5",
+
 			el.Code("b.Img3By4"),
 			"Force image ratio to 3 by 4",
+
 			el.Code("b.Img2By3"),
 			"Force image ratio to 2 by 3",
+
 			el.Code("b.Img3By5"),
 			"Force image ratio to 3 by 5",
+
 			el.Code("b.Img9By16"),
 			"Force image ratio to 9 by 16",
+
 			el.Code("b.Img1By2"),
 			"Force image ratio to 1 by 2",
+
 			el.Code("b.Img1By3"),
 			"Force image ratio to 1 by 3",
+
 			el.Code("b.FullWidth"),
 			"Make the image take the whole width of its container",
 		),
 		el.P(
-			b.Style("column-span", "all"),
 			"Use ", el.Code("b.ImgSrc"), " to create an <img> element with the provided URL as its src attribute. Apply ", el.Code("b.Rounded"), " to the inner image to make it rounded, associated with an ", el.Code("b.Img*By*"), " modifier on the ", el.Code("b.Image"), " element. Apply ", el.Code("b.Ratio"), " to an inner element to apply the parent ratio to that element.",
 		),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.ImageImg"), " constructor returns a Bulma image element with an inner img. It accepts the same values as ", el.Code("b.Image"), ", as well as the following values: ",
+			"The ", el.Code("b.ImageImg"), " constructor creates a Bulma image element with an inner img. It accepts the same values as ", el.Code("b.Image"), ". The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.Inner(any)"),
-			[]any{"Forcibly apply the child to the ", el.Code("<img>"), " element"},
-			el.Code("b.Outer(any)"),
-			[]any{"Forcibly apply the child to the ", el.Code("<figure>"), " element"},
+			el.Code("b.OnImg(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<img>"), " element"},
+
+			el.Code("b.OnFigure(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<figure>"), " element"},
+
 			el.Code("b.Rounded"),
-			"Make the image rounded",
+			[]any{"Make the image rounded (class applied to the ", el.Code("<img>"), " element)"},
+
 			el.Code("b.ImgAlt"),
 			"Define the image alt text",
+		),
+		el.P(
+			"Other children are added to the ", el.Code("<figure>"), " element.",
 		),
 	),
 ).Section(
@@ -101,7 +126,6 @@ var image = c.NewPage(
 			el.Img(html.Src("https://bulma.io/assets/images/placeholders/128x128.png")),
 		),
 	),
-	b.Content(el.P("Bulma-Gomponents provides the ", el.Code("b.ImgSrc"), " helper:")),
 	c.Example(
 		`b.Image(
 	b.ImgSq128,
@@ -112,7 +136,6 @@ var image = c.NewPage(
 			b.ImgSrc("https://bulma.io/assets/images/placeholders/128x128.png"),
 		),
 	),
-	b.Content(el.P("Bulma-Gomponents also provides the ", el.Code("b.ImageImg"), " helper, for the simple ", el.Em("figure/img"), " case:")),
 	c.Example(
 		`b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq128)`,
 		b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq128),
@@ -170,7 +193,6 @@ b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq128
 			),
 		),
 	),
-	b.Content(el.P("Bulma-Gomponents assigns the ", el.Code("b.Rounded"), " attribute to the ", el.Code("<img>"), " tag when it is provided to the ", el.Code("b.ImageImg"), " helper:")),
 	c.Example(
 		`b.ImageImg(
 	"https://bulma.io/assets/images/placeholders/128x128.png",

@@ -11,17 +11,20 @@ var delete = c.NewPage(
 	"",
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Delete"), " constructor returns a delete cross. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Delete"), " constructor creates a delete cross. It accepts the following values additionally to the standard set of children types:",
 		),
 		b.DList(
 			el.Code("b.Small"),
-			"set delete icon size to small",
+			"Set delete icon size to small",
+
 			el.Code("b.Normal"),
-			"set delete icon size to normal",
+			"Set delete icon size to normal",
+
 			el.Code("b.Medium"),
-			"set delete icon size to medium",
+			"Set delete icon size to medium",
+
 			el.Code("b.Large"),
-			"set delete icon size to large",
+			"Set delete icon size to large",
 		),
 	),
 ).Section(
@@ -81,13 +84,9 @@ b.Message(
 		),
 		b.Message(
 			b.Info,
-			b.MessageHeader(
-				"Info",
-				b.Delete(),
-			),
-			b.MessageBody(
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
-			),
+			b.MessageTitle("Info"),
+			b.Delete(),
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.",
 		),
 	),
 )

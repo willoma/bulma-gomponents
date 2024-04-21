@@ -8,21 +8,11 @@ import (
 )
 
 // Checkbox creates a checkbox input element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
 func Checkbox(children ...any) Element {
 	return new(checkbox).With(children...)
 }
 
-// CheckboxDisabled creates a disabled checkbox input element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
-func CheckboxDisabled(children ...any) Element {
-	return (&checkbox{disabled: true}).With(children...)
-}
-
 type checkbox struct {
-	disabled      bool
 	labelChildren []any
 	inputChildren []any
 }
@@ -30,12 +20,20 @@ type checkbox struct {
 func (cb *checkbox) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			cb.inputChildren = append(cb.inputChildren, c.Child)
-		case *ApplyToOuter:
-			cb.labelChildren = append(cb.labelChildren, c.Child)
+		case onInput:
+			cb.inputChildren = append(cb.inputChildren, c...)
+		case onLabel:
+			cb.labelChildren = append(cb.labelChildren, c...)
 		case string:
 			cb.labelChildren = append(cb.labelChildren, c)
+		case Class:
+			switch c {
+			case Disabled:
+				cb.inputChildren = append(cb.inputChildren, html.Disabled())
+				cb.labelChildren = append(cb.labelChildren, html.Disabled())
+			default:
+				cb.inputChildren = append(cb.inputChildren, c)
+			}
 		case gomponents.Node:
 			if IsAttribute(c) {
 				cb.inputChildren = append(cb.inputChildren, c)
@@ -55,20 +53,15 @@ func (cb *checkbox) With(children ...any) Element {
 }
 
 func (cb *checkbox) Render(w io.Writer) error {
-	input := Elem(html.Input, html.Type("checkbox"), cb.inputChildren)
-
-	label := Elem(
+	return Elem(
 		html.Label,
 		Class("checkbox"),
-		input,
+		Elem(
+			html.Input,
+			html.Type("checkbox"),
+			cb.inputChildren,
+		),
 		" ",
 		cb.labelChildren,
-	)
-
-	if cb.disabled {
-		label.With(html.Disabled())
-		input.With(html.Disabled())
-	}
-
-	return label.Render(w)
+	).Render(w)
 }

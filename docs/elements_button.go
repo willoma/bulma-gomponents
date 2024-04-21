@@ -14,96 +14,149 @@ var button = c.NewPage(
 	"",
 
 	b.Content(
-		b.Style("column-count", "2"),
 		el.P(
-			b.Style("column-span", "all"),
-			"The ", el.Code("b.Button"), " constructor returns a button. It accepts the following values additionally to the standard set of children types:",
+			"The ", el.Code("b.Button"), " constructor creates a button. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.Text"),
-			"display as an underlined text",
-			el.Code("b.Ghost"),
-			"display as a blue underlined link",
 			el.Code("b.Responsive"),
-			"responsive size",
+			"Responsive size",
+
 			el.Code("b.FullWidth"),
-			"take the whole width",
+			"Take the whole width",
+
 			el.Code("b.Outlined"),
-			"outline style",
+			"Outline style",
+
 			el.Code("b.Inverted"),
-			"inverted style",
+			"Inverted style",
+
 			el.Code("b.Rounded"),
-			"rounded button",
+			"Rounded button",
+
 			el.Code("b.Hovered"),
-			"apply the hovered style",
+			"Apply the hovered style",
+
 			el.Code("b.Focused"),
-			"apply the focused style",
+			"Apply the focused style",
+
 			el.Code("b.Active"),
-			"apply the active style",
+			"Apply the active style",
+
 			el.Code("b.Loading"),
-			"replace the content with a loading spinner",
+			"Replace the content with a loading spinner",
+
 			el.Code("b.Static"),
-			"make the button non-interactive",
+			"Make the button non-interactive",
+
 			el.Code("html.Disabled()"),
-			"disable the button",
+			"Disable the button",
+
 			el.Code("b.Selected"),
-			"in a list of attached buttons (Buttons with Addons), make sure this button is above the other buttons",
+			"In a list of attached buttons (Buttons with Addons), make sure this button is above the other buttons",
+
 			el.Code("b.Small"),
-			"set button size to small",
+			"Set button size to small",
+
 			el.Code("b.Normal"),
-			"set button size to normal",
+			"Set button size to normal",
+
 			el.Code("b.Medium"),
-			"set button size to medium",
+			"Set button size to medium",
+
 			el.Code("b.Large"),
-			"set button size to large",
+			"Set button size to large",
+
 			el.Code("b.White"),
-			"set button color to white",
+			"Set button color to white",
+
 			el.Code("b.Light"),
-			"set button color to light",
+			"Set button color to light",
+
 			el.Code("b.Dark"),
-			"set button color to dark",
+			"Set button color to dark",
+
 			el.Code("b.Black"),
-			"set button color to black",
+			"Set button color to black",
+
 			el.Code("b.Text"),
-			"set button style to underlined text",
+			"Set button style to underlined text",
+
 			el.Code("b.Ghost"),
-			"set button style to link-looking blue text",
+			"Set button style to link-looking blue text",
+
 			el.Code("b.Primary"),
-			"set button color to primary",
+			"Set button color to primary",
+
 			el.Code("b.Link"),
-			"set button color to link",
+			"Set button color to link",
+
 			el.Code("b.Info"),
-			"set button color to info",
+			"Set button color to info",
+
 			el.Code("b.Success"),
-			"set button color to success",
+			"Set button color to success",
+
 			el.Code("b.Warning"),
-			"set button color to warning",
+			"Set button color to warning",
+
 			el.Code("b.Danger"),
-			"set button color to danger",
+			"Set button color to danger",
+
 			el.Code("b.PrimaryLight"),
-			"set button color to primary light",
+			"Set button color to primary light",
+
 			el.Code("b.LinkLight"),
-			"set button color to link light",
+			"Set button color to link light",
+
 			el.Code("b.InfoLight"),
-			"set button color to info light",
+			"Set button color to info light",
+
 			el.Code("b.SuccessLight"),
-			"set button color to success light",
+			"Set button color to success light",
+
 			el.Code("b.WarningLight"),
-			"set button color to warning light",
+			"Set button color to warning light",
+
 			el.Code("b.DangerLight"),
-			"set button color to danger light",
+			"Set button color to danger light",
+
 			el.Code("b.PrimaryDark"),
-			"set button color to primary dark",
+			"Set button color to primary dark",
+
 			el.Code("b.LinkDark"),
-			"set button color to link dark",
+			"Set button color to link dark",
+
 			el.Code("b.InfoDark"),
-			"set button color to info dark",
+			"Set button color to info dark",
+
 			el.Code("b.SuccessDark"),
-			"set button color to success dark",
+			"Set button color to success dark",
+
 			el.Code("b.WarningDark"),
-			"set button color to warning dark",
+			"Set button color to warning dark",
+
 			el.Code("b.DangerDark"),
-			"set button color to danger dark",
+			"Set button color to danger dark",
+		),
+		el.P("The ", el.Code("b.Buttons"), " constructor creates a button. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.Addons"),
+			"Attach the buttons together",
+
+			el.Code("b.Centered"),
+			"Center the buttons",
+
+			el.Code("b.Right"),
+			"Align the buttons to the right",
+
+			el.Code("b.Small"),
+			"Set buttons size to small",
+
+			el.Code("b.Medium"),
+			"Set buttons size to medium",
+
+			el.Code("b.Large"),
+			"Set buttons size to large",
 		),
 	),
 ).Section(

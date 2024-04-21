@@ -11,13 +11,43 @@ import (
 
 var mediaObject = c.NewPage(
 	"Media Object", "Media Object", "/media-object",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Media"), " constructor creates a media. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.OnContent(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<>"), " element"},
+
+			el.Code("b.OnMedia(...)"),
+			[]any{"Force childen to be applied to the ", el.Code("<>"), " element"},
+
+			el.Code("b.MediaLeft(...)"),
+			[]any{"Apply children to the left section"},
+
+			el.Code("b.MediaRight(...)"),
+			[]any{"Apply children to the right section"},
+
+			el.Code("b.Element"),
+			"Apply to the content section",
+
+			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			"Apply the attribute to the media",
+
+			[]any{"Other ", el.Code("gomponents.Node")},
+			[]any{"Apply to the content section"},
+		),
+		el.P("Each of the left, content and right parts is only included if it has content. Other children are added to the ", el.Code(`<article class="media">`), " element."),
+	),
+).Section(
+	"Bulma examples",
 	"https://bulma.io/documentation/layout/media-object/",
 	c.Example(
 		`b.Media(
 	b.MediaLeft(
 		html.Figure,
 		b.ImageImg(
-			"https://bulma.io/images/placeholders/128x128.png",
+			"https://bulma.io/assets/images/placeholders/128x128.png",
 			html.P, b.ImgSq64,
 		),
 	),
@@ -30,18 +60,9 @@ var mediaObject = c.NewPage(
 		b.Level(
 			b.Mobile,
 			b.LevelLeft(
-				el.A(
-					b.LevelItem,
-					fa.Icon(fa.Solid, "reply", b.Small),
-				),
-				b.LevelItem(
-					html.A,
-					fa.Icon(fa.Solid, "retweet", b.Small),
-				),
-				el.A(
-					b.Class("level-item"),
-					fa.Icon(fa.Solid, "heart", b.Small),
-				),
+				el.A(fa.Icon(fa.Solid, "reply", b.Small)),
+				el.A(fa.Icon(fa.Solid, "retweet", b.Small)),
+				el.A(fa.Icon(fa.Solid, "heart", b.Small)),
 			),
 		),
 	),
@@ -51,7 +72,7 @@ var mediaObject = c.NewPage(
 			b.MediaLeft(
 				html.Figure,
 				b.ImageImg(
-					"https://bulma.io/images/placeholders/128x128.png",
+					"https://bulma.io/assets/images/placeholders/128x128.png",
 					html.P, b.ImgSq64,
 				),
 			),
@@ -64,18 +85,9 @@ var mediaObject = c.NewPage(
 				b.Level(
 					b.Mobile,
 					b.LevelLeft(
-						b.LevelItem(
-							html.A,
-							fa.Icon(fa.Solid, "reply", b.Small),
-						),
-						b.LevelItem(
-							html.A,
-							fa.Icon(fa.Solid, "retweet", b.Small),
-						),
-						b.LevelItem(
-							html.A,
-							fa.Icon(fa.Solid, "heart", b.Small),
-						),
+						el.A(fa.Icon(fa.Solid, "reply", b.Small)),
+						el.A(fa.Icon(fa.Solid, "retweet", b.Small)),
+						el.A(fa.Icon(fa.Solid, "heart", b.Small)),
 					),
 				),
 			),
@@ -87,7 +99,7 @@ var mediaObject = c.NewPage(
 	b.MediaLeft(
 		html.Figure,
 		b.ImageImg(
-			"https://bulma.io/images/placeholders/128x128.png",
+			"https://bulma.io/assets/images/placeholders/128x128.png",
 			el.P, b.ImgSq64,
 		),
 	),
@@ -113,7 +125,7 @@ var mediaObject = c.NewPage(
 			b.MediaLeft(
 				html.Figure,
 				b.ImageImg(
-					"https://bulma.io/images/placeholders/128x128.png",
+					"https://bulma.io/assets/images/placeholders/128x128.png",
 					html.P, b.ImgSq64,
 				),
 			),
@@ -126,7 +138,7 @@ var mediaObject = c.NewPage(
 			),
 			b.Level(
 				b.LevelLeft(
-					b.LevelItem(
+					el.Div(
 						b.ButtonA(b.Info, "Submit"),
 					),
 				),
@@ -136,7 +148,7 @@ var mediaObject = c.NewPage(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Nesting",
 	"https://bulma.io/documentation/layout/media-object/#nesting",
 	c.Example(
@@ -144,7 +156,7 @@ var mediaObject = c.NewPage(
 	b.MediaLeft(
 		html.Figure,
 		b.ImageImg(
-			"https://bulma.io/images/placeholders/128x128.png",
+			"https://bulma.io/assets/images/placeholders/128x128.png",
 			html.P, b.ImgSq64,
 		),
 	),
@@ -161,7 +173,7 @@ var mediaObject = c.NewPage(
 		b.MediaLeft(
 			html.Figure,
 			b.ImageImg(
-				"https://bulma.io/images/placeholders/96x96.png",
+				"https://bulma.io/assets/images/placeholders/96x96.png",
 				html.P, b.ImgSq48,
 			),
 		),
@@ -181,7 +193,7 @@ var mediaObject = c.NewPage(
 		b.MediaLeft(
 			html.Figure,
 			b.ImageImg(
-				"https://bulma.io/images/placeholders/96x96.png",
+				"https://bulma.io/assets/images/placeholders/96x96.png",
 				html.P, b.ImgSq48,
 			),
 		),
@@ -200,7 +212,7 @@ b.Media(
 	b.MediaLeft(
 		html.Figure,
 		b.ImageImg(
-			"https://bulma.io/images/placeholders/128x128.png",
+			"https://bulma.io/assets/images/placeholders/128x128.png",
 			html.P, b.ImgSq64,
 		),
 	),
@@ -217,7 +229,7 @@ b.Media(
 			b.MediaLeft(
 				html.Figure,
 				b.ImageImg(
-					"https://bulma.io/images/placeholders/128x128.png",
+					"https://bulma.io/assets/images/placeholders/128x128.png",
 					html.P, b.ImgSq64,
 				),
 			),
@@ -234,7 +246,7 @@ b.Media(
 				b.MediaLeft(
 					html.Figure,
 					b.ImageImg(
-						"https://bulma.io/images/placeholders/96x96.png",
+						"https://bulma.io/assets/images/placeholders/96x96.png",
 						html.P, b.ImgSq48,
 					),
 				),
@@ -254,7 +266,7 @@ b.Media(
 				b.MediaLeft(
 					html.Figure,
 					b.ImageImg(
-						"https://bulma.io/images/placeholders/96x96.png",
+						"https://bulma.io/assets/images/placeholders/96x96.png",
 						html.P, b.ImgSq48,
 					),
 				),
@@ -273,7 +285,7 @@ b.Media(
 			b.MediaLeft(
 				html.Figure,
 				b.ImageImg(
-					"https://bulma.io/images/placeholders/128x128.png",
+					"https://bulma.io/assets/images/placeholders/128x128.png",
 					html.P, b.ImgSq64,
 				),
 			),
