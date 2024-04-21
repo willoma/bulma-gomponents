@@ -204,16 +204,3 @@ func (e *element) Render(w io.Writer) error {
 	}
 	return e.elemFn(e.getChildren()...).Render(w)
 }
-
-type (
-	ApplyToInner struct{ Child any }
-	ApplyToOuter struct{ Child any }
-)
-
-func Inner(child any) *ApplyToInner {
-	return &ApplyToInner{child}
-}
-
-func Outer(child any) *ApplyToOuter {
-	return &ApplyToOuter{child}
-}
