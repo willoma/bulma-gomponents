@@ -57,9 +57,9 @@ type nodeTypeDescriber interface {
 	Type() gomponents.NodeType
 }
 
-// IsAttribute returns true if the provided argument is a gomponents.Node with
+// isAttribute returns true if the provided argument is a gomponents.Node with
 // type gomponents.AttributeType.
-func IsAttribute(node any) bool {
+func isAttribute(node any) bool {
 	desc, ok := node.(nodeTypeDescriber)
 	return ok && desc.Type() == gomponents.AttributeType
 }
@@ -85,10 +85,6 @@ func IsAttribute(node any) bool {
 //
 // Any other type is ignored.
 func (e *element) With(children ...any) Element {
-	if e == nil {
-		e = Elem(html.Div)
-	}
-
 	for _, c := range children {
 		switch c := c.(type) {
 		case elemOption:
@@ -140,7 +136,7 @@ func (e *element) With(children ...any) Element {
 		case Element:
 			e.elements = append(e.elements, c)
 		case gomponents.Node:
-			if IsAttribute(c) {
+			if isAttribute(c) {
 				e.attributes = append(e.attributes, c)
 			} else {
 				e.elements = append(e.elements, c)

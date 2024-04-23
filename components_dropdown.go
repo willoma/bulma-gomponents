@@ -2,6 +2,7 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -9,121 +10,127 @@ import (
 
 // Dropdown creates a dropdown.
 //
-// The following children have a special meaning:
-//   - OnDropdown: apply the children to the dropdown
-//   - OnTrigger: apply the children to the trigger
-//   - OnMenu: apply the children to the menu
-//   - OnContent: apply the children to the menu content
-//   - DropdownTrigger: define the trigger button
-//   - DropdownItem: add an item to the menu
-//   - DropdownAHref: add a link item to the menu
-//   - DropdownDivider: add a divider to the menu
-//
-// The following modifiers change the dropdown behaviour:
-//   - Active: open the menu
-//   - Clickable: make it so the menu opens when the button is clicked (javascript is automatically added)
-//   - Hoverable: make it so the menu opens when the cursor hovers the button
-//   - Up: make the dropdown open to the top
+// https://willoma.github.io/bulma-gomponents/dropdown.html
 func Dropdown(children ...any) Element {
-	return new(dropdown).With(children...)
+	trigger := Elem(html.Div, Class("dropdown-trigger"))
+	content := Elem(html.Div, Class("dropdown-content"))
+	menu := Elem(html.Div, Class("dropdown-menu"), html.Role("menu"), content)
+
+	d := &dropdown{
+		Element: Elem(
+			html.Div, Class("dropdown"),
+			trigger,
+			menu,
+		),
+		trigger: trigger,
+		menu:    menu,
+		content: content,
+	}
+	d.With(children...)
+	return d
 }
 
 type dropdown struct {
-	up              bool
-	clickable       bool
-	children        []any
-	triggerChildren []any
-	contentChildren []any
-	menuChildren    []any
-	button          Element
+	Element
+	trigger Element
+	menu    Element
+	content Element
+
+	up        bool
+	clickable bool
+	button    Element
+	rendered  sync.Once
 }
 
 func (d *dropdown) With(childran ...any) Element {
 	for _, c := range childran {
 		switch c := c.(type) {
 		case onDropdown:
-			d.children = append(d.children, c...)
+			d.Element.With(c...)
 		case onTrigger:
-			d.triggerChildren = append(d.triggerChildren, c...)
-		case onMenu:
-			d.menuChildren = append(d.menuChildren, c...)
-		case onContent:
-			d.contentChildren = append(d.contentChildren, c...)
-		case dropdownTrigger:
 			for _, c2 := range c {
 				if btn, ok := c2.(*button); ok {
 					d.button = btn
 				}
-				d.triggerChildren = append(d.triggerChildren, c2)
+				d.trigger.With(c2)
 			}
+		case onMenu:
+			d.menu.With(c...)
+		case onContent:
+			d.content.With(c...)
 		case *dropdownButton:
 			d.button = c
-			d.triggerChildren = append(d.triggerChildren, c)
+			d.trigger.With(c)
 		case *dropdownDivider, *dropdownItem, *dropdownAhref:
-			d.contentChildren = append(d.contentChildren, c)
+			d.content.With(c)
 		case ID:
-			d.menuChildren = append(d.menuChildren, c)
+			d.menu.With(c)
 		case Class:
 			switch c {
 			case Clickable:
+				d.Element.With(OnClick(JSToggleMe))
 				d.clickable = true
 			case Up:
 				d.up = true
-				d.children = append(d.children, c)
+				d.Element.With(c)
 			default:
-				d.children = append(d.children, c)
+				d.Element.With(c)
 			}
+		case string:
+			d.button = DropdownButton(c)
+			d.trigger.With(d.button)
 		case Element:
-			d.contentChildren = append(d.contentChildren, DropdownItem(c))
+			d.content.With(DropdownItem(c))
 		case gomponents.Node:
-			if IsAttribute(c) {
-				d.children = append(d.children, c)
+			if isAttribute(c) {
+				d.Element.With(c)
 			} else {
-				d.contentChildren = append(d.contentChildren, DropdownItem(c))
+				d.content.With(DropdownItem(c))
 			}
 		case []any:
 			d.With(c...)
 		default:
-			d.children = append(d.children, c)
+			d.Element.With(c)
 		}
 	}
 	return d
 }
 
 func (d *dropdown) Render(w io.Writer) error {
-	if d.up && d.button != nil {
-		if ddb, ok := d.button.(*dropdownButton); ok {
-			ddb.up = true
-		}
-	}
-
-	if d.clickable {
-		d.children = append(d.children, OnClick(JSToggleMe))
+	d.rendered.Do(func() {
 		if d.button != nil {
-			d.button.With(On("blur", JSCloseThisDropdown))
-		}
-	}
+			if d.up {
+				if ddb, ok := d.button.(*dropdownButton); ok {
+					ddb.up = true
+				}
+			}
 
-	return Elem(
-		html.Div, Class("dropdown"),
-		d.children,
-		Elem(html.Div, Class("dropdown-trigger"), d.triggerChildren),
-		Elem(
-			html.Div, Class("dropdown-menu"), html.Role("menu"),
-			d.menuChildren, Elem(html.Div, Class("dropdown-content"), d.contentChildren),
-		),
-	).Render(w)
+			if d.clickable {
+				d.button.With(On("blur", JSCloseThisDropdown))
+			}
+		}
+	})
+
+	return d.Element.Render(w)
 }
 
 // DropdownButton creates a button to be used as a dropdown trigger. It automatically adds a Font Awesome icon to the right if no icon is provided.
+//
+// https://willoma.github.io/bulma-gomponents/dropdown.html
 func DropdownButton(children ...any) Element {
-	return new(dropdownButton).With(children...)
+	d := &dropdownButton{
+		Element: Button(html.Aria("haspopup", "true")),
+	}
+	d.With(children...)
+	return d
 }
 
 type dropdownButton struct {
-	up       bool
-	hasIcon  bool
-	children []any
+	Element
+	hasIcon bool
+	up      bool
+
+	rendered sync.Once
 }
 
 func (d *dropdownButton) With(children ...any) Element {
@@ -131,11 +138,11 @@ func (d *dropdownButton) With(children ...any) Element {
 		switch c := c.(type) {
 		case IconElem:
 			d.hasIcon = true
-			d.children = append(d.children, c)
+			d.Element.With(c)
 		case []any:
 			d.With(c...)
 		default:
-			d.children = append(d.children, c)
+			d.Element.With(c)
 		}
 	}
 
@@ -143,107 +150,60 @@ func (d *dropdownButton) With(children ...any) Element {
 }
 
 func (d *dropdownButton) Render(w io.Writer) error {
-	b := Button(d.children...).With(
-		html.Aria("haspopup", "true"),
-	)
-
-	if !d.hasIcon {
-		var iconName string
-		if d.up {
-			iconName = "fa-angle-up"
-		} else {
-			iconName = "fa-angle-down"
+	d.rendered.Do(func() {
+		if !d.hasIcon {
+			var iconName string
+			if d.up {
+				iconName = "fa-angle-up"
+			} else {
+				iconName = "fa-angle-down"
+			}
+			d.Element.With(
+				Icon(
+					Elem(html.I, Small, Class("fa-solid"), Class(iconName)),
+				),
+			)
 		}
-		b.With(
-			Icon(
-				Elem(html.I, Small, Class("fa-solid"), Class(iconName)),
-			),
-		)
-	}
+	})
 
-	return b.Render(w)
+	return d.Element.Render(w)
 }
-
-func DropdownTrigger(children ...any) dropdownTrigger {
-	return dropdownTrigger(children)
-}
-
-type dropdownTrigger []any
 
 // DropdownItem creates a div which is a dropdown item.
+//
+// https://willoma.github.io/bulma-gomponents/dropdown.html
 func DropdownItem(children ...any) Element {
-	return new(dropdownItem).With(children...)
+	d := &dropdownItem{Elem(html.Div, Class("dropdown-item"))}
+	d.With(children...)
+	return d
 }
 
 type dropdownItem struct {
-	children []any
-}
-
-func (d *dropdownItem) With(children ...any) Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			d.With(c...)
-		default:
-			d.children = append(d.children, c)
-		}
-	}
-
-	return d
-}
-
-func (d *dropdownItem) Render(w io.Writer) error {
-	return Elem(html.Div, Class("dropdown-item"), d.children).Render(w)
+	Element
 }
 
 // DropdownAHref creates an AHref element which is a dropdown item.
+//
+// https://willoma.github.io/bulma-gomponents/dropdown.html
 func DropdownAHref(href string, children ...any) Element {
-	return (&dropdownAhref{href: href}).With(children...)
+	d := &dropdownAhref{AHref(href, Class("dropdown-item"))}
+	d.With(children...)
+	return d
 }
 
 type dropdownAhref struct {
-	href     string
-	children []any
-}
-
-func (d *dropdownAhref) With(children ...any) Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			d.With(c...)
-		default:
-			d.children = append(d.children, c)
-		}
-	}
-
-	return d
-}
-
-func (d *dropdownAhref) Render(w io.Writer) error {
-	return AHref(d.href, Class("dropdown-item"), d.children).Render(w)
+	Element
 }
 
 // DropdownDivider creates a dropdown divider.
+//
+// https://willoma.github.io/bulma-gomponents/dropdown.html
 func DropdownDivider(children ...any) Element {
-	return new(dropdownDivider).With(children...)
-}
-
-type dropdownDivider struct {
-	children []any
-}
-
-func (d *dropdownDivider) With(children ...any) Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			d.With(c...)
-		default:
-			d.children = append(d.children, c)
-		}
-	}
+	d := &dropdownDivider{Elem(html.Div, Class("dropdown-divider"))}
+	d.With(children...)
 	return d
 }
 
-func (d *dropdownDivider) Render(w io.Writer) error {
-	return Elem(html.Div, Class("dropdown-divider"), d.children).Render(w)
+type dropdownDivider struct {
+	Element
 }

@@ -1,67 +1,64 @@
 package bulma
 
 import (
-	"io"
-
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
 // Checkbox creates a checkbox input element.
+//
+// https://willoma.github.io/bulma-gomponents/form/checkbox.html
 func Checkbox(children ...any) Element {
-	return new(checkbox).With(children...)
+	input := Elem(html.Input, html.Type("checkbox"))
+	cb := &checkbox{
+		Element: Elem(
+			html.Label,
+			Class("checkbox"),
+			input,
+			" ",
+		),
+		input: input,
+	}
+	cb.With(children...)
+	return cb
 }
 
 type checkbox struct {
-	labelChildren []any
-	inputChildren []any
+	Element
+	input Element
 }
 
 func (cb *checkbox) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onInput:
-			cb.inputChildren = append(cb.inputChildren, c...)
+			cb.input.With(c...)
 		case onLabel:
-			cb.labelChildren = append(cb.labelChildren, c...)
+			cb.Element.With(c...)
 		case string:
-			cb.labelChildren = append(cb.labelChildren, c)
+			cb.Element.With(c)
 		case Class:
 			switch c {
 			case Disabled:
-				cb.inputChildren = append(cb.inputChildren, html.Disabled())
-				cb.labelChildren = append(cb.labelChildren, html.Disabled())
+				cb.input.With(html.Disabled())
+				cb.Element.With(html.Disabled())
 			default:
-				cb.inputChildren = append(cb.inputChildren, c)
+				cb.input.With(c)
 			}
 		case gomponents.Node:
-			if IsAttribute(c) {
-				cb.inputChildren = append(cb.inputChildren, c)
+			if isAttribute(c) {
+				cb.input.With(c)
 			} else {
-				cb.labelChildren = append(cb.labelChildren, c)
+				cb.Element.With(c)
 			}
 		case Element:
-			cb.labelChildren = append(cb.labelChildren, c)
+			cb.Element.With(c)
 		case []any:
 			cb.With(c...)
 		default:
-			cb.inputChildren = append(cb.inputChildren, c)
+			cb.input.With(c)
 		}
 	}
 
 	return cb
-}
-
-func (cb *checkbox) Render(w io.Writer) error {
-	return Elem(
-		html.Label,
-		Class("checkbox"),
-		Elem(
-			html.Input,
-			html.Type("checkbox"),
-			cb.inputChildren,
-		),
-		" ",
-		cb.labelChildren,
-	).Render(w)
 }

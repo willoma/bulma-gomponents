@@ -36,46 +36,90 @@ var extending = c.NewPage(
 	"Implementing Element", "",
 
 	b.Content(
-		el.P("If you need to create new components for ", el.Em("Bulma-Gomponents"), ", you may prefer following this example:"),
-		el.Pre(`func MyElement(children ...any) Element {
-	return new(myElement).With(children...)
+		el.P("If you need to create new components for ", el.Em("Bulma-Gomponents"), ", you may prefer following one of these examples:"),
+		c.ExamplePre(`func MyElement(children ...any) b.Element {
+	m := &myElement{el.Div(b.Class("my-element"))}
+	m.With(children...)
+	return m
 }
 
 type myElement struct {
-	someContent      []any
-	someOtherContent []any
+	b.Element
 }
 
 func (m *myElement) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case b.Color:
+			m.Element.With(c.Background())
+		case []any:
+			m.With(c...)
+		default:
+			m.Element.With(c)
+		}
+	}
+	return m
+}
+`),
+		c.ExamplePre(`type weirdOption string
+
+func MyWeirdElement(children ...any) b.Element {
+	other := b.Elem(html.Span)
+	m := &myWeirdElement{
+		Element: b.Elem(html.Div, other),
+		other: other,
+	}
+	m.With(children...)
+	return m
+}
+
+type myWeirdElement struct {
+	b.Element
+	other b.Element
+
+	weirdOption weirdOption
+
+	rendered sync.Once
+}
+
+func (m *myWeirdElement) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
 		case b.Class, b.Classer, b.Classeser, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
-			// Apply classes and styles to some content
+			// Apply classes and styles to content
+			m.Element.With(c)
+		case weirdOption:
+			b.weirdOption = weirdOption
 		case b.Element:
-			// Add element to some content
+			// Add element to content
+			m.Element.With(c)
 		case gomponents.Node:
 			if b.IsAttribute(c) {
-				// Apply gomponents attribute nodes to some content
+				// Apply gomponents attribute nodes to content
+				m.Element.With(c)
 			} else {
-				// Apply other gomponents nodes (ie. elements) to some other content
+				// Apply other gomponents nodes (ie. elements) to other content
+				m.other.With(c)
 			}
 		case []any:
 			m.With(c...)
 		default:
 			// Apply all other children to some other content
+			m.other.With(c)
 		}
 	}
 
 	return m
 }
 
-func (m *myElement) Render(w io.Writer) error {
-	// call b.Elem with the appropriate arguments according to the component needs
-	e := b.Elem(html.Div) // ...
+func (m *myWeirdElement) Render(w io.Writer) error {
+	m.rendered.Do(func() {
+		if m.weirdOption != "" {
+			doSomethingWeird(m.Element, m.other)
+		}
+	})
 
-	// If needed, process children of myElement and apply them wherever needed
-
-	return e.Render(w)
+	return m.Element.Render(w)
 }
 `),
 	),

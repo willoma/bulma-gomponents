@@ -28,14 +28,8 @@ func Head(children ...gomponents.Node) head {
 type head []gomponents.Node
 
 // HTML returns a gomponents.Node which represents a whole HTML page.
-//   - when a child is of type CSSPath, the path to the Bulma CSS is set to the
-//     provided path (if there is no child with this type, the path is set to
-//     the Bulma CDN)
-//   - when a child is of type HTitle, it is used as the page title
-//   - when a child is of type Language, it is used as the lang attribute
-//   - when a child is of type Description, it is used as the description meta
-//   - when a child is wrapped with Head, it is used as a part of the head section
-//   - other children are used as children of the body element
+//
+// http://willoma.github.io/bulma-gomponents/elements.html#document-root
 func HTML(children ...any) gomponents.Node {
 	var (
 		cssPath     string

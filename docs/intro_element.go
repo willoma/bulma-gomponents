@@ -39,7 +39,7 @@ var elements = c.NewPage(
 ).Subsection(
 	"Example", "",
 	b.Content(
-		el.Pre(`b.HTML(
+		c.ExamplePre(`b.HTML(
 	b.Script("/htmx.min.js"),
 	b.HTitle(p.Title+" | Bulma-Gomponents"),
 	b.CSSPath("/bulma.css"),

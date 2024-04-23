@@ -2,6 +2,7 @@ package fa
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents/html"
 
@@ -39,37 +40,35 @@ const (
 
 // FA returns a Font Awesome icon, in an i element, with the provided style and
 // name (without the "fa-" prefix).
-//   - when a child id a Class, it is added as a class to the i element
-//   - when a child is a color, its text variant is applied to the i element
-//   - when a child is a rotation or animation, it is applied to the icon
-//   - all other children types are added as-is to the i element
 //
-// The rotating+flipping combination is supported and the needed span element
-// is automatically created when needed.
+// // https://willoma.github.io/bulma-gomponents/icon.html#font-awesome
 func FA(style Style, name string, children ...any) b.Element {
-	return (&fa{style: style, name: name}).With(children...)
+	f := &fa{Element: b.Elem(html.I, b.Class(style), b.Class("fa-"+name))}
+	f.With(children...)
+	return f
 }
 
 type fa struct {
-	style         Style
-	name          string
+	b.Element
+
 	rotateOrFlips []any
-	children      []any
+
+	rendered sync.Once
 }
 
 func (f *fa) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			f.children = append(f.children, c)
+			f.Element.With(c)
 		case rotateOrFlip, Rotate, Animation:
 			f.rotateOrFlips = append(f.rotateOrFlips, c)
 		case b.Color:
-			f.children = append(f.children, c.Text())
+			f.Element.With(c.Text())
 		case []any:
 			f.With(c...)
 		default:
-			f.children = append(f.children, c)
+			f.Element.With(c)
 		}
 	}
 
@@ -77,70 +76,63 @@ func (f *fa) With(children ...any) b.Element {
 }
 
 func (f *fa) Render(w io.Writer) error {
-	if len(f.rotateOrFlips) == 0 {
-		return b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name)).With(f.children...).Render(w)
-	}
+	f.rendered.Do(func() {
+		if len(f.rotateOrFlips) > 0 {
+			f.Element.With(f.rotateOrFlips[len(f.rotateOrFlips)-1])
+		}
+	})
 
-	e := b.Elem(html.I, b.Class(f.style), b.Class("fa-"+f.name), f.rotateOrFlips[len(f.rotateOrFlips)-1]).With(f.children...)
+	elem := f.Element
 
 	for i := len(f.rotateOrFlips) - 2; i >= 0; i-- {
-		e = el.Span(b.Style("display", "inline-block"), f.rotateOrFlips[i], e)
+		elem = el.Span(b.Style("display", "inline-block"), f.rotateOrFlips[i], elem)
 	}
 
-	return e.Render(w)
+	return elem.Render(w)
 }
 
 // Icon returns a Font Awesome icon, in an i element within a b.Icon element,
 // with the provided style and name (without the "fa-" prefix).
-//   - when a child is marked with b.Inner, it is forcibly applied to the <i> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <span> element
-//   - when a child id a Class, it is added to the i element
-//   - when a child is a color, its text variant is applied to the b.Icon
-//   - when a child is a rotation or animation, it is applied to the icon
-//   - all other children types are added as-is to the b.Icon
+//
+// // https://willoma.github.io/bulma-gomponents/icon.html#font-awesome
 func Icon(style Style, name string, children ...any) b.Element {
-	return (&icon{style: style, name: name}).With(children...)
+	fa := FA(style, name)
+	i := &icon{
+		Element: b.Icon(fa),
+		fa:      fa,
+	}
+	i.With(children...)
+	return i
 }
 
 type icon struct {
-	iconClass    b.Class
-	style        Style
-	name         string
-	iconChildren []any
-	faChildren   []any
+	b.Element
+	fa b.Element
 }
 
 func (i *icon) SetIconClass(c b.Class) {
-	i.iconClass = c
+	i.Element.(b.IconElem).SetIconClass(c)
 }
 
 func (i *icon) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onFA:
-			i.faChildren = append(i.faChildren, c...)
-		case onSpan:
-			i.iconChildren = append(i.iconChildren, c...)
+			i.fa.With(c...)
+		case onIcon:
+			i.Element.With(c...)
 		case Class, rotateOrFlip, Rotate, Animation:
-			i.faChildren = append(i.faChildren, c)
+			i.fa.With(c)
 		case b.Color:
-			i.iconChildren = append(i.iconChildren, c.Text())
+			i.Element.With(c.Text())
 		case []any:
 			i.With(c...)
 		default:
-			i.iconChildren = append(i.iconChildren, c)
+			i.Element.With(c)
 		}
 	}
 
 	return i
-}
-
-func (i *icon) Render(w io.Writer) error {
-	ic := b.Icon(i.iconChildren, FA(i.style, i.name, i.faChildren...))
-	if i.iconClass != "" {
-		ic.(b.IconElem).SetIconClass(i.iconClass)
-	}
-	return ic.Render(w)
 }
 
 func OnFA(children ...any) onFA {
@@ -149,8 +141,8 @@ func OnFA(children ...any) onFA {
 
 type onFA []any
 
-func OnSpan(children ...any) onSpan {
-	return onSpan(children)
+func OnIcon(children ...any) onIcon {
+	return onIcon(children)
 }
 
-type onSpan []any
+type onIcon []any

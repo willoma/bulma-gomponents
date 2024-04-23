@@ -1,149 +1,64 @@
 package bulma
 
 import (
-	"io"
-
 	"github.com/maragudk/gomponents/html"
 )
 
+func newInput(inputType string, children []any) Element {
+	i := &input{Elem(html.Input, Class("input"), html.Type(inputType))}
+	i.With(children...)
+	return i
+}
+
 type input struct {
-	inputType string
-	children  []any
+	Element
 }
 
 func (i *input) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onInput:
-			i.children = append(i.children, c...)
+			i.Element.With(c)
 		case Class:
 			switch c {
 			case Disabled:
-				i.children = append(i.children, html.Disabled())
+				i.Element.With(html.Disabled())
 			default:
-				i.children = append(i.children, c)
+				i.Element.With(c)
 			}
 		case []any:
 			i.With(c...)
 		default:
-			i.children = append(i.children, c)
+			i.Element.With(c)
 		}
 	}
 	return i
 }
 
-func (i *input) Render(w io.Writer) error {
-	return Elem(html.Input, Class("input"), html.Type(i.inputType), i.children).Render(w)
-}
-
 // InputText creates an input element of type text.
 //
-// The following modifiers change the input behaviour:
-//   - Rounded: rounded inputs
-//   - Hovered: apply the hovered style
-//   - Focused: apply the focused style
-//   - Loading: add a a loading spinner to the right of the input
-//   - html.Disabled(): disable the input
-//   - html.ReadOnly(): forbid modifications
-//   - Static: remove specific styling but maintain vertical spacing
-//
-// The following modifiers change the input color:
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the file input size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/form/input.html
 func InputText(children ...any) Element {
-	return (&input{inputType: "text"}).With(children...)
+	return newInput("text", children)
 }
 
 // InputPassword creates an input element of type password.
 //
-// The following modifiers change the input behaviour:
-//   - Rounded: rounded inputs
-//   - Hovered: apply the hovered style
-//   - Focused: apply the focused style
-//   - Loading: add a a loading spinner to the right of the input
-//   - html.Disabled(): disable the input
-//   - html.ReadOnly(): forbid modifications
-//   - Static: remove specific styling but maintain vertical spacing
-//
-// The following modifiers change the input color:
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the file input size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/form/input.html
 func InputPassword(children ...any) Element {
-	return (&input{inputType: "password"}).With(children...)
+	return newInput("password", children)
 }
 
 // InputEmail creates an input element of type email.
 //
-// The following modifiers change the input behaviour:
-//   - Rounded: rounded inputs
-//   - Hovered: apply the hovered style
-//   - Focused: apply the focused style
-//   - Loading: add a a loading spinner to the right of the input
-//   - html.Disabled(): disable the input
-//   - html.ReadOnly(): forbid modifications
-//   - Static: remove specific styling but maintain vertical spacing
-//
-// The following modifiers change the input color:
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the file input size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/form/input.html
 func InputEmail(children ...any) Element {
-	return (&input{inputType: "email"}).With(children...)
+	return newInput("email", children)
 }
 
 // InputTel creates an input element of type tel.
 //
-// The following modifiers change the input behaviour:
-//   - Rounded: rounded input
-//   - Hovered: apply the hovered style
-//   - Focused: apply the focused style
-//   - Loading: add a a loading spinner to the right of the input
-//   - html.Disabled(): disable the input
-//   - html.ReadOnly(): forbid modifications
-//   - Static: remove specific styling but maintain vertical spacing
-//
-// The following modifiers change the input color:
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the input size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/form/input.html
 func InputTel(children ...any) Element {
-	return (&input{inputType: "tel"}).With(children...)
+	return newInput("tel", children)
 }

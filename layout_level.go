@@ -2,69 +2,65 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
 // Level creates a level element.
-//   - when a child is the result of LevelLeft(...), its children are added to
-//     the level left section, with following rules applied
-//   - when a child is the result of LevelRight(...), its children are added to
-//     the level right section, with following rules applied
-//   - when a child is an Element, the "level-item" class is added to it and it
-//     is added as a child to the level
-//   - when a child is a string, it is wrapped in an Element with the
-//     "level-item" class which is added as a child to the level
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as an attribute to the level
-//   - when a child is a gopmponents.Node with another type, it is wrapped into
-//     an Element with the "level-item" class and added as a child to the level
-//   - other children types are added as children to the level
 //
-// For children included provided with LevelLeft or LevelRight:
-//   - when a child is an Element, the "level-item" class is added to it and it
-//     is added as a child to the level section
-//   - when a child is a string, it is wrapped in an Element with the
-//     "level-item" class which is added as a child to the level section
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as an attribute to the level section
-//   - when a child is a gopmponents.Node with another type, it is wrapped into
-//     an Element with the "level-item" class and added as a child to the level
-//     section
-//   - other children types are added as children to the level section
+// http://willoma.github.io/bulma-gomponents/level.html
 func Level(children ...any) Element {
-	return new(level).With(children...)
+	l := &level{Element: Elem(html.Nav, Class("level"))}
+	l.With(children...)
+	return l
 }
 
 type level struct {
-	leftChildren  []any
-	rightChildren []any
-	children      []any
+	Element
+	left  Element
+	right Element
+
+	rendered sync.Once
+}
+
+func (l *level) addToLeft(children ...any) {
+	if l.left == nil {
+		l.left = Elem(html.Div, Class("level-left"))
+	}
+	flattenLevelSection(l.left, children)
+}
+
+func (l *level) addToRight(children ...any) {
+	if l.right == nil {
+		l.right = Elem(html.Div, Class("level-right"))
+	}
+	flattenLevelSection(l.right, children)
 }
 
 func (l *level) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case levelLeft:
-			l.leftChildren = append(l.leftChildren, flattenLevelSection(c)...)
+			l.addToLeft(c...)
 		case levelRight:
-			l.rightChildren = append(l.rightChildren, flattenLevelSection(c)...)
+			l.addToRight(c...)
 		case Element:
 			c.With(Class("level-item"))
-			l.children = append(l.children, c)
+			l.Element.With(c)
 		case string:
-			l.children = append(l.children, Elem(html.P, Class("level-item"), c))
+			l.Element.With(Elem(html.P, Class("level-item"), c))
 		case gomponents.Node:
-			if !IsAttribute(c) {
-				l.children = append(l.children, Elem(html.Div, Class("level-item"), c))
+			if isAttribute(c) {
+				l.Element.With(c)
 			} else {
-				l.children = append(l.children, c)
+				l.Element.With(Elem(html.Div, Class("level-item"), c))
 			}
 		case []any:
-			l.children = append(l.children, c...)
+			l.With(c...)
 		default:
-			l.children = append(l.children, c)
+			l.Element.With(c)
 		}
 	}
 
@@ -72,16 +68,16 @@ func (l *level) With(children ...any) Element {
 }
 
 func (l *level) Render(w io.Writer) error {
-	elem := Elem(html.Nav, Class("level"), l.children)
-	if len(l.leftChildren) > 0 {
-		elem.With(Elem(html.Div, Class("level-left"), l.leftChildren))
-	}
+	l.rendered.Do(func() {
+		if l.left != nil {
+			l.Element.With(l.left)
+		}
+		if l.right != nil {
+			l.Element.With(l.right)
+		}
+	})
 
-	if len(l.rightChildren) > 0 {
-		elem.With(Elem(html.Div, Class("level-right"), l.rightChildren))
-	}
-
-	return elem.Render(w)
+	return l.Element.Render(w)
 }
 
 func LevelLeft(children ...any) levelLeft {
@@ -96,28 +92,24 @@ func LevelRight(children ...any) levelRight {
 
 type levelRight []any
 
-func flattenLevelSection(children []any) []any {
-	var result []any
-
+func flattenLevelSection(target Element, children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Element:
 			c.With(Class("level-item"))
-			result = append(result, c)
+			target.With(c)
 		case string:
-			result = append(result, Elem(html.P, Class("level-item"), c))
+			target.With(Elem(html.P, Class("level-item"), c))
 		case gomponents.Node:
-			if !IsAttribute(c) {
-				result = append(result, Elem(html.Div, Class("level-item"), c))
+			if !isAttribute(c) {
+				target.With(Elem(html.Div, Class("level-item"), c))
 			} else {
-				result = append(result, c)
+				target.With(c)
 			}
 		case []any:
-			result = append(result, flattenLevelSection(c)...)
+			flattenLevelSection(target, c)
 		default:
-			result = append(result, c)
+			target.With(c)
 		}
 	}
-
-	return result
 }

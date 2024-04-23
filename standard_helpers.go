@@ -95,7 +95,7 @@ func UList(children ...any) Element {
 		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
 			e.With(c)
 		case gomponents.Node:
-			if IsAttribute(c) {
+			if isAttribute(c) {
 				e.With(c)
 			} else {
 				e.With(Elem(html.Li, c))

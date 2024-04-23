@@ -2,20 +2,57 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
 // Card creates a card.
+//
+// https://willoma.github.io/bulma-gomponents/card.html
 func Card(children ...any) Element {
-	return new(card).With(children...)
+	c := &card{Element: Elem(html.Div, Class("card"))}
+	c.With(children...)
+	return c
 }
 
 type card struct {
-	children []any
-	header   []any
-	footer   []any
+	Element
+	header  Element
+	content []any
+	footer  Element
+
+	currentContent Element
+	rendered       sync.Once
+}
+
+func (c *card) addToCurrentContent(children ...any) {
+	if c.currentContent == nil {
+		c.currentContent = Elem(html.Div, Class("card-content"))
+	}
+	c.currentContent.With(children...)
+}
+
+func (c *card) flushCurrentContent() {
+	if c.currentContent != nil {
+		c.content = append(c.content, c.currentContent)
+		c.currentContent = nil
+	}
+}
+
+func (c *card) addToHeader(children ...any) {
+	if c.header == nil {
+		c.header = Elem(html.Header, Class("card-header"))
+	}
+	c.header.With(children...)
+}
+
+func (c *card) addToFooter(children ...any) {
+	if c.footer == nil {
+		c.footer = Elem(html.Footer, Class("card-footer"))
+	}
+	c.footer.With(children...)
 }
 
 func (c *card) With(children ...any) Element {
@@ -24,66 +61,64 @@ func (c *card) With(children ...any) Element {
 	for _, ch := range children {
 		switch ch := ch.(type) {
 		case onCard:
-			c.children = append(c.children, ch...)
+			c.Element.With(ch...)
 		case onContent:
-			currentContent = append(currentContent, ch...)
+			c.addToCurrentContent(ch...)
 		case splitContent:
-			if currentContent != nil {
-				c.children = append(c.children, Elem(html.Div, Class("card-content"), currentContent))
-				currentContent = nil
-			}
+			c.flushCurrentContent()
 		case cardHeader:
-			c.header = append(c.header, ch...)
+			c.addToHeader(ch...)
 		case *cardHeaderIcon:
-			c.header = append(c.header, ch)
+			c.addToHeader(ch)
 		case *cardHeaderTitle:
-			c.header = append(c.header, ch)
+			c.addToHeader(ch)
 		case cardFooter:
-			c.footer = append(c.footer, ch...)
+			c.addToFooter(ch...)
 		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
-			c.children = append(c.children, ch)
+			c.Element.With(ch)
 		case *cardImage, *cardImageImg:
-			if currentContent != nil {
-				c.children = append(c.children, Elem(html.Div, Class("card-content"), currentContent))
-				currentContent = nil
-			}
-			c.children = append(c.children, ch)
+			c.flushCurrentContent()
+			c.content = append(c.content, ch)
 		case Element:
-			currentContent = append(currentContent, ch)
+			c.addToCurrentContent(ch)
 		case gomponents.Node:
-			if IsAttribute(c) {
-				c.children = append(c.children, ch)
+			if isAttribute(c) {
+				c.Element.With(ch)
 			} else {
-				currentContent = append(currentContent, ch)
+				c.addToCurrentContent(ch)
 			}
 		case []any:
 			currentContent = append(currentContent, ch...)
 
 		default:
-			currentContent = append(currentContent, ch)
+			c.addToCurrentContent(ch)
 		}
 	}
 
-	if currentContent != nil {
-		c.children = append(c.children, Elem(html.Div, Class("card-content"), currentContent))
-	}
 	return c
 }
 
 func (c *card) Render(w io.Writer) error {
-	e := Elem(html.Div, Class("card"))
-	if c.header != nil {
-		e.With(Elem(html.Header, Class("card-header"), c.header))
-	}
-	if c.children != nil {
-		e.With(c.children...)
-	}
-	if c.footer != nil {
-		e.With(Elem(html.Footer, Class("card-footer"), c.footer))
-	}
-	return e.Render(w)
+	c.rendered.Do(func() {
+		c.flushCurrentContent()
+
+		if c.header != nil {
+			c.Element.With(c.header)
+		}
+
+		if c.content != nil {
+			c.Element.With(c.content...)
+		}
+
+		if c.footer != nil {
+			c.Element.With(c.footer)
+		}
+	})
+
+	return c.Element.Render(w)
 }
 
+// SplitContent instructs Card to close the current card-content element.
 func SplitContent() splitContent {
 	return splitContent{}
 }
@@ -92,10 +127,7 @@ type splitContent struct{}
 
 // CardHeader marks its children as being part of a card header.
 //
-// If a child is a string, it is wrapped into a CardHeaderTitle element.
-//
-// If a child is an Element with class "icon", it is wrapped into a
-// CardHeaderIcon element.
+// https://willoma.github.io/bulma-gomponents/card.html
 func CardHeader(children ...any) cardHeader {
 	return cardHeader{}.with(children...)
 }
@@ -121,65 +153,33 @@ func (ch cardHeader) with(children ...any) cardHeader {
 
 // CardHeaderIcon creates an icon for a card header.
 //
-// If you provide an icon to the CardHeader function (for instance the result of the Icon function), you don't need CardHeaderIcon.
+// https://willoma.github.io/bulma-gomponents/card.html
 func CardHeaderIcon(children ...any) Element {
-	return new(cardHeaderIcon).With(children...)
+	c := &cardHeaderIcon{Elem(html.Button, Class("card-header-icon"))}
+	c.With(children...)
+	return c
 }
 
 type cardHeaderIcon struct {
-	children []any
-}
-
-func (chi *cardHeaderIcon) With(children ...any) Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			chi.With(c...)
-		default:
-			chi.children = append(chi.children, c)
-		}
-	}
-	return chi
-}
-
-func (c *cardHeaderIcon) Render(w io.Writer) error {
-	return Elem(html.Button, Class("card-header-icon"), c.children).Render(w)
+	Element
 }
 
 // CardHeaderTitle creates a title for a card header.
 //
-// The following modifiers change the title behaviour:
-//   - Centered: center the title
-//
-// If you provide a string to the CardHeader function, you don't need
-// CardHeaderTitle.
+// https://willoma.github.io/bulma-gomponents/card.html
 func CardHeaderTitle(children ...any) Element {
-	return new(cardHeaderTitle).With(children...)
+	c := &cardHeaderTitle{Elem(html.P, Class("card-header-title"))}
+	c.With(children...)
+	return c
 }
 
 type cardHeaderTitle struct {
-	children []any
-}
-
-func (cht *cardHeaderTitle) With(children ...any) Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case []any:
-			cht.With(c...)
-		default:
-			cht.children = append(cht.children, c)
-		}
-	}
-	return cht
-}
-
-func (cht *cardHeaderTitle) Render(w io.Writer) error {
-	return Elem(html.P, Class("card-header-title"), cht.children).Render(w)
+	Element
 }
 
 // CardFooter marks its children as being part of a card footer.
 //
-// It add the "card-footer-item" class to all its Element children.
+// https://willoma.github.io/bulma-gomponents/card.html
 func CardFooter(children ...any) cardFooter {
 	return cardFooter{}.with(children...)
 }
@@ -202,63 +202,68 @@ func (cf cardFooter) with(children ...any) cardFooter {
 }
 
 // CardImage creates a card image.
+//
+// https://willoma.github.io/bulma-gomponents/card.html
 func CardImage(children ...any) Element {
-	return new(cardImage).With(children...)
+	image := Image()
+	c := &cardImage{
+		Element: Elem(html.Div, Class("card-image"), image),
+		image:   image,
+	}
+	c.With(children...)
+	return c
 }
 
 type cardImage struct {
-	children    []any
-	imgChildren []any
+	Element
+	image Element
 }
 
 func (ci *cardImage) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onCardImage:
-			ci.children = append(ci.children, c)
+			ci.Element.With(c...)
 		case []any:
 			ci.With(c...)
 		default:
-			ci.imgChildren = append(ci.imgChildren, c)
+			ci.image.With(c)
 		}
 	}
 
 	return ci
 }
 
-func (ci *cardImage) Render(w io.Writer) error {
-	return Elem(html.Div, Class("card-image"), Image(ci.imgChildren...), ci.children).Render(w)
-}
-
 // CardImageImg creates a card image which contains an img element with the
 // provided src.
 //
-// See the ImageImg function documentation for the list of allowed modifiers.
+// https://willoma.github.io/bulma-gomponents/card.html
 func CardImageImg(src string, children ...any) Element {
-	return (&cardImageImg{src: src}).With(children...)
+	imageImg := ImageImg(src)
+	c := &cardImageImg{
+		Element:  Elem(html.Div, Class("card-image"), imageImg),
+		imageImg: imageImg,
+	}
+	c.With(children...)
+	return c
 }
 
 type cardImageImg struct {
-	src         string
-	children    []any
-	imgChildren []any
+	Element
+	imageImg Element
 }
 
 func (ci *cardImageImg) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onCardImage:
-			ci.children = append(ci.children, c)
+			ci.Element.With(c...)
 		case []any:
 			ci.With(c...)
 		default:
-			ci.imgChildren = append(ci.imgChildren, c)
+			ci.imageImg.With(c)
 		}
 	}
 
 	return ci
-}
-
-func (ci *cardImageImg) Render(w io.Writer) error {
-	return Elem(html.Div, Class("card-image"), ImageImg(ci.src, ci.imgChildren...), ci.children).Render(w)
 }

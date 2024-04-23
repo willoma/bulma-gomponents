@@ -12,17 +12,7 @@ type MessageTitle string
 
 // Message creates a message.
 //
-// The following modifiers change the message color:
-//   - Dark
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// When there is no MessageHeader in the children, the message is displayed
-// with the "message body only" style.
+// https://willoma.github.io/bulma-gomponents/message.html
 func Message(children ...any) Element {
 	m := &message{
 		Element: Elem(html.Article, Class("message")),
@@ -43,31 +33,30 @@ type message struct {
 	delete Element
 }
 
-func (m *message) ensureHeader(children ...any) {
+func (m *message) addToHeader(children ...any) {
 	if m.header == nil {
-		m.header = Elem(html.Div, Class("message-header"), children)
-	} else {
-		m.header.With(children...)
+		m.header = Elem(html.Div, Class("message-header"))
 	}
+	m.header.With(children...)
 }
 
 func (m *message) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onHeader:
-			m.ensureHeader(c...)
+			m.addToHeader(c...)
 		case onBody:
 			m.body.With(c...)
 		case onMessage:
 			m.Element.With(c...)
 		case MessageTitle:
-			m.ensureHeader(Elem(html.P, string(c)))
+			m.addToHeader(Elem(html.P, string(c)))
 		case *delete:
-			m.ensureHeader(c)
+			m.addToHeader(c)
 		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
 			m.Element.With(c)
 		case gomponents.Node:
-			if IsAttribute(c) {
+			if isAttribute(c) {
 				m.Element.With(c)
 			} else {
 				m.body.With(c)

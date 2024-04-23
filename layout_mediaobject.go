@@ -2,61 +2,74 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
 // Media creates a media element.
-//   - when a child is marked with OnContent, it is forcibly applied to the <div class="media-content"> element
-//   - when a child is marked with OnMedia, it is forcibly applied to the <article class="media"> element
-//   - when a child is a return value of MediaLeft, it is added in the left part
-//     of the media element
-//   - when a child is a return value of MediaRight, it is added in the right
-//     part of the media element
-//   - when a child is an Element, it is added in the content part of the media
-//     element
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as a direct child of to the media element
-//   - when a child is a gomponents.Node with another type, it is added in the
-//     content part of the media element
-//   - other children types are added as direct children of to the media element
 //
-// Each of the left, content and right parts is only included if it has content.
+// http://willoma.github.io/bulma-gomponents/media-object.html
 func Media(children ...any) Element {
-	return new(media).With(children...)
+	m := &media{Element: Elem(html.Article, Class("media"))}
+	m.With(children...)
+	return m
 }
 
 type media struct {
-	leftChildren    []any
-	contentChildren []any
-	rightChildren   []any
-	elemChildren    []any
+	Element
+	left    Element
+	content Element
+	right   Element
+
+	rendered sync.Once
+}
+
+func (m *media) addToLeft(children ...any) {
+	if m.left == nil {
+		m.left = Elem(html.Div, Class("media-left"))
+	}
+	m.left.With(children...)
+}
+
+func (m *media) addToContent(children ...any) {
+	if m.content == nil {
+		m.content = Elem(html.Div, Class("media-content"))
+	}
+	m.content.With(children...)
+}
+
+func (m *media) addToRight(children ...any) {
+	if m.right == nil {
+		m.right = Elem(html.Div, Class("media-right"))
+	}
+	m.right.With(children...)
 }
 
 func (m *media) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case onContent:
-			m.contentChildren = append(m.contentChildren, c...)
 		case onMedia:
-			m.elemChildren = append(m.elemChildren, c...)
+			m.Element.With(c...)
+		case onContent:
+			m.addToContent(c...)
 		case mediaLeft:
-			m.leftChildren = append(m.leftChildren, c...)
+			m.addToLeft(c...)
 		case mediaRight:
-			m.rightChildren = append(m.rightChildren, c...)
+			m.addToRight(c...)
 		case Element:
-			m.contentChildren = append(m.contentChildren, c)
+			m.addToContent(c)
 		case gomponents.Node:
-			if IsAttribute(c) {
-				m.elemChildren = append(m.elemChildren, c)
+			if isAttribute(c) {
+				m.Element.With(c)
 			} else {
-				m.contentChildren = append(m.contentChildren, c)
+				m.addToContent(c)
 			}
 		case []any:
 			m.With(c...)
 		default:
-			m.elemChildren = append(m.elemChildren, c)
+			m.Element.With(c)
 		}
 	}
 
@@ -64,30 +77,26 @@ func (m *media) With(children ...any) Element {
 }
 
 func (m *media) Render(w io.Writer) error {
-	e := Elem(html.Article, Class("media"), m.elemChildren)
+	m.rendered.Do(func() {
+		if m.left != nil {
+			m.Element.With(m.left)
+		}
 
-	if len(m.leftChildren) > 0 {
-		e.With(
-			Elem(html.Div, Class("media-left"), m.leftChildren),
-		)
-	}
+		if m.content != nil {
+			m.Element.With(m.content)
+		}
 
-	if len(m.contentChildren) > 0 {
-		e.With(
-			Elem(html.Div, Class("media-content"), m.contentChildren),
-		)
-	}
+		if m.right != nil {
+			m.Element.With(m.right)
+		}
+	})
 
-	if len(m.rightChildren) > 0 {
-		e.With(
-			Elem(html.Div, Class("media-right"), m.rightChildren),
-		)
-	}
-
-	return e.Render(w)
+	return m.Element.Render(w)
 }
 
 // MediaLeft marks children as belonging to the left part of a media element.
+//
+// http://willoma.github.io/bulma-gomponents/media-object.html
 func MediaLeft(children ...any) mediaLeft {
 	return mediaLeft(children)
 }
@@ -95,6 +104,8 @@ func MediaLeft(children ...any) mediaLeft {
 type mediaLeft []any
 
 // MediaRight marks children as belonging to the right part of a media element.
+//
+// http://willoma.github.io/bulma-gomponents/media-object.html
 func MediaRight(children ...any) mediaRight {
 	return mediaRight(children)
 }

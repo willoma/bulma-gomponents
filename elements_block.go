@@ -3,6 +3,8 @@ package bulma
 import "github.com/maragudk/gomponents/html"
 
 // Block creates a block element.
+//
+// https://willoma.github.io/bulma-gomponents/block.html
 func Block(children ...any) Element {
 	return Elem(html.Div, Class("block"), children)
 }

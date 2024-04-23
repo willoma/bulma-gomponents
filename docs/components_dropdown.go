@@ -30,9 +30,6 @@ var dropdown = c.NewPage(
 			el.Code("b.OnContent(...)"),
 			[]any{"Force childen to be applied to the ", el.Code(`<div class="dropdown-content">`), " element"},
 
-			el.Code("b.DropdownTrigger(...)"),
-			"Mark children as being part of the trigger",
-
 			el.Code("b.DropdownButton(...)"),
 			"Make this button (part of) the trigger",
 
@@ -62,6 +59,9 @@ var dropdown = c.NewPage(
 
 			el.Code("b.Up"),
 			"Make the dropdown open to the top",
+
+			el.Code("string"),
+			[]any{"Create a dropdown button with this label"},
 		),
 		el.P("The following constructors allow providing content to the dropdown menu:"),
 		b.DList(
@@ -81,11 +81,10 @@ var dropdown = c.NewPage(
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/dropdown/",
 
-	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the ", el.Code(`b.DropdownAHref`), " helper.")),
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
-	b.DropdownTrigger(
+	b.OnTrigger(
 		b.Button(
 			html.Aria("haspopup", "true"),
 			html.Aria("controls", "dropdown-menu"),
@@ -104,7 +103,7 @@ var dropdown = c.NewPage(
 )`,
 		b.Dropdown(
 			b.Clickable,
-			b.DropdownTrigger(
+			b.OnTrigger(
 				b.Button(
 					html.Aria("haspopup", "true"),
 					html.Aria("controls", "dropdown-menu"),
@@ -163,7 +162,7 @@ var dropdown = c.NewPage(
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
-	b.DropdownButton("Click me"),
+	"Click me",
 	b.DropdownAHref("#", "Overview"),
 	b.DropdownAHref("#", "Modifiers"),
 	b.DropdownAHref("#", "Grid"),
@@ -176,7 +175,7 @@ var dropdown = c.NewPage(
 )`,
 		b.Dropdown(
 			b.Clickable,
-			b.DropdownButton("Click me"),
+			"Click me",
 			b.DropdownAHref("#", "Overview"),
 			b.DropdownAHref("#", "Modifiers"),
 			b.DropdownAHref("#", "Grid"),
@@ -191,18 +190,19 @@ var dropdown = c.NewPage(
 	c.Example(
 		`b.Dropdown(
 	b.Hoverable,
-	b.DropdownButton("Hover me"),
+	"Hover me",
 	el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
 )`,
 		b.Dropdown(
 			b.Hoverable,
-			b.DropdownButton("Hover me"),
+			"Hover me",
 			el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
 		),
 	),
 ).Subsection(
 	"Right aligned",
 	"https://bulma.io/documentation/components/dropdown/#right-aligned",
+
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
@@ -232,18 +232,18 @@ var dropdown = c.NewPage(
 ).Subsection(
 	"Dropup",
 	"https://bulma.io/documentation/components/dropdown/#dropup",
-	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the ", el.Code("b.Dropup"), ", ", el.Code("easy.ClickableDropup"), " and ", el.Code("easy.HoverableDropup"), " variants:")),
+
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
 	b.Up,
-	el.P("You can use a ", el.Code("*Dropup"), " variant to have a dropdown menu that appears above the dropdown button."),
+	el.P("You can use the ", el.Code("b.Up"), " modifier to have a dropdown menu that appears above the dropdown button."),
 )`,
 		b.Dropdown(
 			b.Clickable,
 			b.Up,
 			b.DropdownButton("Dropup button"),
-			el.P("You can use a ", el.Code("*Dropup"), " variant to have a dropdown menu that appears above the dropdown button."),
+			el.P("You can use the ", el.Code("b.Up"), " modifier to have a dropdown menu that appears above the dropdown button."),
 		),
 	),
 )

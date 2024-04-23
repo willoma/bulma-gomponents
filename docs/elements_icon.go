@@ -229,12 +229,12 @@ var icon = c.NewPage(
 		),
 		b.DList(
 			el.Code("fa.OnFA(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<i>"), " element"},
+			[]any{"Force childen to be applied to the Font Awesome ", el.Code("<i>"), " element"},
 
-			el.Code("fa.OnSpan(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<span>"), " element"},
+			el.Code("fa.OnIcon(...)"),
+			[]any{"Force childen to be applied to the icon span"},
 		),
-		el.P("Other children are added to the ", el.Code("<span>"), " element."),
+		el.P("Other children are added to the icon span."),
 		el.P(
 			"The ", el.Code("fa.FA"), " constructor creates a ", el.Em("Font Awesome"), " icon. It accepts the ", el.Em("Font Awesome"), "-specific values described below.",
 		),

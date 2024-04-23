@@ -20,6 +20,9 @@ var modal = c.NewPage(
 			el.Code("b.OnModal(...)"),
 			[]any{"Force childen to be applied to the ", el.Code(`<div class="modal">`), " element"},
 
+			el.Code("b.OnContent(...)"),
+			[]any{"Force childen to be applied to the content"},
+
 			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
 			"Apply the attribute to the modal",
 

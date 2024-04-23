@@ -8,6 +8,8 @@ import (
 )
 
 // Menu creates a menu.
+//
+// https://willoma.github.io/bulma-gomponents/menu.html
 func Menu(children ...any) Element {
 	m := &menu{Element: Elem(html.Aside, Class("menu"))}
 	m.With(children...)
@@ -22,16 +24,15 @@ type menu struct {
 func (m *menu) flushCurrentMenuList() {
 	if m.currentMenuList != nil {
 		m.Element.With(m.currentMenuList)
+		m.currentMenuList = nil
 	}
-	m.currentMenuList = nil
 }
 
 func (m *menu) addToMenuList(child any) {
 	if m.currentMenuList == nil {
-		m.currentMenuList = MenuList(child)
-	} else {
-		m.currentMenuList.With(child)
+		m.currentMenuList = MenuList()
 	}
+	m.currentMenuList.With(child)
 }
 
 func (m *menu) With(children ...any) Element {
@@ -48,7 +49,7 @@ func (m *menu) With(children ...any) Element {
 		case *menuEntry:
 			m.addToMenuList(c)
 		case gomponents.Node:
-			if IsAttribute(c) {
+			if isAttribute(c) {
 				m.Element.With(c)
 			} else {
 				m.addToMenuList(c)
@@ -71,6 +72,8 @@ func (m *menu) Render(w io.Writer) error {
 }
 
 // MenuLabel creates a menu label.
+//
+// https://willoma.github.io/bulma-gomponents/menu.html
 func MenuLabel(children ...any) Element {
 	m := &menuLabel{Elem(html.P, Class("menu-label"))}
 	m.With(children...)
@@ -82,6 +85,8 @@ type menuLabel struct {
 }
 
 // MenuList creates a menu list.
+//
+// https://willoma.github.io/bulma-gomponents/menu.html
 func MenuList(children ...any) Element {
 	m := &menuList{Elem(html.Ul, Class("menu-list"))}
 	m.With(children...)
@@ -93,6 +98,8 @@ type menuList struct {
 }
 
 // MenuEntry creates an entry for a menu list.
+//
+// https://willoma.github.io/bulma-gomponents/menu.html
 func MenuEntry(children ...any) Element {
 	m := &menuEntry{Element: Elem(html.Li, Class("menu-list"))}
 	m.With(children...)
@@ -106,10 +113,9 @@ type menuEntry struct {
 
 func (m *menuEntry) addToSublist(child any) {
 	if m.subList == nil {
-		m.subList = MenuSublist(child)
-	} else {
-		m.subList.With(child)
+		m.subList = MenuSublist()
 	}
+	m.subList.With(child)
 }
 
 func (m *menuEntry) With(children ...any) Element {
@@ -139,6 +145,8 @@ func (m *menuEntry) Render(w io.Writer) error {
 }
 
 // MenuAHref creates an entry for a menu list, with a link wrapped inside it.
+//
+// https://willoma.github.io/bulma-gomponents/menu.html
 func MenuAHref(href string, children ...any) Element {
 	a := AHref(href)
 	m := &menuAhref{Element: MenuEntry(a), a: a}
@@ -167,7 +175,7 @@ func (m *menuAhref) With(children ...any) Element {
 		case Classer, ExternalClassesAndStyles, MultiClass, Styles:
 			m.Element.With(c)
 		case gomponents.Node:
-			if IsAttribute(c) {
+			if isAttribute(c) {
 				m.Element.With(c)
 			} else {
 				m.a.With(c)
@@ -183,6 +191,8 @@ func (m *menuAhref) With(children ...any) Element {
 }
 
 // MenuSublist creates a menu sublist.
+//
+// https://willoma.github.io/bulma-gomponents/menu.html
 func MenuSublist(children ...any) Element {
 	m := &menuSublist{Elem(html.Ul)}
 	m.With(children...)

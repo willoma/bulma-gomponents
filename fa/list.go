@@ -1,8 +1,6 @@
 package fa
 
 import (
-	"io"
-
 	b "github.com/willoma/bulma-gomponents"
 	"github.com/willoma/bulma-gomponents/el"
 )
@@ -26,40 +24,35 @@ func OList(children ...any) b.Element {
 //   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added to the li
 func Li(style Style, name string, children ...any) b.Element {
-	return (&li{style: style, name: name}).With(children...)
+	fa := FA(style, name)
+	span := el.Span(b.Class("fa-li"), fa)
+	l := &li{
+		Element: el.Li(span),
+		fa:      fa,
+		span:    span,
+	}
+	l.With(children...)
+	return l
 }
 
 type li struct {
-	style        Style
-	name         string
-	spanChildren []any
-	faChildren   []any
-	liChildren   []any
+	b.Element
+	fa   b.Element
+	span b.Element
 }
 
 func (l *li) With(children ...any) b.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class, rotateOrFlip, Rotate, Animation:
-			l.faChildren = append(l.faChildren, c)
+			l.fa.With(c)
 		case b.Color:
-			l.spanChildren = append(l.spanChildren, c.Text())
+			l.span.With(c.Text())
 		case []any:
 			l.With(c...)
 		default:
-			l.liChildren = append(l.liChildren, c)
+			l.Element.With(c)
 		}
 	}
 	return l
-}
-
-func (l *li) Render(w io.Writer) error {
-	return el.Li(
-		el.Span(
-			b.Class("fa-li"),
-			l.spanChildren,
-			FA(l.style, l.name, l.faChildren...),
-		),
-		l.liChildren,
-	).Render(w)
 }

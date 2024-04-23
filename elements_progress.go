@@ -8,23 +8,7 @@ import (
 
 // Progress creates a progress bar.
 //
-// The following modifiers change the progress bar color:
-//   - White
-//   - Black
-//   - Light
-//   - Dark
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the progress bar size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/progress.html
 func Progress(value, max int, children ...any) Element {
 	return Elem(
 		html.Progress,
@@ -38,23 +22,7 @@ func Progress(value, max int, children ...any) Element {
 // ProgressIndeterminate creates an animated progress bar with indeterminate
 // value.
 //
-// The following modifiers change the progress bar color:
-//   - White
-//   - Black
-//   - Light
-//   - Dark
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the progress bar size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/progress.html
 func ProgressIndeterminate(children ...any) Element {
 	return Elem(
 		html.Progress,
