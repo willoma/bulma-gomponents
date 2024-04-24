@@ -16,10 +16,6 @@ type Classeser interface {
 	Classes() []Class
 }
 
-type ExternalClassesAndStyles interface {
-	ClassesAndStyles() ([]Class, Styles)
-}
-
 type Styles map[string]string
 
 // Style applies styles to the element.

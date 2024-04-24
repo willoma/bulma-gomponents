@@ -59,7 +59,7 @@ func (f *file) With(children ...any) Element {
 			f.Element.With(c...)
 		case onInput:
 			f.input.With(c...)
-		case Class, Classer, Classeser, ExternalClassesAndStyles, Styles:
+		case Class, Classer, Classeser, Styles:
 			f.Element.With(c)
 		case string:
 			f.cta.With(Elem(html.Span, Class("file-label"), c))

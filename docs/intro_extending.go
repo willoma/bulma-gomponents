@@ -29,7 +29,6 @@ var extending = c.NewPage(
 			el.Li("Create a simple constant or variable of type ", el.Code("b.ResponsiveClass"), " if this class accepts the responsive suffixes"),
 			el.Li("Implement the ", el.Code("b.Classer"), " interface to return a single class"),
 			el.Li("Implement the ", el.Code("b.Classeser"), " interface to return multiple classes"),
-			el.Li("Implement the ", el.Code("b.ExternalClassesAndStyles"), " interface to return multiple classes and/or styles"),
 			el.Li("Execute the ", el.Code("b.Style"), " function to generate additional styles"),
 		),
 	),
@@ -86,7 +85,7 @@ type myWeirdElement struct {
 func (m *myWeirdElement) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case b.Class, b.Classer, b.Classeser, b.ExternalClassesAndStyles, b.Styles:
+		case b.Class, b.Classer, b.Classeser, b.Styles:
 			// Apply classes and styles to content
 			m.Element.With(c)
 		case weirdOption:

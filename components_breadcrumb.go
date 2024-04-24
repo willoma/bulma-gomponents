@@ -36,7 +36,7 @@ func (b *breadcrumb) With(children ...any) Element {
 			b.ul.With(c...)
 		case onNav:
 			b.Element.With(c...)
-		case Class, Classer, Classeser, ExternalClassesAndStyles, Styles:
+		case Class, Classer, Classeser, Styles:
 			b.Element.With(c)
 		case gomponents.Node:
 			if isAttribute(c) {

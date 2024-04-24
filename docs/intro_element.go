@@ -198,9 +198,6 @@ el.Div().
 			el.Code("b.Classeser"),
 			[]any{"Apply the classes returned by the child's ", el.Code("Classes()"), " function"},
 
-			el.Code("b.ExternalClassesAndStyles"),
-			[]any{"Apply the classes and styles returned by the ", el.Code("ClassesAndStyles()"), " functions"},
-
 			[]any{"Result of ", el.Code("b.Style")},
 			"Apply the styles",
 

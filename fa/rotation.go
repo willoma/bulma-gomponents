@@ -24,6 +24,9 @@ const (
 
 type Rotate float64
 
-func (r Rotate) ClassesAndStyles() ([]b.Class, b.Styles) {
-	return []b.Class{"fa-rotate-by"}, b.Style("--fa-rotate-angle", strconv.FormatFloat(float64(r), 'f', -1, 64)+"deg")
+func (r Rotate) ModifyParent(parent b.Element) {
+	parent.With(b.Class("fa-rotate-by"))
+	parent.With(b.Style(
+		"--fa-rotate-angle", strconv.FormatFloat(float64(r), 'f', -1, 64)+"deg",
+	))
 }

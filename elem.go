@@ -15,9 +15,12 @@ type Element interface {
 }
 
 type ParentModifier interface {
-	Element
-
 	ModifyParent(parent Element)
+}
+
+type ParentModifierAndElement interface {
+	Element
+	ParentModifier
 }
 
 type elemOption int
@@ -70,8 +73,6 @@ func isAttribute(node any) bool {
 //   - Class: add a class to the element
 //   - Classer: add a class to the element
 //   - Classeser: add multiple classes to the element
-//   - ExternalClassesAndStyles: add one or multiple classes and CSS styles to
-//     the element
 //   - Styles: add one or multiple CSS styles to the element
 //   - ID: define the ID attribute for the element
 //   - string: add a string to the element (using gomponents.Text)
@@ -103,14 +104,6 @@ func (e *element) With(children ...any) Element {
 			for _, cl := range c.Classes() {
 				e.classes[string(cl)] = true
 			}
-		case ExternalClassesAndStyles:
-			cls, st := c.ClassesAndStyles()
-			for _, cl := range cls {
-				e.classes[string(cl)] = true
-			}
-			for prop, val := range st {
-				e.stylesCollection[prop] = val
-			}
 		case Styles:
 			for prop, val := range c {
 				e.stylesCollection[prop] = val
@@ -122,9 +115,11 @@ func (e *element) With(children ...any) Element {
 		case IconElem:
 			e.hasIcons = true
 			e.elements = append(e.elements, c)
-		case ParentModifier:
+		case ParentModifierAndElement:
 			c.ModifyParent(e)
 			e.elements = append(e.elements, c)
+		case ParentModifier:
+			c.ModifyParent(e)
 		case Element:
 			e.elements = append(e.elements, c)
 		case gomponents.Node:

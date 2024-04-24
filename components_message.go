@@ -53,7 +53,7 @@ func (m *message) With(children ...any) Element {
 			m.addToHeader(Elem(html.P, string(c)))
 		case *delete:
 			m.addToHeader(c)
-		case Class, Classer, Classeser, ExternalClassesAndStyles, Styles:
+		case Class, Classer, Classeser, Styles:
 			m.Element.With(c)
 		case gomponents.Node:
 			if isAttribute(c) {
