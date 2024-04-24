@@ -8,7 +8,7 @@ import (
 )
 
 type Animation interface {
-	applyTo(b.Element)
+	b.ParentModifier
 
 	setDelay(time.Duration)
 	setDirection(string)
@@ -25,7 +25,7 @@ type animationBase struct {
 	timing         string
 }
 
-func (a *animationBase) applyTo(e b.Element) {
+func (a *animationBase) ModifyParent(e b.Element) {
 	if a.delay != 0 {
 		e.With(b.Style(
 			"--fa-animation-delay",

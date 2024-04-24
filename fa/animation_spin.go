@@ -21,7 +21,7 @@ func Spin(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *spin) applyTo(e b.Element) {
+func (a *spin) ModifyParent(e b.Element) {
 	if a.pulse {
 		e.With(Class("fa-spin-pulse"))
 	} else {
@@ -32,7 +32,7 @@ func (a *spin) applyTo(e b.Element) {
 		e.With(Class("fa-spin-reverse"))
 	}
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }
 
 func Pulse(a Animation) {

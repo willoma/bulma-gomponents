@@ -23,7 +23,7 @@ func BeatFade(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *beatFade) applyTo(e b.Element) {
+func (a *beatFade) ModifyParent(e b.Element) {
 	e.With(Class("fa-beat-fade"))
 
 	if a.maxScale != 0 {
@@ -40,5 +40,5 @@ func (a *beatFade) applyTo(e b.Element) {
 		))
 	}
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }

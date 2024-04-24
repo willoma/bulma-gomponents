@@ -18,8 +18,8 @@ func Shake(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *shake) applyTo(e b.Element) {
+func (a *shake) ModifyParent(e b.Element) {
 	e.With(Class("fa-shake"))
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }

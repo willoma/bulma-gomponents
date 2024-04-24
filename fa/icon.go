@@ -61,8 +61,6 @@ func (f *fa) With(children ...any) b.Element {
 		switch c := c.(type) {
 		case Class:
 			f.Element.With(c)
-		case Animation:
-			c.applyTo(f)
 		case rotateOrFlip, Rotate:
 			f.rotateOrFlips = append(f.rotateOrFlips, c)
 		case b.Color:
@@ -123,9 +121,7 @@ func (i *icon) With(children ...any) b.Element {
 			i.fa.With(c...)
 		case onIcon:
 			i.Element.With(c...)
-		case Animation:
-			c.applyTo(i.fa)
-		case Class, rotateOrFlip, Rotate:
+		case Class, rotateOrFlip, Rotate, Animation:
 			i.fa.With(c)
 		case b.Color:
 			i.Element.With(c.Text())

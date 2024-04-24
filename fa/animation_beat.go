@@ -22,7 +22,7 @@ func Beat(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *beat) applyTo(e b.Element) {
+func (a *beat) ModifyParent(e b.Element) {
 	e.With(Class("fa-beat"))
 
 	if a.maxScale != 0 {
@@ -32,7 +32,7 @@ func (a *beat) applyTo(e b.Element) {
 		))
 	}
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }
 
 func MaxScale(scale float64) func(Animation) {

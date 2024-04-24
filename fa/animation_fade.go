@@ -22,7 +22,7 @@ func Fade(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *fade) applyTo(e b.Element) {
+func (a *fade) ModifyParent(e b.Element) {
 	e.With(Class("fa-fade"))
 
 	if a.minOpacity != 0 {
@@ -32,7 +32,7 @@ func (a *fade) applyTo(e b.Element) {
 		))
 	}
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }
 
 func MinOpacity(opacity float64) func(Animation) {

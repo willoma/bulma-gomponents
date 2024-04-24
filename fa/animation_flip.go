@@ -25,7 +25,7 @@ func Flip(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *flip) applyTo(e b.Element) {
+func (a *flip) ModifyParent(e b.Element) {
 	e.With(Class("fa-flip"))
 
 	if a.x != 0 {
@@ -56,7 +56,7 @@ func (a *flip) applyTo(e b.Element) {
 		))
 	}
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }
 
 func X(x float64) func(Animation) {

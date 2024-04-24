@@ -29,7 +29,7 @@ func Bounce(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *bounce) applyTo(e b.Element) {
+func (a *bounce) ModifyParent(e b.Element) {
 	e.With(Class("fa-bounce"))
 
 	if a.rebound != 0 {
@@ -88,7 +88,7 @@ func (a *bounce) applyTo(e b.Element) {
 		))
 	}
 
-	a.animationBase.applyTo(e)
+	a.animationBase.ModifyParent(e)
 }
 
 func Rebound(rebound float64) func(Animation) {
