@@ -25,9 +25,10 @@ var extending = c.NewPage(
 	b.Content(
 		el.P("If you need to provide new classes and/or styles to ", el.Em("Bulma-Gomponents"), " functions, the following possibilities arise:"),
 		el.Ul(
-			el.Li("Create a simple constant or variable with type ", el.Code("b.Class"), " - for instance: ", el.Code(`const myClass = b.Class("my-class")`)),
-			el.Li("Create a collection of classes, of which some can be made responsive, with type ", el.Code("b.MultiClass")),
-			el.Li("Implement the ", el.Code("b.ExternalClass"), " interface to return a single class"),
+			el.Li("Create a simple constant or variable of type ", el.Code("b.Class"), " - for instance: ", el.Code(`const myClass = b.Class("my-class")`)),
+			el.Li("Create a simple constant or variable of type ", el.Code("b.ResponsiveClass"), " if this class accepts the responsive suffixes"),
+			el.Li("Implement the ", el.Code("b.Classer"), " interface to return a single class"),
+			el.Li("Implement the ", el.Code("b.Classeser"), " interface to return multiple classes"),
 			el.Li("Implement the ", el.Code("b.ExternalClassesAndStyles"), " interface to return multiple classes and/or styles"),
 			el.Li("Execute the ", el.Code("b.Style"), " function to generate additional styles"),
 		),
@@ -85,7 +86,7 @@ type myWeirdElement struct {
 func (m *myWeirdElement) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case b.Class, b.Classer, b.Classeser, b.ExternalClassesAndStyles, b.MultiClass, b.Styles:
+		case b.Class, b.Classer, b.Classeser, b.ExternalClassesAndStyles, b.Styles:
 			// Apply classes and styles to content
 			m.Element.With(c)
 		case weirdOption:

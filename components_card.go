@@ -74,7 +74,7 @@ func (c *card) With(children ...any) Element {
 			c.addToHeader(ch)
 		case cardFooter:
 			c.addToFooter(ch...)
-		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
+		case Class, Classer, Classeser, ExternalClassesAndStyles, Styles:
 			c.Element.With(ch)
 		case *cardImage, *cardImageImg:
 			c.flushCurrentContent()

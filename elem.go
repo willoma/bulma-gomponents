@@ -72,7 +72,6 @@ func isAttribute(node any) bool {
 //   - Classeser: add multiple classes to the element
 //   - ExternalClassesAndStyles: add one or multiple classes and CSS styles to
 //     the element
-//   - MultiClass: add multiple classes to the element
 //   - Styles: add one or multiple CSS styles to the element
 //   - ID: define the ID attribute for the element
 //   - string: add a string to the element (using gomponents.Text)
@@ -111,13 +110,6 @@ func (e *element) With(children ...any) Element {
 			}
 			for prop, val := range st {
 				e.stylesCollection[prop] = val
-			}
-		case MultiClass:
-			for _, cl := range c.Responsive {
-				e.classes[cl] = true
-			}
-			for _, cl := range c.Static {
-				e.classes[cl] = true
 			}
 		case Styles:
 			for prop, val := range c {

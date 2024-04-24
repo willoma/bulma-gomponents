@@ -92,7 +92,7 @@ func UList(children ...any) Element {
 	e := Elem(html.Ul)
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
+		case Class, Classer, Classeser, ExternalClassesAndStyles, Styles:
 			e.With(c)
 		case gomponents.Node:
 			if isAttribute(c) {

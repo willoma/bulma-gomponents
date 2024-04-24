@@ -201,9 +201,6 @@ el.Div().
 			el.Code("b.ExternalClassesAndStyles"),
 			[]any{"Apply the classes and styles returned by the ", el.Code("ClassesAndStyles()"), " functions"},
 
-			el.Code("b.MultiClass"),
-			"Apply the classes",
-
 			[]any{"Result of ", el.Code("b.Style")},
 			"Apply the styles",
 

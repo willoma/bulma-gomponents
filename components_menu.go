@@ -172,7 +172,7 @@ func (m *menuAhref) With(children ...any) Element {
 			} else {
 				m.Element.With(c)
 			}
-		case Classer, ExternalClassesAndStyles, MultiClass, Styles:
+		case Classer, ExternalClassesAndStyles, Styles:
 			m.Element.With(c)
 		case gomponents.Node:
 			if isAttribute(c) {

@@ -68,11 +68,17 @@ func (f *fixedGrid) With(children ...any) Element {
 			f.Element.With(c...)
 		case onGrid:
 			f.grid.With(c...)
+		case ResponsiveClass:
+			switch c {
+			case Cols1, Cols2, Cols3, Cols4, Cols5, Cols6,
+				Cols7, Cols8, Cols9, Cols10, Cols11, Cols12:
+				f.Element.With(c)
+			default:
+				f.grid.With(c)
+			}
 		case Class:
 			switch c {
-			case AutoCount,
-				Cols1, Cols2, Cols3, Cols4, Cols5, Cols6,
-				Cols7, Cols8, Cols9, Cols10, Cols11, Cols12:
+			case AutoCount:
 				f.Element.With(c)
 			default:
 				f.grid.With(c)

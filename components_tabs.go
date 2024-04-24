@@ -35,7 +35,7 @@ func (t *tabs) With(children ...any) Element {
 			t.Element.With(c...)
 		case onUl:
 			t.list.With(c...)
-		case Class, Classer, Classeser, ExternalClassesAndStyles, MultiClass, Styles:
+		case Class, Classer, Classeser, ExternalClassesAndStyles, Styles:
 			t.Element.With(c)
 		case *container:
 			t.intermediateContainer = c
