@@ -14,3 +14,7 @@ func Delete(children ...any) Element {
 type delete struct {
 	Element
 }
+
+func (d *delete) Clone() Element {
+	return &delete{d.Element.Clone()}
+}

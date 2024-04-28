@@ -40,6 +40,10 @@ func (t *textarea) With(children ...any) Element {
 	return t
 }
 
+func (t *textarea) Clone() Element {
+	return &textarea{t.Element.Clone()}
+}
+
 // Rows changes a textarea height.
 //
 // https://willoma.github.io/bulma-gomponents/form/textarea.html

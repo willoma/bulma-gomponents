@@ -60,13 +60,17 @@ func (m *myElement) With(children ...any) Element {
 	}
 	return m
 }
+
+func (m *myElement) Clone() Element {
+	return &myElement{m.Element.Clone()}
+}
 `),
 		c.ExamplePre(`type weirdOption string
 
 func MyWeirdElement(children ...any) b.Element {
 	other := b.Elem(html.Span)
 	m := &myWeirdElement{
-		Element: b.Elem(html.Div, other),
+		container: b.Elem(html.Div, other),
 		other: other,
 	}
 	m.With(children...)
@@ -74,7 +78,7 @@ func MyWeirdElement(children ...any) b.Element {
 }
 
 type myWeirdElement struct {
-	b.Element
+	container b.Element
 	other b.Element
 
 	weirdOption weirdOption
@@ -87,16 +91,16 @@ func (m *myWeirdElement) With(children ...any) Element {
 		switch c := c.(type) {
 		case b.Class, b.Classer, b.Classeser, b.Styles:
 			// Apply classes and styles to content
-			m.Element.With(c)
+			m.container.With(c)
 		case weirdOption:
 			b.weirdOption = weirdOption
 		case b.Element:
 			// Add element to content
-			m.Element.With(c)
+			m.container.With(c)
 		case gomponents.Node:
 			if b.IsAttribute(c) {
 				// Apply gomponents attribute nodes to content
-				m.Element.With(c)
+				m.container.With(c)
 			} else {
 				// Apply other gomponents nodes (ie. elements) to other content
 				m.other.With(c)
@@ -115,11 +119,20 @@ func (m *myWeirdElement) With(children ...any) Element {
 func (m *myWeirdElement) Render(w io.Writer) error {
 	m.rendered.Do(func() {
 		if m.weirdOption != "" {
-			doSomethingWeird(m.Element, m.other)
+			doSomethingWeird(m.container, m.other)
 		}
 	})
 
-	return m.Element.Render(w)
+	return m.container.Render(w)
+}
+
+func (m *myWeirdElement) Clone() Element {
+	return &myWeirdElement{
+		container: m.container.Clone(),
+		other: m.other.Clone(),
+
+		weirdOption: m.weirdOption,
+	}
 }
 `),
 	),

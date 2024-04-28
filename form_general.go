@@ -24,6 +24,10 @@ type label struct {
 	Element
 }
 
+func (l *label) Clone() Element {
+	return &label{l.Element.Clone()}
+}
+
 // Control creates a control element, to be used as a child of a Field.
 //
 // https://willoma.github.io/bulma-gomponents/form.html
@@ -80,4 +84,12 @@ func (f *fieldHorizontal) With(children ...any) Element {
 	}
 
 	return f
+}
+
+func (f *fieldHorizontal) Clone() Element {
+	return &fieldHorizontal{
+		Element: f.Element.Clone(),
+		label:   f.label.Clone(),
+		body:    f.body.Clone(),
+	}
 }

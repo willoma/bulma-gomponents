@@ -150,6 +150,10 @@ func (e *element) With(children ...any) Element {
 }
 
 func (e *element) Clone() Element {
+	if e == nil {
+		return nil
+	}
+
 	classes := make(map[string]bool, len(e.classes))
 	for class, ok := range e.classes {
 		classes[class] = ok
@@ -191,9 +195,6 @@ func (e *element) Clone() Element {
 }
 
 func (e *element) getChildren() []gomponents.Node {
-	if e == nil {
-		return nil
-	}
 	children := []gomponents.Node{}
 
 	classes := ""

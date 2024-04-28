@@ -12,13 +12,13 @@ import (
 //
 // http://willoma.github.io/bulma-gomponents/hero.html
 func Hero(children ...any) Element {
-	h := &hero{Element: Elem(html.Section, Class("hero"))}
+	h := &hero{hero: Elem(html.Section, Class("hero"))}
 	h.With(children...)
 	return h
 }
 
 type hero struct {
-	Element
+	hero Element
 	head Element
 	body Element
 	foot Element
@@ -51,7 +51,7 @@ func (h *hero) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onSection:
-			h.Element.With(c...)
+			h.hero.With(c...)
 		case onBody:
 			h.addToBody(c...)
 		case heroHead:
@@ -62,14 +62,14 @@ func (h *hero) With(children ...any) Element {
 			h.addToBody(c)
 		case gomponents.Node:
 			if isAttribute(c) {
-				h.Element.With(c)
+				h.hero.With(c)
 			} else {
 				h.addToBody(c)
 			}
 		case []any:
 			h.With(c...)
 		default:
-			h.Element.With(c)
+			h.hero.With(c)
 		}
 	}
 
@@ -79,19 +79,28 @@ func (h *hero) With(children ...any) Element {
 func (h *hero) Render(w io.Writer) error {
 	h.rendered.Do(func() {
 		if h.head != nil {
-			h.Element.With(h.head)
+			h.hero.With(h.head)
 		}
 
 		if h.body != nil {
-			h.Element.With(h.body)
+			h.hero.With(h.body)
 		}
 
 		if h.foot != nil {
-			h.Element.With(h.foot)
+			h.hero.With(h.foot)
 		}
 	})
 
-	return h.Element.Render(w)
+	return h.hero.Render(w)
+}
+
+func (h *hero) Clone() Element {
+	return &hero{
+		hero: h.hero.Clone(),
+		head: h.head.Clone(),
+		body: h.body.Clone(),
+		foot: h.foot.Clone(),
+	}
 }
 
 // HeroHead marks children as belonging to the head part of a hero element.

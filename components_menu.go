@@ -11,19 +11,19 @@ import (
 //
 // https://willoma.github.io/bulma-gomponents/menu.html
 func Menu(children ...any) Element {
-	m := &menu{Element: Elem(html.Aside, Class("menu"))}
+	m := &menu{menu: Elem(html.Aside, Class("menu"))}
 	m.With(children...)
 	return m
 }
 
 type menu struct {
-	Element
+	menu            Element
 	currentMenuList Element
 }
 
 func (m *menu) flushCurrentMenuList() {
 	if m.currentMenuList != nil {
-		m.Element.With(m.currentMenuList)
+		m.menu.With(m.currentMenuList)
 		m.currentMenuList = nil
 	}
 }
@@ -39,18 +39,18 @@ func (m *menu) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onMenu:
-			m.Element.With(c...)
+			m.menu.With(c...)
 		case string:
 			m.flushCurrentMenuList()
-			m.Element.With(MenuLabel(c))
+			m.menu.With(MenuLabel(c))
 		case *menuLabel:
 			m.flushCurrentMenuList()
-			m.Element.With(c)
+			m.menu.With(c)
 		case *menuEntry:
 			m.addToMenuList(c)
 		case gomponents.Node:
 			if isAttribute(c) {
-				m.Element.With(c)
+				m.menu.With(c)
 			} else {
 				m.addToMenuList(c)
 			}
@@ -59,7 +59,7 @@ func (m *menu) With(children ...any) Element {
 		case []any:
 			m.With(c...)
 		default:
-			m.Element.With(c)
+			m.menu.With(c)
 		}
 	}
 
@@ -68,7 +68,14 @@ func (m *menu) With(children ...any) Element {
 
 func (m *menu) Render(w io.Writer) error {
 	m.flushCurrentMenuList()
-	return m.Element.Render(w)
+	return m.menu.Render(w)
+}
+
+func (m *menu) Clone() Element {
+	return &menu{
+		menu:            m.menu.Clone(),
+		currentMenuList: m.currentMenuList.Clone(),
+	}
 }
 
 // MenuLabel creates a menu label.
@@ -84,6 +91,10 @@ type menuLabel struct {
 	Element
 }
 
+func (m *menuLabel) Clone() Element {
+	return &menuLabel{m.Element.Clone()}
+}
+
 // MenuList creates a menu list.
 //
 // https://willoma.github.io/bulma-gomponents/menu.html
@@ -97,17 +108,21 @@ type menuList struct {
 	Element
 }
 
+func (m *menuList) Clone() Element {
+	return &menuList{m.Element.Clone()}
+}
+
 // MenuEntry creates an entry for a menu list.
 //
 // https://willoma.github.io/bulma-gomponents/menu.html
 func MenuEntry(children ...any) Element {
-	m := &menuEntry{Element: Elem(html.Li, Class("menu-list"))}
+	m := &menuEntry{li: Elem(html.Li, Class("menu-list"))}
 	m.With(children...)
 	return m
 }
 
 type menuEntry struct {
-	Element
+	li      Element
 	subList Element
 }
 
@@ -122,15 +137,15 @@ func (m *menuEntry) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onLi:
-			m.Element.With(c)
+			m.li.With(c)
 		case *menuEntry:
 			m.addToSublist(c)
 		case *menuSublist:
 			m.subList = c
 		case []any:
-			m.Element.With(c...)
+			m.li.With(c...)
 		default:
-			m.Element.With(c)
+			m.li.With(c)
 		}
 	}
 	return m
@@ -138,10 +153,17 @@ func (m *menuEntry) With(children ...any) Element {
 
 func (m *menuEntry) Render(w io.Writer) error {
 	if m.subList != nil {
-		m.Element.With(m.subList)
+		m.li.With(m.subList)
 		m.subList = nil
 	}
-	return m.Element.Render(w)
+	return m.li.Render(w)
+}
+
+func (m *menuEntry) Clone() Element {
+	return &menuEntry{
+		li:      m.li.Clone(),
+		subList: m.subList.Clone(),
+	}
 }
 
 // MenuAHref creates an entry for a menu list, with a link wrapped inside it.
@@ -190,6 +212,13 @@ func (m *menuAhref) With(children ...any) Element {
 	return m
 }
 
+func (m *menuAhref) Clone() Element {
+	return &menuAhref{
+		Element: m.Element.Clone(),
+		a:       m.a.Clone(),
+	}
+}
+
 // MenuSublist creates a menu sublist.
 //
 // https://willoma.github.io/bulma-gomponents/menu.html
@@ -201,4 +230,8 @@ func MenuSublist(children ...any) Element {
 
 type menuSublist struct {
 	Element
+}
+
+func (m *menuSublist) Clone() Element {
+	return &menuSublist{m.Element.Clone()}
 }

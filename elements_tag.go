@@ -39,6 +39,10 @@ func (t *tags) With(children ...any) Element {
 	return t
 }
 
+func (t *tags) Clone() Element {
+	return &tags{t.Element.Clone()}
+}
+
 // DeleteTag creates a delete button-looking tag.
 //
 // https://willoma.github.io/bulma-gomponents/tag.html

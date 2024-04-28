@@ -43,6 +43,10 @@ func (cols *columns) With(children ...any) Element {
 	return cols
 }
 
+func (cols *columns) Clone() Element {
+	return &columns{cols.Element.Clone()}
+}
+
 // Column creates a single column.
 //
 // https://willoma.github.io/bulma-gomponents/columns.html
@@ -54,4 +58,8 @@ func Column(children ...any) Element {
 
 type column struct {
 	Element
+}
+
+func (col *column) Clone() Element {
+	return &column{col.Element.Clone()}
 }

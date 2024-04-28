@@ -47,6 +47,10 @@ func (ct *content) withNoP(children []any) Element {
 	return ct
 }
 
+func (ct *content) Clone() Element {
+	return &content{ct.Element.Clone()}
+}
+
 func NoP(children ...any) noP {
 	return noP(children)
 }

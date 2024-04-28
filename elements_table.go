@@ -39,6 +39,13 @@ func (c *tcell) With(children ...any) Element {
 	return c
 }
 
+func (c *tcell) Clone() Element {
+	return &tcell{
+		Element:        c.Element.Clone(),
+		hasChangedElem: c.hasChangedElem,
+	}
+}
+
 // HeadRow creates a table header row (tr element).
 //
 // https://willoma.github.io/bulma-gomponents/table.html
@@ -109,20 +116,28 @@ func (r *row) With(children ...any) Element {
 	return r
 }
 
+func (r *row) Clone() Element {
+	return &row{
+		Element: r.Element.Clone(),
+		section: r.section,
+		elemFn:  r.elemFn,
+	}
+}
+
 // Table creates a table element.
 //
 // https://willoma.github.io/bulma-gomponents/table.html
 func Table(children ...any) Element {
-	t := &table{Element: Elem(html.Table, Class("table"))}
+	t := &table{table: Elem(html.Table, Class("table"))}
 	t.With(children...)
 	return t
 }
 
 type table struct {
-	Element
-	head Element
-	body Element
-	foot Element
+	table Element
+	head  Element
+	body  Element
+	foot  Element
 
 	rendered sync.Once
 }
@@ -169,7 +184,7 @@ func (t *table) With(children ...any) Element {
 		case []any:
 			t.With(c...)
 		default:
-			t.Element.With(c)
+			t.table.With(c)
 		}
 	}
 
@@ -179,17 +194,26 @@ func (t *table) With(children ...any) Element {
 func (t *table) Render(w io.Writer) error {
 	t.rendered.Do(func() {
 		if t.head != nil {
-			t.Element.With(t.head)
+			t.table.With(t.head)
 		}
 		if t.body != nil {
-			t.Element.With(t.body)
+			t.table.With(t.body)
 		}
 		if t.foot != nil {
-			t.Element.With(t.foot)
+			t.table.With(t.foot)
 		}
 	})
 
-	return t.Element.Render(w)
+	return t.table.Render(w)
+}
+
+func (t *table) Clone() Element {
+	return &table{
+		table: t.table.Clone(),
+		head:  t.head.Clone(),
+		body:  t.body.Clone(),
+		foot:  t.foot.Clone(),
+	}
 }
 
 // ScrollableTable creates a table in a table-container element, making the

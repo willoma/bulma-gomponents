@@ -55,6 +55,10 @@ func (p *panelLink) With(children ...any) Element {
 	return p
 }
 
+func (p *panelLink) Clone() Element {
+	return &panelLink{p.Element.Clone()}
+}
+
 // PanelAHref creates a link which is a panel block element.
 //
 // https://willoma.github.io/bulma-gomponents/panel.html
@@ -108,4 +112,11 @@ func (p *panelCheckbox) With(children ...any) Element {
 	}
 
 	return p
+}
+
+func (p *panelCheckbox) Clone() Element {
+	return &panelCheckbox{
+		Element: p.Element.Clone(),
+		input:   p.input.Clone(),
+	}
 }

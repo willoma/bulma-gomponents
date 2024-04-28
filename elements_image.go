@@ -57,3 +57,10 @@ func (i *imageImg) With(children ...any) Element {
 
 	return i
 }
+
+func (i *imageImg) Clone() Element {
+	return &imageImg{
+		Element: i.Element.Clone(),
+		img:     i.img.Clone(),
+	}
+}

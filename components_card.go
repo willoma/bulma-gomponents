@@ -12,13 +12,13 @@ import (
 //
 // https://willoma.github.io/bulma-gomponents/card.html
 func Card(children ...any) Element {
-	c := &card{Element: Elem(html.Div, Class("card"))}
+	c := &card{card: Elem(html.Div, Class("card"))}
 	c.With(children...)
 	return c
 }
 
 type card struct {
-	Element
+	card    Element
 	header  Element
 	content []any
 	footer  Element
@@ -61,7 +61,7 @@ func (c *card) With(children ...any) Element {
 	for _, ch := range children {
 		switch ch := ch.(type) {
 		case onCard:
-			c.Element.With(ch...)
+			c.card.With(ch...)
 		case onContent:
 			c.addToCurrentContent(ch...)
 		case splitContent:
@@ -75,7 +75,7 @@ func (c *card) With(children ...any) Element {
 		case cardFooter:
 			c.addToFooter(ch...)
 		case Class, Classer, Classeser, Styles:
-			c.Element.With(ch)
+			c.card.With(ch)
 		case *cardImage, *cardImageImg:
 			c.flushCurrentContent()
 			c.content = append(c.content, ch)
@@ -83,7 +83,7 @@ func (c *card) With(children ...any) Element {
 			c.addToCurrentContent(ch)
 		case gomponents.Node:
 			if isAttribute(c) {
-				c.Element.With(ch)
+				c.card.With(ch)
 			} else {
 				c.addToCurrentContent(ch)
 			}
@@ -103,19 +103,40 @@ func (c *card) Render(w io.Writer) error {
 		c.flushCurrentContent()
 
 		if c.header != nil {
-			c.Element.With(c.header)
+			c.card.With(c.header)
 		}
 
 		if c.content != nil {
-			c.Element.With(c.content...)
+			c.card.With(c.content...)
 		}
 
 		if c.footer != nil {
-			c.Element.With(c.footer)
+			c.card.With(c.footer)
 		}
 	})
 
-	return c.Element.Render(w)
+	return c.card.Render(w)
+}
+
+func (c *card) Clone() Element {
+	content := make([]any, len(c.content))
+	for i, c := range c.content {
+		switch c := c.(type) {
+		case Element:
+			content[i] = c.Clone()
+		default:
+			content[i] = c
+		}
+	}
+
+	return &card{
+		card:    c.card.Clone(),
+		header:  c.header.Clone(),
+		content: content,
+		footer:  c.footer.Clone(),
+
+		currentContent: c.currentContent.Clone(),
+	}
 }
 
 // SplitContent instructs Card to close the current card-content element.
@@ -164,6 +185,10 @@ type cardHeaderIcon struct {
 	Element
 }
 
+func (c *cardHeaderIcon) Clone() Element {
+	return &cardHeaderIcon{c.Element.Clone()}
+}
+
 // CardHeaderTitle creates a title for a card header.
 //
 // https://willoma.github.io/bulma-gomponents/card.html
@@ -175,6 +200,10 @@ func CardHeaderTitle(children ...any) Element {
 
 type cardHeaderTitle struct {
 	Element
+}
+
+func (c *cardHeaderTitle) Clone() Element {
+	return &cardHeaderTitle{c.Element.Clone()}
 }
 
 // CardFooter marks its children as being part of a card footer.
@@ -234,6 +263,13 @@ func (ci *cardImage) With(children ...any) Element {
 	return ci
 }
 
+func (ci *cardImage) Clone() Element {
+	return &cardImage{
+		Element: ci.Element.Clone(),
+		image:   ci.image.Clone(),
+	}
+}
+
 // CardImageImg creates a card image which contains an img element with the
 // provided src.
 //
@@ -266,4 +302,11 @@ func (ci *cardImageImg) With(children ...any) Element {
 	}
 
 	return ci
+}
+
+func (ci *cardImageImg) Clone() Element {
+	return &cardImageImg{
+		Element:  ci.Element.Clone(),
+		imageImg: ci.imageImg.Clone(),
+	}
 }

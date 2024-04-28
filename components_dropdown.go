@@ -17,7 +17,7 @@ func Dropdown(children ...any) Element {
 	menu := Elem(html.Div, Class("dropdown-menu"), html.Role("menu"), content)
 
 	d := &dropdown{
-		Element: Elem(
+		dropdown: Elem(
 			html.Div, Class("dropdown"),
 			trigger,
 			menu,
@@ -31,10 +31,10 @@ func Dropdown(children ...any) Element {
 }
 
 type dropdown struct {
-	Element
-	trigger Element
-	menu    Element
-	content Element
+	dropdown Element
+	trigger  Element
+	menu     Element
+	content  Element
 
 	up        bool
 	clickable bool
@@ -46,7 +46,7 @@ func (d *dropdown) With(childran ...any) Element {
 	for _, c := range childran {
 		switch c := c.(type) {
 		case onDropdown:
-			d.Element.With(c...)
+			d.dropdown.With(c...)
 		case onTrigger:
 			for _, c2 := range c {
 				if btn, ok := c2.(*button); ok {
@@ -68,13 +68,13 @@ func (d *dropdown) With(childran ...any) Element {
 		case Class:
 			switch c {
 			case Clickable:
-				d.Element.With(OnClick(JSToggleMe))
+				d.dropdown.With(OnClick(JSToggleMe))
 				d.clickable = true
 			case Up:
 				d.up = true
-				d.Element.With(c)
+				d.dropdown.With(c)
 			default:
-				d.Element.With(c)
+				d.dropdown.With(c)
 			}
 		case string:
 			d.button = DropdownButton(c)
@@ -83,14 +83,14 @@ func (d *dropdown) With(childran ...any) Element {
 			d.content.With(DropdownItem(c))
 		case gomponents.Node:
 			if isAttribute(c) {
-				d.Element.With(c)
+				d.dropdown.With(c)
 			} else {
 				d.content.With(DropdownItem(c))
 			}
 		case []any:
 			d.With(c...)
 		default:
-			d.Element.With(c)
+			d.dropdown.With(c)
 		}
 	}
 	return d
@@ -111,7 +111,20 @@ func (d *dropdown) Render(w io.Writer) error {
 		}
 	})
 
-	return d.Element.Render(w)
+	return d.dropdown.Render(w)
+}
+
+func (d *dropdown) Clone() Element {
+	return &dropdown{
+		dropdown: d.dropdown.Clone(),
+		trigger:  d.trigger.Clone(),
+		menu:     d.menu.Clone(),
+		content:  d.content.Clone(),
+
+		up:        d.up,
+		clickable: d.clickable,
+		button:    d.button.Clone(),
+	}
 }
 
 // DropdownButton creates a button to be used as a dropdown trigger. It automatically adds a Font Awesome icon to the right if no icon is provided.
@@ -119,14 +132,14 @@ func (d *dropdown) Render(w io.Writer) error {
 // https://willoma.github.io/bulma-gomponents/dropdown.html
 func DropdownButton(children ...any) Element {
 	d := &dropdownButton{
-		Element: Button(html.Aria("haspopup", "true")),
+		button: Button(html.Aria("haspopup", "true")),
 	}
 	d.With(children...)
 	return d
 }
 
 type dropdownButton struct {
-	Element
+	button  Element
 	hasIcon bool
 	up      bool
 
@@ -138,11 +151,11 @@ func (d *dropdownButton) With(children ...any) Element {
 		switch c := c.(type) {
 		case IconElem:
 			d.hasIcon = true
-			d.Element.With(c)
+			d.button.With(c)
 		case []any:
 			d.With(c...)
 		default:
-			d.Element.With(c)
+			d.button.With(c)
 		}
 	}
 
@@ -158,7 +171,7 @@ func (d *dropdownButton) Render(w io.Writer) error {
 			} else {
 				iconName = "fa-angle-down"
 			}
-			d.Element.With(
+			d.button.With(
 				Icon(
 					Elem(html.I, Small, Class("fa-solid"), Class(iconName)),
 				),
@@ -166,7 +179,15 @@ func (d *dropdownButton) Render(w io.Writer) error {
 		}
 	})
 
-	return d.Element.Render(w)
+	return d.button.Render(w)
+}
+
+func (d *dropdownButton) Clone() Element {
+	return &dropdownButton{
+		button:  d.button.Clone(),
+		hasIcon: d.hasIcon,
+		up:      d.up,
+	}
 }
 
 // DropdownItem creates a div which is a dropdown item.
@@ -182,6 +203,10 @@ type dropdownItem struct {
 	Element
 }
 
+func (d *dropdownItem) Clone() Element {
+	return &dropdownItem{d.Element.Clone()}
+}
+
 // DropdownAHref creates an AHref element which is a dropdown item.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
@@ -195,6 +220,10 @@ type dropdownAhref struct {
 	Element
 }
 
+func (d *dropdownAhref) Clone() Element {
+	return &dropdownAhref{d.Element.Clone()}
+}
+
 // DropdownDivider creates a dropdown divider.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
@@ -206,4 +235,8 @@ func DropdownDivider(children ...any) Element {
 
 type dropdownDivider struct {
 	Element
+}
+
+func (d *dropdownDivider) Clone() Element {
+	return &dropdownDivider{d.Element.Clone()}
 }

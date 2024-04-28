@@ -35,6 +35,10 @@ func (i *input) With(children ...any) Element {
 	return i
 }
 
+func (i *input) Clone() Element {
+	return &input{Element: i.Element.Clone()}
+}
+
 // InputText creates an input element of type text.
 //
 // https://willoma.github.io/bulma-gomponents/form/input.html

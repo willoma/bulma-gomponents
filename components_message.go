@@ -15,7 +15,7 @@ type MessageTitle string
 // https://willoma.github.io/bulma-gomponents/message.html
 func Message(children ...any) Element {
 	m := &message{
-		Element: Elem(html.Article, Class("message")),
+		message: Elem(html.Article, Class("message")),
 		body:    Elem(html.Div, Class("message-body")),
 	}
 	m.With(children...)
@@ -23,9 +23,9 @@ func Message(children ...any) Element {
 }
 
 type message struct {
-	Element
-	header Element
-	body   Element
+	message Element
+	header  Element
+	body    Element
 
 	rendered sync.Once
 
@@ -48,16 +48,16 @@ func (m *message) With(children ...any) Element {
 		case onBody:
 			m.body.With(c...)
 		case onMessage:
-			m.Element.With(c...)
+			m.message.With(c...)
 		case MessageTitle:
 			m.addToHeader(Elem(html.P, string(c)))
 		case *delete:
 			m.addToHeader(c)
 		case Class, Classer, Classeser, Styles:
-			m.Element.With(c)
+			m.message.With(c)
 		case gomponents.Node:
 			if isAttribute(c) {
-				m.Element.With(c)
+				m.message.With(c)
 			} else {
 				m.body.With(c)
 			}
@@ -74,9 +74,20 @@ func (m *message) With(children ...any) Element {
 func (m *message) Render(w io.Writer) error {
 	m.rendered.Do(func() {
 		if m.header != nil {
-			m.Element.With(m.header)
+			m.message.With(m.header)
 		}
-		m.Element.With(m.body)
+		m.message.With(m.body)
 	})
-	return m.Element.Render(w)
+	return m.message.Render(w)
+}
+
+func (m *message) Clone() Element {
+	return &message{
+		message: m.message.Clone(),
+		header:  m.header.Clone(),
+		body:    m.body.Clone(),
+
+		title:  m.title,
+		delete: m.delete.Clone(),
+	}
 }

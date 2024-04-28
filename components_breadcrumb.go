@@ -53,6 +53,13 @@ func (b *breadcrumb) With(children ...any) Element {
 	return b
 }
 
+func (b *breadcrumb) Clone() Element {
+	return &breadcrumb{
+		Element: b.Element.Clone(),
+		ul:      b.ul.Clone(),
+	}
+}
+
 // BreadcrumbEntry creates a generic breadcrumb entry.
 func BreadcrumbEntry(children ...any) Element {
 	return Elem(html.Li, children...)

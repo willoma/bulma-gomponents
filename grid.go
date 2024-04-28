@@ -43,6 +43,10 @@ func (g *grid) With(children ...any) Element {
 	return g
 }
 
+func (g *grid) Clone() Element {
+	return &grid{g.Element.Clone()}
+}
+
 // FixedGrid creates a fixed grid.
 //
 // https://willoma.github.io/bulma-gomponents/grid.html
@@ -93,6 +97,13 @@ func (f *fixedGrid) With(children ...any) Element {
 	return f
 }
 
+func (f *fixedGrid) Clone() Element {
+	return &fixedGrid{
+		Element: f.Element.Clone(),
+		grid:    f.grid.Clone(),
+	}
+}
+
 // Cell creates a single grid cell.
 //
 // https://willoma.github.io/bulma-gomponents/grid.html
@@ -104,4 +115,8 @@ func Cell(children ...any) Element {
 
 type cell struct {
 	Element
+}
+
+func (c *cell) Clone() Element {
+	return &cell{c.Element.Clone()}
 }

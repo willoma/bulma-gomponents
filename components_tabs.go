@@ -13,15 +13,15 @@ import (
 func Tabs(children ...any) Element {
 	list := Elem(html.Ul)
 	t := &tabs{
-		Element: Elem(html.Div, Class("tabs")),
-		list:    list,
+		tabs: Elem(html.Div, Class("tabs")),
+		list: list,
 	}
 	t.With(children...)
 	return t
 }
 
 type tabs struct {
-	Element
+	tabs                  Element
 	list                  Element
 	intermediateContainer *container
 
@@ -32,11 +32,11 @@ func (t *tabs) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onTabs:
-			t.Element.With(c...)
+			t.tabs.With(c...)
 		case onUl:
 			t.list.With(c...)
 		case Class, Classer, Classeser, Styles:
-			t.Element.With(c)
+			t.tabs.With(c)
 		case *container:
 			t.intermediateContainer = c
 		case []any:
@@ -54,15 +54,23 @@ func (t *tabs) Render(w io.Writer) error {
 		var target Element
 		if t.intermediateContainer != nil {
 			target = t.intermediateContainer
-			t.Element.With(target)
+			t.tabs.With(target)
 		} else {
-			target = t.Element
+			target = t.tabs
 		}
 
 		target.With(t.list)
 	})
 
-	return t.Element.Render(w)
+	return t.tabs.Render(w)
+}
+
+func (t *tabs) Clone() Element {
+	return &tabs{
+		tabs:                  t.tabs.Clone(),
+		list:                  t.list.Clone(),
+		intermediateContainer: t.intermediateContainer,
+	}
 }
 
 // TabLink creates a tab entry which is a link. Use html.Href as an argument
@@ -82,8 +90,6 @@ func TabLink(children ...any) Element {
 type tabLink struct {
 	Element
 	a Element
-	// active   bool
-	// children []any
 }
 
 func (t *tabLink) With(children ...any) Element {
@@ -105,9 +111,16 @@ func (t *tabLink) With(children ...any) Element {
 	return t
 }
 
+func (t *tabLink) Clone() Element {
+	return &tabLink{
+		Element: t.Element.Clone(),
+		a:       t.a.Clone(),
+	}
+}
+
 // TabAHref creates a tab link with an a element.
 //
 // https://willoma.github.io/bulma-gomponents/tabs.html
 func TabAHref(href string, children ...any) Element {
-	return new(tabLink).With(html.Href(href), children)
+	return TabLink(html.Href(href), children)
 }

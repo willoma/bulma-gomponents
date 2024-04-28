@@ -62,3 +62,10 @@ func (cb *checkbox) With(children ...any) Element {
 
 	return cb
 }
+
+func (cb *checkbox) Clone() Element {
+	return &checkbox{
+		Element: cb.Element.Clone(),
+		input:   cb.input.Clone(),
+	}
+}

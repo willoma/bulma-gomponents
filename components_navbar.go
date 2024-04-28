@@ -11,13 +11,13 @@ import (
 //
 // https://willoma.github.io/bulma-gomponents/navbar.html
 func Navbar(children ...any) Element {
-	n := &navbar{Element: Elem(html.Nav, Class("navbar"))}
+	n := &navbar{navbar: Elem(html.Nav, Class("navbar"))}
 	n.With(children...)
 	return n
 }
 
 type navbar struct {
-	Element
+	navbar                Element
 	brand                 Element
 	start                 Element
 	end                   Element
@@ -78,11 +78,11 @@ func (n *navbar) With(children ...any) Element {
 			case FixedBottom:
 				n.fixed = FixedBottom
 			}
-			n.Element.With(c)
+			n.navbar.With(c)
 		case []any:
 			n.With(c...)
 		default:
-			n.Element.With(c)
+			n.navbar.With(c)
 		}
 	}
 
@@ -94,9 +94,9 @@ func (n *navbar) Render(w io.Writer) error {
 		var target Element
 		if n.intermediateContainer != nil {
 			target = n.intermediateContainer
-			n.Element.With(target)
+			n.navbar.With(target)
 		} else {
-			target = n.Element
+			target = n.navbar
 		}
 
 		if n.brand != nil {
@@ -133,7 +133,20 @@ func (n *navbar) Render(w io.Writer) error {
 		}
 	})
 
-	return n.Element.Render(w)
+	return n.navbar.Render(w)
+}
+
+func (n *navbar) Clone() Element {
+	return &navbar{
+		navbar:                n.navbar.Clone(),
+		brand:                 n.brand.Clone(),
+		start:                 n.start.Clone(),
+		end:                   n.end.Clone(),
+		intermediateContainer: n.intermediateContainer.Clone(),
+
+		hasMenu: n.hasMenu,
+		fixed:   n.fixed,
+	}
 }
 
 // NavbarBrand designates children to be part of the navbar brand section.
@@ -232,6 +245,14 @@ func (n *navbarDropdown) With(children ...any) Element {
 		}
 	}
 	return n
+}
+
+func (n *navbarDropdown) Clone() Element {
+	return &navbarDropdown{
+		Element:  n.Element.Clone(),
+		link:     n.link.Clone(),
+		dropdown: n.dropdown.Clone(),
+	}
 }
 
 // NavbarLink creates a link element, to include in a NavbarItem with the

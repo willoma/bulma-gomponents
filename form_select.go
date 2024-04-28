@@ -57,6 +57,13 @@ func (s *selectEl) With(children ...any) Element {
 	return s
 }
 
+func (s *selectEl) Clone() Element {
+	return &selectEl{
+		Element:           s.Element.Clone(),
+		selectHTMLElement: s.selectHTMLElement.Clone(),
+	}
+}
+
 // Option creates an option element, to be used as a child of a Select or
 // SelectMultiple. The value argument is used as the option value attribute.
 //
@@ -80,6 +87,10 @@ func OptionSelected(value string, children ...any) Element {
 
 type option struct {
 	Element
+}
+
+func (o *option) Clone() Element {
+	return &option{o.Element.Clone()}
 }
 
 func Size(size int) gomponents.Node {

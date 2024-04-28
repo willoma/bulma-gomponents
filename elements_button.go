@@ -15,6 +15,10 @@ type button struct {
 	Element
 }
 
+func (b *button) Clone() Element {
+	return &button{b.Element.Clone()}
+}
+
 // Button creates a button.
 //
 // https://willoma.github.io/bulma-gomponents/button.html
@@ -83,4 +87,8 @@ func (b *buttons) With(children ...any) Element {
 	}
 
 	return b
+}
+
+func (b *buttons) Clone() Element {
+	return &buttons{b.Element.Clone()}
 }

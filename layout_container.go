@@ -17,3 +17,7 @@ func Container(children ...any) *container {
 type container struct {
 	Element
 }
+
+func (c *container) Clone() Element {
+	return &container{c.Element.Clone()}
+}

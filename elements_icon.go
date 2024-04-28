@@ -12,13 +12,13 @@ import (
 //
 // https://willoma.github.io/bulma-gomponents/icon.html
 func Icon(children ...any) Element {
-	i := &icon{Element: Elem(html.Span), iconClass: "icon"}
+	i := &icon{icon: Elem(html.Span), iconClass: "icon"}
 	i.With(children...)
 	return i
 }
 
 type icon struct {
-	Element
+	icon Element
 
 	iconClass Class
 	rendered  sync.Once
@@ -32,11 +32,11 @@ func (i *icon) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Color:
-			i.Element.With(c.Text())
+			i.icon.With(c.Text())
 		case []any:
 			i.With(c...)
 		default:
-			i.Element.With(c)
+			i.icon.With(c)
 		}
 	}
 
@@ -48,7 +48,14 @@ func (i *icon) Render(w io.Writer) error {
 		i.With(i.iconClass)
 	})
 
-	return i.Element.Render(w)
+	return i.icon.Render(w)
+}
+
+func (i *icon) Clone() Element {
+	return &icon{
+		icon:      i.icon.Clone(),
+		iconClass: i.iconClass,
+	}
 }
 
 type IconElem interface {
@@ -95,4 +102,8 @@ func (i *iconText) With(children ...any) Element {
 	}
 
 	return i
+}
+
+func (i *iconText) Clone() Element {
+	return &iconText{i.Element.Clone()}
 }

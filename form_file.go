@@ -84,3 +84,12 @@ func (f *file) With(children ...any) Element {
 
 	return f
 }
+
+func (f *file) Clone() Element {
+	return &file{
+		Element: f.Element.Clone(),
+		label:   f.label.Clone(),
+		input:   f.input.Clone(),
+		cta:     f.cta.Clone(),
+	}
+}

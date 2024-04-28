@@ -12,13 +12,13 @@ import (
 //
 // http://willoma.github.io/bulma-gomponents/level.html
 func Level(children ...any) Element {
-	l := &level{Element: Elem(html.Nav, Class("level"))}
+	l := &level{level: Elem(html.Nav, Class("level"))}
 	l.With(children...)
 	return l
 }
 
 type level struct {
-	Element
+	level Element
 	left  Element
 	right Element
 
@@ -48,19 +48,19 @@ func (l *level) With(children ...any) Element {
 			l.addToRight(c...)
 		case Element:
 			c.With(Class("level-item"))
-			l.Element.With(c)
+			l.level.With(c)
 		case string:
-			l.Element.With(Elem(html.P, Class("level-item"), c))
+			l.level.With(Elem(html.P, Class("level-item"), c))
 		case gomponents.Node:
 			if isAttribute(c) {
-				l.Element.With(c)
+				l.level.With(c)
 			} else {
-				l.Element.With(Elem(html.Div, Class("level-item"), c))
+				l.level.With(Elem(html.Div, Class("level-item"), c))
 			}
 		case []any:
 			l.With(c...)
 		default:
-			l.Element.With(c)
+			l.level.With(c)
 		}
 	}
 
@@ -70,14 +70,22 @@ func (l *level) With(children ...any) Element {
 func (l *level) Render(w io.Writer) error {
 	l.rendered.Do(func() {
 		if l.left != nil {
-			l.Element.With(l.left)
+			l.level.With(l.left)
 		}
 		if l.right != nil {
-			l.Element.With(l.right)
+			l.level.With(l.right)
 		}
 	})
 
-	return l.Element.Render(w)
+	return l.level.Render(w)
+}
+
+func (l *level) Clone() Element {
+	return &level{
+		level: l.level.Clone(),
+		left:  l.left.Clone(),
+		right: l.right.Clone(),
+	}
 }
 
 func LevelLeft(children ...any) levelLeft {

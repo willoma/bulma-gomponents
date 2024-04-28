@@ -63,3 +63,10 @@ func (r *radio) With(children ...any) Element {
 
 	return r
 }
+
+func (r *radio) Clone() Element {
+	return &radio{
+		Element: r.Element.Clone(),
+		input:   r.input.Clone(),
+	}
+}

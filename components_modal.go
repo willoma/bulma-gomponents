@@ -64,6 +64,13 @@ func (m *modal) With(children ...any) Element {
 	return m
 }
 
+func (m *modal) Clone() Element {
+	return &modal{
+		Element: m.Element.Clone(),
+		content: m.content.Clone(),
+	}
+}
+
 // ModalCard creates a modal card.
 //
 // Wrap children in ModalCardHead in order to add them to the card header. Wrap
@@ -130,6 +137,16 @@ func (m *modalCard) With(children ...any) Element {
 	return m
 }
 
+func (m *modalCard) Clone() Element {
+	return &modalCard{
+		Element: m.Element.Clone(),
+		card:    m.card.Clone(),
+		head:    m.head.Clone(),
+		body:    m.body.Clone(),
+		foot:    m.foot.Clone(),
+	}
+}
+
 // ModalCardHead designates children to be part of the card head.
 //
 // https://willoma.github.io/bulma-gomponents/modal.html
@@ -152,11 +169,15 @@ type modalCardTitle struct {
 	Element
 }
 
+func (m *modalCardTitle) Clone() Element {
+	return &modalCardTitle{m.Element.Clone()}
+}
+
 // ModalCardTitleWithClose creates a card head with a text title and a close
 // button.
 //
 // https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCardTitleWithClose(title string) any {
+func ModalCardTitleWithClose(title string) modalCardHead {
 	return ModalCardHead(
 		ModalCardTitle(title),
 		Delete(

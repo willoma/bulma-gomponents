@@ -40,6 +40,13 @@ func (p *pagination) With(children ...any) Element {
 	return p
 }
 
+func (p *pagination) Clone() Element {
+	return &pagination{
+		Element: p.Element.Clone(),
+		list:    p.list.Clone(),
+	}
+}
+
 // PaginationPrevious creates the "Previous" link button for a pagination.
 //
 // https://willoma.github.io/bulma-gomponents/pagination.html
@@ -67,11 +74,15 @@ type paginationLink struct {
 	Element
 }
 
+func (p *paginationLink) Clone() Element {
+	return &paginationLink{p.Element.Clone()}
+}
+
 // PaginationAHref creates a single page link button for a pagination.
 //
 // https://willoma.github.io/bulma-gomponents/pagination.html
 func PaginationAHref(href string, children ...any) Element {
-	return new(paginationLink).With(html.Href(href), children)
+	return PaginationLink(html.Href(href), children)
 }
 
 // PaginationEllipsis creates an ellipsis element for a pagination.
@@ -87,4 +98,8 @@ func PaginationEllipsis(children ...any) Element {
 
 type paginationEllipsis struct {
 	Element
+}
+
+func (p *paginationEllipsis) Clone() Element {
+	return &paginationEllipsis{p.Element.Clone()}
 }
