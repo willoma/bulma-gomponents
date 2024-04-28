@@ -80,22 +80,28 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 					b.Buttons(
 						b.ButtonAHref(
 							"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
+							b.Primary,
 							fa.Icon(fa.Brand, "golang"),
 							"Reference",
 						),
+						b.ButtonAHref(
+							"https://github.com/willoma/bulma-gomponents",
+							b.Info,
+							fa.Icon(fa.Brand, "github"),
+							"Repository",
+						),
+						b.ButtonAHref(
+							"https://bulma.io/documentation",
+							b.Link,
+							b.Icon(
+								b.ImgSrc(
+									"https://bulma.io/assets/brand/Bulma%20Icon%20White.svg",
+									b.Style("height", "1em"),
+								),
+							),
+							"Bulma doc",
+						),
 					),
-				),
-				b.NavbarAHref(
-					"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
-					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Go"), b.Tag(b.Info, "Reference")),
-				),
-				b.NavbarAHref(
-					"https://github.com/willoma/bulma-gomponents",
-					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "GitHub"), b.Tag(b.Success, "Repository")),
-				),
-				b.NavbarAHref(
-					"https://bulma.io/documentation",
-					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Bulma"), b.Tag(b.Warning, "Official documentation")),
 				),
 			),
 		)
