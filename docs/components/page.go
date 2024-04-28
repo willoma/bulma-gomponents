@@ -78,6 +78,7 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 			b.NavbarEnd(
 				b.NavbarItem(
 					b.Buttons(
+						b.Small,
 						b.ButtonAHref(
 							"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
 							b.Primary,
