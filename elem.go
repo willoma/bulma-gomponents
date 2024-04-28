@@ -26,6 +26,11 @@ type ParentModifierAndElement interface {
 	ParentModifier
 }
 
+type ParentModifierAndNode interface {
+	gomponents.Node
+	ParentModifier
+}
+
 type elemOption int
 
 const (
@@ -119,6 +124,9 @@ func (e *element) With(children ...any) Element {
 			e.hasIcons = true
 			e.elements = append(e.elements, c)
 		case ParentModifierAndElement:
+			c.ModifyParent(e)
+			e.elements = append(e.elements, c)
+		case ParentModifierAndNode:
 			c.ModifyParent(e)
 			e.elements = append(e.elements, c)
 		case ParentModifier:
@@ -236,14 +244,31 @@ func (e *element) Render(w io.Writer) error {
 func Prepare(e Element) gomponents.Node {
 	var buf bytes.Buffer
 	e.Render(&buf)
-	return &preparedElement{buf.Bytes()}
+
+	if modifier, ok := e.(ParentModifier); ok {
+		return &preparedElementWithParentModifier{
+			preparedElement: preparedElement{buf.Bytes()},
+			modifyFn:        modifier.ModifyParent,
+		}
+	}
+
+	return &preparedElement{content: buf.Bytes()}
 }
 
 type preparedElement struct {
 	content []byte
 }
 
+type preparedElementWithParentModifier struct {
+	preparedElement
+	modifyFn func(Element)
+}
+
 func (e *preparedElement) Render(w io.Writer) error {
 	_, err := w.Write(e.content)
 	return err
+}
+
+func (e *preparedElementWithParentModifier) ModifyParent(parent Element) {
+	e.modifyFn(parent)
 }
