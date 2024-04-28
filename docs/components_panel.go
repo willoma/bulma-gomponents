@@ -11,7 +11,52 @@ import (
 
 var panel = c.NewPage(
 	"Panel", "Panel", "/panel",
-	"https://bulma.io/documentation/components/panel/",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Panel"), " constructor creates a panel. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.Primary"),
+			"Set panel color to primary",
+
+			el.Code("b.Link"),
+			"Set panel color to link",
+
+			el.Code("b.Info"),
+			"Set panel color to info",
+
+			el.Code("b.Success"),
+			"Set panel color to success",
+
+			el.Code("b.Warning"),
+			"Set panel color to warning",
+
+			el.Code("b.Danger"),
+			"Set panel color to danger",
+		),
+		el.P("The ", el.Code("b.PanelHeading"), " constructor creates a panel heading."),
+		el.P("The ", el.Code("b.PanelBlock"), " constructor creates a panel block."),
+		el.P("The ", el.Code("b.PanelLink"), " and ", el.Code("b.PanelAHref"), " constructors create panel blocks which are ", el.Code("<a>"), " elements."),
+		el.P("The ", el.Code("b.PanelLabel"), " constructor creates a panel block which is a ", el.Code("<label>"), " element."),
+		el.P("The ", el.Code("b.PanelCheckbox"), " constructor creates a panel block which is a ", el.Code("<label>"), " element, containing a checkbox. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.OnLabel(...)"),
+			[]any{"Force children to be applied to the ", el.Code(`<label class="panel-block">`), " element"},
+
+			el.Code("b.OnInput(...)"),
+			[]any{"Force children to be applied to the ", el.Code("<input>"), " element"},
+
+			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			"Apply the attribute to the input element",
+
+			[]any{"Other ", el.Code("gomponents.Node")},
+			"Add this element to the block element",
+		),
+		el.P("Other children are added to the ", el.Code("<input>"), " element."),
+		el.P("The ", el.Code("b.PanelTabs"), " constructor creates a panel tabs section. Its children must be ", el.Code("<a>"), " elements (for instance ", el.Code("b.AHref"), "). Add the ", el.Code("b.Active"), "modifier to a link to mark it as the active tab."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/panel/",
 	c.Example(
 		`b.Panel(
 	b.PanelHeading("Repositories"),
@@ -55,8 +100,7 @@ var panel = c.NewPage(
 		fa.Icon(fa.Solid, "code-branch"),
 		"mojs",
 	),
-	b.PanelLabel(
-		b.Checkbox("remember me"),
+	b.PanelCheckbox("remember me"),
 	),
 	b.PanelBlock(
 		b.Button(
@@ -109,9 +153,7 @@ var panel = c.NewPage(
 				fa.Icon(fa.Solid, "code-branch"),
 				"mojs",
 			),
-			b.PanelLabel(
-				b.Checkbox("remember me"),
-			),
+			b.PanelCheckbox("remember me"),
 			b.PanelBlock(
 				b.Button(
 					b.Link,
@@ -122,7 +164,7 @@ var panel = c.NewPage(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Colors",
 	"https://bulma.io/documentation/components/panel/#colors",
 	c.Example(

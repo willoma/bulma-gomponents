@@ -2,68 +2,74 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
-type mediaPart struct {
-	right    bool
-	children []any
-}
-
 // Media creates a media element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <div class="media-content"> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <article class="media"> element
-//   - when a child is a return value of MediaLeft, it is added in the left part
-//     of the media element
-//   - when a child is a return value of MediaRight, it is added in the right
-//     part of the media element
-//   - when a child is an Element, it is added in the content part of the media
-//     element
-//   - when a child is a gomponents.Node with type gomponents.AttributeType, it
-//     is added as a direct child of to the media element
-//   - when a child is a gomponents.Node with another type, it is added in the
-//     content part of the media element
-//   - other children types are added as direct children of to the media element
 //
-// Each of the left, content and right parts is only included if it has content.
+// http://willoma.github.io/bulma-gomponents/media-object.html
 func Media(children ...any) Element {
-	return new(media).With(children...)
+	m := &media{media: Elem(html.Article, Class("media"))}
+	m.With(children...)
+	return m
 }
 
 type media struct {
-	leftChildren    []any
-	contentChildren []any
-	rightChildren   []any
-	elemChildren    []any
+	media   Element
+	left    Element
+	content Element
+	right   Element
+
+	rendered sync.Once
+}
+
+func (m *media) addToLeft(children ...any) {
+	if m.left == nil {
+		m.left = Elem(html.Div, Class("media-left"))
+	}
+	m.left.With(children...)
+}
+
+func (m *media) addToContent(children ...any) {
+	if m.content == nil {
+		m.content = Elem(html.Div, Class("media-content"))
+	}
+	m.content.With(children...)
+}
+
+func (m *media) addToRight(children ...any) {
+	if m.right == nil {
+		m.right = Elem(html.Div, Class("media-right"))
+	}
+	m.right.With(children...)
 }
 
 func (m *media) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			m.contentChildren = append(m.contentChildren, c.Child)
-		case *ApplyToOuter:
-			m.elemChildren = append(m.elemChildren, c.Child)
-		case mediaPart:
-			if c.right {
-				m.rightChildren = append(m.rightChildren, c.children...)
-			} else {
-				m.leftChildren = append(m.leftChildren, c.children...)
-			}
+		case onMedia:
+			m.media.With(c...)
+		case onContent:
+			m.addToContent(c...)
+		case mediaLeft:
+			m.addToLeft(c...)
+		case mediaRight:
+			m.addToRight(c...)
 		case Element:
-			m.contentChildren = append(m.contentChildren, c)
+			m.addToContent(c)
 		case gomponents.Node:
-			if IsAttribute(c) {
-				m.elemChildren = append(m.elemChildren, c)
+			if isAttribute(c) {
+				m.media.With(c)
 			} else {
-				m.contentChildren = append(m.contentChildren, c)
+				m.addToContent(c)
 			}
 		case []any:
 			m.With(c...)
 		default:
-			m.elemChildren = append(m.elemChildren, c)
+			m.media.With(c)
 		}
 	}
 
@@ -71,35 +77,46 @@ func (m *media) With(children ...any) Element {
 }
 
 func (m *media) Render(w io.Writer) error {
-	e := Elem(html.Article, Class("media"), m.elemChildren)
+	m.rendered.Do(func() {
+		if m.left != nil {
+			m.media.With(m.left)
+		}
 
-	if len(m.leftChildren) > 0 {
-		e.With(
-			Elem(html.Div, Class("media-left"), m.leftChildren),
-		)
+		if m.content != nil {
+			m.media.With(m.content)
+		}
+
+		if m.right != nil {
+			m.media.With(m.right)
+		}
+	})
+
+	return m.media.Render(w)
+}
+
+func (m *media) Clone() Element {
+	return &media{
+		media:   m.media.Clone(),
+		left:    m.left.Clone(),
+		content: m.content.Clone(),
+		right:   m.right.Clone(),
 	}
-
-	if len(m.contentChildren) > 0 {
-		e.With(
-			Elem(html.Div, Class("media-content"), m.contentChildren),
-		)
-	}
-
-	if len(m.rightChildren) > 0 {
-		e.With(
-			Elem(html.Div, Class("media-right"), m.rightChildren),
-		)
-	}
-
-	return e.Render(w)
 }
 
 // MediaLeft marks children as belonging to the left part of a media element.
-func MediaLeft(children ...any) mediaPart {
-	return mediaPart{false, children}
+//
+// http://willoma.github.io/bulma-gomponents/media-object.html
+func MediaLeft(children ...any) mediaLeft {
+	return mediaLeft(children)
 }
 
+type mediaLeft []any
+
 // MediaRight marks children as belonging to the right part of a media element.
-func MediaRight(children ...any) mediaPart {
-	return mediaPart{true, children}
+//
+// http://willoma.github.io/bulma-gomponents/media-object.html
+func MediaRight(children ...any) mediaRight {
+	return mediaRight(children)
 }
+
+type mediaRight []any

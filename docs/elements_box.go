@@ -11,8 +11,15 @@ import (
 
 var box = c.NewPage(
 	"Box", "Box", "/box",
-	"https://bulma.io/documentation/elements/box/",
+	"",
 
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Box"), " constructor returns a white box with some padding and a shadow.",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/elements/box/",
 	c.Example(
 		`b.Box("I'm in a box.")`,
 		b.Box("I'm in a box."),
@@ -58,7 +65,7 @@ var box = c.NewPage(
 	b.Media(
 		b.MediaLeft(
 			b.ImageImg(
-				"https://bulma.io/images/placeholders/128x128.png",
+				"https://bulma.io/assets/images/placeholders/128x128.png",
 				b.ImgSq64,
 				b.ImgAlt("Image"),
 			),
@@ -73,21 +80,9 @@ var box = c.NewPage(
 		b.Level(
 			b.Mobile,
 			b.LevelLeft(
-				b.LevelItem(
-					html.A,
-					html.Aria("level", "reply"),
-					fa.Icon(fa.Solid, "reply", b.Small),
-				),
-				b.LevelItem(
-					html.A,
-					html.Aria("level", "retweet"),
-					fa.Icon(fa.Solid, "retweet", b.Small),
-				),
-				b.LevelItem(
-					html.A,
-					html.Aria("level", "like"),
-					fa.Icon(fa.Solid, "heart", b.Small),
-				),
+				el.A(html.Aria("level", "reply"), fa.Icon(fa.Solid, "reply", b.Small)),
+				el.A(html.Aria("level", "retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+				el.A(html.Aria("level", "like"), fa.Icon(fa.Solid, "heart", b.Small)),
 			),
 		),
 	),
@@ -96,7 +91,7 @@ var box = c.NewPage(
 			b.Media(
 				b.MediaLeft(
 					b.ImageImg(
-						"https://bulma.io/images/placeholders/128x128.png",
+						"https://bulma.io/assets/images/placeholders/128x128.png",
 						b.ImgSq64,
 						b.ImgAlt("Image"),
 					),
@@ -111,21 +106,9 @@ var box = c.NewPage(
 				b.Level(
 					b.Mobile,
 					b.LevelLeft(
-						b.LevelItem(
-							html.A,
-							html.Aria("level", "reply"),
-							fa.Icon(fa.Solid, "reply", b.Small),
-						),
-						b.LevelItem(
-							html.A,
-							html.Aria("level", "retweet"),
-							fa.Icon(fa.Solid, "retweet", b.Small),
-						),
-						b.LevelItem(
-							html.A,
-							html.Aria("level", "like"),
-							fa.Icon(fa.Solid, "heart", b.Small),
-						),
+						el.A(html.Aria("level", "reply"), fa.Icon(fa.Solid, "reply", b.Small)),
+						el.A(html.Aria("level", "retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+						el.A(html.Aria("level", "like"), fa.Icon(fa.Solid, "heart", b.Small)),
 					),
 				),
 			),

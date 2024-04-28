@@ -10,7 +10,7 @@ var other = c.NewPage(
 	"Other", "Other helpers", "/other",
 	"https://bulma.io/documentation/helpers/other-helpers/",
 	b.Table(
-		b.HeadRow("Class", "Action"),
+		b.HeadRow("Modifier", "Action"),
 		b.Row(el.Code("b.Clearfix"), b.Cell("Fixes an element's floating children")),
 		b.Row(el.Code("b.PulledLeft"), b.Cell("Moves an element to the ", el.Strong("left"))),
 		b.Row(el.Code("b.PulledRight"), b.Cell("Moves an element to the ", el.Strong("right"))),

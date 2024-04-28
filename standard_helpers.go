@@ -1,6 +1,9 @@
 package bulma
 
 import (
+	"io"
+	"strings"
+
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
@@ -19,6 +22,7 @@ func AHref(href string, children ...any) Element {
 // dt and dd elements.
 //
 // TODO work with "With"
+// TODO accept classes
 func DList(dtDds ...any) Element {
 	var children []any
 
@@ -58,12 +62,26 @@ func OList(children ...any) Element {
 
 // On adds a "on<event>" attribute to a gomponents.Node element.
 func On(event, script string) gomponents.Node {
-	return gomponents.Attr("on"+event, script)
+	return &eventAttr{event: event, script: script}
 }
 
 // OnClick adds a "onclick" attribute to a gomponents.Node element.
 func OnClick(script string) gomponents.Node {
-	return gomponents.Attr("onclick", script)
+	return &eventAttr{event: "click", script: script}
+}
+
+type eventAttr struct {
+	event  string
+	script string
+}
+
+func (a *eventAttr) Render(w io.Writer) error {
+	_, err := w.Write([]byte(" on" + a.event + `="` + strings.ReplaceAll(a.script, `"`, "&#34;") + `"`))
+	return err
+}
+
+func (a *eventAttr) Type() gomponents.NodeType {
+	return gomponents.AttributeType
 }
 
 // UList creates an ul element, with the provided children wrapped in li
@@ -71,9 +89,22 @@ func OnClick(script string) gomponents.Node {
 //
 // TODO work with "With"
 func UList(children ...any) Element {
-	wrappedChildren := make([]any, len(children))
-	for i, c := range children {
-		wrappedChildren[i] = Elem(html.Li, c)
+	e := Elem(html.Ul)
+	for _, c := range children {
+		switch c := c.(type) {
+		case Class, Classer, Classeser, Styles:
+			e.With(c)
+		case gomponents.Node:
+			if isAttribute(c) {
+				e.With(c)
+			} else {
+				e.With(Elem(html.Li, c))
+			}
+		default:
+			e.With(Elem(html.Li, c))
+		}
 	}
-	return Elem(html.Ul, wrappedChildren...)
+	return e
 }
+
+type ID string

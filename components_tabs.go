@@ -2,56 +2,47 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents/html"
 )
 
 // Tabs create a tabs container.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <ul> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="tabs"> element
 //
-// Its arguments must include TabsLink. The ul element is automatically created.
-//
-// If a child is the Container function or one of its derivative (Container*),
-// this function is executed and its result is used as an intermediate container.
-//
-// The following modifiers change the tabs behaviour:
-//   - Centered: center the tabs
-//   - Right: align the tabs to the right
-//   - Boxed: draw boxed tabs
-//   - Toggle: button-looking tabs
-//   - ToggleRounded: rounded button-looking tabs
-//   - FullWidth: take the whole width
-//
-// The following modifiers change the tabs size:
-//   - Small
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/tabs.html
 func Tabs(children ...any) Element {
-	return new(tabs).With(children...)
+	list := Elem(html.Ul)
+	t := &tabs{
+		tabs: Elem(html.Div, Class("tabs")),
+		list: list,
+	}
+	t.With(children...)
+	return t
 }
 
 type tabs struct {
-	intermediateContainer Element
-	tabsChildren          []any
-	contentChildren       []any
+	tabs                  Element
+	list                  Element
+	intermediateContainer *container
+
+	rendered sync.Once
 }
 
 func (t *tabs) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			t.contentChildren = append(t.contentChildren, c.Child)
-		case *ApplyToOuter:
-			t.tabsChildren = append(t.tabsChildren, c.Child)
-		case Class:
-			t.tabsChildren = append(t.tabsChildren, c)
-		case func(children ...any) container:
-			t.intermediateContainer = c()
+		case onTabs:
+			t.tabs.With(c...)
+		case onUl:
+			t.list.With(c...)
+		case Class, Classer, Classeser, Styles:
+			t.tabs.With(c)
+		case *container:
+			t.intermediateContainer = c
 		case []any:
 			t.With(c...)
 		default:
-			t.contentChildren = append(t.contentChildren, c)
+			t.list.With(c)
 		}
 	}
 
@@ -59,58 +50,77 @@ func (t *tabs) With(children ...any) Element {
 }
 
 func (t *tabs) Render(w io.Writer) error {
-	tabsEl := Elem(html.Div, Class("tabs"), t.tabsChildren)
+	t.rendered.Do(func() {
+		var target Element
+		if t.intermediateContainer != nil {
+			target = t.intermediateContainer
+			t.tabs.With(target)
+		} else {
+			target = t.tabs
+		}
 
-	content := Elem(html.Ul, t.contentChildren...)
+		target.With(t.list)
+	})
 
-	if t.intermediateContainer != nil {
-		return tabsEl.With(t.intermediateContainer.With(content)).Render(w)
+	return t.tabs.Render(w)
+}
+
+func (t *tabs) Clone() Element {
+	return &tabs{
+		tabs:                  t.tabs.Clone(),
+		list:                  t.list.Clone(),
+		intermediateContainer: t.intermediateContainer,
 	}
-
-	return tabsEl.With(content).Render(w)
 }
 
-// TabsLink creates a tab entry which is a link. Use html.Href as an argument
+// TabLink creates a tab entry which is a link. Use html.Href as an argument
 // to define a link target if needed.
-func TabsLink(children ...any) Element {
-	return new(tabsLink).With(children...)
+//
+// https://willoma.github.io/bulma-gomponents/tabs.html
+func TabLink(children ...any) Element {
+	a := Elem(html.A, elemOptionSpanAroundNonIconsIfHasIcons)
+	t := &tabLink{
+		Element: Elem(html.Li, a),
+		a:       a,
+	}
+	t.With(children...)
+	return t
 }
 
-type tabsLink struct {
-	active   bool
-	children []any
+type tabLink struct {
+	Element
+	a Element
 }
 
-func (t *tabsLink) With(children ...any) Element {
+func (t *tabLink) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
 			if c == Active {
-				t.active = true
+				t.Element.With(c)
 			} else {
-				t.children = append(t.children, c)
+				t.a.With(c)
 			}
 		case []any:
 			t.With(c...)
 		default:
-			t.children = append(t.children, c)
+			t.a.With(c)
 		}
 	}
 
 	return t
 }
 
-func (t *tabsLink) Render(w io.Writer) error {
-	li := Elem(html.Li)
-	if t.active {
-		li.With(Active)
+func (t *tabLink) Clone() Element {
+	return &tabLink{
+		Element: t.Element.Clone(),
+		a:       t.a.Clone(),
 	}
+}
 
-	return li.With(
-		Elem(
-			html.A,
-			elemOptionSpanAroundNonIconsIfHasIcons,
-			t.children,
-		),
-	).Render(w)
+// TabAHref creates a tab link with an a element.
+//
+// https://willoma.github.io/bulma-gomponents/tabs.html
+func TabAHref(href string, children ...any) Element {
+	return TabLink(html.Href(href), children)
 }

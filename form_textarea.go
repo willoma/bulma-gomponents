@@ -9,34 +9,44 @@ import (
 
 // Textarea creates a textarea element.
 //
-// The following modifiers change the textarea behaviour:
-//   - Rows(int): set the textarea heights, in number of rows
-//   - Hovered: apply the hovered style
-//   - Focused: apply the focused style
-//   - Loading: add a a loading spinner to the right of the input
-//   - html.Disabled(): disable the input
-//   - html.ReadOnly(): forbid modifications
-//   - Static: remove specific styling but maintain vertical spacing
-//   - FixedSize: disable the textarea resizing possibility
-//
-// The following modifiers change the textarea color:
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//
-// The following modifiers change the textarea size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/form/textarea.html
 func Textarea(children ...any) Element {
-	return Elem(html.Textarea, Class("textarea"), children)
+	t := &textarea{Elem(html.Textarea, Class("textarea"))}
+	t.With(children...)
+	return t
+}
+
+type textarea struct {
+	Element
+}
+
+func (t *textarea) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case Class:
+			switch c {
+			case Disabled:
+				t.Element.With(html.Disabled())
+			default:
+				t.Element.With(c)
+			}
+		case []any:
+			t.With(c...)
+		default:
+			t.Element.With(c)
+		}
+	}
+
+	return t
+}
+
+func (t *textarea) Clone() Element {
+	return &textarea{t.Element.Clone()}
 }
 
 // Rows changes a textarea height.
+//
+// https://willoma.github.io/bulma-gomponents/form/textarea.html
 func Rows(rows int) gomponents.Node {
 	return html.Rows(strconv.Itoa(rows))
 }

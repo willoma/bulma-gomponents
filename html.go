@@ -20,69 +20,59 @@ type HTitle string
 // Description, when provided to HTML, sets the description metadata
 type Description string
 
-type head []gomponents.Node
-
-type htmlElem struct {
-	cssPath     string
-	language    string
-	title       string
-	description string
-	head        []gomponents.Node
-	body        *element
-}
-
 // Head identifies children as part of the head section
 func Head(children ...gomponents.Node) head {
 	return head(children)
 }
 
+type head []gomponents.Node
+
 // HTML returns a gomponents.Node which represents a whole HTML page.
-//   - when a child is of type CSSPath, the path to the Bulma CSS is set to the
-//     provided path (if there is no child with this type, the path is set to
-//     the Bulma CDN)
-//   - when a child is of type HTitle, it is used as the page title
-//   - when a child is of type Language, it is used as the lang attribute
-//   - when a child is of type Description, it is used as the description meta
-//   - when a child is wrapped with Head, it is used as a part of the head section
-//   - other children are used as children of the body element
+//
+// http://willoma.github.io/bulma-gomponents/elements.html#document-root
 func HTML(children ...any) gomponents.Node {
-	def := &htmlElem{
-		body: Elem(html.Body),
-	}
+	var (
+		cssPath     string
+		language    string
+		title       string
+		description string
+		headSection []gomponents.Node
+		body        = Elem(html.Body)
+	)
 
 	for _, c := range children {
 		switch c := c.(type) {
 		case CSSPath:
-			def.cssPath = string(c)
+			cssPath = string(c)
 		case HTitle:
-			def.title = string(c)
+			title = string(c)
 		case Language:
-			def.language = string(c)
+			language = string(c)
 		case Description:
-			def.description = string(c)
+			description = string(c)
 		case head:
-			def.head = append(def.head, c...)
+			headSection = append(headSection, c...)
 		default:
-			def.body.With(c)
+			body.With(c)
 		}
 	}
 
-	if def.cssPath == "" {
-		def.cssPath = cdnPath
+	if cssPath == "" {
+		cssPath = cdnPath
 	}
 
 	return components.HTML5(components.HTML5Props{
-		Title:       def.title,
-		Description: def.description,
-		Language:    def.language,
+		Title:       title,
+		Description: description,
+		Language:    language,
 		Head: append(
-			def.head,
+			headSection,
 			html.Link(
 				html.Rel("stylesheet"),
-				html.Href(def.cssPath),
+				html.Href(cssPath),
 			),
 		),
-		Body: def.body.getChildren(),
+		Body: body.getChildren(),
 	})
 }
 

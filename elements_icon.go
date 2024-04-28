@@ -2,6 +2,7 @@ package bulma
 
 import (
 	"io"
+	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -9,50 +10,18 @@ import (
 
 // Icon creates an icon span.
 //
-// The following modifiers change the icon color:
-//   - White
-//   - Black
-//   - Light
-//   - Dark
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//   - BlackBis
-//   - BlackTer
-//   - GreyDarker
-//   - GreyDark
-//   - Grey
-//   - GreyLight
-//   - GreyLighter
-//   - WhiteTer
-//   - WhiteBis
-//   - PrimaryLight
-//   - LinkLight
-//   - InfoLight
-//   - SuccessLight
-//   - WarningLight
-//   - DangerLight
-//   - PrimaryDark
-//   - LinkDark
-//   - InfoDark
-//   - SuccessDark
-//   - WarningDark
-//   - DangerDark
-//
-// The following modifiers change the icon size:
-//   - Small
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/icon.html
 func Icon(children ...any) Element {
-	return (&icon{iconClass: Class("icon")}).With(children...)
+	i := &icon{icon: Elem(html.Span), iconClass: "icon"}
+	i.With(children...)
+	return i
 }
 
 type icon struct {
+	icon Element
+
 	iconClass Class
-	children  []any
+	rendered  sync.Once
 }
 
 func (i *icon) SetIconClass(c Class) {
@@ -62,12 +31,12 @@ func (i *icon) SetIconClass(c Class) {
 func (i *icon) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case ColorClass:
-			i.children = append(i.children, c.Text())
+		case Color:
+			i.icon.With(c.Text())
 		case []any:
 			i.With(c...)
 		default:
-			i.children = append(i.children, c)
+			i.icon.With(c)
 		}
 	}
 
@@ -75,7 +44,18 @@ func (i *icon) With(children ...any) Element {
 }
 
 func (i *icon) Render(w io.Writer) error {
-	return Elem(html.Span, i.iconClass, i.children).Render(w)
+	i.rendered.Do(func() {
+		i.With(i.iconClass)
+	})
+
+	return i.icon.Render(w)
+}
+
+func (i *icon) Clone() Element {
+	return &icon{
+		icon:      i.icon.Clone(),
+		iconClass: i.iconClass,
+	}
 }
 
 type IconElem interface {
@@ -86,101 +66,44 @@ type IconElem interface {
 // IconText creates an icon-text span and embed all its non-icons children into
 // spans.
 //
-// The following modifiers change the icon and text color:
-//   - White
-//   - Black
-//   - Light
-//   - Dark
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//   - BlackBis
-//   - BlackTer
-//   - GreyDarker
-//   - GreyDark
-//   - Grey
-//   - GreyLight
-//   - GreyLighter
-//   - WhiteTer
-//   - WhiteBis
-//   - PrimaryLight
-//   - LinkLight
-//   - InfoLight
-//   - SuccessLight
-//   - WarningLight
-//   - DangerLight
-//   - PrimaryDark
-//   - LinkDark
-//   - InfoDark
-//   - SuccessDark
-//   - WarningDark
-//   - DangerDark
+// https://willoma.github.io/bulma-gomponents/icon.html
 func IconText(children ...any) Element {
-	return (&iconText{el: html.Span}).With(children...)
+	return newIconText(html.Span, children...)
 }
 
-// IconText creates a flex icon-text span and embed all its non-icons children
+// FlexIconText creates a flex icon-text span and embed all its non-icons children
 // into spans.
 //
-// The following modifiers change the icon and text color:
-//   - White
-//   - Black
-//   - Light
-//   - Dark
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//   - BlackBis
-//   - BlackTer
-//   - GreyDarker
-//   - GreyDark
-//   - Grey
-//   - GreyLight
-//   - GreyLighter
-//   - WhiteTer
-//   - WhiteBis
-//   - PrimaryLight
-//   - LinkLight
-//   - InfoLight
-//   - SuccessLight
-//   - WarningLight
-//   - DangerLight
-//   - PrimaryDark
-//   - LinkDark
-//   - InfoDark
-//   - SuccessDark
-//   - WarningDark
-//   - DangerDark
+// https://willoma.github.io/bulma-gomponents/icon.html
 func FlexIconText(children ...any) Element {
-	return (&iconText{el: html.Div}).With(children...)
+	return newIconText(html.Div, children...)
+}
+
+func newIconText(fn func(...gomponents.Node) gomponents.Node, children ...any) Element {
+	i := &iconText{Elem(fn, Class("icon-text"), elemOptionSpanAroundNonIconsAlways)}
+	i.With(children...)
+	return i
 }
 
 type iconText struct {
-	el       func(children ...gomponents.Node) gomponents.Node
-	children []any
+	Element
 }
 
 func (i *iconText) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case ColorClass:
-			i.children = append(i.children, c.Text())
+		case Color:
+			i.Element.With(c.Text())
 		case []any:
 			i.With(c...)
 		default:
-			i.children = append(i.children, c)
+			i.Element.With(c)
 		}
 	}
 
 	return i
 }
 
-func (i *iconText) Render(w io.Writer) error {
-	return Elem(i.el, Class("icon-text"), elemOptionSpanAroundNonIconsAlways, i.children).Render(w)
+func (i *iconText) Clone() Element {
+	return &iconText{i.Element.Clone()}
 }

@@ -13,7 +13,7 @@ var flexbox = c.NewPage(
 	"Flex direction",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#flex-direction",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.FlexRow"), el.Code("flex-direction: row")),
 		b.Row(el.Code("b.FlexRowReverse"), el.Code("flex-direction: row-reverse")),
 		b.Row(el.Code("b.FlexColumn"), el.Code("flex-direction: column")),
@@ -23,7 +23,7 @@ var flexbox = c.NewPage(
 	"Flex wrap",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#flex-wrap",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.FlexNowrap"), el.Code("flex-wrap: nowrap")),
 		b.Row(el.Code("b.FlexWrap"), el.Code("flex-wrap: wrap")),
 		b.Row(el.Code("b.FlexWrapReverse"), el.Code("flex-wrap: wrap-reverse")),
@@ -32,7 +32,7 @@ var flexbox = c.NewPage(
 	"Justify content",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#justify-content",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.JustifyContentFlexStart"), el.Code("justify-content: flex-start")),
 		b.Row(el.Code("b.JustifyContentFlexEnd"), el.Code("justify-content: flex-end")),
 		b.Row(el.Code("b.JustifyContentCenter"), el.Code("justify-content: center")),
@@ -48,7 +48,7 @@ var flexbox = c.NewPage(
 	"Align content",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#align-content",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.AlignContentFlexStart"), el.Code("align-content: flex-start")),
 		b.Row(el.Code("b.AlignContentFlexEnd"), el.Code("align-content: flex-end")),
 		b.Row(el.Code("b.AlignContentCenter"), el.Code("align-content: center")),
@@ -64,7 +64,7 @@ var flexbox = c.NewPage(
 	"Align items",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#align-items",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.AlignItemsStretch"), el.Code("align-items: stretch")),
 		b.Row(el.Code("b.AlignItemsFlexStart"), el.Code("align-items: flex-start")),
 		b.Row(el.Code("b.AlignItemsFlexEnd"), el.Code("align-items: flex-end")),
@@ -79,7 +79,7 @@ var flexbox = c.NewPage(
 	"Align self",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#align-self",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.AlignSelfAuto"), el.Code("align-self: audo")),
 		b.Row(el.Code("b.AlignSelfFlexStart"), el.Code("align-self: flex-start")),
 		b.Row(el.Code("b.AlignSelfFlexEnd"), el.Code("align-self: flex-end")),
@@ -91,7 +91,7 @@ var flexbox = c.NewPage(
 	"Flex grow and flex shrink",
 	"https://bulma.io/documentation/helpers/flexbox-helpers/#flex-grow-and-flex-shrink",
 	b.Table(
-		b.HeadRow("Class", "Property: Value"),
+		b.HeadRow("Modifier", "Property: Value"),
 		b.Row(el.Code("b.FlexGrow0"), el.Code("flex-grow: 0")),
 		b.Row(el.Code("b.FlexGrow1"), el.Code("flex-grow: 1")),
 		b.Row(el.Code("b.FlexGrow2"), el.Code("flex-grow: 2")),

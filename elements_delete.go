@@ -6,11 +6,15 @@ import (
 
 // Delete creates a delete button.
 //
-// The following modifiers change the button size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/delete.html
 func Delete(children ...any) Element {
-	return Elem(html.Button, Class("delete"), children)
+	return &delete{Elem(html.Button, Class("delete"), children)}
+}
+
+type delete struct {
+	Element
+}
+
+func (d *delete) Clone() Element {
+	return &delete{d.Element.Clone()}
 }

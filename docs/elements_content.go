@@ -10,7 +10,45 @@ import (
 
 var content = c.NewPage(
 	"Content", "Content", "/content",
-	"https://bulma.io/documentation/elements/content/",
+	"",
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Content"), " constructor creates a block make to contain ", el.Strong("WYSIWYG"), " text. The following children have a special meaning:",
+		),
+		b.DList(
+			el.Code("b.Small"),
+			"Set content size to small",
+
+			el.Code("b.Normal"),
+			"Set content size to normal",
+
+			el.Code("b.Medium"),
+			"Set content size to medium",
+
+			el.Code("b.Large"),
+			"Set content size to large",
+
+			el.Code("string"),
+			[]any{"Wrap the text in a ", el.Code("<p>"), " element"},
+
+			el.Code("b.NoP(...)"),
+			[]any{"Remove the ", el.Code("<p>"), " wrapper for the provided children"},
+		),
+		el.P("You may apply the following modifiers on ", el.Code("el.Ol"), " children in order to change their style:"),
+		b.DList(
+			el.Code("b.OlLowerAlpha"),
+			"Lowercase letters",
+
+			el.Code("b.OlLowerRoman"),
+			"Lowercase roman numbers",
+
+			el.Code("b.OlUpperAlpha"),
+			"Uppercase letters",
+
+			el.Code("b.OlUpperRoman"),
+			"Uppercase roman numbers",
+		),
+	),
 ).Section(
 	"Full example",
 	"https://bulma.io/documentation/elements/content/#full-example",
@@ -63,7 +101,7 @@ var content = c.NewPage(
 		b.Padding(b.Spacing2),
 		b.FontSize7,
 		b.Style("tab-size", "4"),
-		′<!DOCTYPE html>
+		`+"`"+`<!DOCTYPE html>
 <html>
 	<head>
 		<title>Hello World</title>
@@ -72,7 +110,7 @@ var content = c.NewPage(
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 		Donec viverra nec nulla vitae mollis.</p>
 	</body>
-</html>′),
+</html>`+"`"+`),
 	"Maecenas eleifend sollicitudin dui, faucibus sollicitudin augue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien.",
 	el.Table(
 		el.THead(
@@ -108,8 +146,8 @@ var content = c.NewPage(
 	el.H5("Fifth level"),
 	"Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.",
 	el.Figure(
-		b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
-		b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
+		b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+		b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
 		el.FigCaption("Figure 1: Some beautiful placeholders"),
 	),
 	el.H6("Sixth level"),
@@ -209,8 +247,8 @@ var content = c.NewPage(
 			el.H5("Fifth level"),
 			"Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.",
 			el.Figure(
-				b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
-				b.ImgSrc("https://bulma.io/images/placeholders/256x256.png"),
+				b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+				b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
 				el.FigCaption("Figure 1: Some beautiful placeholders"),
 			),
 			el.H6("Sixth level"),

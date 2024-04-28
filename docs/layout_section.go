@@ -8,6 +8,20 @@ import (
 
 var section = c.NewPage(
 	"Section", "Section", "/section",
+	"",
+
+	b.Content(
+		el.P("The ", el.Code("b.Section"), " constructor creates a section. The following children have a special meaning:"),
+		b.DList(
+			el.Code("b.Medium"),
+			"Set spacing to medium",
+
+			el.Code("b.Large"),
+			"Set spacing to large",
+		),
+	),
+).Section(
+	"Bulma examples",
 	"https://bulma.io/documentation/layout/section/",
 	c.Example(
 		`b.Section(

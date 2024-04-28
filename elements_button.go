@@ -1,132 +1,94 @@
 package bulma
 
 import (
-	"io"
-
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
-func buttonElem(
-	fn func(...gomponents.Node) gomponents.Node,
-	children ...any,
-) Element {
-	return Elem(fn, Class("button"), elemOptionSpanAroundNonIconsIfHasIcons, children)
+func newButton(fn func(...gomponents.Node) gomponents.Node, children ...any) Element {
+	b := &button{Elem(fn, Class("button"), elemOptionSpanAroundNonIconsIfHasIcons)}
+	b.With(children...)
+	return b
+}
+
+type button struct {
+	Element
+}
+
+func (b *button) Clone() Element {
+	return &button{b.Element.Clone()}
 }
 
 // Button creates a button.
 //
-// In order to disable the button, use html.Disabled().
-//
-// If the button contains an icon, all other elements are automatically wrapped
-// in spans.
-//
-// The following modifiers change the button behaviour:
-//   - Text: display as an underlined text
-//   - Ghost: display as a blue underlined link
-//   - Responsive: responsive size
-//   - FullWidth: take the whole width
-//   - Outlined: outline style
-//   - Inverted: inverted style
-//   - Rounded: rounded button
-//   - Hovered: apply the hovered style
-//   - Focused: apply the focused style
-//   - Active: apply the active style
-//   - Loading: replace the content with a loading spinner
-//   - Static: make the button non-interactive
-//   - html.Disabled(): disable the button
-//   - Selected: in a list of attached buttons (Buttons with Addons), make sure
-//     this button is above the other buttons
-//
-// The following modifiers change the button size:
-//   - Small
-//   - Normal
-//   - Medium
-//   - Large
-//
-// The following modifiers change the button color:
-//   - White
-//   - Light
-//   - Dark
-//   - Black
-//   - Primary
-//   - Link
-//   - Info
-//   - Success
-//   - Warning
-//   - Danger
-//   - PrimaryLight
-//   - LinkLight
-//   - InfoLight
-//   - SuccessLight
-//   - WarningLight
-//   - DangerLight
+// https://willoma.github.io/bulma-gomponents/button.html
 func Button(children ...any) Element {
-	return buttonElem(html.Button, children...)
+	return newButton(html.Button, children...)
 }
 
 // ButtonA creates a button-looking link.
 //
-// See the documentation on the Button function for modifiers details.
+// https://willoma.github.io/bulma-gomponents/button.html
 func ButtonA(children ...any) Element {
-	return buttonElem(html.A, children...)
+	return newButton(html.A, children...)
+}
+
+// ButtonAHref creates a button-looking link, with the provided href.
+//
+// https://willoma.github.io/bulma-gomponents/button.html
+func ButtonAHref(href string, children ...any) Element {
+	return newButton(html.A, html.Href(href), children)
 }
 
 // ButtonSubmit creates a submit button.
 //
-// See the documentation on the Button function for modifiers details.
+// https://willoma.github.io/bulma-gomponents/button.html
 func ButtonSubmit(children ...any) Element {
-	return buttonElem(html.Button, html.Type("submit"), children)
+	return newButton(html.Button, html.Type("submit"), children)
 }
 
 // ButtonInputSubmit creates an input of type submit.
 //
-// See the documentation on the Button function for modifiers details.
+// https://willoma.github.io/bulma-gomponents/button.html
 func ButtonInputSubmit(value string, children ...any) Element {
-	return buttonElem(html.Input, html.Type("submit"), html.Value(value), children)
+	return newButton(html.Input, html.Type("submit"), html.Value(value), children)
 }
 
 // ButtonInputReset creates an input of type reset.
 //
-// See the documentation on the Button function for modifiers details.
+// https://willoma.github.io/bulma-gomponents/button.html
 func ButtonInputReset(value string, children ...any) Element {
-	return buttonElem(html.Input, html.Type("reset"), html.Value(value), children)
+	return newButton(html.Input, html.Type("reset"), html.Value(value), children)
 }
 
 // Buttons creates a list of buttons.
 //
-// The following modifiers change the list of buttons behaviour:
-//   - Addons: attach the buttons together
-//   - Centered: center the buttons
-//   - Right: align the buttons to the right
-//
-// The following modifiers change the size of all buttons in the list:
-//   - Small
-//   - Medium
-//   - Large
+// https://willoma.github.io/bulma-gomponents/button.html
 func Buttons(children ...any) Element {
-	return new(buttons).With(children...)
+	b := &buttons{Elem(html.Div, Class("buttons"))}
+	b.With(children...)
+	return b
 }
 
 type buttons struct {
-	children []any
+	Element
 }
 
 func (b *buttons) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
-			b.children = append(b.children, changeSizePrefix("are-", c))
+			b.Element.With(changeSizePrefix("are-", c))
 		case []any:
 			b.With(c...)
 		default:
-			b.children = append(b.children, c)
+			b.Element.With(c)
 		}
 	}
 
 	return b
 }
 
-func (b *buttons) Render(w io.Writer) error {
-	return Elem(html.Div, Class("buttons"), b.children).Render(w)
+func (b *buttons) Clone() Element {
+	return &buttons{b.Element.Clone()}
 }

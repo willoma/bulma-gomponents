@@ -1,74 +1,71 @@
 package bulma
 
 import (
-	"io"
-
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
 // Checkbox creates a checkbox input element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
+//
+// https://willoma.github.io/bulma-gomponents/form/checkbox.html
 func Checkbox(children ...any) Element {
-	return new(checkbox).With(children...)
-}
-
-// CheckboxDisabled creates a disabled checkbox input element.
-//   - when a child is marked with b.Inner, it is forcibly applied to the <input> element
-//   - when a child is marked with b.Outer, it is forcibly applied to the <label> element
-func CheckboxDisabled(children ...any) Element {
-	return (&checkbox{disabled: true}).With(children...)
+	input := Elem(html.Input, html.Type("checkbox"))
+	cb := &checkbox{
+		Element: Elem(
+			html.Label,
+			Class("checkbox"),
+			input,
+			" ",
+		),
+		input: input,
+	}
+	cb.With(children...)
+	return cb
 }
 
 type checkbox struct {
-	disabled      bool
-	labelChildren []any
-	inputChildren []any
+	Element
+	input Element
 }
 
 func (cb *checkbox) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToInner:
-			cb.inputChildren = append(cb.inputChildren, c.Child)
-		case *ApplyToOuter:
-			cb.labelChildren = append(cb.labelChildren, c.Child)
+		case onInput:
+			cb.input.With(c...)
+		case onLabel:
+			cb.Element.With(c...)
 		case string:
-			cb.labelChildren = append(cb.labelChildren, c)
+			cb.Element.With(c)
+		case Class:
+			switch c {
+			case Disabled:
+				cb.input.With(html.Disabled())
+				cb.Element.With(html.Disabled())
+			default:
+				cb.input.With(c)
+			}
 		case gomponents.Node:
-			if IsAttribute(c) {
-				cb.inputChildren = append(cb.inputChildren, c)
+			if isAttribute(c) {
+				cb.input.With(c)
 			} else {
-				cb.labelChildren = append(cb.labelChildren, c)
+				cb.Element.With(c)
 			}
 		case Element:
-			cb.labelChildren = append(cb.labelChildren, c)
+			cb.Element.With(c)
 		case []any:
 			cb.With(c...)
 		default:
-			cb.inputChildren = append(cb.inputChildren, c)
+			cb.input.With(c)
 		}
 	}
 
 	return cb
 }
 
-func (cb *checkbox) Render(w io.Writer) error {
-	input := Elem(html.Input, html.Type("checkbox"), cb.inputChildren)
-
-	label := Elem(
-		html.Label,
-		Class("checkbox"),
-		input,
-		" ",
-		cb.labelChildren,
-	)
-
-	if cb.disabled {
-		label.With(html.Disabled())
-		input.With(html.Disabled())
+func (cb *checkbox) Clone() Element {
+	return &checkbox{
+		Element: cb.Element.Clone(),
+		input:   cb.input.Clone(),
 	}
-
-	return label.Render(w)
 }

@@ -1,6 +1,7 @@
 package bulma
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 
@@ -12,6 +13,22 @@ type Element interface {
 	gomponents.Node
 
 	With(...any) Element
+
+	Clone() Element
+}
+
+type ParentModifier interface {
+	ModifyParent(parent Element)
+}
+
+type ParentModifierAndElement interface {
+	Element
+	ParentModifier
+}
+
+type ParentModifierAndNode interface {
+	gomponents.Node
+	ParentModifier
 }
 
 type elemOption int
@@ -51,9 +68,9 @@ type nodeTypeDescriber interface {
 	Type() gomponents.NodeType
 }
 
-// IsAttribute returns true if the provided argument is a gomponents.Node with
+// isAttribute returns true if the provided argument is a gomponents.Node with
 // type gomponents.AttributeType.
-func IsAttribute(node any) bool {
+func isAttribute(node any) bool {
 	desc, ok := node.(nodeTypeDescriber)
 	return ok && desc.Type() == gomponents.AttributeType
 }
@@ -62,9 +79,10 @@ func IsAttribute(node any) bool {
 //   - func(...gomponents.Node) gomponents.Node: change the gomponents.Node
 //     element for this element
 //   - Class: add a class to the element
-//   - MultiClass: add multiple classes to the element
-//   - ColorClass: add a color class to the element
+//   - Classer: add a class to the element
+//   - Classeser: add multiple classes to the element
 //   - Styles: add one or multiple CSS styles to the element
+//   - ID: define the ID attribute for the element
 //   - string: add a string to the element (using gomponents.Text)
 //   - Element: add the provided element as a child
 //   - container: add the provided element as a child
@@ -75,10 +93,6 @@ func IsAttribute(node any) bool {
 //
 // Any other type is ignored.
 func (e *element) With(children ...any) Element {
-	if e == nil {
-		e = Elem(html.Div)
-	}
-
 	for _, c := range children {
 		switch c := c.(type) {
 		case elemOption:
@@ -92,44 +106,35 @@ func (e *element) With(children ...any) Element {
 			e.elemFn = c
 		case Class:
 			e.classes[string(c)] = true
-		case MultiClass:
-			for _, cl := range c.Responsive {
-				e.classes[cl] = true
-			}
-			for _, cl := range c.Static {
-				e.classes[cl] = true
-			}
-		case ColorClass:
-			e.classes["is-"+c.class] = true
-			if c.light {
-				e.classes["is-light"] = true
+		case Classer:
+			e.classes[string(c.Class())] = true
+		case Classeser:
+			for _, cl := range c.Classes() {
+				e.classes[string(cl)] = true
 			}
 		case Styles:
 			for prop, val := range c {
 				e.stylesCollection[prop] = val
 			}
+		case ID:
+			e.attributes = append(e.attributes, html.ID(string(c)))
 		case string:
 			e.elements = append(e.elements, gomponents.Text(c))
 		case IconElem:
 			e.hasIcons = true
 			e.elements = append(e.elements, c)
-		case *topNavbar:
-			// If the child is a top-fixed navbar, add the "navbar-fixed-top" class to its parent
-			e.classes[string(NavbarFixedTop)] = true
+		case ParentModifierAndElement:
+			c.ModifyParent(e)
 			e.elements = append(e.elements, c)
-		case *bottomNavbar:
-			// If the child is a bottom-fixed navbar, add the "navbar-fixed-bottom" class to its parent
-			e.classes[string(NavbarFixedBottom)] = true
+		case ParentModifierAndNode:
+			c.ModifyParent(e)
 			e.elements = append(e.elements, c)
-		case *tile:
-			if !e.classes["tile"] {
-				c.With(Class("is-ancestor"))
-			}
-			e.elements = append(e.elements, c)
+		case ParentModifier:
+			c.ModifyParent(e)
 		case Element:
 			e.elements = append(e.elements, c)
 		case gomponents.Node:
-			if IsAttribute(c) {
+			if isAttribute(c) {
 				e.attributes = append(e.attributes, c)
 			} else {
 				e.elements = append(e.elements, c)
@@ -144,10 +149,52 @@ func (e *element) With(children ...any) Element {
 	return e
 }
 
-func (e *element) getChildren() []gomponents.Node {
+func (e *element) Clone() Element {
 	if e == nil {
 		return nil
 	}
+
+	classes := make(map[string]bool, len(e.classes))
+	for class, ok := range e.classes {
+		classes[class] = ok
+	}
+
+	stylesCollection := make(map[string]string, len(e.stylesCollection))
+	for style, value := range e.stylesCollection {
+		stylesCollection[style] = value
+	}
+
+	attributes := make([]gomponents.Node, len(e.attributes))
+	for i, attr := range e.attributes {
+		attributes[i] = attr
+	}
+
+	elements := make([]gomponents.Node, len(e.elements))
+	for i, elem := range e.elements {
+		switch elem := elem.(type) {
+		case Element:
+			elements[i] = elem.Clone()
+		default:
+			elements[i] = elem
+		}
+	}
+
+	return &element{
+		elemFn: e.elemFn,
+
+		hasIcons:                     e.hasIcons,
+		spanAroundNonIconsIfHasIcons: e.spanAroundNonIconsIfHasIcons,
+		spanAroundNonIconsAlways:     e.spanAroundNonIconsAlways,
+
+		classes:          classes,
+		stylesCollection: stylesCollection,
+
+		attributes: attributes,
+		elements:   elements,
+	}
+}
+
+func (e *element) getChildren() []gomponents.Node {
 	children := []gomponents.Node{}
 
 	classes := ""
@@ -194,15 +241,35 @@ func (e *element) Render(w io.Writer) error {
 	return e.elemFn(e.getChildren()...).Render(w)
 }
 
-type (
-	ApplyToInner struct{ Child any }
-	ApplyToOuter struct{ Child any }
-)
+// Prepare pre-renders a node in memory for future uses.
+func Prepare(e Element) gomponents.Node {
+	var buf bytes.Buffer
+	e.Render(&buf)
 
-func Inner(child any) *ApplyToInner {
-	return &ApplyToInner{child}
+	if modifier, ok := e.(ParentModifier); ok {
+		return &preparedElementWithParentModifier{
+			preparedElement: preparedElement{buf.Bytes()},
+			modifyFn:        modifier.ModifyParent,
+		}
+	}
+
+	return &preparedElement{content: buf.Bytes()}
 }
 
-func Outer(child any) *ApplyToOuter {
-	return &ApplyToOuter{child}
+type preparedElement struct {
+	content []byte
+}
+
+type preparedElementWithParentModifier struct {
+	preparedElement
+	modifyFn func(Element)
+}
+
+func (e *preparedElement) Render(w io.Writer) error {
+	_, err := w.Write(e.content)
+	return err
+}
+
+func (e *preparedElementWithParentModifier) ModifyParent(parent Element) {
+	e.modifyFn(parent)
 }

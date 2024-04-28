@@ -1,8 +1,7 @@
 package bulma
 
 import (
-	"io"
-
+	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 )
 
@@ -22,83 +21,135 @@ func modalClose() Element {
 
 // Modal creates a modal. The modal background and the modal close button are automatically added. The children are added to the modal content.
 //
-// The id is needed at least in order to open the modal from another element.
-//
-// JSOpen may be used to get a javascript code to execute in order to open
-// the modal, for instance:
-//
-//	b.Button(
-//		b.OnClick(b.JSOpen("myModal"))
-//	),
-//	b.Modal("myModal", [...])
-func Modal(id string, children ...any) Element {
-	return Elem(
-		html.Div,
-		Class("modal"),
-		html.ID(id),
-		modalBackground(),
-		Elem(html.Div, Class("modal-content"), children),
-		modalClose(),
-	)
+// https://willoma.github.io/bulma-gomponents/modal.html
+func Modal(children ...any) Element {
+	content := Elem(html.Div, Class("modal-content"))
+	m := &modal{
+		Element: Elem(
+			html.Div, Class("modal"),
+			modalBackground(),
+			content,
+			modalClose(),
+		),
+		content: content,
+	}
+	m.With(children...)
+	return m
+}
+
+type modal struct {
+	Element
+	content Element
+}
+
+func (m *modal) With(children ...any) Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case onModal:
+			m.Element.With(c...)
+		case onContent:
+			m.content.With(c...)
+		case gomponents.Node:
+			if isAttribute(c) {
+				m.Element.With(c)
+			} else {
+				m.content.With(c)
+			}
+		case []any:
+			m.With(c...)
+		default:
+			m.content.With(c)
+		}
+	}
+	return m
+}
+
+func (m *modal) Clone() Element {
+	return &modal{
+		Element: m.Element.Clone(),
+		content: m.content.Clone(),
+	}
 }
 
 // ModalCard creates a modal card.
-//   - when a child is marked with b.Outer, it is forcibly applied to the <div class="modal"> element
-//   - the b.Inner mark is ignored
 //
 // Wrap children in ModalCardHead in order to add them to the card header. Wrap
 // children with ModalCardFoot in order to add them to the card footer. Any
 // unwrapped child is added to the card body.
-func ModalCard(id string, children ...any) Element {
-	return (&modalCard{ownChildren: []any{html.ID(id)}}).With(children...)
+//
+// https://willoma.github.io/bulma-gomponents/modal.html
+func ModalCard(children ...any) Element {
+	head := Elem(html.Div, Class("modal-card-head"))
+	body := Elem(html.Div, Class("modal-card-body"))
+	foot := Elem(html.Div, Class("modal-card-foot"))
+
+	card := Elem(html.Div, Class("modal-card"), head, body, foot)
+	m := &modalCard{
+		Element: Elem(
+			html.Div, Class("modal"),
+			modalBackground(),
+			card,
+			modalClose(),
+		),
+		card: card,
+		head: head,
+		body: body,
+		foot: foot,
+	}
+	m.With(children...)
+	return m
 }
 
 type modalCard struct {
-	ownChildren  []any
-	headChildren []any
-	footChildren []any
-	bodyChildren []any
+	Element
+	card Element
+	head Element
+	body Element
+	foot Element
 }
 
-func (mc *modalCard) With(children ...any) Element {
+func (m *modalCard) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case *ApplyToOuter:
-			mc.ownChildren = append(mc.ownChildren, c.Child)
+		case onModal:
+			m.Element.With(c...)
+		case onCard:
+			m.card.With(c...)
 		case modalCardHead:
-			mc.headChildren = append(mc.headChildren, c...)
+			m.head.With(c...)
+		case *modalCardTitle:
+			m.head.With(c)
 		case modalCardFoot:
-			mc.footChildren = append(mc.footChildren, c...)
+			m.foot.With(c...)
+		case gomponents.Node:
+			if isAttribute(c) {
+				m.Element.With(c)
+			} else {
+				m.body.With(c)
+			}
 		case []any:
-			mc.With(c...)
+			m.With(c...)
 		default:
-			mc.bodyChildren = append(mc.bodyChildren, c)
+			m.body.With(c)
 		}
 	}
 
-	return mc
+	return m
 }
 
-func (mc *modalCard) Render(w io.Writer) error {
-	return Elem(
-		html.Div,
-		Class("modal"),
-		mc.ownChildren,
-		modalBackground(),
-		Elem(
-			html.Div,
-			Class("modal-card"),
-			Elem(html.Div, Class("modal-card-head"), mc.headChildren),
-			Elem(html.Div, Class("modal-card-body"), mc.bodyChildren),
-			Elem(html.Div, Class("modal-card-foot"), mc.footChildren),
-		),
-		modalClose(),
-	).Render(w)
+func (m *modalCard) Clone() Element {
+	return &modalCard{
+		Element: m.Element.Clone(),
+		card:    m.card.Clone(),
+		head:    m.head.Clone(),
+		body:    m.body.Clone(),
+		foot:    m.foot.Clone(),
+	}
 }
 
 // ModalCardHead designates children to be part of the card head.
 //
-// It cannot be used as a node by itself.
+// https://willoma.github.io/bulma-gomponents/modal.html
 func ModalCardHead(children ...any) modalCardHead {
 	return modalCardHead(children)
 }
@@ -106,13 +157,39 @@ func ModalCardHead(children ...any) modalCardHead {
 type modalCardHead []any
 
 // ModalCardTitle creates a title for a card head.
+//
+// https://willoma.github.io/bulma-gomponents/modal.html
 func ModalCardTitle(children ...any) Element {
-	return Elem(html.P, Class("modal-card-title"), children)
+	m := &modalCardTitle{Elem(html.P, Class("modal-card-title"))}
+	m.With(children...)
+	return m
+}
+
+type modalCardTitle struct {
+	Element
+}
+
+func (m *modalCardTitle) Clone() Element {
+	return &modalCardTitle{m.Element.Clone()}
+}
+
+// ModalCardTitleWithClose creates a card head with a text title and a close
+// button.
+//
+// https://willoma.github.io/bulma-gomponents/modal.html
+func ModalCardTitleWithClose(title string) modalCardHead {
+	return ModalCardHead(
+		ModalCardTitle(title),
+		Delete(
+			OnClick(JSCloseThisModal),
+			html.Aria("label", "close"),
+		),
+	)
 }
 
 // ModalCardFoot designates children to be part of the card head.
 //
-// It cannot be used as a node by itself.
+// https://willoma.github.io/bulma-gomponents/modal.html
 func ModalCardFoot(children ...any) modalCardFoot {
 	return modalCardFoot(children)
 }

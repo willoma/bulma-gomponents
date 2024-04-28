@@ -1,163 +1,124 @@
 package bulma
 
-// Mobile makes the class apply on mobile screens
-// (only for classes supporting responsiveness).
-func (c Class) Mobile() Class {
-	return c + "-mobile"
+type ResponsiveClass string
+
+func (c ResponsiveClass) Class() Class {
+	return Class(c)
 }
 
-// Tablet makes the class apply on tablet and larger screens
-// (only for classes supporting responsiveness).
-func (c Class) Tablet() Class {
-	return c + "-tablet"
+// Mobile makes the class apply on mobile screens.
+func (c ResponsiveClass) Mobile() Class {
+	return Class(c) + "-mobile"
 }
 
-// TabletOnly makes the class apply on tablet screens only
-// (only for classes supporting responsiveness).
-func (c Class) TabletOnly() Class {
-	return c + "-tablet-only"
+// Tablet makes the class apply on tablet and larger screens.
+func (c ResponsiveClass) Tablet() Class {
+	return Class(c) + "-tablet"
 }
 
-// Touch makes the class apply on touch screens (mobile and tablet) only
-// (only for classes supporting responsiveness).
-func (c Class) Touch() Class {
-	return c + "-touch"
+// TabletOnly makes the class apply on tablet screens only.
+func (c ResponsiveClass) TabletOnly() Class {
+	return Class(c) + "-tablet-only"
 }
 
-// Desktop makes the class apply on desktop and larger screens
-// (only for classes supporting responsiveness).
-func (c Class) Desktop() Class {
-	return c + "-desktop"
+// Touch makes the class apply on touch screens (mobile and tablet) only.
+func (c ResponsiveClass) Touch() Class {
+	return Class(c) + "-touch"
 }
 
-// DesktopOnly makes the class apply on desktop screens only
-// (only for classes supporting responsiveness).
-func (c Class) DesktopOnly() Class {
-	return c + "-desktop-only"
+// Desktop makes the class apply on desktop and larger screens.
+func (c ResponsiveClass) Desktop() Class {
+	return Class(c) + "-desktop"
 }
 
-// Widescreen makes the class apply on widescreen and larger screens
-// (only for classes supporting responsiveness).
-func (c Class) Widescreen() Class {
-	return c + "-widescreen"
+// DesktopOnly makes the class apply on desktop screens only.
+func (c ResponsiveClass) DesktopOnly() Class {
+	return Class(c) + "-desktop-only"
 }
 
-// WidescreenOnly makes the class apply on widescreen screens only
-// (only for classes supporting responsiveness).
-func (c Class) WidescreenOnly() Class {
-	return c + "-widescreen-only"
+// Widescreen makes the class apply on widescreen and larger screens.
+func (c ResponsiveClass) Widescreen() Class {
+	return Class(c) + "-widescreen"
 }
 
-// FullHD makes the class apply on full hd screens only
-// (only for classes supporting responsiveness).
-func (c Class) FullHD() Class {
-	return c + "-fullhd"
+// WidescreenOnly makes the class apply on widescreen screens only.
+func (c ResponsiveClass) WidescreenOnly() Class {
+	return Class(c) + "-widescreen-only"
 }
 
-// Mobile makes the class apply on mobile and larger screens
-// (only for classes supporting responsiveness).
-func (c MultiClass) Mobile() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-mobile")
-	}
-	return newC
+// FullHD makes the class apply on full hd screens only.
+func (c ResponsiveClass) FullHD() Class {
+	return Class(c) + "-fullhd"
 }
 
-// Tablet makes the class apply on tablet and larger screens
-// (only for classes supporting responsiveness).
-func (c MultiClass) Tablet() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-tablet")
-	}
-	return newC
+type ResponsiveClasses struct {
+	Responsive    []string
+	NonResponsive []string
 }
 
-// TabletOnly makes the class apply on tablet screens only
-// (only for classes supporting responsiveness).
-func (c MultiClass) TabletOnly() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
+func (c ResponsiveClasses) Classes() []Class {
+	classes := make([]Class, 0, len(c.Responsive)+len(c.NonResponsive))
+	for _, cl := range c.Responsive {
+		classes = append(classes, Class(cl))
 	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-tablet-only")
+	for _, cl := range c.NonResponsive {
+		classes = append(classes, Class(cl))
 	}
-	return newC
+	return classes
 }
 
-// Touch makes the class apply on touch screens (mobile and tablet) only
-// (only for classes supporting responsiveness).
-func (c MultiClass) Touch() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
+func (c ResponsiveClasses) responsify(suffix string) Classeser {
+	classes := make(Classes, 0, len(c.Responsive)+len(c.NonResponsive))
+	for _, cl := range c.Responsive {
+		classes = append(classes, Class(cl+suffix))
 	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-touch")
+	for _, cl := range c.NonResponsive {
+		classes = append(classes, Class(cl))
 	}
-	return newC
+	return classes
 }
 
-// Desktop makes the class apply on desktop and larger screens
-// (only for classes supporting responsiveness).
-func (c MultiClass) Desktop() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-desktop")
-	}
-	return newC
+// Mobile makes the class apply on mobile screens.
+func (c ResponsiveClasses) Mobile() Classeser {
+	return c.responsify("-mobile")
 }
 
-// DesktopOnly makes the class apply on desktop screens only
-// (only for classes supporting responsiveness).
-func (c MultiClass) DesktopOnly() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-desktop-only")
-	}
-	return newC
+// Tablet makes the class apply on tablet and larger screens.
+func (c ResponsiveClasses) Tablet() Classeser {
+	return c.responsify("-tablet")
 }
 
-// Widescreen makes the class apply on widescreen and larger screens
-// (only for classes supporting responsiveness).
-func (c MultiClass) Widescreen() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-widescreen")
-	}
-	return newC
+// TabletOnly makes the class apply on tablet screens only.
+func (c ResponsiveClasses) TabletOnly() Classeser {
+	return c.responsify("-tablet-only")
 }
 
-// WidescreenOnly makes the class apply on widescreen screens only
-// (only for classes supporting responsiveness).
-func (c MultiClass) WidescreenOnly() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-widescreen-only")
-	}
-	return newC
+// Touch makes the class apply on touch screens (mobile and tablet) only.
+func (c ResponsiveClasses) Touch() Classeser {
+	return c.responsify("-touch")
 }
 
-// FullHD makes the class apply on full hd screens only
-// (only for classes supporting responsiveness).
-func (c MultiClass) FullHD() MultiClass {
-	newC := MultiClass{
-		Static: c.Static,
-	}
-	for _, rc := range c.Responsive {
-		newC.Static = append(newC.Static, rc+"-fullhd")
-	}
-	return newC
+// Desktop makes the class apply on desktop and larger screens.
+func (c ResponsiveClasses) Desktop() Classeser {
+	return c.responsify("-desktop")
+}
+
+// DesktopOnly makes the class apply on desktop screens only.
+func (c ResponsiveClasses) DesktopOnly() Classeser {
+	return c.responsify("-desktop-only")
+}
+
+// Widescreen makes the class apply on widescreen and larger screens.
+func (c ResponsiveClasses) Widescreen() Classeser {
+	return c.responsify("-widescreen")
+}
+
+// WidescreenOnly makes the class apply on widescreen screens only.
+func (c ResponsiveClasses) WidescreenOnly() Classeser {
+	return c.responsify("-widescreen-only")
+}
+
+// FullHD makes the class apply on full hd screens only.
+func (c ResponsiveClasses) FullHD() Classeser {
+	return c.responsify("-fullhd")
 }

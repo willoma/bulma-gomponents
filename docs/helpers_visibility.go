@@ -61,7 +61,7 @@ var visibility = c.NewPage(
 	"Other visibility helpers",
 	"https://bulma.io/documentation/helpers/visibility-helpers/#other-visibility-helpers",
 	b.Table(
-		b.HeadRow("Class", "Result"),
+		b.HeadRow("Modifier", "Result"),
 		b.Row(el.Code("b.Invisible"), b.Cell("Adds visibility ", el.Strong("hidden"))),
 		b.Row(el.Code("b.SrOnly"), b.Cell("Hide elements ", el.Strong("visually"), " but keep the element available to be announced by a ", el.Strong("screen reader"))),
 	),

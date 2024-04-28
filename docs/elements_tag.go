@@ -8,13 +8,88 @@ import (
 
 var tag = c.NewPage(
 	"Tag", "Tags", "/tag",
-	"https://bulma.io/documentation/elements/tag/",
+	"",
+
+	b.Content(
+		el.P(
+			"The ", el.Code("b.Tag"), " constructor creates a tag. The ", el.Code("b.DeleteTag"), " constructor creates a delete button-looking tag. The following children have a special meaning:",
+		),
+		b.DList(
+			el.Code("b.White"),
+			"Set tag color to white",
+
+			el.Code("b.Black"),
+			"Set tag color to black",
+
+			el.Code("b.Light"),
+			"Set tag color to light",
+
+			el.Code("b.Dark"),
+			"Set tag color to dark",
+
+			el.Code("b.Primary"),
+			"Set tag color to primary",
+
+			el.Code("b.Link"),
+			"Set tag color to link",
+
+			el.Code("b.Info"),
+			"Set tag color to info",
+
+			el.Code("b.Success"),
+			"Set tag color to success",
+
+			el.Code("b.Warning"),
+			"Set tag color to warning",
+
+			el.Code("b.Danger"),
+			"Set tag color to danger",
+
+			el.Code("b.PrimaryLight"),
+			"Set tag color to primary light",
+
+			el.Code("b.LinkLight"),
+			"Set tag color to link light",
+
+			el.Code("b.InfoLight"),
+			"Set tag color to info light",
+
+			el.Code("b.SuccessLight"),
+			"Set tag color to success light",
+
+			el.Code("b.WarningLight"),
+			"Set tag color to warning light",
+
+			el.Code("b.DangerLight"),
+			"Set tag color to danger light",
+
+			el.Code("b.Small"),
+			"Set tag size to small",
+
+			el.Code("b.Normal"),
+			"Set tag size to normal",
+
+			el.Code("b.Medium"),
+			"Set tag size to medium",
+
+			el.Code("b.Large"),
+			"Set tag size to large",
+
+			el.Code("b.Rounded"),
+			"Make a rounded tag",
+		),
+		el.P(
+			"The ", el.Code("b.Tags"), " constructor creates a list of tags. It accepts the ", el.Code("b.Addons"), " modifier to attach the contained tags together and may contain any number of ", el.Code("b.Tag"), " or ", el.Code("b.DeleteTag"), ".",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/elements/tag/",
 
 	c.Example(
 		`b.Tag("Tag label")`,
 		b.Tag("Tag label"),
 	),
-).Section(
+).Subsection(
 	"Colors",
 	"https://bulma.io/documentation/elements/tag/#colors",
 	c.Example(
@@ -53,7 +128,7 @@ b.Tag(b.DangerLight, "Danger")`,
 		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.WarningLight, "Warning")),
 		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.DangerLight, "Danger")),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/elements/tag/#sizes",
 	c.Example(
@@ -110,7 +185,7 @@ b.Tag(b.Info, b.Large, "Normal")`,
 			b.Tag("Medium"),
 		),
 	),
-).Section(
+).Subsection(
 	"Modifiers",
 	"https://bulma.io/documentation/elements/tag/#modifiers",
 	c.Example(
@@ -121,7 +196,7 @@ b.Tag(b.Info, b.Large, "Normal")`,
 		`b.DeleteTag()`,
 		b.DeleteTag(),
 	),
-).Section(
+).Subsection(
 	"Combinations",
 	"https://bulma.io/documentation/elements/tag/#combinations",
 	c.Example(
@@ -156,7 +231,7 @@ b.Tag(
 			b.Delete(),
 		)),
 	),
-).Section(
+).Subsection(
 	"List of tags",
 	"https://bulma.io/documentation/elements/tag/#list-of-tags",
 	c.Example(
@@ -217,7 +292,7 @@ b.Tag(
 			b.Tag("Twenty"),
 		),
 	),
-).Section(
+).Subsection(
 	"Tag addons",
 	"https://bulma.io/documentation/elements/tag/#tag-addons",
 	c.Example(

@@ -17,7 +17,7 @@ var intro = c.NewPage(
 	"Importing packages", "",
 	b.Content(
 		el.P("It is suggested to import ", el.Em("Bulma-Gomponents"), " with the ", el.Code("b"), " alias:"),
-		el.Pre(`import b "github.com/willoma/bulma-gomponents"`),
+		c.ExamplePre(`import b "github.com/willoma/bulma-gomponents"`),
 		el.P(el.Em("Bulma-Gomponents"), " also provides the following packages:"),
 		b.DList(
 			el.Code("github.com/willoma/bulma-gomponents/easy"),
