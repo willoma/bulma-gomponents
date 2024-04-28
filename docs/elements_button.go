@@ -15,7 +15,7 @@ var button = c.NewPage(
 
 	b.Content(
 		el.P(
-			"The ", el.Code("b.Button"), " constructor creates a button. The following children have a special meaning:",
+			"The ", el.Code("b.Button"), ", ", el.Code("b.ButtonA"), ", ", el.Code("b.ButtonAHref"), ", ", el.Code("b.ButtonSubmit"), ", ", el.Code("b.ButtonInputSubmit"), " and ", el.Code("b.ButtonInputReset"), " constructors create buttons. The following children have a special meaning:",
 		),
 		b.DList(
 			el.Code("b.Responsive"),

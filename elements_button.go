@@ -29,6 +29,13 @@ func ButtonA(children ...any) Element {
 	return newButton(html.A, children...)
 }
 
+// ButtonAHref creates a button-looking link, with the provided href.
+//
+// https://willoma.github.io/bulma-gomponents/button.html
+func ButtonAHref(href string, children ...any) Element {
+	return newButton(html.A, html.Href(href), children)
+}
+
 // ButtonSubmit creates a submit button.
 //
 // https://willoma.github.io/bulma-gomponents/button.html
