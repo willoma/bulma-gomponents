@@ -15,7 +15,6 @@ type Element interface {
 	With(...any) Element
 
 	Clone() Element
-	Prepare() gomponents.Node
 }
 
 type ParentModifier interface {
@@ -183,12 +182,6 @@ func (e *element) Clone() Element {
 	}
 }
 
-func (e *element) Prepare() gomponents.Node {
-	var buf bytes.Buffer
-	e.elemFn(e.getChildren()...).Render(&buf)
-	return &preparedElement{buf.Bytes()}
-}
-
 func (e *element) getChildren() []gomponents.Node {
 	if e == nil {
 		return nil
@@ -237,6 +230,13 @@ func (e *element) Render(w io.Writer) error {
 		return nil
 	}
 	return e.elemFn(e.getChildren()...).Render(w)
+}
+
+// Prepare pre-renders a node in memory for future uses.
+func Prepare(e Element) gomponents.Node {
+	var buf bytes.Buffer
+	e.Render(&buf)
+	return &preparedElement{buf.Bytes()}
 }
 
 type preparedElement struct {

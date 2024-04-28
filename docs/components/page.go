@@ -64,8 +64,6 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 		}
 		content.With(p.Children, p.InternalMenu())
 
-		preparedContent := content.Prepare()
-
 		navbar := b.Navbar(
 			b.Style("z-index", "100"),
 			b.Shadow,
@@ -78,6 +76,15 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 				),
 			),
 			b.NavbarEnd(
+				b.NavbarItem(
+					b.Buttons(
+						b.ButtonAHref(
+							"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
+							fa.Icon(fa.Brand, "golang"),
+							"Reference",
+						),
+					),
+				),
 				b.NavbarAHref(
 					"https://pkg.go.dev/github.com/willoma/bulma-gomponents",
 					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Go"), b.Tag(b.Info, "Reference")),
@@ -91,7 +98,7 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 					b.Tags(html.Span, b.InlineFlex, b.Addons, b.Tag(b.Dark, "Bulma"), b.Tag(b.Warning, "Official documentation")),
 				),
 			),
-		).Prepare()
+		)
 
 		menu := b.Box(
 			b.Style(
@@ -105,7 +112,7 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 			),
 			b.PaddingHorizontal(b.Spacing0),
 			navMenu(sections, p.Path),
-		).Prepare()
+		)
 
 		p.prepared = b.HTML(
 			b.Script(path.Join(p.BaseURL, "htmx.min.js")),
@@ -113,9 +120,9 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 			b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
 			fa.CSSHead(path.Join(p.BaseURL, "fa")),
 			gomponents.Attr("hx-on:htmx:load", `if(event.detail.elt.id ==='bgd-content')window.scrollTo(0,0)`),
-			navbar,
-			menu,
-			preparedContent,
+			b.Prepare(navbar),
+			b.Prepare(menu),
+			b.Prepare(content),
 		)
 	})
 
