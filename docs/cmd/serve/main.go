@@ -36,6 +36,6 @@ func main() {
 func route(mux *http.ServeMux, p *c.Page) {
 	mux.HandleFunc("GET "+p.Path, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
-		docs.Layout(p).Render(w)
+		p.Prepare(docs.Sections).Render(w)
 	})
 }

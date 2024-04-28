@@ -10,39 +10,33 @@ import (
 
 // TCell creates a table cell.
 func TCell(children ...any) Element {
-	return new(tcell).With(children...)
+	c := &tcell{Element: Elem(html.Td)}
+	c.With(children...)
+	return c
 }
 
 type tcell struct {
-	elemFn   func(...gomponents.Node) gomponents.Node
-	children []any
+	Element
+
+	hasChangedElem bool
 }
 
 func (c *tcell) With(children ...any) Element {
 	for _, ch := range children {
 		switch ch := ch.(type) {
 		case func(...gomponents.Node) gomponents.Node:
-			c.elemFn = ch
+			if !c.hasChangedElem {
+				c.hasChangedElem = true
+				c.Element.With(ch)
+			}
 		case []any:
 			c.With(ch...)
 		default:
-			c.children = append(c.children, ch)
+			c.Element.With(ch)
 		}
 	}
 
 	return c
-}
-
-func (c *tcell) Render(w io.Writer) error {
-	var elemFn func(...gomponents.Node) gomponents.Node
-
-	if c.elemFn != nil {
-		elemFn = c.elemFn
-	} else {
-		elemFn = html.Td
-	}
-
-	return Elem(elemFn, c.children...).Render(w)
 }
 
 // HeadRow creates a table header row (tr element).
@@ -95,9 +89,7 @@ func (r *row) With(children ...any) Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *tcell:
-			if c.elemFn == nil {
-				c.With(r.elemFn)
-			}
+			c.With(r.elemFn)
 			r.Element.With(c)
 		case string:
 			r.Element.With(TCell(r.elemFn, gomponents.Text(c)))

@@ -114,7 +114,7 @@ func generatePages(destination, baseurl string) {
 			if err != nil {
 				panic(err)
 			}
-			if err := docs.Layout(page).Render(f); err != nil {
+			if err := page.Prepare(docs.Sections).Render(f); err != nil {
 				panic(err)
 			}
 			if err := f.Close(); err != nil {

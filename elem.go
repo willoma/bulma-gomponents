@@ -1,6 +1,7 @@
 package bulma
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 
@@ -12,6 +13,9 @@ type Element interface {
 	gomponents.Node
 
 	With(...any) Element
+
+	Clone() Element
+	Prepare() gomponents.Node
 }
 
 type ParentModifier interface {
@@ -138,6 +142,53 @@ func (e *element) With(children ...any) Element {
 	return e
 }
 
+func (e *element) Clone() Element {
+	classes := make(map[string]bool, len(e.classes))
+	for class, ok := range e.classes {
+		classes[class] = ok
+	}
+
+	stylesCollection := make(map[string]string, len(e.stylesCollection))
+	for style, value := range e.stylesCollection {
+		stylesCollection[style] = value
+	}
+
+	attributes := make([]gomponents.Node, len(e.attributes))
+	for i, attr := range e.attributes {
+		attributes[i] = attr
+	}
+
+	elements := make([]gomponents.Node, len(e.elements))
+	for i, elem := range e.elements {
+		switch elem := elem.(type) {
+		case Element:
+			elements[i] = elem.Clone()
+		default:
+			elements[i] = elem
+		}
+	}
+
+	return &element{
+		elemFn: e.elemFn,
+
+		hasIcons:                     e.hasIcons,
+		spanAroundNonIconsIfHasIcons: e.spanAroundNonIconsIfHasIcons,
+		spanAroundNonIconsAlways:     e.spanAroundNonIconsAlways,
+
+		classes:          classes,
+		stylesCollection: stylesCollection,
+
+		attributes: attributes,
+		elements:   elements,
+	}
+}
+
+func (e *element) Prepare() gomponents.Node {
+	var buf bytes.Buffer
+	e.elemFn(e.getChildren()...).Render(&buf)
+	return &preparedElement{buf.Bytes()}
+}
+
 func (e *element) getChildren() []gomponents.Node {
 	if e == nil {
 		return nil
@@ -186,4 +237,13 @@ func (e *element) Render(w io.Writer) error {
 		return nil
 	}
 	return e.elemFn(e.getChildren()...).Render(w)
+}
+
+type preparedElement struct {
+	content []byte
+}
+
+func (e *preparedElement) Render(w io.Writer) error {
+	_, err := w.Write(e.content)
+	return err
 }
