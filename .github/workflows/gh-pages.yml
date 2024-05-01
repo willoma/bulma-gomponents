@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - docs
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: "1.22"
 
       - name: Check out code
         uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build
-        run: go run docs/cmd/generate/main.go -destination public -baseurl ${{ steps.pages.outputs.base_path }}
+        run: go run cmd/generate/main.go -destination public -baseurl ${{ steps.pages.outputs.base_path }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
