@@ -1,106 +1,259 @@
-package bulma
+package docs
 
 import (
-	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
 )
 
-// Pagination creates a pagination element.
-//
-// https://willoma.github.io/bulma-gomponents/pagination.html
-func Pagination(children ...any) e.Element {
-	list := e.Ul(e.Class("pagination-list"))
-	p := &pagination{
-		Element: e.Nav(e.Class("pagination"), list),
-		list:    list,
-	}
-	p.With(children...)
-	return p
-}
+var pagination = c.NewPage(
+	"Pagination", "Pagination", "/pagination",
+	"",
+	b.Content(
+		e.P("The ", e.Code("b.Pagination"), " constructor creates a pagination. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.OnList(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<ul class="pagination-list">`), " e.Element"},
 
-type pagination struct {
-	e.Element
-	list e.Element
-}
+			e.Code("b.PaginationLink(...)"),
+			"Add a button-looking link to the pagination list",
 
-func (p *pagination) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onList:
-			p.list.With(c...)
-		case *paginationEllipsis, *paginationLink:
-			p.list.With(c)
-		case []any:
-			p.With(c...)
-		default:
-			p.Element.With(c)
-		}
-	}
+			e.Code("b.PaginationEllipsis()"),
+			"Add an ellipsis to the pagination list",
 
-	return p
-}
+			e.Code("b.Centered"),
+			`Center the pagination list ("Previous" button on the left side, "Next" on the right side)`,
 
-func (p *pagination) Clone() e.Element {
-	return &pagination{
-		Element: p.Element.Clone(),
-		list:    p.list.Clone(),
-	}
-}
+			e.Code("b.Right"),
+			`Align the pagination list to the right ("Previous" and "Next" buttons on the left side)`,
 
-// PaginationPrevious creates the "Previous" link button for a pagination.
-//
-// https://willoma.github.io/bulma-gomponents/pagination.html
-func PaginationPrevious(children ...any) e.Element {
-	return e.A(e.Class("pagination-previous"), children)
-}
+			e.Code("b.Rounded"),
+			"Have rounded pagination buttons",
 
-// PaginationNext creates the "Next" link button for a pagination.
-//
-// https://willoma.github.io/bulma-gomponents/pagination.html
-func PaginationNext(children ...any) e.Element {
-	return e.A(e.Class("pagination-next"), children)
-}
+			e.Code("b.Small"),
+			"Set pagination size to small",
 
-// PaginationLink creates a single page link button for a pagination.
-//
-// https://willoma.github.io/bulma-gomponents/pagination.html
-func PaginationLink(children ...any) e.Element {
-	p := &paginationLink{e.A(e.Class("pagination-link"))}
-	p.With(children...)
-	return p
-}
+			e.Code("b.Medium"),
+			"Set pagination size to medium",
 
-type paginationLink struct {
-	e.Element
-}
+			e.Code("b.Large"),
+			"Set pagination size to large",
+		),
+		e.P("Other children are added to the ", e.Code(`<div class="pagination">`), " e.Element."),
+		e.P("The ", e.Code("b.PaginationLink"), " and ", e.Code("b.PaginationAHref"), " constructors create button-looking links for the pagination list section. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.Current"),
+			"Mark this link as being the current page",
 
-func (p *paginationLink) Clone() e.Element {
-	return &paginationLink{p.Element.Clone()}
-}
-
-// PaginationAHref creates a single page link button for a pagination.
-//
-// https://willoma.github.io/bulma-gomponents/pagination.html
-func PaginationAHref(href string, children ...any) e.Element {
-	return PaginationLink(html.Href(href), children)
-}
-
-// PaginationEllipsis creates an ellipsis element for a pagination.
-//
-// https://willoma.github.io/bulma-gomponents/pagination.html
-func PaginationEllipsis(children ...any) e.Element {
-	p := &paginationEllipsis{
-		e.Span(e.Class("pagination-ellipsis"), gomponents.Raw("&hellip;")),
-	}
-	p.With(children...)
-	return p
-}
-
-type paginationEllipsis struct {
-	e.Element
-}
-
-func (p *paginationEllipsis) Clone() e.Element {
-	return &paginationEllipsis{p.Element.Clone()}
-}
+			e.Code("b.Disabled"),
+			"Mark this link as inactive",
+		),
+		e.P("The ", e.Code("b.PaginationEllipsis"), " constructor creates an ellipsis for the pagination list section."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/pagination/",
+	c.HorizontalExample(
+		`b.Pagination(
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+	c.HorizontalExample(
+		`b.Pagination(
+	b.PaginationPrevious(b.Disabled, "Previous", html.TitleAttr("This is the first page")),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Page 1"), b.Current, "1"),
+	b.PaginationLink(e.AriaLabel("Goto page 2"), "2"),
+	b.PaginationLink(e.AriaLabel("Goto page 3"), "3"),
+)`,
+		b.Pagination(
+			b.PaginationPrevious(b.Disabled, "Previous", html.TitleAttr("This is the first page")),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Page 1"), b.Current, "1"),
+			b.PaginationLink(e.AriaLabel("Goto page 2"), "2"),
+			b.PaginationLink(e.AriaLabel("Goto page 3"), "3"),
+		),
+	),
+	c.HorizontalExample(
+		`b.Pagination(
+	b.Centered,
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.Centered,
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+	c.HorizontalExample(
+		`b.Pagination(
+	b.Right,
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.Right,
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+).Subsection(
+	"Styles",
+	"https://bulma.io/documentation/components/pagination/#styles",
+	c.HorizontalExample(
+		`b.Pagination(
+	b.Rounded,
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.Rounded,
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+).Subsection(
+	"Sizes",
+	"https://bulma.io/documentation/components/pagination/#sizes",
+	c.HorizontalExample(
+		`b.Pagination(
+	b.Small,
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.Small,
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+	c.HorizontalExample(
+		`b.Pagination(
+	b.Medium,
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.Medium,
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+	c.HorizontalExample(
+		`b.Pagination(
+	b.Large,
+	b.PaginationPrevious("Previous"),
+	b.PaginationNext("Next page"),
+	b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+	b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+	b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+	b.PaginationEllipsis(),
+	b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+)`,
+		b.Pagination(
+			b.Large,
+			b.PaginationPrevious("Previous"),
+			b.PaginationNext("Next page"),
+			b.PaginationLink(e.AriaLabel("Goto page 1"), "1"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 45"), "45"),
+			b.PaginationLink(e.AriaLabel("Goto page 46"), b.Current, "46"),
+			b.PaginationLink(e.AriaLabel("Goto page 47"), "47"),
+			b.PaginationEllipsis(),
+			b.PaginationLink(e.AriaLabel("Goto page 86"), "86"),
+		),
+	),
+)

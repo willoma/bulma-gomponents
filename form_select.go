@@ -1,99 +1,426 @@
-package bulma
+package docs
 
 import (
-	"strconv"
-
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
+	"github.com/willoma/bulma-gomponents/fa"
 )
 
-// Select creates a dropdown select element. It should contain one or multiple
-// Option elements.
-//
-// https://willoma.github.io/bulma-gomponents/form/select.html
-func Select(children ...any) e.Element {
-	selectHTMLElement := e.Select()
-	s := &selectEl{
-		Element:           e.Div(e.Class("select"), selectHTMLElement),
-		selectHTMLElement: selectHTMLElement,
-	}
-	s.With(children...)
-	return s
-}
+var formSelect = c.NewPage(
+	"Select", "Select", "/form/select",
+	"",
 
-type selectEl struct {
-	e.Element
-	selectHTMLElement e.Element
-}
+	b.Content(
+		e.P("The ", e.Code("b.Select"), " constructor creates a dropdown select. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.OnDiv(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="select">`), " e.Element"},
 
-func (s *selectEl) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onSelect:
-			s.selectHTMLElement.With(c...)
-		case onDiv:
-			s.Element.With(c...)
-		case *option:
-			s.selectHTMLElement.With(c)
-		case e.Class:
-			switch c {
-			case Hovered, Focused:
-				s.selectHTMLElement.With(c)
-			case Multiple:
-				s.Element.With(c)
-				s.selectHTMLElement.With(html.Multiple())
-			case Disabled:
-				s.selectHTMLElement.With(html.Disabled())
-			default:
-				s.Element.With(c)
-			}
-		case []any:
-			s.With(c...)
-		default:
-			s.Element.With(c)
-		}
-	}
+			e.Code("b.OnSelect(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<select>"), " e.Element"},
 
-	return s
-}
+			e.Code("b.Size(int)"),
+			"For multiple selects, set the select size to the specified number of options",
 
-func (s *selectEl) Clone() e.Element {
-	return &selectEl{
-		Element:           s.Element.Clone(),
-		selectHTMLElement: s.selectHTMLElement.Clone(),
-	}
-}
+			e.Code("b.Rounded"),
+			"Make the select rounded",
 
-// Option creates an option element, to be used as a child of a Select or
-// SelectMultiple. The value argument is used as the option value attribute.
-//
-// https://willoma.github.io/bulma-gomponents/form/select.html
-func Option(value string, children ...any) e.Element {
-	o := &option{e.Option(html.Value(value))}
-	o.With(children...)
-	return o
-}
+			e.Code("b.Hovered"),
+			"Apply the hovered style",
 
-// OptionSelected creates a selected option element, to be used as a child of a
-// Select or SelectMultiple. The value argument is used as the option value
-// attribute.
-//
-// https://willoma.github.io/bulma-gomponents/form/select.html
-func OptionSelected(value string, children ...any) e.Element {
-	o := &option{e.Option(html.Value(value), html.Selected())}
-	o.With(children...)
-	return o
-}
+			e.Code("b.Focused"),
+			"Apply the focused style",
 
-type option struct {
-	e.Element
-}
+			e.Code("b.Multiple"),
+			"Make the select a multiple select",
 
-func (o *option) Clone() e.Element {
-	return &option{o.Element.Clone()}
-}
+			e.Code("b.Disabled"),
+			"Disable the select",
 
-func Size(size int) gomponents.Node {
-	return gomponents.Attr("size", strconv.Itoa(size))
-}
+			e.Code("b.Loading"),
+			"Add a loading spinner to the right of the select",
+
+			e.Code("b.Primary"),
+			"Set select color to primary",
+
+			e.Code("b.Link"),
+			"Set select color to link",
+
+			e.Code("b.Info"),
+			"Set select color to info",
+
+			e.Code("b.Success"),
+			"Set select color to success",
+
+			e.Code("b.Warning"),
+			"Set select color to warning",
+
+			e.Code("b.Danger"),
+			"Set select color to danger",
+
+			e.Code("b.Small"),
+			"Set select size to small",
+
+			e.Code("b.Normal"),
+			"Set select size to normal",
+
+			e.Code("b.Medium"),
+			"Set select size to medium",
+
+			e.Code("b.Large"),
+			"Set select size to large",
+		),
+
+		e.P("The ", e.Code("b.Option"), " constructor creates an option e.Element to be used as a child of ", e.Code("b.Select"), ". The ", e.Code("b.OptionSelected"), " constructor creates a selected option e.Element."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/form/select/",
+	c.Example(
+		`b.Select(
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+).Subsection(
+	"Multiple select",
+	"https://bulma.io/documentation/form/select/#multiple-select",
+	c.Example(
+		`b.Select(
+	b.Multiple,
+	b.Size(8),
+	b.Option("Argentina", "Argentina"),
+	b.Option("Bolivia", "Bolivia"),
+	b.Option("Brazil", "Brazil"),
+	b.Option("Chile", "Chile"),
+	b.Option("Colombia", "Colombia"),
+	b.Option("Ecuador", "Ecuador"),
+	b.Option("Guyana", "Guyana"),
+	b.Option("Paraguay", "Paraguay"),
+	b.Option("Peru", "Peru"),
+	b.Option("Suriname", "Suriname"),
+	b.Option("Uruguay", "Uruguay"),
+	b.Option("Venezuela", "Venezuela"),
+)`,
+		b.Select(
+			b.Multiple,
+			b.Size(8),
+			b.Option("Argentina", "Argentina"),
+			b.Option("Bolivia", "Bolivia"),
+			b.Option("Brazil", "Brazil"),
+			b.Option("Chile", "Chile"),
+			b.Option("Colombia", "Colombia"),
+			b.Option("Ecuador", "Ecuador"),
+			b.Option("Guyana", "Guyana"),
+			b.Option("Paraguay", "Paraguay"),
+			b.Option("Peru", "Peru"),
+			b.Option("Suriname", "Suriname"),
+			b.Option("Uruguay", "Uruguay"),
+			b.Option("Venezuela", "Venezuela"),
+		),
+	),
+).Subsection(
+	"Colors",
+	"https://bulma.io/documentation/form/select/#colors",
+	c.Example(
+		`b.Select(
+	b.Primary,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Primary,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Link,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Link,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Info,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Info,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Success,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Success,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Warning,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Warning,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Danger,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Danger,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+).Subsection(
+	"Styles",
+	"https://bulma.io/documentation/form/select/#styles",
+	c.Example(
+		`b.Select(
+	b.Rounded,
+	b.Option("", "Rounded dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Rounded,
+			b.Option("", "Rounded dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+).Subsection(
+	"Sizes",
+	"https://bulma.io/documentation/form/select/#sizes",
+	c.Example(
+		`b.Select(
+	b.Small,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Small,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Normal,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Normal,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Medium,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Medium,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Large,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Large,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+).Subsection(
+	"States",
+	"https://bulma.io/documentation/form/select/#states",
+	c.Example(
+		`b.Select(
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Hovered,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Hovered,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Focused,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Focused,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+	c.Example(
+		`b.Select(
+	b.Loading,
+	b.Option("", "Select dropdown"),
+	b.Option("", "With options"),
+)`,
+		b.Select(
+			b.Loading,
+			b.Option("", "Select dropdown"),
+			b.Option("", "With options"),
+		),
+	),
+).Subsection(
+	"With icons",
+	"https://bulma.io/documentation/form/select/#with-icons",
+	c.Example(
+		`b.Control(
+	b.IconsLeft,
+	b.Select(
+		b.OptionSelected("", "Country"),
+		b.Option("", "Select dropdown"),
+		b.Option("", "With options"),
+	),
+	fa.Icon(fa.Solid, "globe", b.Small, b.Left),
+)`,
+		b.Control(
+			b.IconsLeft,
+			b.Select(
+				b.OptionSelected("", "Country"),
+				b.Option("", "Select dropdown"),
+				b.Option("", "With options"),
+			),
+			fa.Icon(fa.Solid, "globe", b.Small, b.Left),
+		),
+	),
+	c.Example(
+		`b.Control(
+	b.IconsLeft,
+	b.Select(
+		b.Small,
+		b.OptionSelected("", "Country"),
+		b.Option("", "Select dropdown"),
+		b.Option("", "With options"),
+	),
+	fa.Icon(fa.Solid, "globe", b.Small, b.Left),
+)`,
+		b.Control(
+			b.IconsLeft,
+			b.Select(
+				b.Small,
+				b.OptionSelected("", "Country"),
+				b.Option("", "Select dropdown"),
+				b.Option("", "With options"),
+			),
+			fa.Icon(fa.Solid, "globe", b.Small, b.Left),
+		),
+	),
+	c.Example(
+		`b.Control(
+	b.IconsLeft,
+	b.Select(
+		b.OptionSelected("", "Country"),
+		b.Option("", "Select dropdown"),
+		b.Option("", "With options"),
+	),
+	fa.Icon(fa.Solid, "globe", b.Left),
+)`,
+		b.Control(
+			b.IconsLeft,
+			b.Select(
+				b.OptionSelected("", "Country"),
+				b.Option("", "Select dropdown"),
+				b.Option("", "With options"),
+			),
+			fa.Icon(fa.Solid, "globe", b.Left),
+		),
+	),
+	c.Example(
+		`b.Control(
+	b.IconsLeft,
+	b.Select(
+		b.Medium,
+		b.OptionSelected("", "Country"),
+		b.Option("", "Select dropdown"),
+		b.Option("", "With options"),
+	),
+	fa.Icon(fa.Solid, "globe", b.Medium, b.Left),
+)`,
+		b.Control(
+			b.IconsLeft,
+			b.Select(
+				b.Medium,
+				b.OptionSelected("", "Country"),
+				b.Option("", "Select dropdown"),
+				b.Option("", "With options"),
+			),
+			fa.Icon(fa.Solid, "globe", b.Medium, b.Left),
+		),
+	),
+	c.Example(
+		`b.Control(
+	b.IconsLeft,
+	b.Select(
+		b.Large,
+		b.OptionSelected("", "Country"),
+		b.Option("", "Select dropdown"),
+		b.Option("", "With options"),
+	),
+	fa.Icon(fa.Solid, "globe", b.Large, b.Left),
+)`,
+		b.Control(
+			b.IconsLeft,
+			b.Select(
+				b.Large,
+				b.OptionSelected("", "Country"),
+				b.Option("", "Select dropdown"),
+				b.Option("", "With options"),
+			),
+			fa.Icon(fa.Solid, "globe", b.Large, b.Left),
+		),
+	),
+)

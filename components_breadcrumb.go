@@ -1,89 +1,280 @@
-package bulma
+package docs
 
 import (
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
+	"github.com/willoma/bulma-gomponents/fa"
 )
 
-// Breadcrumb creates a breadcrumb.
-//
-// https://willoma.github.io/bulma-gomponents/breadcrumb.html
-func Breadcrumb(children ...any) e.Element {
-	ul := e.Ul()
-	b := &breadcrumb{
-		Element: e.Nav(
-			e.Class("breadcrumb"),
-			e.AriaLabel("breadcrumbs"),
-			ul,
+var breadcrumb = c.NewPage(
+	"Breadcrumb", "Breadcrumb", "/breadcrumb",
+	"",
+
+	b.Content(
+		e.P(
+			"The ", e.Code("b.Breadcrumb"), " constructor creates a breadcrumb. The following children have a special meaning:",
 		),
-		ul: ul,
-	}
-	b.With(children...)
-	return b
-}
+		b.DList(
+			e.Code("b.OnNav(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<nav>"), " element"},
 
-type breadcrumb struct {
-	e.Element
-	ul e.Element
-}
+			e.Code("b.OnUl(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<ul>"), " element"},
 
-func (b *breadcrumb) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onUl:
-			b.ul.With(c...)
-		case onNav:
-			b.Element.With(c...)
-		case e.Class, e.Classer, e.Classeser, e.Styles:
-			b.Element.With(c)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				b.Element.With(c)
-			} else {
-				b.ul.With(c)
-			}
-		case []any:
-			b.With(c...)
-		default:
-			b.ul.With(c)
-		}
-	}
-	return b
-}
+			[]any{"one of the class or style types defined in package ", e.Code("b")},
+			[]any{"Apply the class or style to the ", e.Code(`<nav class="breadcrumb">`), " element"},
 
-func (b *breadcrumb) Clone() e.Element {
-	return &breadcrumb{
-		Element: b.Element.Clone(),
-		ul:      b.ul.Clone(),
-	}
-}
+			e.Code("b.Centered"),
+			"Center the breadcrumb in its container",
 
-// BreadcrumbEntry creates a generic breadcrumb entry.
-func BreadcrumbEntry(children ...any) e.Element {
-	return e.Li(children...)
-}
+			e.Code("b.Right"),
+			"Align the breadcrumb to the right",
 
-// BreadcrumbAHref creates a breadcrumb entry which contains
-// a link to the provided URL.
-//
-// It is better than BreadcrumbEntry(AHref(href, children...)),
-// because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbAHref(href string, children ...any) e.Element {
-	ahref := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
-	ahref.With(html.Href(href)).With(children...)
+			e.Code("b.ArrowSeparator"),
+			[]any{"Use an arrow (", e.Code("→"), ") as the separator"},
 
-	return e.Li(ahref)
-}
+			e.Code("b.BulletSeparator"),
+			[]any{"Use a bullet (", e.Code("•"), ") as the separator"},
 
-// BreadcrumbActiveAHref creates an active breadcrumb entry which contains
-// a link to the provided URL.
-//
-// It is better than BreadcrumbEntry(Active, AHref(href, children)),
-// because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbActiveAHref(href string, children ...any) e.Element {
-	ahref := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
-	ahref.With(html.Href(href), e.AriaCurrentPage).With(children...)
+			e.Code("b.DotSeparator"),
+			[]any{"Use a dot (", e.Code("·"), ") as the separator"},
 
-	return e.Li(Active, ahref)
-}
+			e.Code("b.SucceedsSeparator"),
+			[]any{`Use a "succeeds" character (`, e.Code("≻"), `) as the separator`},
+
+			e.Code("b.Small"),
+			"Set breadcrumb size to small",
+
+			e.Code("b.Medium"),
+			"Set breadcrumb size to medium",
+
+			e.Code("b.Large"),
+			"Set breadcrumb size to large",
+		),
+		e.P("Other children are added to the ", e.Code("<ul>"), " element."),
+		e.P(
+			"The ", e.Code("b.BreadcrumbEntry"), " constructor creates a breadcrumb entry (which is a regular <li> e.Element). The ", e.Code("b.BreadcrumbAHref"), " constructor creates a breadcrumb link entry. The ", e.Code("b.BreadcrumbActiveAHref"), " constructor creates an active breadcrumb link entry.",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/breadcrumb/",
+	c.Example(
+		`b.Breadcrumb(
+	b.BreadcrumbEntry(
+		e.AHref("#", "Bulma"),
+	),
+	b.BreadcrumbEntry(
+		e.AHref("#", "Documentation"),
+	),
+	b.BreadcrumbEntry(
+		e.AHref("#", "Components"),
+	),
+	b.BreadcrumbEntry(
+		b.Active,
+		e.AHref("#", e.AriaCurrentPage, "Breadcrumb"),
+	),
+)`,
+		b.Breadcrumb(
+			b.BreadcrumbEntry(
+				e.AHref("#", "Bulma"),
+			),
+			b.BreadcrumbEntry(
+				e.AHref("#", "Documentation"),
+			),
+			b.BreadcrumbEntry(
+				e.AHref("#", "Components"),
+			),
+			b.BreadcrumbEntry(
+				b.Active,
+				e.AHref("#", e.AriaCurrentPage, "Breadcrumb"),
+			),
+		),
+	),
+	b.Content(e.P(e.Em("Bulma-Gomponents"), " provides the ", e.Code("b.BreadcrumbHref"), " and ", e.Code("b.BreadcrumbActiveAHref"), "helpers for regular breadcrumb links:")),
+	c.Example(
+		`b.Breadcrumb(
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+).Subsection(
+	"Alignment",
+	"https://bulma.io/documentation/components/breadcrumb/#alignment",
+	c.Example(
+		`b.Breadcrumb(
+	b.Centered,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.Centered,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+	c.Example(
+		`b.Breadcrumb(
+	b.Right,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.Right,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+).Subsection(
+	"Icons",
+	"https://bulma.io/documentation/components/breadcrumb/#icons",
+	c.Example(
+		`b.Breadcrumb(
+	b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "home"), "Bulma"),
+	b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "book"), "Documentation"),
+	b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "puzzle-piece"), "Components"),
+	b.BreadcrumbActiveAHref("#", fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "home"), "Bulma"),
+			b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "book"), "Documentation"),
+			b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "puzzle-piece"), "Components"),
+			b.BreadcrumbActiveAHref("#", fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"),
+		),
+	),
+).Subsection(
+	"Alternative separators",
+	"https://bulma.io/documentation/components/breadcrumb/#alternative-separators",
+	c.Example(
+		`easy.Breadcrumb(
+	b.ArrowSeparator,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.ArrowSeparator,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+	c.Example(
+		`b.Breadcrumb(
+	b.BulletSeparator,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+`,
+		b.Breadcrumb(
+			b.BulletSeparator,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+	c.Example(
+		`b.Breadcrumb(
+	b.DotSeparator,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.DotSeparator,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+	c.Example(
+		`b.Breadcrumb(
+	b.SucceedsSeparator,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.SucceedsSeparator,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+).Subsection(
+	"Sizes",
+	"https://bulma.io/documentation/components/breadcrumb/#sizes",
+	c.Example(
+		`b.Breadcrumb(
+	b.Small,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.Small,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+	c.Example(
+		`b.Breadcrumb(
+	b.Medium,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.Medium,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+	c.Example(
+		`b.Breadcrumb(
+	b.Large,
+	b.BreadcrumbAHref("#", "Bulma"),
+	b.BreadcrumbAHref("#", "Documentation"),
+	b.BreadcrumbAHref("#", "Components"),
+	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+)`,
+		b.Breadcrumb(
+			b.Large,
+			b.BreadcrumbAHref("#", "Bulma"),
+			b.BreadcrumbAHref("#", "Documentation"),
+			b.BreadcrumbAHref("#", "Components"),
+			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+		),
+	),
+)

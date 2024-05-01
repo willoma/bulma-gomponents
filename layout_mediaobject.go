@@ -1,122 +1,302 @@
-package bulma
+package docs
 
 import (
-	"io"
-	"sync"
-
-	"github.com/maragudk/gomponents"
+	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
+	"github.com/willoma/bulma-gomponents/fa"
 )
 
-// Media creates a media element.
-//
-// http://willoma.github.io/bulma-gomponents/media-object.html
-func Media(children ...any) e.Element {
-	m := &media{media: e.Article(e.Class("media"))}
-	m.With(children...)
-	return m
-}
+var mediaObject = c.NewPage(
+	"Media Object", "Media Object", "/media-object",
+	"",
 
-type media struct {
-	media   e.Element
-	left    e.Element
-	content e.Element
-	right   e.Element
+	b.Content(
+		e.P("The ", e.Code("b.Media"), " constructor creates a media. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.OnContent(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<>"), " e.Element"},
 
-	rendered sync.Once
-}
+			e.Code("b.OnMedia(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<>"), " e.Element"},
 
-func (m *media) addToLeft(children ...any) {
-	if m.left == nil {
-		m.left = e.Div(e.Class("media-left"))
-	}
-	m.left.With(children...)
-}
+			e.Code("b.MediaLeft(...)"),
+			[]any{"Apply children to the left section"},
 
-func (m *media) addToContent(children ...any) {
-	if m.content == nil {
-		m.content = e.Div(e.Class("media-content"))
-	}
-	m.content.With(children...)
-}
+			e.Code("b.MediaRight(...)"),
+			[]any{"Apply children to the right section"},
 
-func (m *media) addToRight(children ...any) {
-	if m.right == nil {
-		m.right = e.Div(e.Class("media-right"))
-	}
-	m.right.With(children...)
-}
+			e.Code("e.Element"),
+			"Apply to the content section",
 
-func (m *media) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onMedia:
-			m.media.With(c...)
-		case onContent:
-			m.addToContent(c...)
-		case mediaLeft:
-			m.addToLeft(c...)
-		case mediaRight:
-			m.addToRight(c...)
-		case e.Element:
-			m.addToContent(c)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				m.media.With(c)
-			} else {
-				m.addToContent(c)
-			}
-		case []any:
-			m.With(c...)
-		default:
-			m.media.With(c)
-		}
-	}
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the media",
 
-	return m
-}
-
-func (m *media) Render(w io.Writer) error {
-	m.rendered.Do(func() {
-		if m.left != nil {
-			m.media.With(m.left)
-		}
-
-		if m.content != nil {
-			m.media.With(m.content)
-		}
-
-		if m.right != nil {
-			m.media.With(m.right)
-		}
-	})
-
-	return m.media.Render(w)
-}
-
-func (m *media) Clone() e.Element {
-	return &media{
-		media:   m.media.Clone(),
-		left:    m.left.Clone(),
-		content: m.content.Clone(),
-		right:   m.right.Clone(),
-	}
-}
-
-// MediaLeft marks children as belonging to the left part of a media element.
-//
-// http://willoma.github.io/bulma-gomponents/media-object.html
-func MediaLeft(children ...any) mediaLeft {
-	return mediaLeft(children)
-}
-
-type mediaLeft []any
-
-// MediaRight marks children as belonging to the right part of a media element.
-//
-// http://willoma.github.io/bulma-gomponents/media-object.html
-func MediaRight(children ...any) mediaRight {
-	return mediaRight(children)
-}
-
-type mediaRight []any
+			[]any{"Other ", e.Code("gomponents.Node")},
+			[]any{"Apply to the content section"},
+		),
+		e.P("Each of the left, content and right parts is only included if it has content. Other children are added to the ", e.Code(`<article class="media">`), " e.Element."),
+	),
+).Section(
+	"Bulma examples",
+	"https://bulma.io/documentation/layout/media-object/",
+	c.Example(
+		`b.Media(
+	b.MediaLeft(
+		html.Figure,
+		b.ImageImg(
+			"https://bulma.io/assets/images/placeholders/128x128.png",
+			html.P, b.ImgSq64,
+		),
+	),
+	b.Content(
+		e.P(
+			e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
+			html.Br(),
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.",
+		),
+		b.Level(
+			b.Mobile,
+			b.LevelLeft(
+				e.A(fa.Icon(fa.Solid, "reply", b.Small)),
+				e.A(fa.Icon(fa.Solid, "retweet", b.Small)),
+				e.A(fa.Icon(fa.Solid, "heart", b.Small)),
+			),
+		),
+	),
+	b.MediaRight(b.Delete()),
+)`,
+		b.Media(
+			b.MediaLeft(
+				html.Figure,
+				b.ImageImg(
+					"https://bulma.io/assets/images/placeholders/128x128.png",
+					html.P, b.ImgSq64,
+				),
+			),
+			b.Content(
+				e.P(
+					e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
+					html.Br(),
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.",
+				),
+				b.Level(
+					b.Mobile,
+					b.LevelLeft(
+						e.A(fa.Icon(fa.Solid, "reply", b.Small)),
+						e.A(fa.Icon(fa.Solid, "retweet", b.Small)),
+						e.A(fa.Icon(fa.Solid, "heart", b.Small)),
+					),
+				),
+			),
+			b.MediaRight(b.Delete()),
+		),
+	),
+	c.Example(
+		`b.Media(
+	b.MediaLeft(
+		html.Figure,
+		b.ImageImg(
+			"https://bulma.io/assets/images/placeholders/128x128.png",
+			e.P, b.ImgSq64,
+		),
+	),
+	b.Field(
+		b.Control(
+			b.Textarea(
+				html.Placeholder("Add a comment..."),
+			),
+		),
+	),
+	b.Level(
+		b.LevelLeft(
+			b.LevelItem(
+				b.ButtonA(b.Info, "Submit"),
+			),
+		),
+		b.LevelRight(
+			b.Checkbox("Press enter to submit"),
+		),
+	),
+)`,
+		b.Media(
+			b.MediaLeft(
+				html.Figure,
+				b.ImageImg(
+					"https://bulma.io/assets/images/placeholders/128x128.png",
+					html.P, b.ImgSq64,
+				),
+			),
+			b.Field(
+				b.Control(
+					b.Textarea(
+						html.Placeholder("Add a comment..."),
+					),
+				),
+			),
+			b.Level(
+				b.LevelLeft(
+					e.Div(
+						b.ButtonA(b.Info, "Submit"),
+					),
+				),
+				b.LevelRight(
+					b.Checkbox("Press enter to submit"),
+				),
+			),
+		),
+	),
+).Subsection(
+	"Nesting",
+	"https://bulma.io/documentation/layout/media-object/#nesting",
+	c.Example(
+		`b.Media(
+	b.MediaLeft(
+		html.Figure,
+		b.ImageImg(
+			"https://bulma.io/assets/images/placeholders/128x128.png",
+			html.P, b.ImgSq64,
+		),
+	),
+	b.Content(
+		e.P(
+			e.Strong("Barbara Middleton"),
+			e.Br(),
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.",
+			e.Br(),
+			e.Small(e.A("Like"), " · ", e.A("Reply"), " · 3 hrs"),
+		),
+	),
+	b.Media(
+		b.MediaLeft(
+			html.Figure,
+			b.ImageImg(
+				"https://bulma.io/assets/images/placeholders/96x96.png",
+				html.P, b.ImgSq48,
+			),
+		),
+		b.Content(
+			e.P(
+				e.Strong("Sean Brown"),
+				e.Br(),
+				"Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam blandit nisl a nulla sagittis, a lobortis leo feugiat.",
+				e.Br(),
+				e.Small(e.A("Like"), " · ", e.A("Reply"), " · 2 hrs"),
+			),
+		),
+		b.Media("Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem cursus ullamcorper sit amet nec massa."),
+		b.Media("Morbi vitae diam et purus tincidunt porttitor vel vitae augue. Praesent malesuada metus sed pharetra euismod. Cras tellus odio, tincidunt iaculis diam non, porta aliquet tortor."),
+	),
+	b.Media(
+		b.MediaLeft(
+			html.Figure,
+			b.ImageImg(
+				"https://bulma.io/assets/images/placeholders/96x96.png",
+				html.P, b.ImgSq48,
+			),
+		),
+		b.Content(
+			e.P(
+				e.Strong("Kayli Eunice"),
+				e.Br(),
+				"Sed convallis scelerisque mauris, non pulvinar nunc mattis vel. Maecenas varius felis sit amet magna vestibulum euismod malesuada cursus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus lacinia non nisl id feugiat.",
+				e.Br(),
+				e.Small(e.A("Like"), " · ", e.A("Reply"), " · 2 hrs"),
+			),
+		),
+	),
+),
+b.Media(
+	b.MediaLeft(
+		html.Figure,
+		b.ImageImg(
+			"https://bulma.io/assets/images/placeholders/128x128.png",
+			html.P, b.ImgSq64,
+		),
+	),
+	b.Field(b.Control(
+		b.Textarea(
+			html.Placeholder("Add a comment..."),
+		),
+	)),
+	b.Field(b.Control(
+		b.Button("Post comment"),
+	)),
+)`,
+		b.Media(
+			b.MediaLeft(
+				html.Figure,
+				b.ImageImg(
+					"https://bulma.io/assets/images/placeholders/128x128.png",
+					html.P, b.ImgSq64,
+				),
+			),
+			b.Content(
+				e.P(
+					e.Strong("Barbara Middleton"),
+					e.Br(),
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.",
+					e.Br(),
+					e.Small(e.A("Like"), " · ", e.A("Reply"), " · 3 hrs"),
+				),
+			),
+			b.Media(
+				b.MediaLeft(
+					html.Figure,
+					b.ImageImg(
+						"https://bulma.io/assets/images/placeholders/96x96.png",
+						html.P, b.ImgSq48,
+					),
+				),
+				b.Content(
+					e.P(
+						e.Strong("Sean Brown"),
+						e.Br(),
+						"Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam blandit nisl a nulla sagittis, a lobortis leo feugiat.",
+						e.Br(),
+						e.Small(e.A("Like"), " · ", e.A("Reply"), " · 2 hrs"),
+					),
+				),
+				b.Media("Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem cursus ullamcorper sit amet nec massa."),
+				b.Media("Morbi vitae diam et purus tincidunt porttitor vel vitae augue. Praesent malesuada metus sed pharetra euismod. Cras tellus odio, tincidunt iaculis diam non, porta aliquet tortor."),
+			),
+			b.Media(
+				b.MediaLeft(
+					html.Figure,
+					b.ImageImg(
+						"https://bulma.io/assets/images/placeholders/96x96.png",
+						html.P, b.ImgSq48,
+					),
+				),
+				b.Content(
+					e.P(
+						e.Strong("Kayli Eunice"),
+						e.Br(),
+						"Sed convallis scelerisque mauris, non pulvinar nunc mattis vel. Maecenas varius felis sit amet magna vestibulum euismod malesuada cursus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus lacinia non nisl id feugiat.",
+						e.Br(),
+						e.Small(e.A("Like"), " · ", e.A("Reply"), " · 2 hrs"),
+					),
+				),
+			),
+		),
+		b.Media(
+			b.MediaLeft(
+				html.Figure,
+				b.ImageImg(
+					"https://bulma.io/assets/images/placeholders/128x128.png",
+					html.P, b.ImgSq64,
+				),
+			),
+			b.Field(b.Control(
+				b.Textarea(
+					html.Placeholder("Add a comment..."),
+				),
+			)),
+			b.Field(b.Control(
+				b.Button("Post comment"),
+			)),
+		),
+	),
+)

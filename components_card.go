@@ -1,312 +1,329 @@
-package bulma
+package docs
 
 import (
-	"io"
-	"sync"
-
 	"github.com/maragudk/gomponents"
+	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
+	"github.com/willoma/bulma-gomponents/fa"
 )
 
-// Card creates a card.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func Card(children ...any) e.Element {
-	c := &card{card: e.Div(e.Class("card"))}
-	c.With(children...)
-	return c
-}
+var card = c.NewPage(
+	"Card", "Card", "/card",
+	"",
 
-type card struct {
-	card    e.Element
-	header  e.Element
-	content []any
-	footer  e.Element
+	b.Content(
+		e.P(
+			"The ", e.Code("b.Card"), " constructor creates a card. Non-specific content is automatically grouped in a ", e.Code(`<div class="card-content">`), " e.Element. If you need to force starting a new card content, use the ", e.Code("b.SplitContent()"), " function. The following children have a special meaning:",
+		),
+		b.DList(
+			e.Code("b.OnCard(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="card">`), " e.Element"},
 
-	currentContent e.Element
-	rendered       sync.Once
-}
+			e.Code("b.OnContent(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="card-content">`), " e.Element being currently built"},
 
-func (c *card) addToCurrentContent(children ...any) {
-	if c.currentContent == nil {
-		c.currentContent = e.Div(e.Class("card-content"))
-	}
-	c.currentContent.With(children...)
-}
+			e.Code("b.CardHeader(...)"),
+			"Add items to the card header",
 
-func (c *card) flushCurrentContent() {
-	if c.currentContent != nil {
-		c.content = append(c.content, c.currentContent)
-		c.currentContent = nil
-	}
-}
+			e.Code("b.CardHeaderIcon(...)"),
+			"Add an icon to the card header",
 
-func (c *card) addToHeader(children ...any) {
-	if c.header == nil {
-		c.header = e.Header(e.Class("card-header"))
-	}
-	c.header.With(children...)
-}
+			e.Code("b.CardHeaderTitle(...)"),
+			"Add a title to the card header",
 
-func (c *card) addToFooter(children ...any) {
-	if c.footer == nil {
-		c.footer = e.Footer(e.Class("card-footer"))
-	}
-	c.footer.With(children...)
-}
+			e.Code("b.CardFooter(...)"),
+			"Add items to the card footer",
 
-func (c *card) With(children ...any) e.Element {
-	var currentContent []any
+			e.Code("b.CardImage(...)"),
+			"Add this image to the card",
 
-	for _, ch := range children {
-		switch ch := ch.(type) {
-		case onCard:
-			c.card.With(ch...)
-		case onContent:
-			c.addToCurrentContent(ch...)
-		case splitContent:
-			c.flushCurrentContent()
-		case cardHeader:
-			c.addToHeader(ch...)
-		case *cardHeaderIcon:
-			c.addToHeader(ch)
-		case *cardHeaderTitle:
-			c.addToHeader(ch)
-		case cardFooter:
-			c.addToFooter(ch...)
-		case e.Class, e.Classer, e.Classeser, e.Styles:
-			c.card.With(ch)
-		case *cardImage, *cardImageImg:
-			c.flushCurrentContent()
-			c.content = append(c.content, ch)
-		case e.Element:
-			c.addToCurrentContent(ch)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				c.card.With(ch)
-			} else {
-				c.addToCurrentContent(ch)
-			}
-		case []any:
-			currentContent = append(currentContent, ch...)
+			e.Code("b.CardImageImg(...)"),
+			"Add this image to the card",
 
-		default:
-			c.addToCurrentContent(ch)
-		}
-	}
+			[]any{"one of the class or style types defined in package ", e.Code("b")},
+			[]any{"Apply the class or style to the ", e.Code(`<div class="card">`), " e.Element"},
 
-	return c
-}
+			e.Code("e.Element"),
+			"Add this e.Element to the card content",
 
-func (c *card) Render(w io.Writer) error {
-	c.rendered.Do(func() {
-		c.flushCurrentContent()
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the card",
 
-		if c.header != nil {
-			c.card.With(c.header)
-		}
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the card content",
+		),
+		e.P("Other children are added to the ", e.Code(`<div class="card">`), " e.Element."),
+		e.P(
+			"The ", e.Code("b.CardHeader"), " function marks children as being part of the card header. The following children have a special meaning:",
+		),
+		b.DList(
+			e.Code("b.IconElem"),
+			"Add this icon as the card header icon",
 
-		if c.content != nil {
-			c.card.With(c.content...)
-		}
-
-		if c.footer != nil {
-			c.card.With(c.footer)
-		}
-	})
-
-	return c.card.Render(w)
-}
-
-func (c *card) Clone() e.Element {
-	content := make([]any, len(c.content))
-	for i, c := range c.content {
-		switch c := c.(type) {
-		case e.Element:
-			content[i] = c.Clone()
-		default:
-			content[i] = c
-		}
-	}
-
-	return &card{
-		card:    c.card.Clone(),
-		header:  c.header.Clone(),
-		content: content,
-		footer:  c.footer.Clone(),
-
-		currentContent: c.currentContent.Clone(),
-	}
-}
-
-// SplitContent instructs Card to close the current card-content element.
-func SplitContent() splitContent {
-	return splitContent{}
-}
-
-type splitContent struct{}
-
-// CardHeader marks its children as being part of a card header.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func CardHeader(children ...any) cardHeader {
-	return cardHeader{}.with(children...)
-}
-
-type cardHeader []any
-
-func (ch cardHeader) with(children ...any) cardHeader {
-	for _, c := range children {
-		switch c := c.(type) {
-		case IconElem:
-			ch = append(ch, CardHeaderIcon(c))
-		case string:
-			ch = append(ch, CardHeaderTitle(c))
-		case []any:
-			ch.with(c...)
-		default:
-			ch = append(ch, c)
-		}
-	}
-
-	return ch
-}
-
-// CardHeaderIcon creates an icon for a card header.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func CardHeaderIcon(children ...any) e.Element {
-	c := &cardHeaderIcon{e.Button(e.Class("card-header-icon"))}
-	c.With(children...)
-	return c
-}
-
-type cardHeaderIcon struct {
-	e.Element
-}
-
-func (c *cardHeaderIcon) Clone() e.Element {
-	return &cardHeaderIcon{c.Element.Clone()}
-}
-
-// CardHeaderTitle creates a title for a card header.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func CardHeaderTitle(children ...any) e.Element {
-	c := &cardHeaderTitle{e.P(e.Class("card-header-title"))}
-	c.With(children...)
-	return c
-}
-
-type cardHeaderTitle struct {
-	e.Element
-}
-
-func (c *cardHeaderTitle) Clone() e.Element {
-	return &cardHeaderTitle{c.Element.Clone()}
-}
-
-// CardFooter marks its children as being part of a card footer.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func CardFooter(children ...any) cardFooter {
-	return cardFooter{}.with(children...)
-}
-
-type cardFooter []any
-
-func (cf cardFooter) with(children ...any) cardFooter {
-	for _, c := range children {
-		switch c := c.(type) {
-		case e.Element:
-			cf = append(cf, c.With(e.Class("card-footer-item")))
-		case []any:
-			cf.with(c...)
-		default:
-			cf = append(cf, c)
-		}
-	}
-
-	return cf
-}
-
-// CardImage creates a card image.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func CardImage(children ...any) e.Element {
-	image := Image()
-	c := &cardImage{
-		Element: e.Div(e.Class("card-image"), image),
-		image:   image,
-	}
-	c.With(children...)
-	return c
-}
-
-type cardImage struct {
-	e.Element
-	image e.Element
-}
-
-func (ci *cardImage) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onCardImage:
-			ci.Element.With(c...)
-		case []any:
-			ci.With(c...)
-		default:
-			ci.image.With(c)
-		}
-	}
-
-	return ci
-}
-
-func (ci *cardImage) Clone() e.Element {
-	return &cardImage{
-		Element: ci.Element.Clone(),
-		image:   ci.image.Clone(),
-	}
-}
-
-// CardImageImg creates a card image which contains an img element with the
-// provided src.
-//
-// https://willoma.github.io/bulma-gomponents/card.html
-func CardImageImg(src string, children ...any) e.Element {
-	imageImg := ImageImg(src)
-	c := &cardImageImg{
-		Element:  e.Div(e.Class("card-image"), imageImg),
-		imageImg: imageImg,
-	}
-	c.With(children...)
-	return c
-}
-
-type cardImageImg struct {
-	e.Element
-	imageImg e.Element
-}
-
-func (ci *cardImageImg) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onCardImage:
-			ci.Element.With(c...)
-		case []any:
-			ci.With(c...)
-		default:
-			ci.imageImg.With(c)
-		}
-	}
-
-	return ci
-}
-
-func (ci *cardImageImg) Clone() e.Element {
-	return &cardImageImg{
-		Element:  ci.Element.Clone(),
-		imageImg: ci.imageImg.Clone(),
-	}
-}
+			e.Code("string"),
+			"Add this text as the card header title",
+		),
+		e.P(
+			"The ", e.Code("b.CardHeaderIcon"), " constructor creates a card header icon e.Element, as an alternative to providing an icon to ", e.Code("b.CardHeader"), " allowing to customize the icon. The ", e.Code("b.CardHeaderTitle"), " constructor creates a card header title e.Element, as an alternative to providing a string to ", e.Code("b.CardHeader"), " allowing to customize the title.",
+		),
+		e.P(
+			"The ", e.Code("b.CardImage"), " constructor creates an image by calling ", e.Code("b.Image"), " and wrapping it into a card image e.Element. The ", e.Code("b.CardImageImg"), " constructor creates an image by calling ", e.Code("b.ImageImg"), " and wrapping it into a card image e.Element. The following child has a special meaning:",
+		),
+		b.DList(
+			e.Code("b.OnCardImage(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="card-image">`), " e.Element"},
+		),
+		e.P("Other children are added to the ", e.Code("<figure>"), " e.Element."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/card/",
+	c.Example(
+		`b.Card(
+	b.CardImage(
+		b.Img4By3,
+		e.ImgSrc(
+			"https://bulma.io/assets/images/placeholders/1280x960.png",
+			html.Alt("Placeholder image"),
+		),
+	),
+	b.Media(
+		b.MediaLeft(
+			b.ImageImg(
+				"https://bulma.io/assets/images/placeholders/96x96.png",
+				html.Alt("Placeholder image"),
+			),
+		),
+		b.Title4(html.P, "John Smith"),
+		b.Subtitle6(html.P, "@johnsmith"),
+	),
+	b.Content(
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), html.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016"),
+	),
+)`,
+		b.Card(
+			b.CardImage(
+				b.Img4By3,
+				e.ImgSrc(
+					"https://bulma.io/assets/images/placeholders/1280x960.png",
+					html.Alt("Placeholder image"),
+				),
+			),
+			b.Media(
+				b.MediaLeft(
+					b.ImageImg(
+						"https://bulma.io/assets/images/placeholders/96x96.png",
+						html.Alt("Placeholder image"),
+					),
+				),
+				b.Title4(html.P, "John Smith"),
+				b.Subtitle6(html.P, "@johnsmith"),
+			),
+			b.Content(
+				b.NoP("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), e.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016")),
+			),
+		),
+	),
+).Subsection(
+	"Card parts",
+	"https://bulma.io/documentation/components/card/#card-parts",
+	c.Example(
+		`b.Block(
+	b.Card(
+		b.CardHeader(
+			b.CardHeaderTitle(
+				"Card header",
+			),
+			b.CardHeaderIcon(
+				e.AriaLabel("more options"),
+				fa.Icon(fa.Solid, "angle-down"),
+			),
+		),
+	),
+),
+b.Block(
+	b.Card(
+		b.CardHeader(
+			"Card header",
+			fa.Icon(fa.Solid, "angle-down"),
+		),
+	),
+),
+b.Block(
+	b.Card(
+		b.CardHeaderTitle("Card header"),
+		b.CardHeaderIcon(
+			e.AriaLabel("more options"),
+			fa.Icon(fa.Solid, "angle-down"),
+		),
+	),
+)`,
+		b.Block(
+			b.Card(
+				b.CardHeader(
+					b.CardHeaderTitle(
+						"Card header",
+					),
+					b.CardHeaderIcon(
+						e.AriaLabel("more options"),
+						fa.Icon(fa.Solid, "angle-down"),
+					),
+				),
+			),
+		),
+		b.Block(
+			b.Card(
+				b.CardHeader(
+					"Card header",
+					fa.Icon(fa.Solid, "angle-down"),
+				),
+			),
+		),
+		b.Block(
+			b.Card(
+				b.CardHeaderTitle("Card header"),
+				b.CardHeaderIcon(
+					e.AriaLabel("more options"),
+					fa.Icon(fa.Solid, "angle-down"),
+				),
+			),
+		),
+	),
+	c.Example(
+		`b.Card(
+	b.MarginBottom(b.Spacing4),
+	b.CardImage(
+		b.Img4By3,
+		e.ImgSrc(
+			"https://bulma.io/assets/images/placeholders/1280x960.png",
+			html.Alt("Placeholder image"),
+		),
+	),
+),
+b.Card(
+	b.CardImageImg(
+		"https://bulma.io/assets/images/placeholders/1280x960.png",
+		b.Img4By3,
+	),
+)`,
+		b.Card(
+			b.MarginBottom(b.Spacing4),
+			b.CardImage(
+				b.Img4By3,
+				e.ImgSrc(
+					"https://bulma.io/assets/images/placeholders/1280x960.png",
+					html.Alt("Placeholder image"),
+				),
+			),
+		),
+		b.Card(
+			b.CardImageImg(
+				"https://bulma.io/assets/images/placeholders/1280x960.png",
+				b.Img4By3,
+			),
+		),
+	),
+	c.Example(
+		`b.Card(
+	b.Content(
+		"Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.",
+	),
+)`,
+		b.Card(
+			b.Content(
+				"Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.",
+			),
+		),
+	),
+	c.Example(
+		`b.Card(
+	b.CardFooter(
+		e.AHref("#", "Save"),
+		e.AHref("#", "Edit"),
+		e.AHref("#", "Delete"),
+	),
+)`,
+		b.Card(
+			b.CardFooter(
+				e.AHref("#", "Save"),
+				e.AHref("#", "Edit"),
+				e.AHref("#", "Delete"),
+			),
+		),
+	),
+).Subsection(
+	"Examples",
+	"https://bulma.io/documentation/components/card/#examples",
+	c.Example(
+		`b.Card(
+	b.CardHeader(
+		"Component",
+		b.CardHeaderIcon(
+			e.AriaLabel("more options"),
+			fa.Icon(fa.Solid, "angle-down"),
+		),
+	),
+	b.Content(
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), e.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016"),
+	),
+	b.CardFooter(
+		e.AHref("#", "Save"),
+		e.AHref("#", "Edit"),
+		e.AHref("#", "Delete"),
+	),
+)`,
+		b.Card(
+			b.CardHeader(
+				"Component",
+				b.CardHeaderIcon(
+					e.AriaLabel("more options"),
+					fa.Icon(fa.Solid, "angle-down"),
+				),
+			),
+			b.Content(
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), e.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016"),
+			),
+			b.CardFooter(
+				e.AHref("#", "Save"),
+				e.AHref("#", "Edit"),
+				e.AHref("#", "Delete"),
+			),
+		),
+	),
+	c.Example(
+		`b.Card(
+	b.Title(html.P, "“There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”"),
+	b.Subtitle(html.P, "Jeff Atwood"),
+	b.CardFooter(
+		e.P(
+			e.Span(
+				"View on ", e.AHref("https://twitter.com/codinghorror/status/506010907021828096", "Twitter"),
+			),
+		),
+		e.P(
+			e.Span(
+				"Share on ", e.AHref("#", "Facebook"),
+			),
+		),
+	),
+)`,
+		b.Card(
+			b.Title(html.P, "“There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”"),
+			b.Subtitle(html.P, "Jeff Atwood"),
+			b.CardFooter(
+				e.P(
+					e.Span(
+						"View on ", e.AHref("https://twitter.com/codinghorror/status/506010907021828096", "Twitter"),
+					),
+				),
+				e.P(
+					e.Span(
+						"Share on ", e.AHref("#", "Facebook"),
+					),
+				),
+			),
+		),
+	),
+)

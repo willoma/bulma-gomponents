@@ -1,196 +1,217 @@
-package bulma
+package docs
 
 import (
-	"github.com/maragudk/gomponents"
+	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
+	"github.com/willoma/bulma-gomponents/fa"
 )
 
-func modalBackground() e.Element {
-	return e.Div(e.Class("modal-background"), e.OnClick(JSCloseThisModal))
-}
+var modal = c.NewPage(
+	"Modal", "Modal", "/modal",
+	"",
 
-func modalClose() e.Element {
-	return e.Button(
-		e.Class("modal-close"),
-		Large,
-		e.AriaLabel("close"),
-		e.OnClick(JSCloseThisModal),
-	)
-}
-
-// Modal creates a modal. The modal background and the modal close button are automatically added. The children are added to the modal content.
-//
-// https://willoma.github.io/bulma-gomponents/modal.html
-func Modal(children ...any) e.Element {
-	content := e.Div(e.Class("modal-content"))
-	m := &modal{
-		Element: e.Div(
-			e.Class("modal"),
-			modalBackground(),
-			content,
-			modalClose(),
+	b.Content(
+		e.P(
+			"The ", e.Code("b.Modal"), " constructor creates a modal. The following children have a special meaning:",
 		),
-		content: content,
-	}
-	m.With(children...)
-	return m
-}
+		b.DList(
+			e.Code("b.OnModal(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="modal">`), " e.Element"},
 
-type modal struct {
-	e.Element
-	content e.Element
-}
+			e.Code("b.OnContent(...)"),
+			[]any{"Force childen to be applied to the content"},
 
-func (m *modal) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onModal:
-			m.Element.With(c...)
-		case onContent:
-			m.content.With(c...)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				m.Element.With(c)
-			} else {
-				m.content.With(c)
-			}
-		case []any:
-			m.With(c...)
-		default:
-			m.content.With(c)
-		}
-	}
-	return m
-}
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the modal",
 
-func (m *modal) Clone() e.Element {
-	return &modal{
-		Element: m.Element.Clone(),
-		content: m.content.Clone(),
-	}
-}
-
-// ModalCard creates a modal card.
-//
-// Wrap children in ModalCardHead in order to add them to the card header. Wrap
-// children with ModalCardFoot in order to add them to the card footer. Any
-// unwrapped child is added to the card body.
-//
-// https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCard(children ...any) e.Element {
-	head := e.Div(e.Class("modal-card-head"))
-	body := e.Div(e.Class("modal-card-body"))
-	foot := e.Div(e.Class("modal-card-foot"))
-
-	card := e.Div(e.Class("modal-card"), head, body, foot)
-	m := &modalCard{
-		Element: e.Div(
-			e.Class("modal"),
-			modalBackground(),
-			card,
-			modalClose(),
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the modal content",
 		),
-		card: card,
-		head: head,
-		body: body,
-		foot: foot,
-	}
-	m.With(children...)
-	return m
-}
-
-type modalCard struct {
-	e.Element
-	card e.Element
-	head e.Element
-	body e.Element
-	foot e.Element
-}
-
-func (m *modalCard) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onModal:
-			m.Element.With(c...)
-		case onCard:
-			m.card.With(c...)
-		case modalCardHead:
-			m.head.With(c...)
-		case *modalCardTitle:
-			m.head.With(c)
-		case modalCardFoot:
-			m.foot.With(c...)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				m.Element.With(c)
-			} else {
-				m.body.With(c)
-			}
-		case []any:
-			m.With(c...)
-		default:
-			m.body.With(c)
-		}
-	}
-
-	return m
-}
-
-func (m *modalCard) Clone() e.Element {
-	return &modalCard{
-		Element: m.Element.Clone(),
-		card:    m.card.Clone(),
-		head:    m.head.Clone(),
-		body:    m.body.Clone(),
-		foot:    m.foot.Clone(),
-	}
-}
-
-// ModalCardHead designates children to be part of the card head.
-//
-// https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCardHead(children ...any) modalCardHead {
-	return modalCardHead(children)
-}
-
-type modalCardHead []any
-
-// ModalCardTitle creates a title for a card head.
-//
-// https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCardTitle(children ...any) e.Element {
-	m := &modalCardTitle{e.P(e.Class("modal-card-title"))}
-	m.With(children...)
-	return m
-}
-
-type modalCardTitle struct {
-	e.Element
-}
-
-func (m *modalCardTitle) Clone() e.Element {
-	return &modalCardTitle{m.Element.Clone()}
-}
-
-// ModalCardTitleWithClose creates a card head with a text title and a close
-// button.
-//
-// https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCardTitleWithClose(title string) modalCardHead {
-	return ModalCardHead(
-		ModalCardTitle(title),
-		Delete(
-			e.OnClick(JSCloseThisModal),
-			e.AriaLabel("close"),
+		e.P(
+			"The ", e.Code("b.ModalCard"), " constructor creates a card modal. The following children have a special meaning:",
 		),
-	)
-}
+		b.DList(
+			e.Code("b.OnModal(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="modal">`), " e.Element"},
 
-// ModalCardFoot designates children to be part of the card head.
-//
-// https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCardFoot(children ...any) modalCardFoot {
-	return modalCardFoot(children)
-}
+			e.Code("b.OnCard(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="modal-card">`), " e.Element"},
 
-type modalCardFoot []any
+			e.Code("b.ModalCardHead(...)"),
+			"Add items to the modal card head",
+
+			e.Code("b.ModalCardTitle(...)"),
+			"Add a title to the modal card head",
+
+			e.Code("b.ModalCardTitleWithClose(title string)"),
+			"Add a title with a close button to the modal card head",
+
+			e.Code("b.ModalCardFoot(...)"),
+			"Add items to the modal card foot",
+
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the modal",
+
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the modal card body",
+		),
+		e.P("Other children are added to the modal card body e.Element."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/modal/",
+	c.Example(
+		`b.Button(b.Primary, b.Large, e.OnClick(b.JSOpen("modal")), "Launch example modal"),
+b.Modal(
+	e.ID("modal"),
+	b.Box(
+		b.Media(
+			b.MediaLeft(b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq64, b.ImgAlt("Image"))),
+			b.Content(
+				e.P(
+					e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"), e.Br(),
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.",
+				),
+			),
+			b.Level(b.Mobile, b.LevelLeft(
+				e.A(e.AriaLabel("retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+				e.A(e.AriaLabel("like"), fa.Icon(fa.Solid, "heart", b.Small)),
+			)),
+		),
+	),
+)`,
+		b.Button(b.Primary, b.Large, e.OnClick(b.JSOpen("modal")), "Launch example modal"),
+		b.Modal(
+			e.ID("modal"),
+			b.Box(
+				b.Media(
+					b.MediaLeft(b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq64, b.ImgAlt("Image"))),
+					b.Content(
+						e.P(
+							e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"), e.Br(),
+							"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.",
+						),
+					),
+					b.Level(b.Mobile, b.LevelLeft(
+						e.A(e.AriaLabel("retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+						e.A(e.AriaLabel("like"), fa.Icon(fa.Solid, "heart", b.Small)),
+					)),
+				),
+			),
+		),
+	),
+).Subsection(
+	"Image modal",
+	"https://bulma.io/documentation/components/modal/#image-modal",
+	c.Example(
+		`b.Button(b.Primary, b.Large, e.OnClick(b.JSOpen("modal-image")), "Launch image modal"),
+b.Modal(
+	e.ID("modal-image"),
+	b.ImageImg("https://bulma.io/assets/images/placeholders/1280x960.png", html.P, b.Img4By3),
+)`,
+		b.Button(b.Primary, b.Large, e.OnClick(b.JSOpen("modal-image")), "Launch image modal"),
+		b.Modal(
+			e.ID("modal-image"),
+			b.ImageImg("https://bulma.io/assets/images/placeholders/1280x960.png", html.P, b.Img4By3),
+		),
+	),
+).Subsection(
+	"Modal card",
+	"https://bulma.io/documentation/components/modal/#modal-card",
+	c.Example(
+		`b.Button(b.Primary, b.Large, e.OnClick(b.JSOpen("modal-card-example")), "Launch card modal"),
+b.ModalCard(
+	e.ID("modal-card-example"),
+	b.ModalCardTitleWithClose("Modal title"),
+	b.Content(
+		e.H1("Hello World"),
+		e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+		e.H2("Second level"),
+		e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+		b.UList(
+			"In fermentum leo eu lectus mollis, quis dictum mi aliquet.",
+			"Morbi eu nulla lobortis, lobortis est in, fringilla felis.",
+			"Aliquam nec felis in sapien venenatis viverra fermentum nec lectus.",
+			"Ut non enim metus.",
+		),
+		e.H3("Third level"),
+		e.P("Quisque ante lacus, malesuada ac auctor vitae, congue ", e.AHref("#", "non ante"), ". Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus."),
+		b.OList(
+			"Donec blandit a lorem id convallis.",
+			"Cras gravida arcu at diam gravida gravida.",
+			"Integer in volutpat libero.",
+			"Donec a diam tellus.",
+			"Aenean nec tortor orci.",
+			"Quisque aliquam cursus urna, non bibendum massa viverra eget.",
+			"Vivamus maximus ultricies pulvinar.",
+		),
+		e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis"),
+		e.P("Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie."),
+		e.P("Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo."),
+		e.P("Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante."),
+		e.H4("Fourth level"),
+		e.P("Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur."),
+		e.P("Maecenas eleifend sollicitudin dui, faucibus sollicitudin auue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien."),
+		e.P("Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque."),
+		e.H5("Fifth level"),
+		e.P("Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio."),
+		e.H6("Sixth level"),
+		e.P("Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus."),
+	),
+	b.ModalCardFoot(
+		b.Buttons(
+			b.Button(e.OnClick(b.JSCloseThisModal), b.Success, "Save changes"),
+			b.Button(e.OnClick(b.JSCloseThisModal), "Cancel"),
+		),
+	),
+)`,
+		b.Button(b.Primary, b.Large, e.OnClick(b.JSOpen("modal-card-example")), "Launch card modal"),
+		b.ModalCard(
+			e.ID("modal-card-example"),
+			b.ModalCardTitleWithClose("Modal title"),
+			b.Content(
+				e.H1("Hello World"),
+				e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+				e.H2("Second level"),
+				e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+				b.UList(
+					"In fermentum leo eu lectus mollis, quis dictum mi aliquet.",
+					"Morbi eu nulla lobortis, lobortis est in, fringilla felis.",
+					"Aliquam nec felis in sapien venenatis viverra fermentum nec lectus.",
+					"Ut non enim metus.",
+				),
+				e.H3("Third level"),
+				e.P("Quisque ante lacus, malesuada ac auctor vitae, congue ", e.AHref("#", "non ante"), ". Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus."),
+				b.OList(
+					"Donec blandit a lorem id convallis.",
+					"Cras gravida arcu at diam gravida gravida.",
+					"Integer in volutpat libero.",
+					"Donec a diam tellus.",
+					"Aenean nec tortor orci.",
+					"Quisque aliquam cursus urna, non bibendum massa viverra eget.",
+					"Vivamus maximus ultricies pulvinar.",
+				),
+				e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis"),
+				e.P("Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie."),
+				e.P("Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo."),
+				e.P("Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante."),
+				e.H4("Fourth level"),
+				e.P("Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur."),
+				e.P("Maecenas eleifend sollicitudin dui, faucibus sollicitudin auue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien."),
+				e.P("Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque."),
+				e.H5("Fifth level"),
+				e.P("Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio."),
+				e.H6("Sixth level"),
+				e.P("Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus."),
+			),
+			b.ModalCardFoot(
+				b.Buttons(
+					b.Button(e.OnClick(b.JSCloseThisModal), b.Success, "Save changes"),
+					b.Button(e.OnClick(b.JSCloseThisModal), "Cancel"),
+				),
+			),
+		),
+	),
+)

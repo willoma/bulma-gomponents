@@ -1,123 +1,199 @@
-package bulma
+package docs
 
 import (
-	"io"
-	"sync"
-
-	"github.com/maragudk/gomponents"
+	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
 )
 
-// Level creates a level element.
-//
-// http://willoma.github.io/bulma-gomponents/level.html
-func Level(children ...any) e.Element {
-	l := &level{level: e.Nav(e.Class("level"))}
-	l.With(children...)
-	return l
-}
+var level = c.NewPage(
+	"Level", "Level", "/level",
+	"",
 
-type level struct {
-	level e.Element
-	left  e.Element
-	right e.Element
+	b.Content(
+		e.P("The ", e.Code("b.Level"), " constructor creates a level. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.LevelLeft(...)"),
+			[]any{"Add children to the left part of the level"},
 
-	rendered sync.Once
-}
+			e.Code("b.LevelRight(...)"),
+			[]any{"Add children to the right part of the level"},
 
-func (l *level) addToLeft(children ...any) {
-	if l.left == nil {
-		l.left = e.Div(e.Class("level-left"))
-	}
-	flattenLevelSection(l.left, children)
-}
+			e.Code("e.Element"),
+			[]any{"Add the ", e.Code("level-item"), " class to the element and apply the element to the level"},
 
-func (l *level) addToRight(children ...any) {
-	if l.right == nil {
-		l.right = e.Div(e.Class("level-right"))
-	}
-	flattenLevelSection(l.right, children)
-}
+			e.Code("string"),
+			[]any{"Wrap the string into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level"},
 
-func (l *level) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case levelLeft:
-			l.addToLeft(c...)
-		case levelRight:
-			l.addToRight(c...)
-		case e.Element:
-			c.With(e.Class("level-item"))
-			l.level.With(c)
-		case string:
-			l.level.With(e.P(e.Class("level-item"), c))
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				l.level.With(c)
-			} else {
-				l.level.With(e.Div(e.Class("level-item"), c))
-			}
-		case []any:
-			l.With(c...)
-		default:
-			l.level.With(c)
-		}
-	}
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the level",
 
-	return l
-}
+			[]any{"Other ", e.Code("gomponents.Node")},
+			[]any{"Wrap the element into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level"},
+		),
+		e.P("Children in ", e.Code("b.LevelLeft"), " and ", e.Code("b.LevelRight"), " have the following rules:"),
+		b.DList(
 
-func (l *level) Render(w io.Writer) error {
-	l.rendered.Do(func() {
-		if l.left != nil {
-			l.level.With(l.left)
-		}
-		if l.right != nil {
-			l.level.With(l.right)
-		}
-	})
+			e.Code("e.Element"),
+			[]any{"Add the ", e.Code("level-item"), " class to the element and apply the element to the level section"},
 
-	return l.level.Render(w)
-}
+			e.Code("string"),
+			[]any{"Wrap the string into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level section"},
 
-func (l *level) Clone() e.Element {
-	return &level{
-		level: l.level.Clone(),
-		left:  l.left.Clone(),
-		right: l.right.Clone(),
-	}
-}
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the level section",
 
-func LevelLeft(children ...any) levelLeft {
-	return levelLeft(children)
-}
-
-type levelLeft []any
-
-func LevelRight(children ...any) levelRight {
-	return levelRight(children)
-}
-
-type levelRight []any
-
-func flattenLevelSection(target e.Element, children []any) {
-	for _, c := range children {
-		switch c := c.(type) {
-		case e.Element:
-			c.With(e.Class("level-item"))
-			target.With(c)
-		case string:
-			target.With(e.P(e.Class("level-item"), c))
-		case gomponents.Node:
-			if !e.IsAttribute(c) {
-				target.With(e.Div(e.Class("level-item"), c))
-			} else {
-				target.With(c)
-			}
-		case []any:
-			flattenLevelSection(target, c)
-		default:
-			target.With(c)
-		}
-	}
-}
+			[]any{"Other ", e.Code("gomponents.Node")},
+			[]any{"Wrap the element into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level section"},
+		),
+	),
+).Section(
+	"Bulma examples",
+	"https://bulma.io/documentation/layout/level/",
+	c.HorizontalExample(
+		`b.Level(
+	b.LevelLeft(
+		e.Div(
+			b.Subtitle5(e.Strong("123"), " posts"),
+		),
+		e.Div(
+			b.Field(
+				b.Addons,
+				b.Control(b.InputText(html.Placeholder("Find a post"))),
+				b.Control(b.Button("Search")),
+			),
+		),
+	),
+	b.LevelRight(
+		e.P(e.Strong("All")),
+		e.P(e.A("Published")),
+		e.P(e.A("Drafts")),
+		e.P(e.A("Deleted")),
+		e.P(b.ButtonA(b.Success, "New")),
+	),
+)`,
+		b.Level(
+			b.LevelLeft(
+				e.Div(
+					b.Subtitle5(e.Strong("123"), " posts"),
+				),
+				e.Div(
+					b.Field(
+						b.Addons,
+						b.Control(b.InputText(html.Placeholder("Find a post"))),
+						b.Control(b.Button("Search")),
+					),
+				),
+			),
+			b.LevelRight(
+				e.P(e.Strong("All")),
+				e.P(e.A("Published")),
+				e.P(e.A("Drafts")),
+				e.P(e.A("Deleted")),
+				e.P(b.ButtonA(b.Success, "New")),
+			),
+		),
+	),
+).Subsection(
+	"Centered level",
+	"https://bulma.io/documentation/layout/level/#centered-level",
+	c.HorizontalExample(
+		`b.Level(
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
+	),
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Following"), b.Title(html.P, "123")),
+	),
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Followers"), b.Title(html.P, "456K")),
+	),
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Likes"), b.Title(html.P, "789")),
+	),
+)`,
+		b.Level(
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
+			),
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Following"), b.Title(html.P, "123")),
+			),
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Followers"), b.Title(html.P, "456K")),
+			),
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Likes"), b.Title(html.P, "789")),
+			),
+		),
+	),
+	c.HorizontalExample(
+		`b.Level(
+	e.P(b.TextCentered, e.A("Home")),
+	e.P(b.TextCentered, e.A("Menu")),
+	e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), e.Styles{"height": "30px"})),
+	e.P(b.TextCentered, e.A("Reservations")),
+	e.P(b.TextCentered, e.A("Contact")),
+)`,
+		b.Level(
+			e.P(b.TextCentered, e.A("Home")),
+			e.P(b.TextCentered, e.A("Menu")),
+			e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), e.Styles{"height": "30px"})),
+			e.P(b.TextCentered, e.A("Reservations")),
+			e.P(b.TextCentered, e.A("Contact")),
+		),
+	),
+).Subsection(
+	"Mobile level",
+	"https://bulma.io/documentation/layout/level/#mobile-level",
+	c.HorizontalExample(
+		`b.Level(
+	b.Mobile,
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
+	),
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Following"), b.Title(html.P, "123")),
+	),
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Followers"), b.Title(html.P, "456K")),
+	),
+	e.Div(
+		b.TextCentered,
+		e.Div(e.P("Likes"), b.Title(html.P, "789")),
+	),
+)`,
+		b.Level(
+			b.Mobile,
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
+			),
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Following"), b.Title(html.P, "123")),
+			),
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Followers"), b.Title(html.P, "456K")),
+			),
+			e.Div(
+				b.TextCentered,
+				e.Div(e.P("Likes"), b.Title(html.P, "789")),
+			),
+		),
+	),
+)

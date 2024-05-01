@@ -1,237 +1,126 @@
-package bulma
+package docs
 
 import (
-	"io"
-
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
 )
 
-// Menu creates a menu.
-//
-// https://willoma.github.io/bulma-gomponents/menu.html
-func Menu(children ...any) e.Element {
-	m := &menu{menu: e.Aside(e.Class("menu"))}
-	m.With(children...)
-	return m
-}
+var menu = c.NewPage(
+	"Menu", "Menu", "/menu",
+	"",
 
-type menu struct {
-	menu            e.Element
-	currentMenuList e.Element
-}
+	b.Content(
+		e.P(
+			"The ", e.Code("b.Menu"), " constructor creates a menu. The following children have a special meaning:",
+		),
+		b.DList(
+			e.Code("b.OnMenu(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<aside class="menu">`), " e.Element"},
 
-func (m *menu) flushCurrentMenuList() {
-	if m.currentMenuList != nil {
-		m.menu.With(m.currentMenuList)
-		m.currentMenuList = nil
-	}
-}
+			e.Code("string"),
+			[]any{"Add the string as a menu label"},
 
-func (m *menu) addToMenuList(child any) {
-	if m.currentMenuList == nil {
-		m.currentMenuList = MenuList()
-	}
-	m.currentMenuList.With(child)
-}
+			e.Code("b.MenuLabel(...)"),
+			[]any{"Add a menu label"},
 
-func (m *menu) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onMenu:
-			m.menu.With(c...)
-		case string:
-			m.flushCurrentMenuList()
-			m.menu.With(MenuLabel(c))
-		case *menuLabel:
-			m.flushCurrentMenuList()
-			m.menu.With(c)
-		case *menuEntry:
-			m.addToMenuList(c)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				m.menu.With(c)
-			} else {
-				m.addToMenuList(c)
-			}
-		case e.Element:
-			m.addToMenuList(c)
-		case []any:
-			m.With(c...)
-		default:
-			m.menu.With(c)
-		}
-	}
+			e.Code("b.MenuEntry(...)"),
+			[]any{"Add a menu entry to the current menu list, creating it if it does not exist"},
 
-	return m
-}
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the menu",
 
-func (m *menu) Render(w io.Writer) error {
-	m.flushCurrentMenuList()
-	return m.menu.Render(w)
-}
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the current menu list, creating it if it does not exist",
 
-func (m *menu) Clone() e.Element {
-	return &menu{
-		menu:            m.menu.Clone(),
-		currentMenuList: m.currentMenuList.Clone(),
-	}
-}
+			e.Code("e.Element"),
+			"Add this e.Element to the current menu list, creating it if it does not exist",
+		),
+		e.P("Other children are added to the menu e.Element."),
+		e.P("The ", e.Code("b.MenuLabel"), " constructor creates a menu label."),
+		e.P("The ", e.Code("b.MenuList"), " constructor creates a menu list."),
+		e.P("The ", e.Code("b.MenuEntry"), " constructor creates a menu entry. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.OnLi(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<li>"), " e.Element"},
 
-// MenuLabel creates a menu label.
-//
-// https://willoma.github.io/bulma-gomponents/menu.html
-func MenuLabel(children ...any) e.Element {
-	m := &menuLabel{e.P(e.Class("menu-label"))}
-	m.With(children...)
-	return m
-}
+			e.Code("b.MenuEntry(...)"),
+			[]any{"Add a menu entry to the current submenu, creating it if it does not exist"},
 
-type menuLabel struct {
-	e.Element
-}
+			e.Code("b.MenuSublist(...)"),
+			[]any{"Add a submenu to the current menu entry"},
+		),
+		e.P(
+			"The ", e.Code("b.MenuAHref"), " constructor creates an entry for a menu list with a link wrapped inside it. The following children have a special meaning:",
+		),
+		b.DList(
+			e.Code("b.OnLi(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<li>"), " e.Element"},
 
-func (m *menuLabel) Clone() e.Element {
-	return &menuLabel{m.Element.Clone()}
-}
+			e.Code("b.OnA(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<a>"), " e.Element"},
 
-// MenuList creates a menu list.
-//
-// https://willoma.github.io/bulma-gomponents/menu.html
-func MenuList(children ...any) e.Element {
-	m := &menuList{e.Ul(e.Class("menu-list"))}
-	m.With(children...)
-	return m
-}
+			e.Code("b.Active"),
+			"Mark the link as active",
 
-type menuList struct {
-	e.Element
-}
+			"Any other class or style",
+			"Apply to the entry e.Element",
 
-func (m *menuList) Clone() e.Element {
-	return &menuList{m.Element.Clone()}
-}
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the link",
 
-// MenuEntry creates an entry for a menu list.
-//
-// https://willoma.github.io/bulma-gomponents/menu.html
-func MenuEntry(children ...any) e.Element {
-	m := &menuEntry{li: e.Li(e.Class("menu-list"))}
-	m.With(children...)
-	return m
-}
-
-type menuEntry struct {
-	li      e.Element
-	subList e.Element
-}
-
-func (m *menuEntry) addToSublist(child any) {
-	if m.subList == nil {
-		m.subList = MenuSublist()
-	}
-	m.subList.With(child)
-}
-
-func (m *menuEntry) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onLi:
-			m.li.With(c)
-		case *menuEntry:
-			m.addToSublist(c)
-		case *menuSublist:
-			m.subList = c
-		case []any:
-			m.li.With(c...)
-		default:
-			m.li.With(c)
-		}
-	}
-	return m
-}
-
-func (m *menuEntry) Render(w io.Writer) error {
-	if m.subList != nil {
-		m.li.With(m.subList)
-		m.subList = nil
-	}
-	return m.li.Render(w)
-}
-
-func (m *menuEntry) Clone() e.Element {
-	return &menuEntry{
-		li:      m.li.Clone(),
-		subList: m.subList.Clone(),
-	}
-}
-
-// MenuAHref creates an entry for a menu list, with a link wrapped inside it.
-//
-// https://willoma.github.io/bulma-gomponents/menu.html
-func MenuAHref(href string, children ...any) e.Element {
-	a := e.AHref(href)
-	m := &menuAhref{Element: MenuEntry(a), a: a}
-	m.With(children...)
-	return m
-}
-
-type menuAhref struct {
-	e.Element
-	a e.Element
-}
-
-func (m *menuAhref) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onLi:
-			m.Element.With(c...)
-		case onA:
-			m.a.With(c...)
-		case e.Class:
-			if c == Active {
-				m.a.With(c)
-			} else {
-				m.Element.With(c)
-			}
-		case e.Classer, e.Classeser, e.Styles:
-			m.Element.With(c)
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				m.Element.With(c)
-			} else {
-				m.a.With(c)
-			}
-		case []any:
-			m.With(c...)
-		default:
-			m.a.With(c)
-		}
-	}
-
-	return m
-}
-
-func (m *menuAhref) Clone() e.Element {
-	return &menuAhref{
-		Element: m.Element.Clone(),
-		a:       m.a.Clone(),
-	}
-}
-
-// MenuSublist creates a menu sublist.
-//
-// https://willoma.github.io/bulma-gomponents/menu.html
-func MenuSublist(children ...any) e.Element {
-	m := &menuSublist{e.Ul()}
-	m.With(children...)
-	return m
-}
-
-type menuSublist struct {
-	e.Element
-}
-
-func (m *menuSublist) Clone() e.Element {
-	return &menuSublist{m.Element.Clone()}
-}
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the entry",
+		),
+		e.P("The ", e.Code("b.MenuSublist"), " constructor creates a submenu."),
+		e.P("Other children are added to the menu entry e.Element."),
+		e.P(
+			"Add ", e.Code("b.Active"), " to a ", e.Code("<a>"), " link in a ", e.Code("b.MenuEntry"), " e.Element in order to make it display as active.",
+		),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/components/menu/",
+	c.Example(
+		`b.Menu(
+	"General",
+	e.A("Dashboard"),
+	e.A("Customers"),
+	"Administration",
+	e.A("Team Settings"),
+	b.MenuEntry(
+		e.A(b.Active, "Manage Your Team"),
+		b.MenuEntry(e.A("Members")),
+		b.MenuEntry(e.A("Plugins")),
+		b.MenuEntry(e.A("Add a member")),
+	),
+	e.A("Invitations"),
+	e.A("Cloud Storage Environment Settings"),
+	e.A("Authentication"),
+	"Transactions",
+	e.A("Payments"),
+	e.A("Transfers"),
+	e.A("Balance"),
+)`,
+		b.Menu(
+			"General",
+			e.A("Dashboard"),
+			e.A("Customers"),
+			"Administration",
+			e.A("Team Settings"),
+			b.MenuEntry(
+				e.A(b.Active, "Manage Your Team"),
+				b.MenuEntry(e.A("Members")),
+				b.MenuEntry(e.A("Plugins")),
+				b.MenuEntry(e.A("Add a member")),
+			),
+			e.A("Invitations"),
+			e.A("Cloud Storage Environment Settings"),
+			e.A("Authentication"),
+			"Transactions",
+			e.A("Payments"),
+			e.A("Transfers"),
+			e.A("Balance"),
+		),
+	),
+)

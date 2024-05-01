@@ -1,71 +1,54 @@
-package bulma
+package docs
 
 import (
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+
+	c "bulma-gomponents.docs/components"
+	b "github.com/willoma/bulma-gomponents"
 )
 
-// Checkbox creates a checkbox input element.
-//
-// https://willoma.github.io/bulma-gomponents/form/checkbox.html
-func Checkbox(children ...any) e.Element {
-	input := e.Input(html.Type("checkbox"))
-	cb := &checkbox{
-		Element: e.Label(
-			e.Class("checkbox"),
-			input,
-			" ",
+var formCheckbox = c.NewPage(
+	"Checkbox", "Checkbox", "/form/checkbox",
+	"",
+
+	b.Content(
+		e.P("The ", e.Code("b.Checkbox"), " constructor creates a checkbox input. The following children have a special meaning:"),
+		b.DList(
+			e.Code("b.OnInput(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<input>"), " e.Element"},
+
+			e.Code("b.OnLabel(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<label>"), " e.Element"},
+
+			e.Code("string"),
+			"Add as a child to the label",
+
+			e.Code("b.Disabled"),
+			"Disable the checkbox input",
+
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the input",
+
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the label",
+
+			e.Code("e.Element"),
+			"Add this e.Element to the label",
 		),
-		input: input,
-	}
-	cb.With(children...)
-	return cb
-}
-
-type checkbox struct {
-	e.Element
-	input e.Element
-}
-
-func (cb *checkbox) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case onInput:
-			cb.input.With(c...)
-		case onLabel:
-			cb.Element.With(c...)
-		case string:
-			cb.Element.With(c)
-		case e.Class:
-			switch c {
-			case Disabled:
-				cb.input.With(html.Disabled())
-				cb.Element.With(html.Disabled())
-			default:
-				cb.input.With(c)
-			}
-		case gomponents.Node:
-			if e.IsAttribute(c) {
-				cb.input.With(c)
-			} else {
-				cb.Element.With(c)
-			}
-		case e.Element:
-			cb.Element.With(c)
-		case []any:
-			cb.With(c...)
-		default:
-			cb.input.With(c)
-		}
-	}
-
-	return cb
-}
-
-func (cb *checkbox) Clone() e.Element {
-	return &checkbox{
-		Element: cb.Element.Clone(),
-		input:   cb.input.Clone(),
-	}
-}
+		e.P("Other children are added to the ", e.Code("<input>"), " e.Element."),
+	),
+).Section(
+	"Bulma examples", "https://bulma.io/documentation/form/checkbox/",
+	c.Example(
+		`b.Checkbox("Remember me")`,
+		b.Checkbox("Remember me"),
+	),
+	c.Example(
+		`b.Checkbox("I agree to the ", e.AHref("#", "terms and conditions"))`,
+		b.Checkbox("I agree to the ", e.AHref("#", "terms and conditions")),
+	),
+	c.Example(
+		`b.Checkbox(b.Disabled, "Save my preferences")`,
+		b.Checkbox(b.Disabled, "Save my preferences"),
+	),
+)
