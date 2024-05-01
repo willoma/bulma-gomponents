@@ -1,7 +1,7 @@
 package fa
 
 import (
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type shake struct {
@@ -18,8 +18,8 @@ func Shake(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *shake) ModifyParent(e b.Element) {
-	e.With(Class("fa-shake"))
+func (a *shake) ModifyParent(p e.Element) {
+	p.With(Class("fa-shake"))
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }

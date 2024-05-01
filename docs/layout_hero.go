@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,72 +14,72 @@ var hero = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Hero"), " constructor creates a hero. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Hero"), " constructor creates a hero. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnBody(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="hero-body">`), " element"},
+			e.Code("b.OnBody(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="hero-body">`), " e.Element"},
 
-			el.Code("b.On(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<section class="hero">`), " element"},
+			e.Code("b.On(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<section class="hero">`), " e.Element"},
 
-			el.Code("b.HeroHead(...)"),
+			e.Code("b.HeroHead(...)"),
 			"Add the children to the head part of the hero",
 
-			el.Code("b.HeroFoot(...)"),
+			e.Code("b.HeroFoot(...)"),
 			"Add the children to the foot part of the hero",
 
-			el.Code("b.Element"),
-			"Add this element to the body part of the hero",
+			e.Code("e.Element"),
+			"Add this e.Element to the body part of the hero",
 
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
 			"Apply the attribute to the hero section",
 
-			[]any{"Other ", el.Code("gomponents.Node")},
-			"Add this element to the body part",
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the body part",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set hero color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set hero color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set hero color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set hero color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set hero color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set hero color to danger",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set hero size to small",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set hero size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set hero size to large",
 
-			el.Code("b.HalfHeight"),
+			e.Code("b.HalfHeight"),
 			"Set hero size to 50% of the height of the viewport",
 
-			el.Code("b.FullHeight"),
+			e.Code("b.FullHeight"),
 			"Set hero size to 100% of the height of the viewport",
 
-			el.Code("b.FullHeightWithNavbar"),
+			e.Code("b.FullHeightWithNavbar"),
 			"Set hero size to 100% of the height of the viewport minus the navbar height",
 		),
-		el.P("Other children are added to the ", el.Code(`<section class="hero">`), " element. The head, body and foot elements are created only if at least one child has been provided for the part."),
+		e.P("Other children are added to the ", e.Code(`<section class="hero">`), " e.Element. The head, body and foot elements are created only if at least one child has been provided for the part."),
 	),
 ).Section(
 	"Bulma examples",
 	"https://bulma.io/documentation/layout/hero/",
 
-	b.Content(el.P("The ", el.Em("hero body"), " is implied when you provide elements as children to ", el.Code("b.Hero"), ":")),
+	b.Content(e.P("The ", e.Em("hero body"), " is implied when you provide elements as children to ", e.Code("b.Hero"), ":")),
 	c.Example(
 		`b.Hero(
 	b.Title(html.P, "Hero title"),
@@ -207,14 +207,14 @@ var hero = c.NewPage(
 	c.Example(
 		`b.Hero(
 	b.HalfHeight, b.Success,
-	el.Div(
+	e.Div(
 		b.Title(html.P, "Half height hero"),
 		b.Subtitle(html.P, "Half height subtitle"),
 	),
 )`,
 		b.Hero(
 			b.HalfHeight, b.Success,
-			el.Div(
+			e.Div(
 				b.Title(html.P, "Half height hero"),
 				b.Subtitle(html.P, "Half height subtitle"),
 			),
@@ -223,14 +223,14 @@ var hero = c.NewPage(
 	c.Example(
 		`b.Hero(
 	b.FullHeight, b.Danger,
-	el.Div(
+	e.Div(
 		b.Title(html.P, "Full height hero"),
 		b.Subtitle(html.P, "Full height subtitle"),
 	),
 )`,
 		b.Hero(
 			b.FullHeight, b.Danger,
-			el.Div(
+			e.Div(
 				b.Title(html.P, "Full height hero"),
 				b.Subtitle(html.P, "Full height subtitle"),
 			),
@@ -281,7 +281,7 @@ b.Hero(
 	"Fullheight hero in 3 parts",
 	"https://bulma.io/documentation/layout/hero/#fullheight-hero-in-3-parts",
 	b.Content(
-		el.P("Use ", el.Code("b.HeroHead"), " and ", el.Code("b.HeroFoot"), " to define body header and footer. Please note they can be used multiple times, in which case the children will be aggregated."),
+		e.P("Use ", e.Code("b.HeroHead"), " and ", e.Code("b.HeroFoot"), " to define body header and footer. Please note they can be used multiple times, in which case the children will be aggregated."),
 	),
 	c.HorizontalExample(
 		`b.Hero(
@@ -292,7 +292,7 @@ b.Hero(
 			b.NavbarBrand(
 				b.NavbarAHref(
 					"#",
-					b.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
 				),
 			),
 			b.NavbarEnd(
@@ -340,7 +340,7 @@ b.Hero(
 					b.NavbarBrand(
 						b.NavbarAHref(
 							"#",
-							b.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
 						),
 					),
 					b.NavbarEnd(
@@ -389,7 +389,7 @@ b.Hero(
 			b.NavbarBrand(
 				b.NavbarAHref(
 					"#",
-					b.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
 				),
 			),
 			b.NavbarEnd(
@@ -433,7 +433,7 @@ b.Hero(
 					b.NavbarBrand(
 						b.NavbarAHref(
 							"#",
-							b.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
 						),
 					),
 					b.NavbarEnd(
@@ -479,7 +479,7 @@ b.Hero(
 			b.NavbarBrand(
 				b.NavbarAHref(
 					"#",
-					b.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
 				),
 			),
 			b.NavbarEnd(
@@ -523,7 +523,7 @@ b.Hero(
 					b.NavbarBrand(
 						b.NavbarAHref(
 							"#",
-							b.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
 						),
 					),
 					b.NavbarEnd(

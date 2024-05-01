@@ -1,10 +1,12 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	e "github.com/willoma/gomplements"
+)
 
 // Box creates a box element.
 //
 // https://willoma.github.io/bulma-gomponents/box.html
-func Box(children ...any) Element {
-	return Elem(html.Div, Class("box"), children)
+func Box(children ...any) e.Element {
+	return e.Div(e.Class("box"), children)
 }

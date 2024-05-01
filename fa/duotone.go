@@ -3,25 +3,25 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 const (
 	SwapOpacity = Class("fa-swap-opacity")
 )
 
-func PrimaryOpacity(value float64) b.Styles {
-	return b.Style("--fa-primary-opacity", strconv.FormatFloat(value, 'f', 2, 64))
+func PrimaryOpacity(value float64) e.Styles {
+	return e.Styles{"--fa-primary-opacity": strconv.FormatFloat(value, 'f', 2, 64)}
 }
 
-func SecondaryOpacity(value float64) b.Styles {
-	return b.Style("--fa-secondary-opacity", strconv.FormatFloat(value, 'f', 2, 64))
+func SecondaryOpacity(value float64) e.Styles {
+	return e.Styles{"--fa-secondary-opacity": strconv.FormatFloat(value, 'f', 2, 64)}
 }
 
-func PrimaryColor(value string) b.Styles {
-	return b.Style("--fa-primary-color", value)
+func PrimaryColor(value string) e.Styles {
+	return e.Styles{"--fa-primary-color": value}
 }
 
-func SecondaryColor(value string) b.Styles {
-	return b.Style("--fa-secondary-color", value)
+func SecondaryColor(value string) e.Styles {
+	return e.Styles{"--fa-secondary-color": value}
 }

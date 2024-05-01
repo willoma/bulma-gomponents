@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,8 +14,8 @@ var box = c.NewPage(
 	"",
 
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Box"), " constructor returns a white box with some padding and a shadow.",
+		e.P(
+			"The ", e.Code("b.Box"), " constructor returns a white box with some padding and a shadow.",
 		),
 	),
 ).Section(
@@ -71,18 +71,18 @@ var box = c.NewPage(
 			),
 		),
 		b.Content(
-			el.P(
-				el.Strong("John Smith"), " ", el.Small("@johnsmith"), " ", el.Small("31m"),
-				el.Br(),
+			e.P(
+				e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
+				e.Br(),
 				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.",
 			),
 		),
 		b.Level(
 			b.Mobile,
 			b.LevelLeft(
-				el.A(html.Aria("level", "reply"), fa.Icon(fa.Solid, "reply", b.Small)),
-				el.A(html.Aria("level", "retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
-				el.A(html.Aria("level", "like"), fa.Icon(fa.Solid, "heart", b.Small)),
+				e.A(e.AriaLabel("reply"), fa.Icon(fa.Solid, "reply", b.Small)),
+				e.A(e.AriaLabel("retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+				e.A(e.AriaLabel("like"), fa.Icon(fa.Solid, "heart", b.Small)),
 			),
 		),
 	),
@@ -97,18 +97,18 @@ var box = c.NewPage(
 					),
 				),
 				b.Content(
-					el.P(
-						el.Strong("John Smith"), " ", el.Small("@johnsmith"), " ", el.Small("31m"),
-						el.Br(),
+					e.P(
+						e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
+						e.Br(),
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.",
 					),
 				),
 				b.Level(
 					b.Mobile,
 					b.LevelLeft(
-						el.A(html.Aria("level", "reply"), fa.Icon(fa.Solid, "reply", b.Small)),
-						el.A(html.Aria("level", "retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
-						el.A(html.Aria("level", "like"), fa.Icon(fa.Solid, "heart", b.Small)),
+						e.A(e.AriaLabel("reply"), fa.Icon(fa.Solid, "reply", b.Small)),
+						e.A(e.AriaLabel("retweet"), fa.Icon(fa.Solid, "retweet", b.Small)),
+						e.A(e.AriaLabel("like"), fa.Icon(fa.Solid, "heart", b.Small)),
 					),
 				),
 			),

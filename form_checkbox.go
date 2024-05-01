@@ -3,17 +3,17 @@ package bulma
 import (
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Checkbox creates a checkbox input element.
 //
 // https://willoma.github.io/bulma-gomponents/form/checkbox.html
-func Checkbox(children ...any) Element {
-	input := Elem(html.Input, html.Type("checkbox"))
+func Checkbox(children ...any) e.Element {
+	input := e.Input(html.Type("checkbox"))
 	cb := &checkbox{
-		Element: Elem(
-			html.Label,
-			Class("checkbox"),
+		Element: e.Label(
+			e.Class("checkbox"),
 			input,
 			" ",
 		),
@@ -24,11 +24,11 @@ func Checkbox(children ...any) Element {
 }
 
 type checkbox struct {
-	Element
-	input Element
+	e.Element
+	input e.Element
 }
 
-func (cb *checkbox) With(children ...any) Element {
+func (cb *checkbox) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onInput:
@@ -37,7 +37,7 @@ func (cb *checkbox) With(children ...any) Element {
 			cb.Element.With(c...)
 		case string:
 			cb.Element.With(c)
-		case Class:
+		case e.Class:
 			switch c {
 			case Disabled:
 				cb.input.With(html.Disabled())
@@ -46,12 +46,12 @@ func (cb *checkbox) With(children ...any) Element {
 				cb.input.With(c)
 			}
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				cb.input.With(c)
 			} else {
 				cb.Element.With(c)
 			}
-		case Element:
+		case e.Element:
 			cb.Element.With(c)
 		case []any:
 			cb.With(c...)
@@ -63,7 +63,7 @@ func (cb *checkbox) With(children ...any) Element {
 	return cb
 }
 
-func (cb *checkbox) Clone() Element {
+func (cb *checkbox) Clone() e.Element {
 	return &checkbox{
 		Element: cb.Element.Clone(),
 		input:   cb.input.Clone(),

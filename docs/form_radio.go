@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var formRadio = c.NewPage(
@@ -13,30 +13,30 @@ var formRadio = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Radio"), " constructor creates a radio element, together with its label container. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Radio"), " constructor creates a radio e.Element, together with its label container. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnInput(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<input>"), " element"},
+			e.Code("b.OnInput(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<input>"), " e.Element"},
 
-			el.Code("b.OnLabel(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<label>"), " element"},
+			e.Code("b.OnLabel(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<label>"), " e.Element"},
 
-			el.Code("string"),
+			e.Code("string"),
 			"Add as a child to the label",
 
-			el.Code("b.Disabled"),
+			e.Code("b.Disabled"),
 			"Disable the radio button",
 
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
 			"Apply the attribute to the input",
 
-			[]any{"Other ", el.Code("gomponents.Node")},
-			"Add this element to the label",
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the label",
 
-			el.Code("b.Element"),
-			"Add this element to the label",
+			e.Code("e.Element"),
+			"Add this e.Element to the label",
 		),
-		el.P("Other children are added to the ", el.Code("<input>"), " element."),
+		e.P("Other children are added to the ", e.Code("<input>"), " e.Element."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/form/radio/",

@@ -2,9 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var container = c.NewPage(
@@ -12,7 +13,7 @@ var container = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Container"), " constructor creates a container element. Its ", el.Strong("maximum width"), " depends on the applied modifier:"),
+		e.P("The ", e.Code("b.Container"), " constructor creates a container e.Element. Its ", e.Strong("maximum width"), " depends on the applied modifier:"),
 	),
 	b.Table(
 		b.HeadRow(
@@ -30,29 +31,29 @@ var container = c.NewPage(
 			"1344px",
 		),
 		b.Row(
-			el.Code("b.Widescreen"),
+			e.Code("b.Widescreen"),
 			b.TCell(html.ColSpan("2"), b.Light, "Full width"),
 			"1152px",
 			"1344px",
 		),
 		b.Row(
-			el.Code("b.FullHD"),
+			e.Code("b.FullHD"),
 			b.TCell(html.ColSpan("3"), b.Light, "Full width"),
 			"1344px",
 		),
 		b.Row(
-			el.Code("b.MaxDesktop"),
+			e.Code("b.MaxDesktop"),
 			b.TCell(b.Light, "Full width"),
 			b.TCell(html.ColSpan("3"), "960px"),
 		),
 		b.Row(
-			el.Code("b.MaxWidescreen"),
+			e.Code("b.MaxWidescreen"),
 			b.TCell(b.Light, "Full width"),
 			"960px",
 			b.TCell(html.ColSpan("2"), "1152px"),
 		),
 		b.Row(
-			el.Code("b.Fluid"),
+			e.Code("b.Fluid"),
 			b.TCell(html.ColSpan("4"), "100% with 32px gap on both sides"),
 		),
 	),
@@ -65,13 +66,13 @@ var container = c.NewPage(
 		`b.Container(
 	b.Notification(
 		b.Primary,
-		"This container is ", el.Strong("centered"), " on desktop and larger viewports.",
+		"This container is ", e.Strong("centered"), " on desktop and larger viewports.",
 	),
 )`,
 		b.Container(
 			b.Notification(
 				b.Primary,
-				"This container is ", el.Strong("centered"), " on desktop and larger viewports.",
+				"This container is ", e.Strong("centered"), " on desktop and larger viewports.",
 			),
 		),
 	),
@@ -83,14 +84,14 @@ var container = c.NewPage(
 	b.Widescreen,
 	b.Notification(
 		b.Primary,
-		"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$widescreen"), " breakpoint.",
+		"This container is ", e.Strong("fullwidth"), " ", e.Em("until"), " the ", e.Code("$widescreen"), " breakpoint.",
 	),
 )`,
 		b.Container(
 			b.Widescreen,
 			b.Notification(
 				b.Primary,
-				"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$widescreen"), " breakpoint.",
+				"This container is ", e.Strong("fullwidth"), " ", e.Em("until"), " the ", e.Code("$widescreen"), " breakpoint.",
 			),
 		),
 	),
@@ -99,14 +100,14 @@ var container = c.NewPage(
 	b.FullHD,
 	b.Notification(
 		b.Primary,
-		"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$fullhd"), " breakpoint.",
+		"This container is ", e.Strong("fullwidth"), " ", e.Em("until"), " the ", e.Code("$fullhd"), " breakpoint.",
 	),
 )`,
 		b.Container(
 			b.FullHD,
 			b.Notification(
 				b.Primary,
-				"This container is ", el.Strong("fullwidth"), " ", el.Em("until"), " the ", el.Code("$fullhd"), " breakpoint.",
+				"This container is ", e.Strong("fullwidth"), " ", e.Em("until"), " the ", e.Code("$fullhd"), " breakpoint.",
 			),
 		),
 	),
@@ -118,14 +119,14 @@ var container = c.NewPage(
 	b.MaxDesktop,
 	b.Notification(
 		b.Primary,
-		"This container has a ", el.Code("max-width"), " of ", el.Code("$desktop - $container-offset"), " on widescreen and fullhd.",
+		"This container has a ", e.Code("max-width"), " of ", e.Code("$desktop - $container-offset"), " on widescreen and fullhd.",
 	),
 )`,
 		b.Container(
 			b.MaxDesktop,
 			b.Notification(
 				b.Primary,
-				"This container has a ", el.Code("max-width"), " of ", el.Code("$desktop - $container-offset"), " on widescreen and fullhd.",
+				"This container has a ", e.Code("max-width"), " of ", e.Code("$desktop - $container-offset"), " on widescreen and fullhd.",
 			),
 		),
 	),
@@ -134,14 +135,14 @@ var container = c.NewPage(
 	b.MaxWidescreen,
 	b.Notification(
 		b.Primary,
-		"This container has a ", el.Code("max-width"), " of ", el.Code("$widescreen - $container-offset"), " on fullhd.",
+		"This container has a ", e.Code("max-width"), " of ", e.Code("$widescreen - $container-offset"), " on fullhd.",
 	),
 )`,
 		b.Container(
 			b.MaxWidescreen,
 			b.Notification(
 				b.Primary,
-				"This container has a ", el.Code("max-width"), " of ", el.Code("$widescreen - $container-offset"), " on fullhd.",
+				"This container has a ", e.Code("max-width"), " of ", e.Code("$widescreen - $container-offset"), " on fullhd.",
 			),
 		),
 	),
@@ -153,14 +154,14 @@ var container = c.NewPage(
 	b.Fluid,
 	b.Notification(
 		b.Primary,
-		"This container is ", el.Strong("fluid"), ": it will have a 32px gap on either side, on any viewport size.",
+		"This container is ", e.Strong("fluid"), ": it will have a 32px gap on either side, on any viewport size.",
 	),
 )`,
 		b.Container(
 			b.Fluid,
 			b.Notification(
 				b.Primary,
-				"This container is ", el.Strong("fluid"), ": it will have a 32px gap on either side, on any viewport size.",
+				"This container is ", e.Strong("fluid"), ": it will have a 32px gap on either side, on any viewport size.",
 			),
 		),
 	),

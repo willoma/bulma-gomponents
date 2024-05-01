@@ -2,50 +2,50 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var content = c.NewPage(
 	"Content", "Content", "/content",
 	"",
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Content"), " constructor creates a block make to contain ", el.Strong("WYSIWYG"), " text. The following children have a special meaning:",
+		e.P(
+			"The ", e.Code("b.Content"), " constructor creates a block make to contain ", e.Strong("WYSIWYG"), " text. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set content size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set content size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set content size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set content size to large",
 
-			el.Code("string"),
-			[]any{"Wrap the text in a ", el.Code("<p>"), " element"},
+			e.Code("string"),
+			[]any{"Wrap the text in a ", e.Code("<p>"), " e.Element"},
 
-			el.Code("b.NoP(...)"),
-			[]any{"Remove the ", el.Code("<p>"), " wrapper for the provided children"},
+			e.Code("b.NoP(...)"),
+			[]any{"Remove the ", e.Code("<p>"), " wrapper for the provided children"},
 		),
-		el.P("You may apply the following modifiers on ", el.Code("el.Ol"), " children in order to change their style:"),
+		e.P("You may apply the following modifiers on ", e.Code("e.Ol"), " children in order to change their style:"),
 		b.DList(
-			el.Code("b.OlLowerAlpha"),
+			e.Code("b.OlLowerAlpha"),
 			"Lowercase letters",
 
-			el.Code("b.OlLowerRoman"),
+			e.Code("b.OlLowerRoman"),
 			"Lowercase roman numbers",
 
-			el.Code("b.OlUpperAlpha"),
+			e.Code("b.OlUpperAlpha"),
 			"Uppercase letters",
 
-			el.Code("b.OlUpperRoman"),
+			e.Code("b.OlUpperRoman"),
 			"Uppercase roman numbers",
 		),
 	),
@@ -54,53 +54,53 @@ var content = c.NewPage(
 	"https://bulma.io/documentation/elements/content/#full-example",
 	c.Example(
 		`b.Content(
-	el.H1("Hello World"),
-	el.P(
-		"Lorem ipsum", el.Sup(el.A("[1]")), " dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque. Sub", el.Sub("script"), " works as well!",
+	e.H1("Hello World"),
+	e.P(
+		"Lorem ipsum", e.Sup(e.A("[1]")), " dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque. Sub", e.Sub("script"), " works as well!",
 	),
-	el.H2("Second level"),
-	el.P(
-		"Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl.",
+	e.H2("Second level"),
+	e.P(
+		"Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl.",
 	),
-	el.Ul(
-		el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-		el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-		el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-		el.Li("Ut non enim metus."),
+	e.Ul(
+		e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+		e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+		e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+		e.Li("Ut non enim metus."),
 	),
-	el.H3("Third level"),
-	el.P(
-		"Quisque ante lacus, malesuada ac auctor vitae, congue ", b.AHref("#", "non ante"), ". Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus.",
+	e.H3("Third level"),
+	e.P(
+		"Quisque ante lacus, malesuada ac auctor vitae, congue ", e.AHref("#", "non ante"), ". Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus.",
 	),
-	el.Ol(
-		el.Li("Donec blandit a lorem id convallis."),
-		el.Li("Cras gravida arcu at diam gravida gravida."),
-		el.Li("Integer in volutpat libero."),
-		el.Li("Donec a diam tellus."),
-		el.Li("Aenean nec tortor orci."),
-		el.Li("Quisque aliquam cursus urna, non bibendum massa viverra eget."),
-		el.Li("Vivamus maximus ultricies pulvinar."),
+	e.Ol(
+		e.Li("Donec blandit a lorem id convallis."),
+		e.Li("Cras gravida arcu at diam gravida gravida."),
+		e.Li("Integer in volutpat libero."),
+		e.Li("Donec a diam tellus."),
+		e.Li("Aenean nec tortor orci."),
+		e.Li("Quisque aliquam cursus urna, non bibendum massa viverra eget."),
+		e.Li("Vivamus maximus ultricies pulvinar."),
 	),
-	el.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis."),
-	el.P(
-		"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", el.Em("justo sodales"), " elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
+	e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis."),
+	e.P(
+		"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
 	),
 	"Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo.",
-	el.Dl(
-		el.Dt("Web"),
-		el.Dd("The part of the Internet that contains websites and web pages"),
-		el.Dt("HTML"),
-		el.Dd("A markup language for creating web pages"),
-		el.Dt("CSS"),
-		el.Dd("A technology to make HTML look better"),
+	e.Dl(
+		e.Dt("Web"),
+		e.Dd("The part of the Internet that contains websites and web pages"),
+		e.Dt("HTML"),
+		e.Dd("A markup language for creating web pages"),
+		e.Dt("CSS"),
+		e.Dd("A technology to make HTML look better"),
 	),
-	"Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
-	el.H4("Fourth level"),
-	"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.",
-	el.Pre(
+	"Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
+	e.H4("Fourth level"),
+	"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur.",
+	e.Pre(
 		b.Padding(b.Spacing2),
 		b.FontSize7,
-		b.Style("tab-size", "4"),
+		e.Styles{"tab-size": "4"},
 		`+"`"+`<!DOCTYPE html>
 <html>
 	<head>
@@ -112,95 +112,95 @@ var content = c.NewPage(
 	</body>
 </html>`+"`"+`),
 	"Maecenas eleifend sollicitudin dui, faucibus sollicitudin augue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien.",
-	el.Table(
-		el.THead(
-			el.Tr(
-				el.Th("One"),
-				el.Th("Two"),
+	e.Table(
+		e.THead(
+			e.Tr(
+				e.Th("One"),
+				e.Th("Two"),
 			),
 		),
-		el.TBody(
-			el.Tr(
-				el.Td("Three"),
-				el.Td("Four"),
+		e.TBody(
+			e.Tr(
+				e.Td("Three"),
+				e.Td("Four"),
 			),
-			el.Tr(
-				el.Td("Five"),
-				el.Td("Six"),
+			e.Tr(
+				e.Td("Five"),
+				e.Td("Six"),
 			),
-			el.Tr(
-				el.Td("Seven"),
-				el.Td("Eight"),
+			e.Tr(
+				e.Td("Seven"),
+				e.Td("Eight"),
 			),
-			el.Tr(
-				el.Td("Nine"),
-				el.Td("Ten"),
+			e.Tr(
+				e.Td("Nine"),
+				e.Td("Ten"),
 			),
-			el.Tr(
-				el.Td("Eleven"),
-				el.Td("Twelve"),
+			e.Tr(
+				e.Td("Eleven"),
+				e.Td("Twelve"),
 			),
 		),
 	),
 	"Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque.",
-	el.H5("Fifth level"),
+	e.H5("Fifth level"),
 	"Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.",
-	el.Figure(
-		b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
-		b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
-		el.FigCaption("Figure 1: Some beautiful placeholders"),
+	e.Figure(
+		e.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+		e.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+		e.FigCaption("Figure 1: Some beautiful placeholders"),
 	),
-	el.H6("Sixth level"),
+	e.H6("Sixth level"),
 	"Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus.",
 )`,
 		b.Content(
-			el.H1("Hello World"),
-			el.P(
-				"Lorem ipsum", el.Sup(el.A("[1]")), " dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque. Sub", el.Sub("script"), " works as well!",
+			e.H1("Hello World"),
+			e.P(
+				"Lorem ipsum", e.Sup(e.A("[1]")), " dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque. Sub", e.Sub("script"), " works as well!",
 			),
-			el.H2("Second level"),
-			el.P(
-				"Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl.",
+			e.H2("Second level"),
+			e.P(
+				"Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl.",
 			),
-			el.Ul(
-				el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-				el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-				el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-				el.Li("Ut non enim metus."),
+			e.Ul(
+				e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+				e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+				e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+				e.Li("Ut non enim metus."),
 			),
-			el.H3("Third level"),
-			el.P(
-				"Quisque ante lacus, malesuada ac auctor vitae, congue ", b.AHref("#", "non ante"), ". Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus.",
+			e.H3("Third level"),
+			e.P(
+				"Quisque ante lacus, malesuada ac auctor vitae, congue ", e.AHref("#", "non ante"), ". Phasellus lacus ex, semper ac tortor nec, fringilla condimentum orci. Fusce eu rutrum tellus.",
 			),
-			el.Ol(
-				el.Li("Donec blandit a lorem id convallis."),
-				el.Li("Cras gravida arcu at diam gravida gravida."),
-				el.Li("Integer in volutpat libero."),
-				el.Li("Donec a diam tellus."),
-				el.Li("Aenean nec tortor orci."),
-				el.Li("Quisque aliquam cursus urna, non bibendum massa viverra eget."),
-				el.Li("Vivamus maximus ultricies pulvinar."),
+			e.Ol(
+				e.Li("Donec blandit a lorem id convallis."),
+				e.Li("Cras gravida arcu at diam gravida gravida."),
+				e.Li("Integer in volutpat libero."),
+				e.Li("Donec a diam tellus."),
+				e.Li("Aenean nec tortor orci."),
+				e.Li("Quisque aliquam cursus urna, non bibendum massa viverra eget."),
+				e.Li("Vivamus maximus ultricies pulvinar."),
 			),
-			el.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis."),
-			el.P(
-				"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", el.Em("justo sodales"), " elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
+			e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis."),
+			e.P(
+				"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
 			),
 			"Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo.",
-			el.Dl(
-				el.Dt("Web"),
-				el.Dd("The part of the Internet that contains websites and web pages"),
-				el.Dt("HTML"),
-				el.Dd("A markup language for creating web pages"),
-				el.Dt("CSS"),
-				el.Dd("A technology to make HTML look better"),
+			e.Dl(
+				e.Dt("Web"),
+				e.Dd("The part of the Internet that contains websites and web pages"),
+				e.Dt("HTML"),
+				e.Dd("A markup language for creating web pages"),
+				e.Dt("CSS"),
+				e.Dd("A technology to make HTML look better"),
 			),
-			"Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
-			el.H4("Fourth level"),
-			"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.",
-			el.Pre(
+			"Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
+			e.H4("Fourth level"),
+			"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur.",
+			e.Pre(
 				b.Padding(b.Spacing2),
 				b.FontSize7,
-				b.Style("tab-size", "4"),
+				e.Styles{"tab-size": "4"},
 				`<!DOCTYPE html>
 <html>
 	<head>
@@ -213,45 +213,45 @@ var content = c.NewPage(
 </html>`,
 			),
 			"Maecenas eleifend sollicitudin dui, faucibus sollicitudin augue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien.",
-			el.Table(
-				el.THead(
-					el.Tr(
-						el.Th("One"),
-						el.Th("Two"),
+			e.Table(
+				e.THead(
+					e.Tr(
+						e.Th("One"),
+						e.Th("Two"),
 					),
 				),
-				el.TBody(
-					el.Tr(
-						el.Td("Three"),
-						el.Td("Four"),
+				e.TBody(
+					e.Tr(
+						e.Td("Three"),
+						e.Td("Four"),
 					),
-					el.Tr(
-						el.Td("Five"),
-						el.Td("Six"),
+					e.Tr(
+						e.Td("Five"),
+						e.Td("Six"),
 					),
-					el.Tr(
-						el.Td("Seven"),
-						el.Td("Eight"),
+					e.Tr(
+						e.Td("Seven"),
+						e.Td("Eight"),
 					),
-					el.Tr(
-						el.Td("Nine"),
-						el.Td("Ten"),
+					e.Tr(
+						e.Td("Nine"),
+						e.Td("Ten"),
 					),
-					el.Tr(
-						el.Td("Eleven"),
-						el.Td("Twelve"),
+					e.Tr(
+						e.Td("Eleven"),
+						e.Td("Twelve"),
 					),
 				),
 			),
 			"Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque.",
-			el.H5("Fifth level"),
+			e.H5("Fifth level"),
 			"Aliquam sagittis rhoncus vulputate. Cras non luctus sem, sed tincidunt ligula. Vestibulum at nunc elit. Praesent aliquet ligula mi, in luctus elit volutpat porta. Phasellus molestie diam vel nisi sodales, a eleifend augue laoreet. Sed nec eleifend justo. Nam et sollicitudin odio.",
-			el.Figure(
-				b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
-				b.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
-				el.FigCaption("Figure 1: Some beautiful placeholders"),
+			e.Figure(
+				e.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+				e.ImgSrc("https://bulma.io/assets/images/placeholders/256x256.png"),
+				e.FigCaption("Figure 1: Some beautiful placeholders"),
 			),
-			el.H6("Sixth level"),
+			e.H6("Sixth level"),
 			"Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus.",
 		),
 	),
@@ -260,121 +260,121 @@ var content = c.NewPage(
 	"https://bulma.io/documentation/elements/content/#ordered-lists-alternatives",
 	c.Example(
 		`b.Content(
-	el.Ol(
+	e.Ol(
 		html.Type("1"),
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		html.Type("A"),
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		html.Type("a"),
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		html.Type("I"),
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		html.Type("i"),
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
 )`,
 		b.Content(
-			el.Ol(
+			e.Ol(
 				html.Type("1"),
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				html.Type("A"),
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				html.Type("a"),
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				html.Type("I"),
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				html.Type("i"),
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
 		),
 	),
 	c.Example(
 		`b.Content(
-	el.Ol(
+	e.Ol(
 		b.OlLowerAlpha,
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		b.OlLowerRoman,
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		b.OlUpperAlpha,
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
-	el.Ol(
+	e.Ol(
 		b.OlUpperRoman,
-		el.Li("Coffee"),
-		el.Li("Tea"),
-		el.Li("Milk"),
+		e.Li("Coffee"),
+		e.Li("Tea"),
+		e.Li("Milk"),
 	),
 )`,
 		b.Content(
-			el.Ol(
+			e.Ol(
 				b.OlLowerAlpha,
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				b.OlLowerRoman,
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				b.OlUpperAlpha,
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
-			el.Ol(
+			e.Ol(
 				b.OlUpperRoman,
-				el.Li("Coffee"),
-				el.Li("Tea"),
-				el.Li("Milk"),
+				e.Li("Coffee"),
+				e.Li("Tea"),
+				e.Li("Milk"),
 			),
 		),
 	),
@@ -384,112 +384,112 @@ var content = c.NewPage(
 	c.Example(
 		`b.Content(
 	b.Small,
-	el.H1("Hello World"),
-	el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-	el.H2("Second level"),
-	el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-	el.Ul(
-		el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-		el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-		el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-		el.Li("Ut non enim metus."),
+	e.H1("Hello World"),
+	e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+	e.H2("Second level"),
+	e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+	e.Ul(
+		e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+		e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+		e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+		e.Li("Ut non enim metus."),
 	),
 )`,
 		b.Content(
 			b.Small,
-			el.H1("Hello World"),
-			el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-			el.H2("Second level"),
-			el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-			el.Ul(
-				el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-				el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-				el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-				el.Li("Ut non enim metus."),
+			e.H1("Hello World"),
+			e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+			e.H2("Second level"),
+			e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+			e.Ul(
+				e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+				e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+				e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+				e.Li("Ut non enim metus."),
 			),
 		),
 	),
 	c.Example(
 		`b.Content(
 	b.Normal,
-	el.H1("Hello World"),
-	el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-	el.H2("Second level"),
-	el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-	el.Ul(
-		el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-		el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-		el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-		el.Li("Ut non enim metus."),
+	e.H1("Hello World"),
+	e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+	e.H2("Second level"),
+	e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+	e.Ul(
+		e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+		e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+		e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+		e.Li("Ut non enim metus."),
 	),
 )`,
 		b.Content(
 			b.Normal,
-			el.H1("Hello World"),
-			el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-			el.H2("Second level"),
-			el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-			el.Ul(
-				el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-				el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-				el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-				el.Li("Ut non enim metus."),
+			e.H1("Hello World"),
+			e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+			e.H2("Second level"),
+			e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+			e.Ul(
+				e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+				e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+				e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+				e.Li("Ut non enim metus."),
 			),
 		),
 	),
 	c.Example(
 		`b.Content(
 	b.Medium,
-	el.H1("Hello World"),
-	el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-	el.H2("Second level"),
-	el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-	el.Ul(
-		el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-		el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-		el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-		el.Li("Ut non enim metus."),
+	e.H1("Hello World"),
+	e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+	e.H2("Second level"),
+	e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+	e.Ul(
+		e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+		e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+		e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+		e.Li("Ut non enim metus."),
 	),
 )`,
 		b.Content(
 			b.Medium,
-			el.H1("Hello World"),
-			el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-			el.H2("Second level"),
-			el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-			el.Ul(
-				el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-				el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-				el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-				el.Li("Ut non enim metus."),
+			e.H1("Hello World"),
+			e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+			e.H2("Second level"),
+			e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+			e.Ul(
+				e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+				e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+				e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+				e.Li("Ut non enim metus."),
 			),
 		),
 	),
 	c.Example(
 		`b.Content(
 	b.Large,
-	el.H1("Hello World"),
-	el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-	el.H2("Second level"),
-	el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-	el.Ul(
-		el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-		el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-		el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-		el.Li("Ut non enim metus."),
+	e.H1("Hello World"),
+	e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+	e.H2("Second level"),
+	e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+	e.Ul(
+		e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+		e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+		e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+		e.Li("Ut non enim metus."),
 	),
 )`,
 		b.Content(
 			b.Large,
-			el.H1("Hello World"),
-			el.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
-			el.H2("Second level"),
-			el.P("Curabitur accumsan turpis pharetra ", el.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
-			el.Ul(
-				el.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
-				el.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
-				el.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
-				el.Li("Ut non enim metus."),
+			e.H1("Hello World"),
+			e.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque."),
+			e.H2("Second level"),
+			e.P("Curabitur accumsan turpis pharetra ", e.Strong("augue tincidunt"), " blandit. Quisque condimentum maximus mi, sit amet commodo arcu rutrum id. Proin pretium urna vel cursus venenatis. Suspendisse potenti. Etiam mattis sem rhoncus lacus dapibus facilisis. Donec at dignissim dui. Ut et neque nisl."),
+			e.Ul(
+				e.Li("In fermentum leo eu lectus mollis, quis dictum mi aliquet."),
+				e.Li("Morbi eu nulla lobortis, lobortis est in, fringilla felis."),
+				e.Li("Aliquam nec felis in sapien venenatis viverra fermentum nec lectus."),
+				e.Li("Ut non enim metus."),
 			),
 		),
 	),

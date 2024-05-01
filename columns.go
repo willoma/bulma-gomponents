@@ -2,33 +2,33 @@ package bulma
 
 import (
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Columns creates a columns container.
 //
 // https://willoma.github.io/bulma-gomponents/columns.html
-func Columns(children ...any) Element {
-	c := &columns{Elem(html.Div, Class("columns"))}
+func Columns(children ...any) e.Element {
+	c := &columns{e.Div(e.Class("columns"))}
 	c.With(children...)
 	return c
 }
 
 type columns struct {
-	Element
+	e.Element
 }
 
-func (cols *columns) With(children ...any) Element {
+func (cols *columns) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *column:
 			cols.Element.With(c)
-		case Element:
+		case e.Element:
 			cols.Element.With(Column(c))
 		case string:
 			cols.Element.With(Column(c))
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				cols.Element.With(c)
 			} else {
 				cols.Element.With(Column(c))
@@ -43,23 +43,23 @@ func (cols *columns) With(children ...any) Element {
 	return cols
 }
 
-func (cols *columns) Clone() Element {
+func (cols *columns) Clone() e.Element {
 	return &columns{cols.Element.Clone()}
 }
 
 // Column creates a single column.
 //
 // https://willoma.github.io/bulma-gomponents/columns.html
-func Column(children ...any) Element {
-	c := &column{Elem(html.Div, Class("column"))}
+func Column(children ...any) e.Element {
+	c := &column{e.Div(e.Class("column"))}
 	c.With(children...)
 	return c
 }
 
 type column struct {
-	Element
+	e.Element
 }
 
-func (col *column) Clone() Element {
+func (col *column) Clone() e.Element {
 	return &column{col.Element.Clone()}
 }

@@ -1,6 +1,6 @@
 package fa
 
-import b "github.com/willoma/bulma-gomponents"
+import e "github.com/willoma/gomplements"
 
 const (
 	Border    = Class("fa-border")
@@ -8,26 +8,26 @@ const (
 	PullRight = Class("fa-pull-right")
 )
 
-func BorderColor(value string) b.Styles {
-	return b.Style("--fa-border-color", value)
+func BorderColor(value string) e.Styles {
+	return e.Styles{"--fa-border-color": value}
 }
 
-func BorderPadding(value string) b.Styles {
-	return b.Style("--fa-border-padding", value)
+func BorderPadding(value string) e.Styles {
+	return e.Styles{"--fa-border-padding": value}
 }
 
-func BorderRadius(value string) b.Styles {
-	return b.Style("--fa-border-radius", value)
+func BorderRadius(value string) e.Styles {
+	return e.Styles{"--fa-border-radius": value}
 }
 
-func BorderStyle(value string) b.Styles {
-	return b.Style("--fa-border-style", value)
+func BorderStyle(value string) e.Styles {
+	return e.Styles{"--fa-border-style": value}
 }
 
-func BorderWidth(value string) b.Styles {
-	return b.Style("--fa-border-width", value)
+func BorderWidth(value string) e.Styles {
+	return e.Styles{"--fa-border-width": value}
 }
 
-func PullMargin(value string) b.Styles {
-	return b.Style("--fa-pull-margin", value)
+func PullMargin(value string) e.Styles {
+	return e.Styles{"--fa-pull-margin": value}
 }

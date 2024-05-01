@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,63 +14,63 @@ var formInput = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.InputText"), " constructor creates a text input. The ", el.Code("b.InputPassword"), " constructor creates a password input. The ", el.Code("b.InputEmail"), " constructor creates an email input. The ", el.Code("b.InputTel"), " constructor creates a telephone input. For all these constructors, the following children have a special meaning:"),
+		e.P("The ", e.Code("b.InputText"), " constructor creates a text input. The ", e.Code("b.InputPassword"), " constructor creates a password input. The ", e.Code("b.InputEmail"), " constructor creates an email input. The ", e.Code("b.InputTel"), " constructor creates a telephone input. For all these constructors, the following children have a special meaning:"),
 		b.DList(
-			el.Code("b.On(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<input>"), " element (only useful with the ", el.Code("b.Disabled"), " modifier if you want to apply the ", el.Code("is-disabled"), " class to the input)"},
+			e.Code("b.On(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<input>"), " e.Element (only useful with the ", e.Code("b.Disabled"), " modifier if you want to apply the ", e.Code("is-disabled"), " class to the input)"},
 
-			el.Code("b.Rounded"),
+			e.Code("b.Rounded"),
 			"Make the input rounded",
 
-			el.Code("b.Hovered"),
+			e.Code("b.Hovered"),
 			"Apply the hovered style",
 
-			el.Code("b.Focused"),
+			e.Code("b.Focused"),
 			"Apply the focused style",
 
-			el.Code("b.Loading"),
+			e.Code("b.Loading"),
 			"Add a loading spinner to the right of the input",
 
-			el.Code("b.Static"),
+			e.Code("b.Static"),
 			"Remove specific styling but maintain vertical spacing",
 
-			el.Code("b.Disabled"),
+			e.Code("b.Disabled"),
 			"Disable the input",
 
-			el.Code("html.ReadOnly()"),
+			e.Code("html.ReadOnly()"),
 			"Read only input",
 
-			el.Code("html.Placeholder(string)"),
+			e.Code("html.Placeholder(string)"),
 			"Add a placeholder to the input",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set input color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set input color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set input color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set input color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set input color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set input color to danger",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set input size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set input size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set input size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set input size to large",
 		),
 	),

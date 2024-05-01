@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,46 +14,46 @@ var panel = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Panel"), " constructor creates a panel. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Panel"), " constructor creates a panel. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set panel color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set panel color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set panel color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set panel color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set panel color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set panel color to danger",
 		),
-		el.P("The ", el.Code("b.PanelHeading"), " constructor creates a panel heading."),
-		el.P("The ", el.Code("b.PanelBlock"), " constructor creates a panel block."),
-		el.P("The ", el.Code("b.PanelLink"), " and ", el.Code("b.PanelAHref"), " constructors create panel blocks which are ", el.Code("<a>"), " elements."),
-		el.P("The ", el.Code("b.PanelLabel"), " constructor creates a panel block which is a ", el.Code("<label>"), " element."),
-		el.P("The ", el.Code("b.PanelCheckbox"), " constructor creates a panel block which is a ", el.Code("<label>"), " element, containing a checkbox. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.PanelHeading"), " constructor creates a panel heading."),
+		e.P("The ", e.Code("b.PanelBlock"), " constructor creates a panel block."),
+		e.P("The ", e.Code("b.PanelLink"), " and ", e.Code("b.PanelAHref"), " constructors create panel blocks which are ", e.Code("<a>"), " elements."),
+		e.P("The ", e.Code("b.PanelLabel"), " constructor creates a panel block which is a ", e.Code("<label>"), " e.Element."),
+		e.P("The ", e.Code("b.PanelCheckbox"), " constructor creates a panel block which is a ", e.Code("<label>"), " e.Element, containing a checkbox. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnLabel(...)"),
-			[]any{"Force children to be applied to the ", el.Code(`<label class="panel-block">`), " element"},
+			e.Code("b.OnLabel(...)"),
+			[]any{"Force children to be applied to the ", e.Code(`<label class="panel-block">`), " e.Element"},
 
-			el.Code("b.OnInput(...)"),
-			[]any{"Force children to be applied to the ", el.Code("<input>"), " element"},
+			e.Code("b.OnInput(...)"),
+			[]any{"Force children to be applied to the ", e.Code("<input>"), " e.Element"},
 
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
-			"Apply the attribute to the input element",
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
+			"Apply the attribute to the input e.Element",
 
-			[]any{"Other ", el.Code("gomponents.Node")},
-			"Add this element to the block element",
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the block e.Element",
 		),
-		el.P("Other children are added to the ", el.Code("<input>"), " element."),
-		el.P("The ", el.Code("b.PanelTabs"), " constructor creates a panel tabs section. Its children must be ", el.Code("<a>"), " elements (for instance ", el.Code("b.AHref"), "). Add the ", el.Code("b.Active"), "modifier to a link to mark it as the active tab."),
+		e.P("Other children are added to the ", e.Code("<input>"), " e.Element."),
+		e.P("The ", e.Code("b.PanelTabs"), " constructor creates a panel tabs section. Its children must be ", e.Code("<a>"), " elements (for instance ", e.Code("e.AHref"), "). Add the ", e.Code("b.Active"), "modifier to a link to mark it as the active tab."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/panel/",
@@ -69,11 +69,11 @@ var panel = c.NewPage(
 		),
 	),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelLink(
 		b.Active,
@@ -122,11 +122,11 @@ var panel = c.NewPage(
 				),
 			),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelLink(
 				b.Active,
@@ -172,11 +172,11 @@ var panel = c.NewPage(
 	b.Primary,
 	b.PanelHeading("Repositories"),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelBlock(
 		b.Control(
@@ -208,11 +208,11 @@ var panel = c.NewPage(
 			b.Primary,
 			b.PanelHeading("Repositories"),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelBlock(
 				b.Control(
@@ -246,11 +246,11 @@ var panel = c.NewPage(
 	b.Link,
 	b.PanelHeading("Repositories"),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelBlock(
 		b.Control(
@@ -282,11 +282,11 @@ var panel = c.NewPage(
 			b.Link,
 			b.PanelHeading("Repositories"),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelBlock(
 				b.Control(
@@ -320,11 +320,11 @@ var panel = c.NewPage(
 	b.Info,
 	b.PanelHeading("Repositories"),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelBlock(
 		b.Control(
@@ -356,11 +356,11 @@ var panel = c.NewPage(
 			b.Info,
 			b.PanelHeading("Repositories"),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelBlock(
 				b.Control(
@@ -394,11 +394,11 @@ var panel = c.NewPage(
 	b.Success,
 	b.PanelHeading("Repositories"),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelBlock(
 		b.Control(
@@ -430,11 +430,11 @@ var panel = c.NewPage(
 			b.Success,
 			b.PanelHeading("Repositories"),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelBlock(
 				b.Control(
@@ -468,11 +468,11 @@ var panel = c.NewPage(
 	b.Warning,
 	b.PanelHeading("Repositories"),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelBlock(
 		b.Control(
@@ -504,11 +504,11 @@ var panel = c.NewPage(
 			b.Warning,
 			b.PanelHeading("Repositories"),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelBlock(
 				b.Control(
@@ -542,11 +542,11 @@ var panel = c.NewPage(
 	b.Danger,
 	b.PanelHeading("Repositories"),
 	b.PanelTabs(
-		el.A(b.Active, "All"),
-		el.A("Public"),
-		el.A("Private"),
-		el.A("Sources"),
-		el.A("Forks"),
+		e.A(b.Active, "All"),
+		e.A("Public"),
+		e.A("Private"),
+		e.A("Sources"),
+		e.A("Forks"),
 	),
 	b.PanelBlock(
 		b.Control(
@@ -578,11 +578,11 @@ var panel = c.NewPage(
 			b.Danger,
 			b.PanelHeading("Repositories"),
 			b.PanelTabs(
-				el.A(b.Active, "All"),
-				el.A("Public"),
-				el.A("Private"),
-				el.A("Sources"),
-				el.A("Forks"),
+				e.A(b.Active, "All"),
+				e.A("Public"),
+				e.A("Private"),
+				e.A("Sources"),
+				e.A("Forks"),
 			),
 			b.PanelBlock(
 				b.Control(

@@ -3,7 +3,7 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type beatFade struct {
@@ -23,22 +23,22 @@ func BeatFade(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *beatFade) ModifyParent(e b.Element) {
-	e.With(Class("fa-beat-fade"))
+func (a *beatFade) ModifyParent(p e.Element) {
+	p.With(Class("fa-beat-fade"))
 
 	if a.maxScale != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-beat-fade-scale",
 			strconv.FormatFloat(a.maxScale, 'f', 2, 64),
 		))
 	}
 
 	if a.minOpacity != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-beat-fade-opacity",
 			strconv.FormatFloat(a.minOpacity, 'f', 2, 64),
 		))
 	}
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }

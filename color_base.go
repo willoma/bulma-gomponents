@@ -1,15 +1,17 @@
 package bulma
 
+import e "github.com/willoma/gomplements"
+
 type baseColor struct {
 	name    string
 	variant string
 }
 
-func (c baseColor) Classes() []Class {
-	classes := []Class{Class("is-" + c.name)}
+func (c baseColor) Classes() []e.Class {
+	classes := []e.Class{e.Class("is-" + c.name)}
 
 	if c.variant != "" {
-		classes = append(classes, Class("is-"+c.variant))
+		classes = append(classes, e.Class("is-"+c.variant))
 	}
 
 	return classes
@@ -128,7 +130,7 @@ var (
 	DangerSoft  Color = baseColor{name: "danger", variant: colorSoft}
 	DangerBold  Color = baseColor{name: "danger", variant: colorBold}
 
-	// These do not exist as colors for elements, but they may be used for icons and our automatic color type changing with b.Icon*
+	// These do not exist as colors for elements, but they may be used for icons with the automatic color type changing, with b.Icon*.
 	BlackBis    Color = baseColor{name: "black-bis"}
 	BlackTer    Color = baseColor{name: "black-ter"}
 	GreyDarker  Color = baseColor{name: "grey-darker"}

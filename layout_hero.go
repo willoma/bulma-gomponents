@@ -5,49 +5,49 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Hero creates a hero element.
 //
 // http://willoma.github.io/bulma-gomponents/hero.html
-func Hero(children ...any) Element {
-	h := &hero{hero: Elem(html.Section, Class("hero"))}
+func Hero(children ...any) e.Element {
+	h := &hero{hero: e.Section(e.Class("hero"))}
 	h.With(children...)
 	return h
 }
 
 type hero struct {
-	hero Element
-	head Element
-	body Element
-	foot Element
+	hero e.Element
+	head e.Element
+	body e.Element
+	foot e.Element
 
 	rendered sync.Once
 }
 
 func (h *hero) addToHead(children ...any) {
 	if h.head == nil {
-		h.head = Elem(html.Div, Class("hero-head"))
+		h.head = e.Div(e.Class("hero-head"))
 	}
 	h.head.With(children...)
 }
 
 func (h *hero) addToBody(children ...any) {
 	if h.body == nil {
-		h.body = Elem(html.Div, Class("hero-body"))
+		h.body = e.Div(e.Class("hero-body"))
 	}
 	h.body.With(children...)
 }
 
 func (h *hero) addToFoot(children ...any) {
 	if h.foot == nil {
-		h.foot = Elem(html.Div, Class("hero-foot"))
+		h.foot = e.Div(e.Class("hero-foot"))
 	}
 	h.foot.With(children...)
 }
 
-func (h *hero) With(children ...any) Element {
+func (h *hero) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onSection:
@@ -58,10 +58,10 @@ func (h *hero) With(children ...any) Element {
 			h.addToHead(c...)
 		case heroFoot:
 			h.addToFoot(c...)
-		case Element:
+		case e.Element:
 			h.addToBody(c)
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				h.hero.With(c)
 			} else {
 				h.addToBody(c)
@@ -94,7 +94,7 @@ func (h *hero) Render(w io.Writer) error {
 	return h.hero.Render(w)
 }
 
-func (h *hero) Clone() Element {
+func (h *hero) Clone() e.Element {
 	return &hero{
 		hero: h.hero.Clone(),
 		head: h.head.Clone(),

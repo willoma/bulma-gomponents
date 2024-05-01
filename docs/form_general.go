@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,67 +14,67 @@ var formGeneral = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Field"), " constructor creates a field. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Field"), " constructor creates a field. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.Addons"),
+			e.Code("b.Addons"),
 			"Attach the child controls together",
 
-			el.Code("b.AddonsCentered"),
+			e.Code("b.AddonsCentered"),
 			"Attach the child controls together and center them",
 
-			el.Code("b.AddonsRight"),
+			e.Code("b.AddonsRight"),
 			"Attach the child controls together and align them to the right",
 
-			el.Code("b.Grouped"),
+			e.Code("b.Grouped"),
 			"Group child controls together",
 
-			el.Code("b.GroupedCentered"),
+			e.Code("b.GroupedCentered"),
 			"Group child controls together and center them",
 
-			el.Code("b.GroupedRight"),
+			e.Code("b.GroupedRight"),
 			"Group child controls together and align them to the right",
 
-			el.Code("b.GroupedMultiline"),
+			e.Code("b.GroupedMultiline"),
 			"Group child controls together and allow them to fill up multiple lines",
 
-			el.Code("b.Horizontal"),
+			e.Code("b.Horizontal"),
 			"Make the field horizontal",
 		),
 
-		el.P("The ", el.Code("b.Label"), " constructor creates a label."),
+		e.P("The ", e.Code("b.Label"), " constructor creates a label."),
 
-		el.P("The ", el.Code("b.Control"), " constructor creates a control element. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Control"), " constructor creates a control e.Element. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.IconsLeft"),
-			"Leave space on the left side of the input or select child for an icon - the ", el.Code("b.Icon"), " element must be a direct child of ", el.Code("b.Control"), " and have the ", el.Code("b.Left"), " modifier",
+			e.Code("b.IconsLeft"),
+			"Leave space on the left side of the input or select child for an icon - the ", e.Code("b.Icon"), " e.Element must be a direct child of ", e.Code("b.Control"), " and have the ", e.Code("b.Left"), " modifier",
 
-			el.Code("b.IconsRight"),
-			"Leave space on the right side of the input or select child for an icon - the ", el.Code("b.Icon"), " element must be a direct child of ", el.Code("b.Control"), " and have the ", el.Code("b.Right"), " modifier",
+			e.Code("b.IconsRight"),
+			"Leave space on the right side of the input or select child for an icon - the ", e.Code("b.Icon"), " e.Element must be a direct child of ", e.Code("b.Control"), " and have the ", e.Code("b.Right"), " modifier",
 
-			el.Code("b.Expanded"),
-			"Expand the control to fill the available width - to apply this style to a ", el.Code("<select>"), " element, you must also add the ", el.Code("b.FullWidth"), " modifier to the ", el.Code("b.Select"), " constructor",
+			e.Code("b.Expanded"),
+			"Expand the control to fill the available width - to apply this style to a ", e.Code("<select>"), " e.Element, you must also add the ", e.Code("b.FullWidth"), " modifier to the ", e.Code("b.Select"), " constructor",
 		),
 
-		el.P("The ", el.Code("b.Help"), " constructor creates a help element, to be used as a child of a ", el.Code("b.Field"), "."),
+		e.P("The ", e.Code("b.Help"), " constructor creates a help e.Element, to be used as a child of a ", e.Code("b.Field"), "."),
 
-		el.P("The ", el.Code("b.FieldHorizontal"), " constructor creates a horizontal field. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.FieldHorizontal"), " constructor creates a horizontal field. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnField(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`< class="field">`), " element"},
+			e.Code("b.OnField(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`< class="field">`), " e.Element"},
 
-			el.Code("b.OnLabel(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`< class="field-label">`), " element"},
+			e.Code("b.OnLabel(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`< class="field-label">`), " e.Element"},
 
-			el.Code("b.OnBody(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`< class="field-body">`), " element"},
+			e.Code("b.OnBody(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`< class="field-body">`), " e.Element"},
 
-			el.Code("b.Label(...)"),
+			e.Code("b.Label(...)"),
 			"Add the label to the field label section",
 
-			el.Code("b.Element"),
+			e.Code("e.Element"),
 			"Add the element to the field body section",
 		),
-		el.P("Other children are added to the ", el.Code(`<div class="field">`), " element."),
+		e.P("Other children are added to the ", e.Code(`<div class="field">`), " e.Element."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/form/general/",
@@ -134,7 +134,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.Label(
-			"I agree to the ", b.AHref("#", "terms and conditions"),
+			"I agree to the ", e.AHref("#", "terms and conditions"),
 		),
 	),
 ),
@@ -211,7 +211,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.Label(
-					"I agree to the ", b.AHref("#", "terms and conditions"),
+					"I agree to the ", e.AHref("#", "terms and conditions"),
 				),
 			),
 		),

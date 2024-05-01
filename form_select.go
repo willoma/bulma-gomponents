@@ -5,16 +5,17 @@ import (
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Select creates a dropdown select element. It should contain one or multiple
 // Option elements.
 //
 // https://willoma.github.io/bulma-gomponents/form/select.html
-func Select(children ...any) Element {
-	selectHTMLElement := Elem(html.Select)
+func Select(children ...any) e.Element {
+	selectHTMLElement := e.Select()
 	s := &selectEl{
-		Element:           Elem(html.Div, Class("select"), selectHTMLElement),
+		Element:           e.Div(e.Class("select"), selectHTMLElement),
 		selectHTMLElement: selectHTMLElement,
 	}
 	s.With(children...)
@@ -22,11 +23,11 @@ func Select(children ...any) Element {
 }
 
 type selectEl struct {
-	Element
-	selectHTMLElement Element
+	e.Element
+	selectHTMLElement e.Element
 }
 
-func (s *selectEl) With(children ...any) Element {
+func (s *selectEl) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onSelect:
@@ -35,7 +36,7 @@ func (s *selectEl) With(children ...any) Element {
 			s.Element.With(c...)
 		case *option:
 			s.selectHTMLElement.With(c)
-		case Class:
+		case e.Class:
 			switch c {
 			case Hovered, Focused:
 				s.selectHTMLElement.With(c)
@@ -57,7 +58,7 @@ func (s *selectEl) With(children ...any) Element {
 	return s
 }
 
-func (s *selectEl) Clone() Element {
+func (s *selectEl) Clone() e.Element {
 	return &selectEl{
 		Element:           s.Element.Clone(),
 		selectHTMLElement: s.selectHTMLElement.Clone(),
@@ -68,8 +69,8 @@ func (s *selectEl) Clone() Element {
 // SelectMultiple. The value argument is used as the option value attribute.
 //
 // https://willoma.github.io/bulma-gomponents/form/select.html
-func Option(value string, children ...any) Element {
-	o := &option{Elem(html.Option, html.Value(value))}
+func Option(value string, children ...any) e.Element {
+	o := &option{e.Option(html.Value(value))}
 	o.With(children...)
 	return o
 }
@@ -79,17 +80,17 @@ func Option(value string, children ...any) Element {
 // attribute.
 //
 // https://willoma.github.io/bulma-gomponents/form/select.html
-func OptionSelected(value string, children ...any) Element {
-	o := &option{Elem(html.Option, html.Value(value), html.Selected())}
+func OptionSelected(value string, children ...any) e.Element {
+	o := &option{e.Option(html.Value(value), html.Selected())}
 	o.With(children...)
 	return o
 }
 
 type option struct {
-	Element
+	e.Element
 }
 
-func (o *option) Clone() Element {
+func (o *option) Clone() e.Element {
 	return &option{o.Element.Clone()}
 }
 

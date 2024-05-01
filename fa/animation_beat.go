@@ -3,7 +3,7 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type beat struct {
@@ -22,17 +22,17 @@ func Beat(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *beat) ModifyParent(e b.Element) {
-	e.With(Class("fa-beat"))
+func (a *beat) ModifyParent(p e.Element) {
+	p.With(Class("fa-beat"))
 
 	if a.maxScale != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-beat-scale",
 			strconv.FormatFloat(a.maxScale, 'f', 2, 64),
 		))
 	}
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }
 
 func MaxScale(scale float64) func(Animation) {

@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -12,54 +13,54 @@ var tabs = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Tabs"), " constructor creates a tabs section. Its link children must be created with the ", el.Code("b.TabLink"), " constructor. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Tabs"), " constructor creates a tabs section. Its link children must be created with the ", e.Code("b.TabLink"), " constructor. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnTabs(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="tabs">`), " element"},
+			e.Code("b.OnTabs(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="tabs">`), " e.Element"},
 
-			el.Code("b.OnUl(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<ul>"), " element"},
+			e.Code("b.OnUl(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<ul>"), " e.Element"},
 
-			[]any{"one of the class or style types defined in package ", el.Code("b")},
-			[]any{"Apply the class or style to the ", el.Code(`<div class="tabs">`), " element"},
+			[]any{"one of the class or style types defined in package ", e.Code("b")},
+			[]any{"Apply the class or style to the ", e.Code(`<div class="tabs">`), " e.Element"},
 
-			el.Code("b.Container()"),
-			"Use this element as an intermediate container",
+			e.Code("b.Container()"),
+			"Use this e.Element as an intermediate container",
 
-			el.Code("b.Centered"),
+			e.Code("b.Centered"),
 			"Center the tabs",
 
-			el.Code("b.Right"),
+			e.Code("b.Right"),
 			"Align the tabs to the right",
 
-			el.Code("b.Boxed"),
+			e.Code("b.Boxed"),
 			"Draw boxed tabs",
 
-			el.Code("b.Toggle"),
+			e.Code("b.Toggle"),
 			"Button-looking tabs",
 
-			el.Code("b.ToggleRounded"),
+			e.Code("b.ToggleRounded"),
 			"Rounded button-looking tabs",
 
-			el.Code("b.FullWidth"),
+			e.Code("b.FullWidth"),
 			"Take the whole width",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set tabs size to small",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set tabs size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set tabs size to large",
 		),
-		el.P("Other children are added to the ", el.Code("<ul>"), " element."),
-		el.P("The ", el.Code("b.TabLink"), " and ", el.Code("b.TabAHref"), " constructors create tab entries which are links. The following children have a special meaning:"),
+		e.P("Other children are added to the ", e.Code("<ul>"), " e.Element."),
+		e.P("The ", e.Code("b.TabLink"), " and ", e.Code("b.TabAHref"), " constructors create tab entries which are links. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.Active"),
-			[]any{"Apply the ", el.Code("is-active"), " class to the ", el.Code("<li>"), " element"},
+			e.Code("b.Active"),
+			[]any{"Apply the ", e.Code("is-active"), " class to the ", e.Code("<li>"), " e.Element"},
 		),
-		el.P("Other children are added to the ", el.Code("<a>"), " element."),
+		e.P("Other children are added to the ", e.Code("<a>"), " e.Element."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/tabs/",

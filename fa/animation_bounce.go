@@ -3,7 +3,7 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type bounce struct {
@@ -29,66 +29,66 @@ func Bounce(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *bounce) ModifyParent(e b.Element) {
-	e.With(Class("fa-bounce"))
+func (a *bounce) ModifyParent(p e.Element) {
+	p.With(Class("fa-bounce"))
 
 	if a.rebound != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-rebound",
 			strconv.FormatFloat(a.rebound, 'f', 2, 64),
 		))
 	}
 
 	if a.height != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-height",
 			strconv.FormatFloat(a.height, 'f', 2, 64),
 		))
 	}
 
 	if a.startScaleX != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-start-scale-x",
 			strconv.FormatFloat(a.startScaleX, 'f', 2, 64),
 		))
 	}
 
 	if a.startScaleY != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-start-scale-y",
 			strconv.FormatFloat(a.startScaleY, 'f', 2, 64),
 		))
 	}
 
 	if a.jumpScaleX != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-jump-scale-x",
 			strconv.FormatFloat(a.jumpScaleX, 'f', 2, 64),
 		))
 	}
 
 	if a.jumpScaleY != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-jump-scale-y",
 			strconv.FormatFloat(a.jumpScaleY, 'f', 2, 64),
 		))
 	}
 
 	if a.landScaleX != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-land-scale-x",
 			strconv.FormatFloat(a.landScaleX, 'f', 2, 64),
 		))
 	}
 
 	if a.landScaleY != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-bounce-land-scale-y",
 			strconv.FormatFloat(a.landScaleY, 'f', 2, 64),
 		))
 	}
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }
 
 func Rebound(rebound float64) func(Animation) {

@@ -5,30 +5,31 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Navbar creates a navbar.
 //
 // https://willoma.github.io/bulma-gomponents/navbar.html
-func Navbar(children ...any) Element {
-	n := &navbar{navbar: Elem(html.Nav, Class("navbar"))}
+func Navbar(children ...any) e.Element {
+	n := &navbar{navbar: e.Nav(e.Class("navbar"))}
 	n.With(children...)
 	return n
 }
 
 type navbar struct {
-	navbar                Element
-	brand                 Element
-	start                 Element
-	end                   Element
-	intermediateContainer Element
+	navbar                e.Element
+	brand                 e.Element
+	start                 e.Element
+	end                   e.Element
+	intermediateContainer e.Element
 
 	hasMenu  bool
-	fixed    Class
+	fixed    e.Class
 	rendered sync.Once
 }
 
-func (n *navbar) ModifyParent(parent Element) {
+func (n *navbar) ModifyParent(parent e.Element) {
 	switch n.fixed {
 	case FixedTop:
 		parent.With(NavbarFixedTop)
@@ -39,7 +40,7 @@ func (n *navbar) ModifyParent(parent Element) {
 
 func (n *navbar) addToBrand(children ...any) {
 	if n.brand == nil {
-		n.brand = Elem(html.Div, Class("navbar-brand"))
+		n.brand = e.Div(e.Class("navbar-brand"))
 	}
 	n.brand.With(children...)
 }
@@ -47,7 +48,7 @@ func (n *navbar) addToBrand(children ...any) {
 func (n *navbar) addToStart(children ...any) {
 	if n.start == nil {
 		n.hasMenu = true
-		n.start = Elem(html.Div, Class("navbar-start"))
+		n.start = e.Div(e.Class("navbar-start"))
 	}
 	n.start.With(children...)
 }
@@ -55,12 +56,12 @@ func (n *navbar) addToStart(children ...any) {
 func (n *navbar) addToEnd(children ...any) {
 	if n.end == nil {
 		n.hasMenu = true
-		n.end = Elem(html.Div, Class("navbar-end"))
+		n.end = e.Div(e.Class("navbar-end"))
 	}
 	n.end.With(children...)
 }
 
-func (n *navbar) With(children ...any) Element {
+func (n *navbar) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case navbarBrand:
@@ -71,7 +72,7 @@ func (n *navbar) With(children ...any) Element {
 			n.addToEnd(c...)
 		case *container:
 			n.intermediateContainer = c
-		case Class:
+		case e.Class:
 			switch c {
 			case FixedTop:
 				n.fixed = FixedTop
@@ -91,7 +92,7 @@ func (n *navbar) With(children ...any) Element {
 
 func (n *navbar) Render(w io.Writer) error {
 	n.rendered.Do(func() {
-		var target Element
+		var target e.Element
 		if n.intermediateContainer != nil {
 			target = n.intermediateContainer
 			n.navbar.With(target)
@@ -105,21 +106,20 @@ func (n *navbar) Render(w io.Writer) error {
 
 		if n.hasMenu {
 			n.addToBrand(
-				Elem(
-					html.A,
-					html.Role("button"),
-					Class("navbar-burger"),
-					html.Aria("label", "menu"),
-					html.Aria("expanded", "false"),
-					Elem(html.Span, html.Aria("hidden", "true")),
-					Elem(html.Span, html.Aria("hidden", "true")),
-					Elem(html.Span, html.Aria("hidden", "true")),
-					Elem(html.Span, html.Aria("hidden", "true")),
-					OnClick("this.classList.toggle('is-active');this.closest('.navbar').getElementsByClassName('navbar-menu')[0].classList.toggle('is-active')"),
+				e.A(
+					e.AriaButton,
+					e.Class("navbar-burger"),
+					e.AriaLabel("menu"),
+					e.AriaExpandedFalse,
+					e.Span(e.AriaHiddenTrue),
+					e.Span(e.AriaHiddenTrue),
+					e.Span(e.AriaHiddenTrue),
+					e.Span(e.AriaHiddenTrue),
+					e.OnClick("this.classList.toggle('is-active');this.closest('.navbar').getElementsByClassName('navbar-menu')[0].classList.toggle('is-active')"),
 				),
 			)
 
-			menu := Elem(html.Div, Class("navbar-menu"))
+			menu := e.Div(e.Class("navbar-menu"))
 
 			if n.start != nil {
 				menu.With(n.start)
@@ -136,7 +136,7 @@ func (n *navbar) Render(w io.Writer) error {
 	return n.navbar.Render(w)
 }
 
-func (n *navbar) Clone() Element {
+func (n *navbar) Clone() e.Element {
 	return &navbar{
 		navbar:                n.navbar.Clone(),
 		brand:                 n.brand.Clone(),
@@ -180,25 +180,25 @@ type navbarEnd []any
 // to a NavbarDropdown.
 //
 // https://willoma.github.io/bulma-gomponents/navbar.html
-func NavbarItem(children ...any) Element {
-	return Elem(html.Div, Class("navbar-item"), children)
+func NavbarItem(children ...any) e.Element {
+	return e.Div(e.Class("navbar-item"), children)
 }
 
 // NavbarAHref creates a link item to add to a navbar brand, start or end
 // section, or to a NavbarDropdown.
 //
 // https://willoma.github.io/bulma-gomponents/navbar.html
-func NavbarAHref(href string, children ...any) Element {
-	return Elem(html.A, Class("navbar-item"), html.Href(href), children)
+func NavbarAHref(href string, children ...any) e.Element {
+	return e.A(e.Class("navbar-item"), html.Href(href), children)
 }
 
 // NavbarDropdown creates a nav bar item which includes a dropdown menu.
-func NavbarDropdown(children ...any) Element {
+func NavbarDropdown(children ...any) e.Element {
 	link := NavbarLink()
-	dropdown := Elem(html.Div, Class("navbar-dropdown"))
+	dropdown := e.Div(e.Class("navbar-dropdown"))
 
 	n := &navbarDropdown{
-		Element:  NavbarItem(Class("has-dropdown"), link, dropdown),
+		Element:  NavbarItem(e.Class("has-dropdown"), link, dropdown),
 		link:     link,
 		dropdown: dropdown,
 	}
@@ -207,12 +207,12 @@ func NavbarDropdown(children ...any) Element {
 }
 
 type navbarDropdown struct {
-	Element
-	link     Element
-	dropdown Element
+	e.Element
+	link     e.Element
+	dropdown e.Element
 }
 
-func (n *navbarDropdown) With(children ...any) Element {
+func (n *navbarDropdown) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onItem:
@@ -221,14 +221,14 @@ func (n *navbarDropdown) With(children ...any) Element {
 			n.link.With(c...)
 		case onDropdown:
 			n.dropdown.With(c...)
-		case Class:
+		case e.Class:
 			switch c {
 			case Hoverable:
 				n.Element.With(c)
 			case Clickable:
-				n.link.With(OnClick(JSToggleThisNavbarItem))
+				n.link.With(e.OnClick(JSToggleThisNavbarItem))
 			case Up:
-				n.Element.With(Class("has-dropdown-up"))
+				n.Element.With(e.Class("has-dropdown-up"))
 			case Arrowless:
 				n.link.With(c)
 			case Active:
@@ -247,7 +247,7 @@ func (n *navbarDropdown) With(children ...any) Element {
 	return n
 }
 
-func (n *navbarDropdown) Clone() Element {
+func (n *navbarDropdown) Clone() e.Element {
 	return &navbarDropdown{
 		Element:  n.Element.Clone(),
 		link:     n.link.Clone(),
@@ -259,13 +259,13 @@ func (n *navbarDropdown) Clone() Element {
 // HasDropdown modifier.
 //
 // https://willoma.github.io/bulma-gomponents/navbar.html
-func NavbarLink(children ...any) Element {
-	return Elem(html.A, Class("navbar-link"), children)
+func NavbarLink(children ...any) e.Element {
+	return e.A(e.Class("navbar-link"), children)
 }
 
 // NavbarDivider creates a divider element, to include in a NavbarDropdown.
 //
 // https://willoma.github.io/bulma-gomponents/navbar.html
-func NavbarDivider() Element {
-	return Elem(html.Hr, Class("navbar-divider"))
+func NavbarDivider() e.Element {
+	return e.Hr(e.Class("navbar-divider"))
 }

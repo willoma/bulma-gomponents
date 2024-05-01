@@ -5,15 +5,16 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Tabs create a tabs container.
 //
 // https://willoma.github.io/bulma-gomponents/tabs.html
-func Tabs(children ...any) Element {
-	list := Elem(html.Ul)
+func Tabs(children ...any) e.Element {
+	list := e.Ul()
 	t := &tabs{
-		tabs: Elem(html.Div, Class("tabs")),
+		tabs: e.Div(e.Class("tabs")),
 		list: list,
 	}
 	t.With(children...)
@@ -21,21 +22,21 @@ func Tabs(children ...any) Element {
 }
 
 type tabs struct {
-	tabs                  Element
-	list                  Element
+	tabs                  e.Element
+	list                  e.Element
 	intermediateContainer *container
 
 	rendered sync.Once
 }
 
-func (t *tabs) With(children ...any) Element {
+func (t *tabs) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onTabs:
 			t.tabs.With(c...)
 		case onUl:
 			t.list.With(c...)
-		case Class, Classer, Classeser, Styles:
+		case e.Class, e.Classer, e.Classeser, e.Styles:
 			t.tabs.With(c)
 		case *container:
 			t.intermediateContainer = c
@@ -51,7 +52,7 @@ func (t *tabs) With(children ...any) Element {
 
 func (t *tabs) Render(w io.Writer) error {
 	t.rendered.Do(func() {
-		var target Element
+		var target e.Element
 		if t.intermediateContainer != nil {
 			target = t.intermediateContainer
 			t.tabs.With(target)
@@ -65,7 +66,7 @@ func (t *tabs) Render(w io.Writer) error {
 	return t.tabs.Render(w)
 }
 
-func (t *tabs) Clone() Element {
+func (t *tabs) Clone() e.Element {
 	return &tabs{
 		tabs:                  t.tabs.Clone(),
 		list:                  t.list.Clone(),
@@ -77,10 +78,10 @@ func (t *tabs) Clone() Element {
 // to define a link target if needed.
 //
 // https://willoma.github.io/bulma-gomponents/tabs.html
-func TabLink(children ...any) Element {
-	a := Elem(html.A, elemOptionSpanAroundNonIconsIfHasIcons)
+func TabLink(children ...any) e.Element {
+	a := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
 	t := &tabLink{
-		Element: Elem(html.Li, a),
+		Element: e.Li(a),
 		a:       a,
 	}
 	t.With(children...)
@@ -88,14 +89,14 @@ func TabLink(children ...any) Element {
 }
 
 type tabLink struct {
-	Element
-	a Element
+	e.Element
+	a e.Element
 }
 
-func (t *tabLink) With(children ...any) Element {
+func (t *tabLink) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class:
+		case e.Class:
 			if c == Active {
 				t.Element.With(c)
 			} else {
@@ -111,7 +112,7 @@ func (t *tabLink) With(children ...any) Element {
 	return t
 }
 
-func (t *tabLink) Clone() Element {
+func (t *tabLink) Clone() e.Element {
 	return &tabLink{
 		Element: t.Element.Clone(),
 		a:       t.a.Clone(),
@@ -121,6 +122,6 @@ func (t *tabLink) Clone() Element {
 // TabAHref creates a tab link with an a element.
 //
 // https://willoma.github.io/bulma-gomponents/tabs.html
-func TabAHref(href string, children ...any) Element {
+func TabAHref(href string, children ...any) e.Element {
 	return TabLink(html.Href(href), children)
 }

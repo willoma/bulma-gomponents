@@ -6,10 +6,10 @@ import (
 	"github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/alecthomas/chroma/v2/lexers"
 	"github.com/alecthomas/chroma/v2/styles"
-
 	"github.com/maragudk/gomponents"
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 const warningDark = "hsl(48, 100%, 29%)"
@@ -24,40 +24,46 @@ var (
 	colorHTMLLexer = lexers.Get("html")
 )
 
-func ColParagraph(children ...any) b.Element {
-	return el.P(
-		b.Style("outline", "1px dashed #36b6e0"),
-		b.Style("border-radius", "0.25em"),
+func ColParagraph(children ...any) e.Element {
+	return e.P(
+		e.Styles{
+			"outline":       "1px dashed #36b6e0",
+			"border-radius": "0.25em",
+		},
 		b.TextCentered,
 		children,
 	)
 }
 
-func exampleContainer(children ...any) b.Element {
+func exampleContainer(children ...any) e.Element {
 	return b.Block(
-		b.Style("border-left", "1em solid "+warningDark),
-		b.Style("border-right", "0.25em solid "+warningDark),
-		b.Style("border-radius", "1.2em 0.5em 0.5em 1.2em"),
-		b.Style("position", "relative"),
-		b.Style("padding-left", "0.2em"),
-		b.Style("padding-right", "0.2em"),
+		e.Styles{
+			"border-left":   "1em solid " + warningDark,
+			"border-right":  "0.25em solid " + warningDark,
+			"border-radius": "1.2em 0.5em 0.5em 1.2em",
+			"position":      "relative",
+			"padding-left":  "0.2em",
+			"padding-right": "0.2em",
+		},
 		b.PaddingHorizontal(b.Spacing2),
-		el.Div(
+		e.Div(
 			b.FontSize7,
 			b.WeightBold,
 			b.TextWhite,
-			b.Style("position", "absolute"),
-			b.Style("top", "50%"),
-			b.Style("left", "-1.5em"),
-			b.Style("writing-mode", "vertical-lr"),
-			b.Style("transform", "translateY(-50%) rotate(180deg)"),
+			e.Styles{
+				"position":     "absolute",
+				"top":          "50%",
+				"left":         "-1.5em",
+				"writing-mode": "vertical-lr",
+				"transform":    "translateY(-50%) rotate(180deg)",
+			},
 			"Example",
 		),
 		children,
 	)
 }
 
-func Example(code string, result ...any) b.Element {
+func Example(code string, result ...any) e.Element {
 	return exampleContainer(
 		b.Columns(
 			b.Gap1,
@@ -69,13 +75,13 @@ func Example(code string, result ...any) b.Element {
 				ExamplePre(code),
 			),
 			b.Column(
-				b.Class("exampleresult"),
+				e.Class("exampleresult"),
 				b.FlexGrow1, b.FlexShrink1,
 				b.PaddingVertical(b.Spacing0),
 				resultTags(),
-				el.Div(
-					b.Style("position", "relative"),
-					el.Div(result...),
+				e.Div(
+					e.Styles{"position": "relative"},
+					e.Div(result...),
 					htmlPre(result),
 				),
 			),
@@ -83,19 +89,19 @@ func Example(code string, result ...any) b.Element {
 	)
 }
 
-func HorizontalExample(code string, result ...any) b.Element {
+func HorizontalExample(code string, result ...any) e.Element {
 	return exampleContainer(
-		el.Div(
-			b.Class("exampleresult"),
+		e.Div(
+			e.Class("exampleresult"),
 			b.MarginBottom(b.Spacing1),
 			resultTags(),
-			el.Div(
-				b.Style("position", "relative"),
-				el.Div(result...),
+			e.Div(
+				e.Styles{"position": "relative"},
+				e.Div(result...),
 				htmlPre(result),
 			),
 		),
-		el.Div(
+		e.Div(
 			b.Clipped,
 			codeTag(),
 			ExamplePre(code),
@@ -103,22 +109,22 @@ func HorizontalExample(code string, result ...any) b.Element {
 	)
 }
 
-func codeTag() b.Element {
+func codeTag() e.Element {
 	return b.Tags(
 		b.MarginBottom(b.Spacing1),
 		b.Tag(b.Primary, "Code", b.MarginBottom(b.Spacing0)),
 	)
 }
 
-func resultTags() b.Element {
+func resultTags() e.Element {
 	return b.Tags(
 		b.MarginBottom(b.Spacing1),
 		b.Tag(b.Info, "Result", b.MarginBottom(b.Spacing0)),
 		b.Tag(
 			b.WarningLight, "HTML",
 			b.MarginBottom(b.Spacing0),
-			b.Style("cursor", "pointer"),
-			b.OnClick(`
+			e.Styles{"cursor": "pointer"},
+			e.OnClick(`
 			this.closest(".exampleresult").getElementsByClassName("html")[0].classList.toggle("is-hidden")
 			this.classList.toggle("is-light")
 			`),
@@ -126,20 +132,20 @@ func resultTags() b.Element {
 	)
 }
 
-func ExamplePre(code string) b.Element {
+func ExamplePre(code string) e.Element {
 	return pre(colorGo(code))
 }
 
-func pre(children ...any) b.Element {
-	return el.Pre(
+func pre(children ...any) e.Element {
+	return e.Pre(
 		b.Padding(b.Spacing2),
 		b.FontSize7,
-		b.Style("tab-size", "4"),
+		e.Styles{"tab-size": "4"},
 		children,
 	)
 }
 
-func htmlPre(elements []any) b.Element {
+func htmlPre(elements []any) e.Element {
 	var result strings.Builder
 	for _, e := range elements {
 		if elem, ok := e.(gomponents.Node); ok {
@@ -150,20 +156,20 @@ func htmlPre(elements []any) b.Element {
 
 	return b.Box(
 		b.Hidden,
-		b.Class("html"),
+		e.Class("html"),
 		b.Padding(b.Spacing2),
-		b.Style(
-			"position", "absolute",
-			"width", "100%",
-			"top", "0",
-			"left", "0",
-			"z-index", "50",
-		),
+		e.Styles{
+			"position": "absolute",
+			"width":    "100%",
+			"top":      "0",
+			"left":     "0",
+			"z-index":  "50",
+		},
 		pre(
-			b.Style(
-				"white-space", "pre-wrap",
-				"border-radius", "var(--bulma-radius-small)",
-			),
+			e.Styles{
+				"white-space":   "pre-wrap",
+				"border-radius": "var(--bulma-radius-small)",
+			},
 			colorHTML(result.String()),
 		),
 	)

@@ -3,13 +3,13 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type rotateOrFlip string
 
-func (r rotateOrFlip) Class() b.Class {
-	return b.Class(r)
+func (r rotateOrFlip) Class() e.Class {
+	return e.Class(r)
 }
 
 // Rotation (see https://fontawesome.com/docs/web/style/rotate)
@@ -24,9 +24,9 @@ const (
 
 type Rotate float64
 
-func (r Rotate) ModifyParent(parent b.Element) {
-	parent.With(b.Class("fa-rotate-by"))
-	parent.With(b.Style(
+func (r Rotate) ModifyParent(parent e.Element) {
+	parent.With(e.Class("fa-rotate-by"))
+	parent.With(e.Style(
 		"--fa-rotate-angle", strconv.FormatFloat(float64(r), 'f', -1, 64)+"deg",
 	))
 }

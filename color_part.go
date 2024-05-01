@@ -1,6 +1,10 @@
 package bulma
 
-import "fmt"
+import (
+	"fmt"
+
+	e "github.com/willoma/gomplements"
+)
 
 type partColor struct {
 	name    string
@@ -9,7 +13,7 @@ type partColor struct {
 	invert  bool
 }
 
-func (c partColor) Class() Class {
+func (c partColor) Class() e.Class {
 	class := "has-"
 
 	if c.text {
@@ -28,7 +32,7 @@ func (c partColor) Class() Class {
 		class += "-invert"
 	}
 
-	return Class(class)
+	return e.Class(class)
 }
 
 func (c partColor) Base() Color {

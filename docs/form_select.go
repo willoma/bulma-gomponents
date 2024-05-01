@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -12,67 +13,67 @@ var formSelect = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Select"), " constructor creates a dropdown select. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Select"), " constructor creates a dropdown select. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnDiv(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="select">`), " element"},
+			e.Code("b.OnDiv(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="select">`), " e.Element"},
 
-			el.Code("b.OnSelect(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<select>"), " element"},
+			e.Code("b.OnSelect(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<select>"), " e.Element"},
 
-			el.Code("b.Size(int)"),
+			e.Code("b.Size(int)"),
 			"For multiple selects, set the select size to the specified number of options",
 
-			el.Code("b.Rounded"),
+			e.Code("b.Rounded"),
 			"Make the select rounded",
 
-			el.Code("b.Hovered"),
+			e.Code("b.Hovered"),
 			"Apply the hovered style",
 
-			el.Code("b.Focused"),
+			e.Code("b.Focused"),
 			"Apply the focused style",
 
-			el.Code("b.Multiple"),
+			e.Code("b.Multiple"),
 			"Make the select a multiple select",
 
-			el.Code("b.Disabled"),
+			e.Code("b.Disabled"),
 			"Disable the select",
 
-			el.Code("b.Loading"),
+			e.Code("b.Loading"),
 			"Add a loading spinner to the right of the select",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set select color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set select color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set select color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set select color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set select color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set select color to danger",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set select size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set select size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set select size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set select size to large",
 		),
 
-		el.P("The ", el.Code("b.Option"), " constructor creates an option element to be used as a child of ", el.Code("b.Select"), ". The ", el.Code("b.OptionSelected"), " constructor creates a selected option element."),
+		e.P("The ", e.Code("b.Option"), " constructor creates an option e.Element to be used as a child of ", e.Code("b.Select"), ". The ", e.Code("b.OptionSelected"), " constructor creates a selected option e.Element."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/form/select/",

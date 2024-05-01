@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,78 +14,78 @@ var formFile = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.File"), " constructor creates a file input. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.File"), " constructor creates a file input. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.OnCTA(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<span class="file-cta">`), " element"},
+			e.Code("b.OnCTA(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<span class="file-cta">`), " e.Element"},
 
-			el.Code("b.OnDiv(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="file">`), " element"},
+			e.Code("b.OnDiv(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="file">`), " e.Element"},
 
-			el.Code("b.OnInput(...)"),
-			[]any{"Force childen to be applied to the ", el.Code("<input>"), " element"},
+			e.Code("b.OnInput(...)"),
+			[]any{"Force childen to be applied to the ", e.Code("<input>"), " e.Element"},
 
-			el.Code("string"),
+			e.Code("string"),
 			"Define the call-to-action label",
 
-			el.Code("b.FileName"),
-			"Define the content of the file-name element",
+			e.Code("b.FileName"),
+			"Define the content of the file-name e.Element",
 
-			el.Code("b.FileNameAutoUpdate"),
-			"Define the content of the file-name element, which changes when a file is selected",
+			e.Code("b.FileNameAutoUpdate"),
+			"Define the content of the file-name e.Element, which changes when a file is selected",
 
-			el.Code("b.Right"),
+			e.Code("b.Right"),
 			"Move the call-to-action to the right side, align the file input to the right",
 
-			el.Code("b.FullWidth"),
+			e.Code("b.FullWidth"),
 			"Expand the name to fill up the space",
 
-			el.Code("b.Boxed"),
+			e.Code("b.Boxed"),
 			"Make the input a boxed block",
 
-			el.Code("b.Centered"),
+			e.Code("b.Centered"),
 			"Alight the file input to the center",
 
-			el.Code("b.White"),
+			e.Code("b.White"),
 			"Set file input color to white",
 
-			el.Code("b.Black"),
+			e.Code("b.Black"),
 			"Set file input color to black",
 
-			el.Code("b.Light"),
+			e.Code("b.Light"),
 			"Set file input color to light",
 
-			el.Code("b.Dark"),
+			e.Code("b.Dark"),
 			"Set file input color to dark",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set file input color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set file input color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set file input color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set file input color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set file input color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set file input color to danger",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set file input size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set file input size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set file input size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set file input size to large",
 		),
 	),
@@ -552,7 +552,7 @@ var formFile = c.NewPage(
 ).Subsection(
 	"JavaScript",
 	"https://bulma.io/documentation/form/file/#javascript",
-	b.Content(el.P("In order to automatically change the file name when the user has selected a file, use ", el.Code("b.FileNameAutoUpdate"), " with a placeholder:")),
+	b.Content(e.P("In order to automatically change the file name when the user has selected a file, use ", e.Code("b.FileNameAutoUpdate"), " with a placeholder:")),
 	c.Example(
 		`b.File(
 	html.Name("resume"),

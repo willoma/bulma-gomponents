@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var progress = c.NewPage(
@@ -11,54 +12,54 @@ var progress = c.NewPage(
 	"",
 
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Progress"), " constructor creates a progress bar. The following children have a special meaning:",
+		e.P(
+			"The ", e.Code("b.Progress"), " constructor creates a progress bar. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.White"),
+			e.Code("b.White"),
 			"Set progress bar color to white",
 
-			el.Code("b.Black"),
+			e.Code("b.Black"),
 			"Set progress bar color to black",
 
-			el.Code("b.Light"),
+			e.Code("b.Light"),
 			"Set progress bar color to light",
 
-			el.Code("b.Dark"),
+			e.Code("b.Dark"),
 			"Set progress bar color to dark",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set progress bar color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set progress bar color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set progress bar color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set progress bar color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set progress bar color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set progress bar color to danger",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set progress bar size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set progress bar size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set progress bar size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set progress bar size to large",
 		),
-		el.P(
-			"The ", el.Code("b.ProgressIndeterminate"), " constructor creates an indeterminate progress bar. It accepts the same values as ", el.Code("b.Progress"), ".",
+		e.P(
+			"The ", e.Code("b.ProgressIndeterminate"), " constructor creates an indeterminate progress bar. It accepts the same values as ", e.Code("b.Progress"), ".",
 		),
 	),
 ).Section(

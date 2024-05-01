@@ -4,6 +4,7 @@ import (
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/components"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 const cdnPath = "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
@@ -37,7 +38,7 @@ func HTML(children ...any) gomponents.Node {
 		title       string
 		description string
 		headSection []gomponents.Node
-		body        = Elem(html.Body)
+		body        = e.Elem(html.Body)
 	)
 
 	for _, c := range children {
@@ -72,7 +73,7 @@ func HTML(children ...any) gomponents.Node {
 				html.Href(cssPath),
 			),
 		),
-		Body: body.getChildren(),
+		Body: body.GetNodes(),
 	})
 }
 

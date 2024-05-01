@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,148 +14,148 @@ var button = c.NewPage(
 	"",
 
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Button"), ", ", el.Code("b.ButtonA"), ", ", el.Code("b.ButtonAHref"), ", ", el.Code("b.ButtonSubmit"), ", ", el.Code("b.ButtonInputSubmit"), " and ", el.Code("b.ButtonInputReset"), " constructors create buttons. The following children have a special meaning:",
+		e.P(
+			"The ", e.Code("b.Button"), ", ", e.Code("b.ButtonA"), ", ", e.Code("b.ButtonAHref"), ", ", e.Code("b.ButtonSubmit"), ", ", e.Code("b.ButtonInputSubmit"), " and ", e.Code("b.ButtonInputReset"), " constructors create buttons. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.Responsive"),
+			e.Code("b.Responsive"),
 			"Responsive size",
 
-			el.Code("b.FullWidth"),
+			e.Code("b.FullWidth"),
 			"Take the whole width",
 
-			el.Code("b.Outlined"),
+			e.Code("b.Outlined"),
 			"Outline style",
 
-			el.Code("b.Inverted"),
+			e.Code("b.Inverted"),
 			"Inverted style",
 
-			el.Code("b.Rounded"),
+			e.Code("b.Rounded"),
 			"Rounded button",
 
-			el.Code("b.Hovered"),
+			e.Code("b.Hovered"),
 			"Apply the hovered style",
 
-			el.Code("b.Focused"),
+			e.Code("b.Focused"),
 			"Apply the focused style",
 
-			el.Code("b.Active"),
+			e.Code("b.Active"),
 			"Apply the active style",
 
-			el.Code("b.Loading"),
+			e.Code("b.Loading"),
 			"Replace the content with a loading spinner",
 
-			el.Code("b.Static"),
+			e.Code("b.Static"),
 			"Make the button non-interactive",
 
-			el.Code("html.Disabled()"),
+			e.Code("html.Disabled()"),
 			"Disable the button",
 
-			el.Code("b.Selected"),
+			e.Code("b.Selected"),
 			"In a list of attached buttons (Buttons with Addons), make sure this button is above the other buttons",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set button size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set button size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set button size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set button size to large",
 
-			el.Code("b.White"),
+			e.Code("b.White"),
 			"Set button color to white",
 
-			el.Code("b.Light"),
+			e.Code("b.Light"),
 			"Set button color to light",
 
-			el.Code("b.Dark"),
+			e.Code("b.Dark"),
 			"Set button color to dark",
 
-			el.Code("b.Black"),
+			e.Code("b.Black"),
 			"Set button color to black",
 
-			el.Code("b.Text"),
+			e.Code("b.Text"),
 			"Set button style to underlined text",
 
-			el.Code("b.Ghost"),
+			e.Code("b.Ghost"),
 			"Set button style to link-looking blue text",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set button color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set button color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set button color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set button color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set button color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set button color to danger",
 
-			el.Code("b.PrimaryLight"),
+			e.Code("b.PrimaryLight"),
 			"Set button color to primary light",
 
-			el.Code("b.LinkLight"),
+			e.Code("b.LinkLight"),
 			"Set button color to link light",
 
-			el.Code("b.InfoLight"),
+			e.Code("b.InfoLight"),
 			"Set button color to info light",
 
-			el.Code("b.SuccessLight"),
+			e.Code("b.SuccessLight"),
 			"Set button color to success light",
 
-			el.Code("b.WarningLight"),
+			e.Code("b.WarningLight"),
 			"Set button color to warning light",
 
-			el.Code("b.DangerLight"),
+			e.Code("b.DangerLight"),
 			"Set button color to danger light",
 
-			el.Code("b.PrimaryDark"),
+			e.Code("b.PrimaryDark"),
 			"Set button color to primary dark",
 
-			el.Code("b.LinkDark"),
+			e.Code("b.LinkDark"),
 			"Set button color to link dark",
 
-			el.Code("b.InfoDark"),
+			e.Code("b.InfoDark"),
 			"Set button color to info dark",
 
-			el.Code("b.SuccessDark"),
+			e.Code("b.SuccessDark"),
 			"Set button color to success dark",
 
-			el.Code("b.WarningDark"),
+			e.Code("b.WarningDark"),
 			"Set button color to warning dark",
 
-			el.Code("b.DangerDark"),
+			e.Code("b.DangerDark"),
 			"Set button color to danger dark",
 		),
-		el.P("The ", el.Code("b.Buttons"), " constructor creates a button. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Buttons"), " constructor creates a button. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.Addons"),
+			e.Code("b.Addons"),
 			"Attach the buttons together",
 
-			el.Code("b.Centered"),
+			e.Code("b.Centered"),
 			"Center the buttons",
 
-			el.Code("b.Right"),
+			e.Code("b.Right"),
 			"Align the buttons to the right",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set buttons size to small",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set buttons size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set buttons size to large",
 		),
 	),
@@ -570,7 +570,7 @@ b.Buttons(
 			),
 		),
 	),
-	b.Content(el.P("The ", el.Code("fa"), " package includes helper functions and values for using ", el.Em("Font Awesome"), " icons with ", el.Em("Bulma-Gomponents"), ".")),
+	b.Content(e.P("The ", e.Code("fa"), " package includes helper functions and values for using ", e.Em("Font Awesome"), " icons with ", e.Em("Bulma-Gomponents"), ".")),
 	c.Example(
 		`b.Buttons(
 	html.P,

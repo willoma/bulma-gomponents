@@ -2,6 +2,7 @@ package bulma
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 const (
@@ -24,17 +25,16 @@ type FileNameAutoUpdate string
 // File creates a file input element.
 //
 // https://willoma.github.io/bulma-gomponents/form/file.html
-func File(children ...any) Element {
-	input := Elem(html.Input, Class("file-input"), html.Type("file"))
-	cta := Elem(html.Span, Class("file-cta"))
-	label := Elem(
-		html.Label,
-		Class("file-label"),
+func File(children ...any) e.Element {
+	input := e.Input(e.Class("file-input"), html.Type("file"))
+	cta := e.Span(e.Class("file-cta"))
+	label := e.Label(
+		e.Class("file-label"),
 		input,
 		cta,
 	)
 	f := &file{
-		Element: Elem(html.Div, Class("file"), label),
+		Element: e.Div(e.Class("file"), label),
 		label:   label,
 		input:   input,
 		cta:     cta,
@@ -44,13 +44,13 @@ func File(children ...any) Element {
 }
 
 type file struct {
-	Element
-	label Element
-	input Element
-	cta   Element
+	e.Element
+	label e.Element
+	input e.Element
+	cta   e.Element
 }
 
-func (f *file) With(children ...any) Element {
+func (f *file) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onCTA:
@@ -59,21 +59,21 @@ func (f *file) With(children ...any) Element {
 			f.Element.With(c...)
 		case onInput:
 			f.input.With(c...)
-		case Class, Classer, Classeser, Styles:
+		case e.Class, e.Classer, e.Classeser, e.Styles:
 			f.Element.With(c)
 		case string:
-			f.cta.With(Elem(html.Span, Class("file-label"), c))
+			f.cta.With(e.Span(e.Class("file-label"), c))
 		case FileName:
-			f.Element.With(Class("has-name"))
-			f.label.With(Elem(html.Span, Class("file-name"), string(c)))
+			f.Element.With(e.Class("has-name"))
+			f.label.With(e.Span(e.Class("file-name"), string(c)))
 		case FileNameAutoUpdate:
-			f.Element.With(Class("has-name"))
-			f.label.With(Elem(html.Span, Class("file-name"), string(c)))
-			f.input.With(On("change", fileNameAutoUpdateScript))
+			f.Element.With(e.Class("has-name"))
+			f.label.With(e.Span(e.Class("file-name"), string(c)))
+			f.input.With(e.On("change", fileNameAutoUpdateScript))
 		case IconElem:
-			c.SetIconClass(Class("file-icon"))
+			c.SetIconClass(e.Class("file-icon"))
 			f.cta.With(c)
-		case Element:
+		case e.Element:
 			f.cta.With(c)
 		case []any:
 			f.With(c...)
@@ -85,7 +85,7 @@ func (f *file) With(children ...any) Element {
 	return f
 }
 
-func (f *file) Clone() Element {
+func (f *file) Clone() e.Element {
 	return &file{
 		Element: f.Element.Clone(),
 		label:   f.label.Clone(),

@@ -1,10 +1,12 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	e "github.com/willoma/gomplements"
+)
 
 // Footer creates a footer element.
 //
 // http://willoma.github.io/bulma-gomponents/footer.html
-func Footer(children ...any) Element {
-	return Elem(html.Footer, Class("footer"), children)
+func Footer(children ...any) e.Element {
+	return e.Footer(e.Class("footer"), children)
 }

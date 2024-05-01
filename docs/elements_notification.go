@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var notification = c.NewPage(
@@ -11,60 +12,60 @@ var notification = c.NewPage(
 	"",
 
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Notification"), " constructor creates a simple color block meant to draw the attention to the user about something. As such, it an be used as a pinned notification in the corner of the viewport. The following children have a special meaning:",
+		e.P(
+			"The ", e.Code("b.Notification"), " constructor creates a simple color block meant to draw the attention to the user about something. As such, it an be used as a pinned notification in the corner of the viewport. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.White"),
+			e.Code("b.White"),
 			"Set the notification color to white",
 
-			el.Code("b.Black"),
+			e.Code("b.Black"),
 			"Set the notification color to black",
 
-			el.Code("b.Light"),
+			e.Code("b.Light"),
 			"Set the notification color to light",
 
-			el.Code("b.Dark"),
+			e.Code("b.Dark"),
 			"Set the notification color to dark",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set the notification color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set the notification color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set the notification color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set the notification color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set the notification color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set the notification color to danger",
 
-			el.Code("b.PrimaryLight"),
+			e.Code("b.PrimaryLight"),
 			"Set the notification color to primary light",
 
-			el.Code("b.LinkLight"),
+			e.Code("b.LinkLight"),
 			"Set the notification color to link light",
 
-			el.Code("b.InfoLight"),
+			e.Code("b.InfoLight"),
 			"Set the notification color to info light",
 
-			el.Code("b.SuccessLight"),
+			e.Code("b.SuccessLight"),
 			"Set the notification color to success light",
 
-			el.Code("b.WarningLight"),
+			e.Code("b.WarningLight"),
 			"Set the notification color to warning light",
 
-			el.Code("b.DangerLight"),
+			e.Code("b.DangerLight"),
 			"Set the notification color to danger light",
 		),
-		el.P(
-			"When you provide ", el.Code("b.Delete(...)"), " as a child, you may add ", el.Code("b.OnClick(b.JSRemoveThisNotification)"), " to its children in order to close the notification when the user clicks on it.",
+		e.P(
+			"When you provide ", e.Code("b.Delete(...)"), " as a child, you may add ", e.Code("e.OnClick(b.JSRemoveThisNotification)"), " to its children in order to close the notification when the user clicks on it.",
 		),
 	),
 ).Section(
@@ -73,11 +74,11 @@ var notification = c.NewPage(
 	c.Example(
 		`b.Notification(
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		)`,
 		b.Notification(
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 ).Subsection(
@@ -87,12 +88,12 @@ var notification = c.NewPage(
 		`b.Notification(
 	b.Primary,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Primary,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 
@@ -100,60 +101,60 @@ var notification = c.NewPage(
 		`b.Notification(
 	b.Link,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Link,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Info,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Info,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Success,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Success,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Warning,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Warning,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Danger,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Danger,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 ).Subsection(
@@ -163,12 +164,12 @@ var notification = c.NewPage(
 		`b.Notification(
 	b.PrimaryLight,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.PrimaryLight,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 
@@ -176,60 +177,60 @@ var notification = c.NewPage(
 		`b.Notification(
 	b.LinkLight,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.LinkLight,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.InfoLight,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.InfoLight,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.SuccessLight,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.SuccessLight,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.WarningLight,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.WarningLight,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.DangerLight,
 	b.Delete(),
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.DangerLight,
 			b.Delete(),
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", el.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", el.A("felis venenatis"), " efficitur.",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 )

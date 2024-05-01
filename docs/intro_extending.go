@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var extending = c.NewPage(
@@ -11,43 +12,43 @@ var extending = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("Here are some developer notes useful when there is a need to extend ", el.Em("Bulma-Gomponents"), "."),
+		e.P("Here are some developer notes useful when there is a need to extend ", e.Em("Bulma-Gomponents"), "."),
 	),
 ).Section(
-	"Implementing icon element", "",
+	"Implementing icon e.Element", "",
 
 	b.Content(
-		el.P("If you need to provide new icon elements to ", el.Em("Bulma-Gomponents"), " functions, you must implement the ", el.Code("b.IconElem"), " interface. This interface is implemented by the elements returned by ", el.Code("b.Icon"), " and ", el.Code("fa.Icon"), "."),
+		e.P("If you need to provide new icon elements to ", e.Em("Bulma-Gomponents"), " functions, you must implement the ", e.Code("b.IconElem"), " interface. This interface is implemented by the elements returned by ", e.Code("b.Icon"), " and ", e.Code("fa.Icon"), "."),
 	),
 ).Section(
 	"Implementing classes and styles", "",
 
 	b.Content(
-		el.P("If you need to provide new classes and/or styles to ", el.Em("Bulma-Gomponents"), " functions, the following possibilities arise:"),
-		el.Ul(
-			el.Li("Create a simple constant or variable of type ", el.Code("b.Class"), " - for instance: ", el.Code(`const myClass = b.Class("my-class")`)),
-			el.Li("Create a simple constant or variable of type ", el.Code("b.ResponsiveClass"), " if this class accepts the responsive suffixes"),
-			el.Li("Implement the ", el.Code("b.Classer"), " interface to return a single class"),
-			el.Li("Implement the ", el.Code("b.Classeser"), " interface to return multiple classes"),
-			el.Li("Execute the ", el.Code("b.Style"), " function to generate additional styles"),
+		e.P("If you need to provide new classes and/or styles to ", e.Em("Bulma-Gomponents"), " functions, the following possibilities arise:"),
+		e.Ul(
+			e.Li("Create a simple constant or variable of type ", e.Code("e.Class"), " - for instance: ", e.Code(`const myClass = e.Class("my-class")`)),
+			e.Li("Create a simple constant or variable of type ", e.Code("b.ResponsiveClass"), " if this class accepts the responsive suffixes"),
+			e.Li("Implement the ", e.Code("e.Classer"), " interface to return a single class"),
+			e.Li("Implement the ", e.Code("e.Classeser"), " interface to return multiple classes"),
+			e.Li("Provide ", e.Code("e.Styles"), " to generate additional styles"),
 		),
 	),
 ).Section(
-	"Implementing Element", "",
+	"Implementing e.Element", "",
 
 	b.Content(
-		el.P("If you need to create new components for ", el.Em("Bulma-Gomponents"), ", you may prefer following one of these examples:"),
-		c.ExamplePre(`func MyElement(children ...any) b.Element {
-	m := &myElement{el.Div(b.Class("my-element"))}
+		e.P("If you need to create new components for ", e.Em("Bulma-Gomponents"), ", you may prefer following one of these examples:"),
+		c.ExamplePre(`func MyElement(children ...any) e.Element {
+	m := &myElement{e.Div(e.Class("my-element"))}
 	m.With(children...)
 	return m
 }
 
 type myElement struct {
-	b.Element
+	e.Element
 }
 
-func (m *myElement) With(children ...any) Element {
+func (m *myElement) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case b.Color:
@@ -61,16 +62,16 @@ func (m *myElement) With(children ...any) Element {
 	return m
 }
 
-func (m *myElement) Clone() Element {
+func (m *myElement) Clone() e.Element {
 	return &myElement{m.Element.Clone()}
 }
 `),
 		c.ExamplePre(`type weirdOption string
 
-func MyWeirdElement(children ...any) b.Element {
-	other := b.Elem(html.Span)
+func MyWeirdElement(children ...any) e.Element {
+	other := e.Span()
 	m := &myWeirdElement{
-		container: b.Elem(html.Div, other),
+		container: e.Div(other),
 		other: other,
 	}
 	m.With(children...)
@@ -78,23 +79,23 @@ func MyWeirdElement(children ...any) b.Element {
 }
 
 type myWeirdElement struct {
-	container b.Element
-	other b.Element
+	container e.Element
+	other e.Element
 
 	weirdOption weirdOption
 
 	rendered sync.Once
 }
 
-func (m *myWeirdElement) With(children ...any) Element {
+func (m *myWeirdElement) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case b.Class, b.Classer, b.Classeser, b.Styles:
+		case e.Class, e.Classer, e.Classeser, e.Styles:
 			// Apply classes and styles to content
 			m.container.With(c)
 		case weirdOption:
 			b.weirdOption = weirdOption
-		case b.Element:
+		case e.Element:
 			// Add element to content
 			m.container.With(c)
 		case gomponents.Node:
@@ -126,7 +127,7 @@ func (m *myWeirdElement) Render(w io.Writer) error {
 	return m.container.Render(w)
 }
 
-func (m *myWeirdElement) Clone() Element {
+func (m *myWeirdElement) Clone() e.Element {
 	return &myWeirdElement{
 		container: m.container.Clone(),
 		other: m.other.Clone(),

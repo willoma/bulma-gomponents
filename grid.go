@@ -2,33 +2,33 @@ package bulma
 
 import (
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Grid creates a smart grid.
 //
 // https://willoma.github.io/bulma-gomponents/grid.html
-func Grid(children ...any) Element {
-	g := &grid{Elem(html.Div, Class("grid"))}
+func Grid(children ...any) e.Element {
+	g := &grid{e.Div(e.Class("grid"))}
 	g.With(children...)
 	return g
 }
 
 type grid struct {
-	Element
+	e.Element
 }
 
-func (g *grid) With(children ...any) Element {
+func (g *grid) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *cell:
 			g.Element.With(c)
-		case Element:
+		case e.Element:
 			g.Element.With(Cell(c))
 		case string:
 			g.Element.With(Cell(c))
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				g.Element.With(c)
 			} else {
 				g.Element.With(Cell(c))
@@ -43,17 +43,17 @@ func (g *grid) With(children ...any) Element {
 	return g
 }
 
-func (g *grid) Clone() Element {
+func (g *grid) Clone() e.Element {
 	return &grid{g.Element.Clone()}
 }
 
 // FixedGrid creates a fixed grid.
 //
 // https://willoma.github.io/bulma-gomponents/grid.html
-func FixedGrid(children ...any) Element {
+func FixedGrid(children ...any) e.Element {
 	grid := Grid()
 	f := &fixedGrid{
-		Element: Elem(html.Div, Class("fixed-grid"), grid),
+		Element: e.Div(e.Class("fixed-grid"), grid),
 		grid:    grid,
 	}
 	f.With(children...)
@@ -61,11 +61,11 @@ func FixedGrid(children ...any) Element {
 }
 
 type fixedGrid struct {
-	Element
-	grid Element
+	e.Element
+	grid e.Element
 }
 
-func (f *fixedGrid) With(children ...any) Element {
+func (f *fixedGrid) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onFixedGrid:
@@ -80,7 +80,7 @@ func (f *fixedGrid) With(children ...any) Element {
 			default:
 				f.grid.With(c)
 			}
-		case Class:
+		case e.Class:
 			switch c {
 			case AutoCount:
 				f.Element.With(c)
@@ -97,7 +97,7 @@ func (f *fixedGrid) With(children ...any) Element {
 	return f
 }
 
-func (f *fixedGrid) Clone() Element {
+func (f *fixedGrid) Clone() e.Element {
 	return &fixedGrid{
 		Element: f.Element.Clone(),
 		grid:    f.grid.Clone(),
@@ -107,16 +107,16 @@ func (f *fixedGrid) Clone() Element {
 // Cell creates a single grid cell.
 //
 // https://willoma.github.io/bulma-gomponents/grid.html
-func Cell(children ...any) Element {
-	c := &cell{Elem(html.Div, Class("cell"))}
+func Cell(children ...any) e.Element {
+	c := &cell{e.Div(e.Class("cell"))}
 	c.With(children...)
 	return c
 }
 
 type cell struct {
-	Element
+	e.Element
 }
 
-func (c *cell) Clone() Element {
+func (c *cell) Clone() e.Element {
 	return &cell{c.Element.Clone()}
 }

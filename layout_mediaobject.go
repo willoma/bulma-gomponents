@@ -5,49 +5,49 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Media creates a media element.
 //
 // http://willoma.github.io/bulma-gomponents/media-object.html
-func Media(children ...any) Element {
-	m := &media{media: Elem(html.Article, Class("media"))}
+func Media(children ...any) e.Element {
+	m := &media{media: e.Article(e.Class("media"))}
 	m.With(children...)
 	return m
 }
 
 type media struct {
-	media   Element
-	left    Element
-	content Element
-	right   Element
+	media   e.Element
+	left    e.Element
+	content e.Element
+	right   e.Element
 
 	rendered sync.Once
 }
 
 func (m *media) addToLeft(children ...any) {
 	if m.left == nil {
-		m.left = Elem(html.Div, Class("media-left"))
+		m.left = e.Div(e.Class("media-left"))
 	}
 	m.left.With(children...)
 }
 
 func (m *media) addToContent(children ...any) {
 	if m.content == nil {
-		m.content = Elem(html.Div, Class("media-content"))
+		m.content = e.Div(e.Class("media-content"))
 	}
 	m.content.With(children...)
 }
 
 func (m *media) addToRight(children ...any) {
 	if m.right == nil {
-		m.right = Elem(html.Div, Class("media-right"))
+		m.right = e.Div(e.Class("media-right"))
 	}
 	m.right.With(children...)
 }
 
-func (m *media) With(children ...any) Element {
+func (m *media) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onMedia:
@@ -58,10 +58,10 @@ func (m *media) With(children ...any) Element {
 			m.addToLeft(c...)
 		case mediaRight:
 			m.addToRight(c...)
-		case Element:
+		case e.Element:
 			m.addToContent(c)
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				m.media.With(c)
 			} else {
 				m.addToContent(c)
@@ -94,7 +94,7 @@ func (m *media) Render(w io.Writer) error {
 	return m.media.Render(w)
 }
 
-func (m *media) Clone() Element {
+func (m *media) Clone() e.Element {
 	return &media{
 		media:   m.media.Clone(),
 		left:    m.left.Clone(),

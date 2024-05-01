@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var other = c.NewPage(
@@ -11,15 +12,15 @@ var other = c.NewPage(
 	"https://bulma.io/documentation/helpers/other-helpers/",
 	b.Table(
 		b.HeadRow("Modifier", "Action"),
-		b.Row(el.Code("b.Clearfix"), b.Cell("Fixes an element's floating children")),
-		b.Row(el.Code("b.PulledLeft"), b.Cell("Moves an element to the ", el.Strong("left"))),
-		b.Row(el.Code("b.PulledRight"), b.Cell("Moves an element to the ", el.Strong("right"))),
-		b.Row(el.Code("b.Overlay"), b.Cell("Completely ", el.Strong("covers"), " the first positioned parent")),
-		b.Row(el.Code("b.Clipped"), b.Cell("Adds overflow ", el.Strong("hidden"))),
-		b.Row(el.Code("b.Radiusless"), b.Cell("Removes any ", el.Strong("radius"))),
-		b.Row(el.Code("b.Shadowless"), b.Cell("Removes any ", el.Strong("shadow"))),
-		b.Row(el.Code("b.Unselectable"), b.Cell("Prevents the text from being ", el.Strong("selectable"))),
-		b.Row(el.Code("b.Clickable"), b.Cell("Applies ", el.Code("cursor: pointer !important"), " to the element")),
-		b.Row(el.Code("b.Relative"), b.Cell("Applies ", el.Code("position: relative"), " to the element")),
+		b.Row(e.Code("b.Clearfix"), b.Cell("Fixes an e.Element's floating children")),
+		b.Row(e.Code("b.PulledLeft"), b.Cell("Moves an e.Element to the ", e.Strong("left"))),
+		b.Row(e.Code("b.PulledRight"), b.Cell("Moves an e.Element to the ", e.Strong("right"))),
+		b.Row(e.Code("b.Overlay"), b.Cell("Completely ", e.Strong("covers"), " the first positioned parent")),
+		b.Row(e.Code("b.Clipped"), b.Cell("Adds overflow ", e.Strong("hidden"))),
+		b.Row(e.Code("b.Radiusless"), b.Cell("Removes any ", e.Strong("radius"))),
+		b.Row(e.Code("b.Shadowless"), b.Cell("Removes any ", e.Strong("shadow"))),
+		b.Row(e.Code("b.Unselectable"), b.Cell("Prevents the text from being ", e.Strong("selectable"))),
+		b.Row(e.Code("b.Clickable"), b.Cell("Applies ", e.Code("cursor: pointer !important"), " to the element")),
+		b.Row(e.Code("b.Relative"), b.Cell("Applies ", e.Code("position: relative"), " to the element")),
 	),
 )

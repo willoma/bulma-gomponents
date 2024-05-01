@@ -5,31 +5,31 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Card creates a card.
 //
 // https://willoma.github.io/bulma-gomponents/card.html
-func Card(children ...any) Element {
-	c := &card{card: Elem(html.Div, Class("card"))}
+func Card(children ...any) e.Element {
+	c := &card{card: e.Div(e.Class("card"))}
 	c.With(children...)
 	return c
 }
 
 type card struct {
-	card    Element
-	header  Element
+	card    e.Element
+	header  e.Element
 	content []any
-	footer  Element
+	footer  e.Element
 
-	currentContent Element
+	currentContent e.Element
 	rendered       sync.Once
 }
 
 func (c *card) addToCurrentContent(children ...any) {
 	if c.currentContent == nil {
-		c.currentContent = Elem(html.Div, Class("card-content"))
+		c.currentContent = e.Div(e.Class("card-content"))
 	}
 	c.currentContent.With(children...)
 }
@@ -43,19 +43,19 @@ func (c *card) flushCurrentContent() {
 
 func (c *card) addToHeader(children ...any) {
 	if c.header == nil {
-		c.header = Elem(html.Header, Class("card-header"))
+		c.header = e.Header(e.Class("card-header"))
 	}
 	c.header.With(children...)
 }
 
 func (c *card) addToFooter(children ...any) {
 	if c.footer == nil {
-		c.footer = Elem(html.Footer, Class("card-footer"))
+		c.footer = e.Footer(e.Class("card-footer"))
 	}
 	c.footer.With(children...)
 }
 
-func (c *card) With(children ...any) Element {
+func (c *card) With(children ...any) e.Element {
 	var currentContent []any
 
 	for _, ch := range children {
@@ -74,15 +74,15 @@ func (c *card) With(children ...any) Element {
 			c.addToHeader(ch)
 		case cardFooter:
 			c.addToFooter(ch...)
-		case Class, Classer, Classeser, Styles:
+		case e.Class, e.Classer, e.Classeser, e.Styles:
 			c.card.With(ch)
 		case *cardImage, *cardImageImg:
 			c.flushCurrentContent()
 			c.content = append(c.content, ch)
-		case Element:
+		case e.Element:
 			c.addToCurrentContent(ch)
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				c.card.With(ch)
 			} else {
 				c.addToCurrentContent(ch)
@@ -118,11 +118,11 @@ func (c *card) Render(w io.Writer) error {
 	return c.card.Render(w)
 }
 
-func (c *card) Clone() Element {
+func (c *card) Clone() e.Element {
 	content := make([]any, len(c.content))
 	for i, c := range c.content {
 		switch c := c.(type) {
-		case Element:
+		case e.Element:
 			content[i] = c.Clone()
 		default:
 			content[i] = c
@@ -175,34 +175,34 @@ func (ch cardHeader) with(children ...any) cardHeader {
 // CardHeaderIcon creates an icon for a card header.
 //
 // https://willoma.github.io/bulma-gomponents/card.html
-func CardHeaderIcon(children ...any) Element {
-	c := &cardHeaderIcon{Elem(html.Button, Class("card-header-icon"))}
+func CardHeaderIcon(children ...any) e.Element {
+	c := &cardHeaderIcon{e.Button(e.Class("card-header-icon"))}
 	c.With(children...)
 	return c
 }
 
 type cardHeaderIcon struct {
-	Element
+	e.Element
 }
 
-func (c *cardHeaderIcon) Clone() Element {
+func (c *cardHeaderIcon) Clone() e.Element {
 	return &cardHeaderIcon{c.Element.Clone()}
 }
 
 // CardHeaderTitle creates a title for a card header.
 //
 // https://willoma.github.io/bulma-gomponents/card.html
-func CardHeaderTitle(children ...any) Element {
-	c := &cardHeaderTitle{Elem(html.P, Class("card-header-title"))}
+func CardHeaderTitle(children ...any) e.Element {
+	c := &cardHeaderTitle{e.P(e.Class("card-header-title"))}
 	c.With(children...)
 	return c
 }
 
 type cardHeaderTitle struct {
-	Element
+	e.Element
 }
 
-func (c *cardHeaderTitle) Clone() Element {
+func (c *cardHeaderTitle) Clone() e.Element {
 	return &cardHeaderTitle{c.Element.Clone()}
 }
 
@@ -218,8 +218,8 @@ type cardFooter []any
 func (cf cardFooter) with(children ...any) cardFooter {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Element:
-			cf = append(cf, c.With(Class("card-footer-item")))
+		case e.Element:
+			cf = append(cf, c.With(e.Class("card-footer-item")))
 		case []any:
 			cf.with(c...)
 		default:
@@ -233,10 +233,10 @@ func (cf cardFooter) with(children ...any) cardFooter {
 // CardImage creates a card image.
 //
 // https://willoma.github.io/bulma-gomponents/card.html
-func CardImage(children ...any) Element {
+func CardImage(children ...any) e.Element {
 	image := Image()
 	c := &cardImage{
-		Element: Elem(html.Div, Class("card-image"), image),
+		Element: e.Div(e.Class("card-image"), image),
 		image:   image,
 	}
 	c.With(children...)
@@ -244,11 +244,11 @@ func CardImage(children ...any) Element {
 }
 
 type cardImage struct {
-	Element
-	image Element
+	e.Element
+	image e.Element
 }
 
-func (ci *cardImage) With(children ...any) Element {
+func (ci *cardImage) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onCardImage:
@@ -263,7 +263,7 @@ func (ci *cardImage) With(children ...any) Element {
 	return ci
 }
 
-func (ci *cardImage) Clone() Element {
+func (ci *cardImage) Clone() e.Element {
 	return &cardImage{
 		Element: ci.Element.Clone(),
 		image:   ci.image.Clone(),
@@ -274,10 +274,10 @@ func (ci *cardImage) Clone() Element {
 // provided src.
 //
 // https://willoma.github.io/bulma-gomponents/card.html
-func CardImageImg(src string, children ...any) Element {
+func CardImageImg(src string, children ...any) e.Element {
 	imageImg := ImageImg(src)
 	c := &cardImageImg{
-		Element:  Elem(html.Div, Class("card-image"), imageImg),
+		Element:  e.Div(e.Class("card-image"), imageImg),
 		imageImg: imageImg,
 	}
 	c.With(children...)
@@ -285,11 +285,11 @@ func CardImageImg(src string, children ...any) Element {
 }
 
 type cardImageImg struct {
-	Element
-	imageImg Element
+	e.Element
+	imageImg e.Element
 }
 
-func (ci *cardImageImg) With(children ...any) Element {
+func (ci *cardImageImg) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onCardImage:
@@ -304,7 +304,7 @@ func (ci *cardImageImg) With(children ...any) Element {
 	return ci
 }
 
-func (ci *cardImageImg) Clone() Element {
+func (ci *cardImageImg) Clone() e.Element {
 	return &cardImageImg{
 		Element:  ci.Element.Clone(),
 		imageImg: ci.imageImg.Clone(),

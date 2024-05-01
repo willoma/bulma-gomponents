@@ -1,55 +1,55 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Field creates a field element.
 //
 // https://willoma.github.io/bulma-gomponents/form.html
-func Field(children ...any) Element {
-	return Elem(html.Div, Class("field"), children)
+func Field(children ...any) e.Element {
+	return e.Div(e.Class("field"), children)
 }
 
 // Label creates a label element, to be used as a child of a Field.
 //
 // https://willoma.github.io/bulma-gomponents/form.html
-func Label(children ...any) Element {
-	l := &label{Elem(html.Label, Class("label"))}
+func Label(children ...any) e.Element {
+	l := &label{e.Label(e.Class("label"))}
 	l.With(children...)
 	return l
 }
 
 type label struct {
-	Element
+	e.Element
 }
 
-func (l *label) Clone() Element {
+func (l *label) Clone() e.Element {
 	return &label{l.Element.Clone()}
 }
 
 // Control creates a control element, to be used as a child of a Field.
 //
 // https://willoma.github.io/bulma-gomponents/form.html
-func Control(children ...any) Element {
-	return Elem(html.Div, Class("control"), children)
+func Control(children ...any) e.Element {
+	return e.Div(e.Class("control"), children)
 }
 
 // Help creates a help element, to be used as a child of a Field.
 //
 // https://willoma.github.io/bulma-gomponents/form.html
-func Help(children ...any) Element {
-	return Elem(html.P, Class("help"), children)
+func Help(children ...any) e.Element {
+	return e.P(e.Class("help"), children)
 }
 
 // FieldHorizontal creates a horizontal field, including an empty body if needed.
 //
 // https://willoma.github.io/bulma-gomponents/form.html
-func FieldHorizontal(children ...any) Element {
-	label := Elem(html.Div, Class("field-label"))
-	body := Elem(html.Div, Class("field-body"))
+func FieldHorizontal(children ...any) e.Element {
+	label := e.Div(e.Class("field-label"))
+	body := e.Div(e.Class("field-body"))
 	f := &fieldHorizontal{
-		Element: Elem(html.Div, Class("field"), Horizontal, label, body),
+		Element: e.Div(e.Class("field"), Horizontal, label, body),
 		label:   label,
 		body:    body,
 	}
@@ -58,12 +58,12 @@ func FieldHorizontal(children ...any) Element {
 }
 
 type fieldHorizontal struct {
-	Element
-	label Element
-	body  Element
+	e.Element
+	label e.Element
+	body  e.Element
 }
 
-func (f *fieldHorizontal) With(children ...any) Element {
+func (f *fieldHorizontal) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onField:
@@ -74,7 +74,7 @@ func (f *fieldHorizontal) With(children ...any) Element {
 			f.body.With(c...)
 		case *label:
 			f.label.With(c)
-		case Element:
+		case e.Element:
 			f.body.With(c)
 		case []any:
 			f.With(c...)
@@ -86,7 +86,7 @@ func (f *fieldHorizontal) With(children ...any) Element {
 	return f
 }
 
-func (f *fieldHorizontal) Clone() Element {
+func (f *fieldHorizontal) Clone() e.Element {
 	return &fieldHorizontal{
 		Element: f.Element.Clone(),
 		label:   f.label.Clone(),

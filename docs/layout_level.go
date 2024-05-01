@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var level = c.NewPage(
@@ -13,40 +13,40 @@ var level = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Level"), " constructor creates a level. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Level"), " constructor creates a level. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.LevelLeft(...)"),
+			e.Code("b.LevelLeft(...)"),
 			[]any{"Add children to the left part of the level"},
 
-			el.Code("b.LevelRight(...)"),
+			e.Code("b.LevelRight(...)"),
 			[]any{"Add children to the right part of the level"},
 
-			el.Code("b.Element"),
-			[]any{"Add the ", el.Code("level-item"), " class to the element and apply the element to the level"},
+			e.Code("e.Element"),
+			[]any{"Add the ", e.Code("level-item"), " class to the element and apply the element to the level"},
 
-			el.Code("string"),
-			[]any{"Wrap the string into a ", el.Code("b.Element"), " div with class ", el.Code("level-item"), " and apply it to the level"},
+			e.Code("string"),
+			[]any{"Wrap the string into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level"},
 
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
 			"Apply the attribute to the level",
 
-			[]any{"Other ", el.Code("gomponents.Node")},
-			[]any{"Wrap the element into a ", el.Code("b.Element"), " div with class ", el.Code("level-item"), " and apply it to the level"},
+			[]any{"Other ", e.Code("gomponents.Node")},
+			[]any{"Wrap the element into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level"},
 		),
-		el.P("Children in ", el.Code("b.LevelLeft"), " and ", el.Code("b.LevelRight"), " have the following rules:"),
+		e.P("Children in ", e.Code("b.LevelLeft"), " and ", e.Code("b.LevelRight"), " have the following rules:"),
 		b.DList(
 
-			el.Code("b.Element"),
-			[]any{"Add the ", el.Code("level-item"), " class to the element and apply the element to the level section"},
+			e.Code("e.Element"),
+			[]any{"Add the ", e.Code("level-item"), " class to the element and apply the element to the level section"},
 
-			el.Code("string"),
-			[]any{"Wrap the string into a ", el.Code("b.Element"), " div with class ", el.Code("level-item"), " and apply it to the level section"},
+			e.Code("string"),
+			[]any{"Wrap the string into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level section"},
 
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
 			"Apply the attribute to the level section",
 
-			[]any{"Other ", el.Code("gomponents.Node")},
-			[]any{"Wrap the element into a ", el.Code("b.Element"), " div with class ", el.Code("level-item"), " and apply it to the level section"},
+			[]any{"Other ", e.Code("gomponents.Node")},
+			[]any{"Wrap the element into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level section"},
 		),
 	),
 ).Section(
@@ -55,10 +55,10 @@ var level = c.NewPage(
 	c.HorizontalExample(
 		`b.Level(
 	b.LevelLeft(
-		el.Div(
-			b.Subtitle5(el.Strong("123"), " posts"),
+		e.Div(
+			b.Subtitle5(e.Strong("123"), " posts"),
 		),
-		el.Div(
+		e.Div(
 			b.Field(
 				b.Addons,
 				b.Control(b.InputText(html.Placeholder("Find a post"))),
@@ -67,19 +67,19 @@ var level = c.NewPage(
 		),
 	),
 	b.LevelRight(
-		el.P(el.Strong("All")),
-		el.P(el.A("Published")),
-		el.P(el.A("Drafts")),
-		el.P(el.A("Deleted")),
-		el.P(b.ButtonA(b.Success, "New")),
+		e.P(e.Strong("All")),
+		e.P(e.A("Published")),
+		e.P(e.A("Drafts")),
+		e.P(e.A("Deleted")),
+		e.P(b.ButtonA(b.Success, "New")),
 	),
 )`,
 		b.Level(
 			b.LevelLeft(
-				el.Div(
-					b.Subtitle5(el.Strong("123"), " posts"),
+				e.Div(
+					b.Subtitle5(e.Strong("123"), " posts"),
 				),
-				el.Div(
+				e.Div(
 					b.Field(
 						b.Addons,
 						b.Control(b.InputText(html.Placeholder("Find a post"))),
@@ -88,11 +88,11 @@ var level = c.NewPage(
 				),
 			),
 			b.LevelRight(
-				el.P(el.Strong("All")),
-				el.P(el.A("Published")),
-				el.P(el.A("Drafts")),
-				el.P(el.A("Deleted")),
-				el.P(b.ButtonA(b.Success, "New")),
+				e.P(e.Strong("All")),
+				e.P(e.A("Published")),
+				e.P(e.A("Drafts")),
+				e.P(e.A("Deleted")),
+				e.P(b.ButtonA(b.Success, "New")),
 			),
 		),
 	),
@@ -101,56 +101,56 @@ var level = c.NewPage(
 	"https://bulma.io/documentation/layout/level/#centered-level",
 	c.HorizontalExample(
 		`b.Level(
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Tweets"), b.Title(html.P, "3,456")),
+		e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
 	),
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Following"), b.Title(html.P, "123")),
+		e.Div(e.P("Following"), b.Title(html.P, "123")),
 	),
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Followers"), b.Title(html.P, "456K")),
+		e.Div(e.P("Followers"), b.Title(html.P, "456K")),
 	),
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Likes"), b.Title(html.P, "789")),
+		e.Div(e.P("Likes"), b.Title(html.P, "789")),
 	),
 )`,
 		b.Level(
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Tweets"), b.Title(html.P, "3,456")),
+				e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
 			),
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Following"), b.Title(html.P, "123")),
+				e.Div(e.P("Following"), b.Title(html.P, "123")),
 			),
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Followers"), b.Title(html.P, "456K")),
+				e.Div(e.P("Followers"), b.Title(html.P, "456K")),
 			),
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Likes"), b.Title(html.P, "789")),
+				e.Div(e.P("Likes"), b.Title(html.P, "789")),
 			),
 		),
 	),
 	c.HorizontalExample(
 		`b.Level(
-	el.P(b.TextCentered, el.A("Home")),
-	el.P(b.TextCentered, el.A("Menu")),
-	el.P(b.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), b.Style("height", "30px"))),
-	el.P(b.TextCentered, el.A("Reservations")),
-	el.P(b.TextCentered, el.A("Contact")),
+	e.P(b.TextCentered, e.A("Home")),
+	e.P(b.TextCentered, e.A("Menu")),
+	e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), e.Styles{"height": "30px"})),
+	e.P(b.TextCentered, e.A("Reservations")),
+	e.P(b.TextCentered, e.A("Contact")),
 )`,
 		b.Level(
-			el.P(b.TextCentered, el.A("Home")),
-			el.P(b.TextCentered, el.A("Menu")),
-			el.P(b.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), b.Style("height", "30px"))),
-			el.P(b.TextCentered, el.A("Reservations")),
-			el.P(b.TextCentered, el.A("Contact")),
+			e.P(b.TextCentered, e.A("Home")),
+			e.P(b.TextCentered, e.A("Menu")),
+			e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), e.Styles{"height": "30px"})),
+			e.P(b.TextCentered, e.A("Reservations")),
+			e.P(b.TextCentered, e.A("Contact")),
 		),
 	),
 ).Subsection(
@@ -159,40 +159,40 @@ var level = c.NewPage(
 	c.HorizontalExample(
 		`b.Level(
 	b.Mobile,
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Tweets"), b.Title(html.P, "3,456")),
+		e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
 	),
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Following"), b.Title(html.P, "123")),
+		e.Div(e.P("Following"), b.Title(html.P, "123")),
 	),
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Followers"), b.Title(html.P, "456K")),
+		e.Div(e.P("Followers"), b.Title(html.P, "456K")),
 	),
-	el.Div(
+	e.Div(
 		b.TextCentered,
-		el.Div(el.P("Likes"), b.Title(html.P, "789")),
+		e.Div(e.P("Likes"), b.Title(html.P, "789")),
 	),
 )`,
 		b.Level(
 			b.Mobile,
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Tweets"), b.Title(html.P, "3,456")),
+				e.Div(e.P("Tweets"), b.Title(html.P, "3,456")),
 			),
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Following"), b.Title(html.P, "123")),
+				e.Div(e.P("Following"), b.Title(html.P, "123")),
 			),
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Followers"), b.Title(html.P, "456K")),
+				e.Div(e.P("Followers"), b.Title(html.P, "456K")),
 			),
-			el.Div(
+			e.Div(
 				b.TextCentered,
-				el.Div(el.P("Likes"), b.Title(html.P, "789")),
+				e.Div(e.P("Likes"), b.Title(html.P, "789")),
 			),
 		),
 	),

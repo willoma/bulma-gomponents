@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var formTextarea = c.NewPage(
@@ -13,57 +13,57 @@ var formTextarea = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.Textarea"), " constructor creates a text area. The following children have a special meaning:"),
+		e.P("The ", e.Code("b.Textarea"), " constructor creates a text area. The following children have a special meaning:"),
 		b.DList(
-			el.Code("b.Rows(int)"),
+			e.Code("b.Rows(int)"),
 			"Set the text area height, in number of rows",
 
-			el.Code("b.Hovered"),
+			e.Code("b.Hovered"),
 			"Apply the hovered style",
 
-			el.Code("b.Focused"),
+			e.Code("b.Focused"),
 			"Apply the focused style",
 
-			el.Code("b.Loading"),
+			e.Code("b.Loading"),
 			"Add a loading spinner to the right of the text area",
 
-			el.Code("b.Disabled"),
+			e.Code("b.Disabled"),
 			"Disable the text area",
 
-			el.Code("html.ReadOnly()"),
+			e.Code("html.ReadOnly()"),
 			"Read only text area",
 
-			el.Code("b.FixedSize"),
+			e.Code("b.FixedSize"),
 			"Disable the text area resizing capability",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set text area color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set text area color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set text area color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set text area color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set text area color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set text area color to danger",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set text area size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set text area size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set text area size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set text area size to large",
 		),
 	),

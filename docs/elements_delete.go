@@ -1,29 +1,30 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var delete = c.NewPage(
 	"Delete", "Delete", "/delete",
 	"",
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Delete"), " constructor creates a delete cross. It accepts the following values additionally to the standard set of children types:",
+		e.P(
+			"The ", e.Code("b.Delete"), " constructor creates a delete cross. It accepts the following values additionally to the standard set of children types:",
 		),
 		b.DList(
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set delete icon size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set delete icon size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set delete icon size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set delete icon size to large",
 		),
 	),

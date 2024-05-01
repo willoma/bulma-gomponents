@@ -4,11 +4,11 @@ import (
 	"strconv"
 	"time"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type Animation interface {
-	b.ParentModifier
+	e.ParentModifier
 
 	setDelay(time.Duration)
 	setDirection(string)
@@ -25,34 +25,34 @@ type animationBase struct {
 	timing         string
 }
 
-func (a *animationBase) ModifyParent(e b.Element) {
+func (a *animationBase) ModifyParent(p e.Element) {
 	if a.delay != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-animation-delay",
 			strconv.FormatFloat(a.delay.Seconds(), 'f', 2, 64)+"s",
 		))
 	}
 
 	if a.direction != "" {
-		e.With(b.Style("--fa-animation-direction", a.direction))
+		p.With(e.Style("--fa-animation-direction", a.direction))
 	}
 
 	if a.duration != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-animation-duration",
 			strconv.FormatFloat(a.duration.Seconds(), 'f', 2, 64)+"s",
 		))
 	}
 
 	if a.iterationCount != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-animation-iteration-count",
 			strconv.FormatFloat(a.iterationCount, 'f', 2, 64),
 		))
 	}
 
 	if a.timing != "" {
-		e.With(b.Style("--fa-animation-timing", a.timing))
+		p.With(e.Style("--fa-animation-timing", a.timing))
 	}
 }
 

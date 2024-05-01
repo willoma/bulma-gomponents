@@ -6,22 +6,23 @@ import (
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // TCell creates a table cell.
-func TCell(children ...any) Element {
-	c := &tcell{Element: Elem(html.Td)}
+func TCell(children ...any) e.Element {
+	c := &tcell{Element: e.Td()}
 	c.With(children...)
 	return c
 }
 
 type tcell struct {
-	Element
+	e.Element
 
 	hasChangedElem bool
 }
 
-func (c *tcell) With(children ...any) Element {
+func (c *tcell) With(children ...any) e.Element {
 	for _, ch := range children {
 		switch ch := ch.(type) {
 		case func(...gomponents.Node) gomponents.Node:
@@ -39,7 +40,7 @@ func (c *tcell) With(children ...any) Element {
 	return c
 }
 
-func (c *tcell) Clone() Element {
+func (c *tcell) Clone() e.Element {
 	return &tcell{
 		Element:        c.Element.Clone(),
 		hasChangedElem: c.hasChangedElem,
@@ -49,21 +50,21 @@ func (c *tcell) Clone() Element {
 // HeadRow creates a table header row (tr element).
 //
 // https://willoma.github.io/bulma-gomponents/table.html
-func HeadRow(children ...any) Element {
+func HeadRow(children ...any) e.Element {
 	return newRow(rowSectionHead, html.Th, children...)
 }
 
 // FootRow creates a table footer row (tr element).
 //
 // https://willoma.github.io/bulma-gomponents/table.html
-func FootRow(children ...any) Element {
+func FootRow(children ...any) e.Element {
 	return newRow(rowSectionFoot, html.Th, children...)
 }
 
 // Row creates a table body row (tr element).
 //
 // https://willoma.github.io/bulma-gomponents/table.html
-func Row(children ...any) Element {
+func Row(children ...any) e.Element {
 	return newRow(rowSectionBody, html.Td, children...)
 }
 
@@ -77,7 +78,7 @@ const (
 
 func newRow(section rowSection, elemFn func(...gomponents.Node) gomponents.Node, children ...any) *row {
 	r := &row{
-		Element: Elem(html.Tr),
+		Element: e.Tr(),
 		section: section,
 		elemFn:  elemFn,
 	}
@@ -86,22 +87,22 @@ func newRow(section rowSection, elemFn func(...gomponents.Node) gomponents.Node,
 }
 
 type row struct {
-	Element
+	e.Element
 
 	section rowSection
 	elemFn  func(...gomponents.Node) gomponents.Node
 }
 
-func (r *row) With(children ...any) Element {
+func (r *row) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case *tcell:
 			c.With(r.elemFn)
 			r.Element.With(c)
 		case string:
-			r.Element.With(TCell(r.elemFn, gomponents.Text(c)))
+			r.Element.With(TCell(r.elemFn, c))
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				r.Element.With(c)
 			} else {
 				r.Element.With(TCell(r.elemFn, c))
@@ -116,7 +117,7 @@ func (r *row) With(children ...any) Element {
 	return r
 }
 
-func (r *row) Clone() Element {
+func (r *row) Clone() e.Element {
 	return &row{
 		Element: r.Element.Clone(),
 		section: r.section,
@@ -127,43 +128,43 @@ func (r *row) Clone() Element {
 // Table creates a table element.
 //
 // https://willoma.github.io/bulma-gomponents/table.html
-func Table(children ...any) Element {
-	t := &table{table: Elem(html.Table, Class("table"))}
+func Table(children ...any) e.Element {
+	t := &table{table: e.Table(e.Class("table"))}
 	t.With(children...)
 	return t
 }
 
 type table struct {
-	table Element
-	head  Element
-	body  Element
-	foot  Element
+	table e.Element
+	head  e.Element
+	body  e.Element
+	foot  e.Element
 
 	rendered sync.Once
 }
 
 func (t *table) addToHead(children ...any) {
 	if t.head == nil {
-		t.head = Elem(html.THead)
+		t.head = e.THead()
 	}
 	t.head.With(children...)
 }
 
 func (t *table) addToBody(children ...any) {
 	if t.body == nil {
-		t.body = Elem(html.TBody)
+		t.body = e.TBody()
 	}
 	t.body.With(children...)
 }
 
 func (t *table) addToFoot(children ...any) {
 	if t.foot == nil {
-		t.foot = Elem(html.TFoot)
+		t.foot = e.TFoot()
 	}
 	t.foot.With(children...)
 }
 
-func (t *table) With(children ...any) Element {
+func (t *table) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onHead:
@@ -207,7 +208,7 @@ func (t *table) Render(w io.Writer) error {
 	return t.table.Render(w)
 }
 
-func (t *table) Clone() Element {
+func (t *table) Clone() e.Element {
 	return &table{
 		table: t.table.Clone(),
 		head:  t.head.Clone(),
@@ -220,6 +221,6 @@ func (t *table) Clone() Element {
 // table scrollable.
 //
 // https://willoma.github.io/bulma-gomponents/table.html
-func ScrollableTable(children ...any) Element {
-	return Elem(html.Div, Class("table-container"), Table(children...))
+func ScrollableTable(children ...any) e.Element {
+	return e.Div(e.Class("table-container"), Table(children...))
 }

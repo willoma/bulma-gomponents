@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var tag = c.NewPage(
@@ -11,75 +12,75 @@ var tag = c.NewPage(
 	"",
 
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Tag"), " constructor creates a tag. The ", el.Code("b.DeleteTag"), " constructor creates a delete button-looking tag. The following children have a special meaning:",
+		e.P(
+			"The ", e.Code("b.Tag"), " constructor creates a tag. The ", e.Code("b.DeleteTag"), " constructor creates a delete button-looking tag. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.White"),
+			e.Code("b.White"),
 			"Set tag color to white",
 
-			el.Code("b.Black"),
+			e.Code("b.Black"),
 			"Set tag color to black",
 
-			el.Code("b.Light"),
+			e.Code("b.Light"),
 			"Set tag color to light",
 
-			el.Code("b.Dark"),
+			e.Code("b.Dark"),
 			"Set tag color to dark",
 
-			el.Code("b.Primary"),
+			e.Code("b.Primary"),
 			"Set tag color to primary",
 
-			el.Code("b.Link"),
+			e.Code("b.Link"),
 			"Set tag color to link",
 
-			el.Code("b.Info"),
+			e.Code("b.Info"),
 			"Set tag color to info",
 
-			el.Code("b.Success"),
+			e.Code("b.Success"),
 			"Set tag color to success",
 
-			el.Code("b.Warning"),
+			e.Code("b.Warning"),
 			"Set tag color to warning",
 
-			el.Code("b.Danger"),
+			e.Code("b.Danger"),
 			"Set tag color to danger",
 
-			el.Code("b.PrimaryLight"),
+			e.Code("b.PrimaryLight"),
 			"Set tag color to primary light",
 
-			el.Code("b.LinkLight"),
+			e.Code("b.LinkLight"),
 			"Set tag color to link light",
 
-			el.Code("b.InfoLight"),
+			e.Code("b.InfoLight"),
 			"Set tag color to info light",
 
-			el.Code("b.SuccessLight"),
+			e.Code("b.SuccessLight"),
 			"Set tag color to success light",
 
-			el.Code("b.WarningLight"),
+			e.Code("b.WarningLight"),
 			"Set tag color to warning light",
 
-			el.Code("b.DangerLight"),
+			e.Code("b.DangerLight"),
 			"Set tag color to danger light",
 
-			el.Code("b.Small"),
+			e.Code("b.Small"),
 			"Set tag size to small",
 
-			el.Code("b.Normal"),
+			e.Code("b.Normal"),
 			"Set tag size to normal",
 
-			el.Code("b.Medium"),
+			e.Code("b.Medium"),
 			"Set tag size to medium",
 
-			el.Code("b.Large"),
+			e.Code("b.Large"),
 			"Set tag size to large",
 
-			el.Code("b.Rounded"),
+			e.Code("b.Rounded"),
 			"Make a rounded tag",
 		),
-		el.P(
-			"The ", el.Code("b.Tags"), " constructor creates a list of tags. It accepts the ", el.Code("b.Addons"), " modifier to attach the contained tags together and may contain any number of ", el.Code("b.Tag"), " or ", el.Code("b.DeleteTag"), ".",
+		e.P(
+			"The ", e.Code("b.Tags"), " constructor creates a list of tags. It accepts the ", e.Code("b.Addons"), " modifier to attach the contained tags together and may contain any number of ", e.Code("b.Tag"), " or ", e.Code("b.DeleteTag"), ".",
 		),
 	),
 ).Section(
@@ -103,16 +104,16 @@ b.Tag(b.Info, "Info"),
 b.Tag(b.Success, "Success"),
 b.Tag(b.Warning, "Warning"),
 b.Tag(b.Danger, "Danger")`,
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Black, "Black")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Dark, "Dark")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Light, "Light")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.White, "White")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Primary, "Primary")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Link, "Link")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Info, "Info")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Success, "Success")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Warning, "Warning")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Danger, "Danger")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Black, "Black")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Dark, "Dark")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Light, "Light")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.White, "White")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Primary, "Primary")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Link, "Link")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Info, "Info")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Success, "Success")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Warning, "Warning")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Danger, "Danger")),
 	),
 	c.Example(
 		`b.Tag(b.PrimaryLight, "Primary"),
@@ -121,12 +122,12 @@ b.Tag(b.InfoLight, "Info"),
 b.Tag(b.SuccessLight, "Success"),
 b.Tag(b.WarningLight, "Warning"),
 b.Tag(b.DangerLight, "Danger")`,
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.PrimaryLight, "Primary")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.LinkLight, "Link")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.InfoLight, "Info")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.SuccessLight, "Success")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.WarningLight, "Warning")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.DangerLight, "Danger")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.PrimaryLight, "Primary")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.LinkLight, "Link")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.InfoLight, "Info")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.SuccessLight, "Success")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.WarningLight, "Warning")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.DangerLight, "Danger")),
 	),
 ).Subsection(
 	"Sizes",
@@ -135,9 +136,9 @@ b.Tag(b.DangerLight, "Danger")`,
 		`b.Tag(b.Link, b.Normal, "Normal"),
 b.Tag(b.Primary, b.Medium, "Normal"),
 b.Tag(b.Info, b.Large, "Normal")`,
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Link, b.Normal, "Normal")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Primary, b.Medium, "Medium")),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Info, b.Large, "Large")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Link, b.Normal, "Normal")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Primary, b.Medium, "Medium")),
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(b.Info, b.Large, "Large")),
 	),
 	c.Example(
 		`b.Tags(
@@ -215,17 +216,17 @@ b.Tag(
 	"World",
 	b.Delete(),
 )`,
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(
 			b.Success,
 			"Bar",
 			b.Delete(b.Small),
 		)),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(
 			b.Warning, b.Medium,
 			"Hello",
 			b.Delete(b.Small),
 		)),
-		el.Div(b.MarginBottom(b.Spacing1), b.Tag(
+		e.Div(b.MarginBottom(b.Spacing1), b.Tag(
 			b.Danger, b.Large,
 			"World",
 			b.Delete(),

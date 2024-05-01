@@ -2,31 +2,30 @@ package bulma
 
 import (
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
-func modalBackground() Element {
-	return Elem(html.Div, Class("modal-background"), OnClick(JSCloseThisModal))
+func modalBackground() e.Element {
+	return e.Div(e.Class("modal-background"), e.OnClick(JSCloseThisModal))
 }
 
-func modalClose() Element {
-	return Elem(
-		html.Button,
-		Class("modal-close"),
+func modalClose() e.Element {
+	return e.Button(
+		e.Class("modal-close"),
 		Large,
-		html.Aria("label", "close"),
-		OnClick(JSCloseThisModal),
+		e.AriaLabel("close"),
+		e.OnClick(JSCloseThisModal),
 	)
 }
 
 // Modal creates a modal. The modal background and the modal close button are automatically added. The children are added to the modal content.
 //
 // https://willoma.github.io/bulma-gomponents/modal.html
-func Modal(children ...any) Element {
-	content := Elem(html.Div, Class("modal-content"))
+func Modal(children ...any) e.Element {
+	content := e.Div(e.Class("modal-content"))
 	m := &modal{
-		Element: Elem(
-			html.Div, Class("modal"),
+		Element: e.Div(
+			e.Class("modal"),
 			modalBackground(),
 			content,
 			modalClose(),
@@ -38,11 +37,11 @@ func Modal(children ...any) Element {
 }
 
 type modal struct {
-	Element
-	content Element
+	e.Element
+	content e.Element
 }
 
-func (m *modal) With(children ...any) Element {
+func (m *modal) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onModal:
@@ -50,7 +49,7 @@ func (m *modal) With(children ...any) Element {
 		case onContent:
 			m.content.With(c...)
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				m.Element.With(c)
 			} else {
 				m.content.With(c)
@@ -64,7 +63,7 @@ func (m *modal) With(children ...any) Element {
 	return m
 }
 
-func (m *modal) Clone() Element {
+func (m *modal) Clone() e.Element {
 	return &modal{
 		Element: m.Element.Clone(),
 		content: m.content.Clone(),
@@ -78,15 +77,15 @@ func (m *modal) Clone() Element {
 // unwrapped child is added to the card body.
 //
 // https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCard(children ...any) Element {
-	head := Elem(html.Div, Class("modal-card-head"))
-	body := Elem(html.Div, Class("modal-card-body"))
-	foot := Elem(html.Div, Class("modal-card-foot"))
+func ModalCard(children ...any) e.Element {
+	head := e.Div(e.Class("modal-card-head"))
+	body := e.Div(e.Class("modal-card-body"))
+	foot := e.Div(e.Class("modal-card-foot"))
 
-	card := Elem(html.Div, Class("modal-card"), head, body, foot)
+	card := e.Div(e.Class("modal-card"), head, body, foot)
 	m := &modalCard{
-		Element: Elem(
-			html.Div, Class("modal"),
+		Element: e.Div(
+			e.Class("modal"),
 			modalBackground(),
 			card,
 			modalClose(),
@@ -101,14 +100,14 @@ func ModalCard(children ...any) Element {
 }
 
 type modalCard struct {
-	Element
-	card Element
-	head Element
-	body Element
-	foot Element
+	e.Element
+	card e.Element
+	head e.Element
+	body e.Element
+	foot e.Element
 }
 
-func (m *modalCard) With(children ...any) Element {
+func (m *modalCard) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onModal:
@@ -122,7 +121,7 @@ func (m *modalCard) With(children ...any) Element {
 		case modalCardFoot:
 			m.foot.With(c...)
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				m.Element.With(c)
 			} else {
 				m.body.With(c)
@@ -137,7 +136,7 @@ func (m *modalCard) With(children ...any) Element {
 	return m
 }
 
-func (m *modalCard) Clone() Element {
+func (m *modalCard) Clone() e.Element {
 	return &modalCard{
 		Element: m.Element.Clone(),
 		card:    m.card.Clone(),
@@ -159,17 +158,17 @@ type modalCardHead []any
 // ModalCardTitle creates a title for a card head.
 //
 // https://willoma.github.io/bulma-gomponents/modal.html
-func ModalCardTitle(children ...any) Element {
-	m := &modalCardTitle{Elem(html.P, Class("modal-card-title"))}
+func ModalCardTitle(children ...any) e.Element {
+	m := &modalCardTitle{e.P(e.Class("modal-card-title"))}
 	m.With(children...)
 	return m
 }
 
 type modalCardTitle struct {
-	Element
+	e.Element
 }
 
-func (m *modalCardTitle) Clone() Element {
+func (m *modalCardTitle) Clone() e.Element {
 	return &modalCardTitle{m.Element.Clone()}
 }
 
@@ -181,8 +180,8 @@ func ModalCardTitleWithClose(title string) modalCardHead {
 	return ModalCardHead(
 		ModalCardTitle(title),
 		Delete(
-			OnClick(JSCloseThisModal),
-			html.Aria("label", "close"),
+			e.OnClick(JSCloseThisModal),
+			e.AriaLabel("close"),
 		),
 	)
 }

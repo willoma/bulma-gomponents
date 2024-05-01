@@ -4,10 +4,8 @@ import (
 	"io"
 	"sync"
 
-	"github.com/maragudk/gomponents/html"
-
 	b "github.com/willoma/bulma-gomponents"
-	"github.com/willoma/bulma-gomponents/el"
+	e "github.com/willoma/gomplements"
 )
 
 type (
@@ -15,8 +13,8 @@ type (
 	Class string
 )
 
-func (c Class) Class() b.Class {
-	return b.Class(c)
+func (c Class) Class() e.Class {
+	return e.Class(c)
 }
 
 // Styles
@@ -42,21 +40,21 @@ const (
 // name (without the "fa-" prefix).
 //
 // // https://willoma.github.io/bulma-gomponents/icon.html#font-awesome
-func FA(style Style, name string, children ...any) b.Element {
-	f := &fa{Element: b.Elem(html.I, b.Class(style), b.Class("fa-"+name))}
+func FA(style Style, name string, children ...any) e.Element {
+	f := &fa{Element: e.I(e.Class(style), e.Class("fa-"+name))}
 	f.With(children...)
 	return f
 }
 
 type fa struct {
-	b.Element
+	e.Element
 
 	rotateOrFlips []any
 
 	rendered sync.Once
 }
 
-func (f *fa) With(children ...any) b.Element {
+func (f *fa) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class:
@@ -85,7 +83,7 @@ func (f *fa) Render(w io.Writer) error {
 	elem := f.Element
 
 	for i := len(f.rotateOrFlips) - 2; i >= 0; i-- {
-		elem = el.Span(b.Style("display", "inline-block"), f.rotateOrFlips[i], elem)
+		elem = e.Span(e.Style("display", "inline-block"), f.rotateOrFlips[i], elem)
 	}
 
 	return elem.Render(w)
@@ -95,7 +93,7 @@ func (f *fa) Render(w io.Writer) error {
 // with the provided style and name (without the "fa-" prefix).
 //
 // // https://willoma.github.io/bulma-gomponents/icon.html#font-awesome
-func Icon(style Style, name string, children ...any) b.Element {
+func Icon(style Style, name string, children ...any) e.Element {
 	fa := FA(style, name)
 	i := &icon{
 		Element: b.Icon(fa),
@@ -106,15 +104,15 @@ func Icon(style Style, name string, children ...any) b.Element {
 }
 
 type icon struct {
-	b.Element
-	fa b.Element
+	e.Element
+	fa e.Element
 }
 
-func (i *icon) SetIconClass(c b.Class) {
+func (i *icon) SetIconClass(c e.Class) {
 	i.Element.(b.IconElem).SetIconClass(c)
 }
 
-func (i *icon) With(children ...any) b.Element {
+func (i *icon) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onFA:

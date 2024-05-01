@@ -1,7 +1,7 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Container creates a container element. Its width depends on the applied
@@ -9,15 +9,15 @@ import (
 //
 // http://willoma.github.io/bulma-gomponents/container.html
 func Container(children ...any) *container {
-	c := &container{Elem(html.Div, Class("container"))}
+	c := &container{e.Div(e.Class("container"))}
 	c.With(children...)
 	return c
 }
 
 type container struct {
-	Element
+	e.Element
 }
 
-func (c *container) Clone() Element {
+func (c *container) Clone() e.Element {
 	return &container{c.Element.Clone()}
 }

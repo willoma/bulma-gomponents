@@ -3,7 +3,7 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type flip struct {
@@ -25,38 +25,38 @@ func Flip(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *flip) ModifyParent(e b.Element) {
-	e.With(Class("fa-flip"))
+func (a *flip) ModifyParent(p e.Element) {
+	p.With(Class("fa-flip"))
 
 	if a.x != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-flip-x",
 			strconv.FormatFloat(a.x, 'f', 2, 64),
 		))
 	}
 
 	if a.y != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-flip-y",
 			strconv.FormatFloat(a.y, 'f', 2, 64),
 		))
 	}
 
 	if a.z != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-flip-z",
 			strconv.FormatFloat(a.z, 'f', 2, 64),
 		))
 	}
 
 	if a.angle != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-flip-angle",
 			strconv.FormatFloat(a.angle, 'f', 2, 64),
 		))
 	}
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }
 
 func X(x float64) func(Animation) {

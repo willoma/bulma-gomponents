@@ -2,6 +2,7 @@ package bulma
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // ImgAlt is a modifier that, when applied to ImageImg, adds an alt attribute.
@@ -10,18 +11,18 @@ type ImgAlt string
 // Image creates a figure element with class "image".
 //
 // https://willoma.github.io/bulma-gomponents/image.html
-func Image(children ...any) Element {
-	return Elem(html.Figure, Class("image"), children)
+func Image(children ...any) e.Element {
+	return e.Figure(e.Class("image"), children)
 }
 
 // ImageImg creates a figure element with class "image" and the inner img
 // element, with the provided src.
 //
 // https://willoma.github.io/bulma-gomponents/image.html
-func ImageImg(src string, children ...any) Element {
-	img := Elem(html.Img, html.Src(src))
+func ImageImg(src string, children ...any) e.Element {
+	img := e.Img(html.Src(src))
 	i := &imageImg{
-		Element: Elem(html.Figure, Class("image"), img),
+		Element: e.Figure(e.Class("image"), img),
 		img:     img,
 	}
 	i.With(children...)
@@ -29,18 +30,18 @@ func ImageImg(src string, children ...any) Element {
 }
 
 type imageImg struct {
-	Element
-	img Element
+	e.Element
+	img e.Element
 }
 
-func (i *imageImg) With(children ...any) Element {
+func (i *imageImg) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onImg:
 			i.img.With(c...)
 		case onFigure:
 			i.Element.With(c...)
-		case Class:
+		case e.Class:
 			if c == Rounded {
 				i.img.With(c)
 			} else {
@@ -58,7 +59,7 @@ func (i *imageImg) With(children ...any) Element {
 	return i
 }
 
-func (i *imageImg) Clone() Element {
+func (i *imageImg) Clone() e.Element {
 	return &imageImg{
 		Element: i.Element.Clone(),
 		img:     i.img.Clone(),

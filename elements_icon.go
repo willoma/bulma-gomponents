@@ -6,29 +6,30 @@ import (
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Icon creates an icon span.
 //
 // https://willoma.github.io/bulma-gomponents/icon.html
-func Icon(children ...any) Element {
-	i := &icon{icon: Elem(html.Span), iconClass: "icon"}
+func Icon(children ...any) e.Element {
+	i := &icon{icon: e.Span(), iconClass: "icon"}
 	i.With(children...)
 	return i
 }
 
 type icon struct {
-	icon Element
+	icon e.Element
 
-	iconClass Class
+	iconClass e.Class
 	rendered  sync.Once
 }
 
-func (i *icon) SetIconClass(c Class) {
+func (i *icon) SetIconClass(c e.Class) {
 	i.iconClass = c
 }
 
-func (i *icon) With(children ...any) Element {
+func (i *icon) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Color:
@@ -51,7 +52,7 @@ func (i *icon) Render(w io.Writer) error {
 	return i.icon.Render(w)
 }
 
-func (i *icon) Clone() Element {
+func (i *icon) Clone() e.Element {
 	return &icon{
 		icon:      i.icon.Clone(),
 		iconClass: i.iconClass,
@@ -59,15 +60,15 @@ func (i *icon) Clone() Element {
 }
 
 type IconElem interface {
-	Element
-	SetIconClass(Class)
+	e.Element
+	SetIconClass(e.Class)
 }
 
 // IconText creates an icon-text span and embed all its non-icons children into
 // spans.
 //
 // https://willoma.github.io/bulma-gomponents/icon.html
-func IconText(children ...any) Element {
+func IconText(children ...any) e.Element {
 	return newIconText(html.Span, children...)
 }
 
@@ -75,21 +76,22 @@ func IconText(children ...any) Element {
 // into spans.
 //
 // https://willoma.github.io/bulma-gomponents/icon.html
-func FlexIconText(children ...any) Element {
+func FlexIconText(children ...any) e.Element {
 	return newIconText(html.Div, children...)
 }
 
-func newIconText(fn func(...gomponents.Node) gomponents.Node, children ...any) Element {
-	i := &iconText{Elem(fn, Class("icon-text"), elemOptionSpanAroundNonIconsAlways)}
-	i.With(children...)
+func newIconText(fn func(...gomponents.Node) gomponents.Node, children ...any) e.Element {
+	i := &elemOptionSpanAroundNonIcons{elemFn: fn}
+	i.With(e.Class("icon-text")).With(children...)
+
 	return i
 }
 
 type iconText struct {
-	Element
+	e.Element
 }
 
-func (i *iconText) With(children ...any) Element {
+func (i *iconText) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Color:
@@ -104,6 +106,6 @@ func (i *iconText) With(children ...any) Element {
 	return i
 }
 
-func (i *iconText) Clone() Element {
+func (i *iconText) Clone() e.Element {
 	return &iconText{i.Element.Clone()}
 }

@@ -1,18 +1,20 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	e "github.com/willoma/gomplements"
+)
 
 // SkeletonBlock creates a block skeleton.
-func SkeletonBlock(children ...any) Element {
-	return Elem(html.Div, Class("skeleton-block"), children)
+func SkeletonBlock(children ...any) e.Element {
+	return e.Div(e.Class("skeleton-block"), children)
 }
 
 // SkeletonLines create a block of skeleton lines.
-func SkeletonLines(count int) Element {
-	elem := Elem(html.Div, Class("skeleton-lines"))
+func SkeletonLines(count int) e.Element {
+	elem := e.Div(e.Class("skeleton-lines"))
 
 	for i := 0; i < count; i++ {
-		elem.With(Elem(html.Div))
+		elem.With(e.Div())
 	}
 
 	return elem

@@ -3,7 +3,7 @@ package fa
 import (
 	"strconv"
 
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type fade struct {
@@ -22,17 +22,17 @@ func Fade(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *fade) ModifyParent(e b.Element) {
-	e.With(Class("fa-fade"))
+func (a *fade) ModifyParent(p e.Element) {
+	p.With(Class("fa-fade"))
 
 	if a.minOpacity != 0 {
-		e.With(b.Style(
+		p.With(e.Style(
 			"--fa-fade-opacity",
 			strconv.FormatFloat(a.minOpacity, 'f', 2, 64),
 		))
 	}
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }
 
 func MinOpacity(opacity float64) func(Animation) {

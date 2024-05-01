@@ -1,10 +1,12 @@
 package bulma
 
-import "github.com/maragudk/gomponents/html"
+import (
+	e "github.com/willoma/gomplements"
+)
 
 // Notification creates a notification element.
 //
 // https://willoma.github.io/bulma-gomponents/notification.html
-func Notification(children ...any) Element {
-	return Elem(html.Div, Class("notification"), children)
+func Notification(children ...any) e.Element {
+	return e.Div(e.Class("notification"), children)
 }

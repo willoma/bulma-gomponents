@@ -1,29 +1,29 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Content creates a content element.
 //
 // https://willoma.github.io/bulma-gomponents/content.html
-func Content(children ...any) Element {
-	c := &content{Elem(html.Div, Class("content"))}
+func Content(children ...any) e.Element {
+	c := &content{e.Div(e.Class("content"))}
 	c.With(children...)
 	return c
 }
 
 type content struct {
-	Element
+	e.Element
 }
 
-func (ct *content) With(children ...any) Element {
+func (ct *content) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case noP:
 			ct.withNoP(c)
 		case string:
-			ct.Element.With(Elem(html.P, c))
+			ct.Element.With(e.P(c))
 		case []any:
 			ct.With(c...)
 		default:
@@ -34,7 +34,7 @@ func (ct *content) With(children ...any) Element {
 	return ct
 }
 
-func (ct *content) withNoP(children []any) Element {
+func (ct *content) withNoP(children []any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case []any:
@@ -47,7 +47,7 @@ func (ct *content) withNoP(children []any) Element {
 	return ct
 }
 
-func (ct *content) Clone() Element {
+func (ct *content) Clone() e.Element {
 	return &content{ct.Element.Clone()}
 }
 

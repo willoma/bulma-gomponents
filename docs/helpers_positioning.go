@@ -1,9 +1,10 @@
 package docs
 
 import (
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 )
 
 var positioning = c.NewPage(
@@ -14,24 +15,24 @@ var positioning = c.NewPage(
 	b.Table(
 		b.HeadRow("Modifier", "Action"),
 		b.Row(
-			el.Code("b.PositionAbsolute"),
-			b.Cell("Remove the element from the document flow and position it relative to its closed positioned ancestor (", el.Em("absolute positioning"), ")"),
+			e.Code("b.PositionAbsolute"),
+			b.Cell("Remove the element from the document flow and position it relative to its closed positioned ancestor (", e.Em("absolute positioning"), ")"),
 		),
 		b.Row(
-			el.Code("b.PositionFixed"),
-			b.Cell("Remove the element from the document flow and position it relative to the viewport (", el.Em("fixed positioning"), ")"),
+			e.Code("b.PositionFixed"),
+			b.Cell("Remove the element from the document flow and position it relative to the viewport (", e.Em("fixed positioning"), ")"),
 		),
 		b.Row(
-			el.Code("b.PositionRelative"),
-			b.Cell("Position the element according to the document flow and offset relative to itself (", el.Em("relative positioning"), ")"),
+			e.Code("b.PositionRelative"),
+			b.Cell("Position the element according to the document flow and offset relative to itself (", e.Em("relative positioning"), ")"),
 		),
 		b.Row(
-			el.Code("b.PositionStatic"),
-			b.Cell("Position the element according to the document flow with no offset (", el.Em("static positioning"), ")"),
+			e.Code("b.PositionStatic"),
+			b.Cell("Position the element according to the document flow with no offset (", e.Em("static positioning"), ")"),
 		),
 		b.Row(
-			el.Code("b.PositionSticky"),
-			b.Cell("Position the element according to the document flow and offset relative to its nearest scrolling ancestor (", el.Em("sticky positioning"), ")"),
+			e.Code("b.PositionSticky"),
+			b.Cell("Position the element according to the document flow and offset relative to its nearest scrolling ancestor (", e.Em("sticky positioning"), ")"),
 		),
 	),
 	b.Notification(

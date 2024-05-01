@@ -5,57 +5,57 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Level creates a level element.
 //
 // http://willoma.github.io/bulma-gomponents/level.html
-func Level(children ...any) Element {
-	l := &level{level: Elem(html.Nav, Class("level"))}
+func Level(children ...any) e.Element {
+	l := &level{level: e.Nav(e.Class("level"))}
 	l.With(children...)
 	return l
 }
 
 type level struct {
-	level Element
-	left  Element
-	right Element
+	level e.Element
+	left  e.Element
+	right e.Element
 
 	rendered sync.Once
 }
 
 func (l *level) addToLeft(children ...any) {
 	if l.left == nil {
-		l.left = Elem(html.Div, Class("level-left"))
+		l.left = e.Div(e.Class("level-left"))
 	}
 	flattenLevelSection(l.left, children)
 }
 
 func (l *level) addToRight(children ...any) {
 	if l.right == nil {
-		l.right = Elem(html.Div, Class("level-right"))
+		l.right = e.Div(e.Class("level-right"))
 	}
 	flattenLevelSection(l.right, children)
 }
 
-func (l *level) With(children ...any) Element {
+func (l *level) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case levelLeft:
 			l.addToLeft(c...)
 		case levelRight:
 			l.addToRight(c...)
-		case Element:
-			c.With(Class("level-item"))
+		case e.Element:
+			c.With(e.Class("level-item"))
 			l.level.With(c)
 		case string:
-			l.level.With(Elem(html.P, Class("level-item"), c))
+			l.level.With(e.P(e.Class("level-item"), c))
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				l.level.With(c)
 			} else {
-				l.level.With(Elem(html.Div, Class("level-item"), c))
+				l.level.With(e.Div(e.Class("level-item"), c))
 			}
 		case []any:
 			l.With(c...)
@@ -80,7 +80,7 @@ func (l *level) Render(w io.Writer) error {
 	return l.level.Render(w)
 }
 
-func (l *level) Clone() Element {
+func (l *level) Clone() e.Element {
 	return &level{
 		level: l.level.Clone(),
 		left:  l.left.Clone(),
@@ -100,17 +100,17 @@ func LevelRight(children ...any) levelRight {
 
 type levelRight []any
 
-func flattenLevelSection(target Element, children []any) {
+func flattenLevelSection(target e.Element, children []any) {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Element:
-			c.With(Class("level-item"))
+		case e.Element:
+			c.With(e.Class("level-item"))
 			target.With(c)
 		case string:
-			target.With(Elem(html.P, Class("level-item"), c))
+			target.With(e.P(e.Class("level-item"), c))
 		case gomponents.Node:
-			if !isAttribute(c) {
-				target.With(Elem(html.Div, Class("level-item"), c))
+			if !e.IsAttribute(c) {
+				target.With(e.Div(e.Class("level-item"), c))
 			} else {
 				target.With(c)
 			}

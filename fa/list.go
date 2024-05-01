@@ -2,17 +2,17 @@ package fa
 
 import (
 	b "github.com/willoma/bulma-gomponents"
-	"github.com/willoma/bulma-gomponents/el"
+	e "github.com/willoma/gomplements"
 )
 
 // UList replaces bullets with icons in ul lists.
-func UList(children ...any) b.Element {
-	return el.Ul(b.Class("fa-ul"), children)
+func UList(children ...any) e.Element {
+	return e.Ul(e.Class("fa-ul"), children)
 }
 
 // OList replaces numbers with icons in ol lists.
-func OList(children ...any) b.Element {
-	return el.Ol(b.Class("fa-ul"), children)
+func OList(children ...any) e.Element {
+	return e.Ol(e.Class("fa-ul"), children)
 }
 
 // Li returns a list element with custom bullet in a UList or a OList,
@@ -23,11 +23,11 @@ func OList(children ...any) b.Element {
 //     variant)
 //   - when a child is a rotation or animation, it is applied to the icon
 //   - all other children types are added to the li
-func Li(style Style, name string, children ...any) b.Element {
+func Li(style Style, name string, children ...any) e.Element {
 	fa := FA(style, name)
-	span := el.Span(b.Class("fa-li"), fa)
+	span := e.Span(e.Class("fa-li"), fa)
 	l := &li{
-		Element: el.Li(span),
+		Element: e.Li(span),
 		fa:      fa,
 		span:    span,
 	}
@@ -36,12 +36,12 @@ func Li(style Style, name string, children ...any) b.Element {
 }
 
 type li struct {
-	b.Element
-	fa   b.Element
-	span b.Element
+	e.Element
+	fa   e.Element
+	span e.Element
 }
 
-func (l *li) With(children ...any) b.Element {
+func (l *li) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case Class, rotateOrFlip, Rotate, Animation:

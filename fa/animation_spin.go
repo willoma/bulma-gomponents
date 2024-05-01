@@ -1,7 +1,7 @@
 package fa
 
 import (
-	b "github.com/willoma/bulma-gomponents"
+	e "github.com/willoma/gomplements"
 )
 
 type spin struct {
@@ -21,18 +21,18 @@ func Spin(options ...func(Animation)) Animation {
 	return a
 }
 
-func (a *spin) ModifyParent(e b.Element) {
+func (a *spin) ModifyParent(p e.Element) {
 	if a.pulse {
-		e.With(Class("fa-spin-pulse"))
+		p.With(Class("fa-spin-pulse"))
 	} else {
-		e.With(Class("fa-spin"))
+		p.With(Class("fa-spin"))
 	}
 
 	if a.reverse {
-		e.With(Class("fa-spin-reverse"))
+		p.With(Class("fa-spin-reverse"))
 	}
 
-	a.animationBase.ModifyParent(e)
+	a.animationBase.ModifyParent(p)
 }
 
 func Pulse(a Animation) {

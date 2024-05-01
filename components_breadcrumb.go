@@ -3,19 +3,18 @@ package bulma
 import (
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Breadcrumb creates a breadcrumb.
 //
 // https://willoma.github.io/bulma-gomponents/breadcrumb.html
-func Breadcrumb(children ...any) Element {
-	ul := Elem(html.Ul)
+func Breadcrumb(children ...any) e.Element {
+	ul := e.Ul()
 	b := &breadcrumb{
-		Element: Elem(
-			html.Nav,
-			Class("breadcrumb"),
-			html.Aria("label", "breadcrumbs"),
-			elemOptionSpanAroundNonIconsIfHasIcons,
+		Element: e.Nav(
+			e.Class("breadcrumb"),
+			e.AriaLabel("breadcrumbs"),
 			ul,
 		),
 		ul: ul,
@@ -25,21 +24,21 @@ func Breadcrumb(children ...any) Element {
 }
 
 type breadcrumb struct {
-	Element
-	ul Element
+	e.Element
+	ul e.Element
 }
 
-func (b *breadcrumb) With(children ...any) Element {
+func (b *breadcrumb) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onUl:
 			b.ul.With(c...)
 		case onNav:
 			b.Element.With(c...)
-		case Class, Classer, Classeser, Styles:
+		case e.Class, e.Classer, e.Classeser, e.Styles:
 			b.Element.With(c)
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				b.Element.With(c)
 			} else {
 				b.ul.With(c)
@@ -53,7 +52,7 @@ func (b *breadcrumb) With(children ...any) Element {
 	return b
 }
 
-func (b *breadcrumb) Clone() Element {
+func (b *breadcrumb) Clone() e.Element {
 	return &breadcrumb{
 		Element: b.Element.Clone(),
 		ul:      b.ul.Clone(),
@@ -61,8 +60,8 @@ func (b *breadcrumb) Clone() Element {
 }
 
 // BreadcrumbEntry creates a generic breadcrumb entry.
-func BreadcrumbEntry(children ...any) Element {
-	return Elem(html.Li, children...)
+func BreadcrumbEntry(children ...any) e.Element {
+	return e.Li(children...)
 }
 
 // BreadcrumbAHref creates a breadcrumb entry which contains
@@ -70,15 +69,11 @@ func BreadcrumbEntry(children ...any) Element {
 //
 // It is better than BreadcrumbEntry(AHref(href, children...)),
 // because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbAHref(href string, children ...any) Element {
-	return Elem(
-		html.Li,
-		AHref(
-			href,
-			elemOptionSpanAroundNonIconsIfHasIcons,
-			children,
-		),
-	)
+func BreadcrumbAHref(href string, children ...any) e.Element {
+	ahref := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
+	ahref.With(html.Href(href)).With(children...)
+
+	return e.Li(ahref)
 }
 
 // BreadcrumbActiveAHref creates an active breadcrumb entry which contains
@@ -86,14 +81,9 @@ func BreadcrumbAHref(href string, children ...any) Element {
 //
 // It is better than BreadcrumbEntry(Active, AHref(href, children)),
 // because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbActiveAHref(href string, children ...any) Element {
-	return Elem(
-		html.Li, Active,
-		AHref(
-			href,
-			elemOptionSpanAroundNonIconsIfHasIcons,
-			children,
-			html.Aria("current", "page"),
-		),
-	)
+func BreadcrumbActiveAHref(href string, children ...any) e.Element {
+	ahref := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
+	ahref.With(html.Href(href), e.AriaCurrentPage).With(children...)
+
+	return e.Li(Active, ahref)
 }

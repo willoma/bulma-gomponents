@@ -3,15 +3,16 @@ package bulma
 import (
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Radio creates a radio element, together with its label container.
 //
 // https://willoma.github.io/bulma-gomponents/form/radio.html
-func Radio(children ...any) Element {
-	input := Elem(html.Input, html.Type("radio"))
+func Radio(children ...any) e.Element {
+	input := e.Input(html.Type("radio"))
 	r := &radio{
-		Element: Elem(html.Label, Class("radio"), input, " "),
+		Element: e.Label(e.Class("radio"), input, " "),
 		input:   input,
 	}
 	r.With(children...)
@@ -25,11 +26,11 @@ func Radio(children ...any) Element {
 var Checked = gomponents.Attr("checked")
 
 type radio struct {
-	Element
-	input Element
+	e.Element
+	input e.Element
 }
 
-func (r *radio) With(children ...any) Element {
+func (r *radio) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case onInput:
@@ -38,7 +39,7 @@ func (r *radio) With(children ...any) Element {
 			r.Element.With(c...)
 		case string:
 			r.Element.With(c)
-		case Class:
+		case e.Class:
 			switch c {
 			case Disabled:
 				r.input.With(html.Disabled())
@@ -47,12 +48,12 @@ func (r *radio) With(children ...any) Element {
 				r.input.With(c)
 			}
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				r.input.With(c)
 			} else {
 				r.Element.With(c)
 			}
-		case Element:
+		case e.Element:
 			r.Element.With(c)
 		case []any:
 			r.With(c...)
@@ -64,7 +65,7 @@ func (r *radio) With(children ...any) Element {
 	return r
 }
 
-func (r *radio) Clone() Element {
+func (r *radio) Clone() e.Element {
 	return &radio{
 		Element: r.Element.Clone(),
 		input:   r.input.Clone(),

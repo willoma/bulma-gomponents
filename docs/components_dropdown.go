@@ -2,10 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -14,67 +14,67 @@ var dropdown = c.NewPage(
 	"",
 
 	b.Content(
-		el.P(
-			"The ", el.Code("b.Dropdown"), " constructor creates a dropdown menu. In order to make the dropdown menu open to the top of the button, use ", el.Code("b.Dropup"), " instead. The following children have a special meaning:",
+		e.P(
+			"The ", e.Code("b.Dropdown"), " constructor creates a dropdown menu. In order to make the dropdown menu open to the top of the button, use ", e.Code("b.Dropup"), " instead. The following children have a special meaning:",
 		),
 		b.DList(
-			el.Code("b.OnDropdown(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="dropdown">`), " element"},
+			e.Code("b.OnDropdown(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="dropdown">`), " e.Element"},
 
-			el.Code("b.OnTrigger(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="dropdown-trigger">`), " element"},
+			e.Code("b.OnTrigger(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="dropdown-trigger">`), " e.Element"},
 
-			el.Code("b.OnMenu(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="dropdown-menu">`), " element"},
+			e.Code("b.OnMenu(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="dropdown-menu">`), " e.Element"},
 
-			el.Code("b.OnContent(...)"),
-			[]any{"Force childen to be applied to the ", el.Code(`<div class="dropdown-content">`), " element"},
+			e.Code("b.OnContent(...)"),
+			[]any{"Force childen to be applied to the ", e.Code(`<div class="dropdown-content">`), " e.Element"},
 
-			el.Code("b.DropdownButton(...)"),
+			e.Code("b.DropdownButton(...)"),
 			"Make this button (part of) the trigger",
 
-			[]any{el.Code("b.DropdownItem(...)"), ", ", el.Code("b.DropdownAHref(...)"), " and ", el.Code("b.DropdownDivider()")},
+			[]any{e.Code("b.DropdownItem(...)"), ", ", e.Code("b.DropdownAHref(...)"), " and ", e.Code("b.DropdownDivider()")},
 			"Add the child to the content",
 
-			el.Code("b.ID"),
-			[]any{"Set the ID of the ", el.Code(`<div class="dropdown-menu">`), " element"},
+			e.Code("b.ID"),
+			[]any{"Set the ID of the ", e.Code(`<div class="dropdown-menu">`), " e.Element"},
 
-			el.Code("b.Clickable"),
+			e.Code("b.Clickable"),
 			"Make the menu open when the button is clicked (javascript is automatically added)",
 
-			el.Code("b.Element"),
-			[]any{"Wrap the child with the ", el.Code("b.DropdownItem"), " constructor and add it to the content"},
+			e.Code("e.Element"),
+			[]any{"Wrap the child with the ", e.Code("b.DropdownItem"), " constructor and add it to the content"},
 
-			[]any{el.Code("gomponents.Node"), " of type ", el.Code("gomponents.AttributeType")},
+			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
 			"Apply the attribute to the dropdown",
 
-			[]any{"Other ", el.Code("gomponents.Node")},
-			"Add this element to the content",
+			[]any{"Other ", e.Code("gomponents.Node")},
+			"Add this e.Element to the content",
 
-			el.Code("b.Active"),
+			e.Code("b.Active"),
 			"Open the menu",
 
-			el.Code("b.Hoverable"),
+			e.Code("b.Hoverable"),
 			"Make the menu open when the cursor hovers the button",
 
-			el.Code("b.Up"),
+			e.Code("b.Up"),
 			"Make the dropdown open to the top",
 
-			el.Code("string"),
+			e.Code("string"),
 			[]any{"Create a dropdown button with this label"},
 		),
-		el.P("The following constructors allow providing content to the dropdown menu:"),
+		e.P("The following constructors allow providing content to the dropdown menu:"),
 		b.DList(
-			el.Code("b.DropdownItem(children ...any)"),
+			e.Code("b.DropdownItem(children ...any)"),
 			"Wrap the children in a dropdown-item div",
 
-			el.Code("b.DropdownAHref(href string, children ...any)"),
+			e.Code("b.DropdownAHref(href string, children ...any)"),
 			"Create a dropdown-item link",
 
-			el.Code("b.DropdownDivider()"),
+			e.Code("b.DropdownDivider()"),
 			"Create a dropdown divider",
 
-			el.Code(`b.DropdownButton(children ...any)`),
+			e.Code(`b.DropdownButton(children ...any)`),
 			"Create a dropdown button with the provided content - if no icon is provided, a default icon will be added: angle down or up",
 		),
 	),
@@ -86,8 +86,8 @@ var dropdown = c.NewPage(
 	b.Clickable,
 	b.OnTrigger(
 		b.Button(
-			html.Aria("haspopup", "true"),
-			html.Aria("controls", "dropdown-menu"),
+			e.AriaHasPopupTrue,
+			e.AriaControlsID("dropdown-menu"),
 			"Dropdown button",
 			fa.Icon(fa.Solid, "angle-down", b.Small),
 		),
@@ -105,13 +105,13 @@ var dropdown = c.NewPage(
 			b.Clickable,
 			b.OnTrigger(
 				b.Button(
-					html.Aria("haspopup", "true"),
-					html.Aria("controls", "dropdown-menu"),
+					e.AriaHasPopupTrue,
+					e.AriaControlsID("dropdown-menu"),
 					"Dropdown button",
 					fa.Icon(fa.Solid, "angle-down", b.Small),
 				),
 			),
-			b.ID("dropdown-menu"),
+			e.ID("dropdown-menu"),
 			b.DropdownAHref("#", "Dropdown item"),
 			b.DropdownItem(html.A, "Other dropdown item"),
 			b.DropdownAHref("#", b.Active, "Active dropdown item"),
@@ -124,18 +124,18 @@ var dropdown = c.NewPage(
 ).Subsection(
 	"Dropdown content",
 	"https://bulma.io/documentation/components/dropdown/#dropdown-content",
-	b.Content(el.P(el.Em("Bulma-Gomponents"), " automatically embeds any content that is not a legit dropdown item or divider into a ", el.Code("b.DropdownItem"), ":")),
+	b.Content(e.P(e.Em("Bulma-Gomponents"), " automatically embeds any content that is not a legit dropdown item or divider into a ", e.Code("b.DropdownItem"), ":")),
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
 	b.DropdownButton(
-		html.Aria("controls", "dropdown-menu2"),
+		e.AriaControlsID("dropdown-menu2"),
 		"Content",
 	),
-	html.ID("dropdown-menu2"),
-	el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
+	e.ID("dropdown-menu2"),
+	e.P("You can insert ", e.Strong("any type of content"), " within the dropdown menu."),
 	b.DropdownDivider(),
-	el.P("You simply need to use a ", el.Code("b.DropdownItem"), ", or even no specific container, instead."),
+	e.P("You simply need to use a ", e.Code("b.DropdownItem"), ", or even no specific container, instead."),
 	b.DropdownDivider(),
 	b.DropdownAHref("#", "This is a link"),
 	b.Active,
@@ -143,13 +143,13 @@ var dropdown = c.NewPage(
 		b.Dropdown(
 			b.Clickable,
 			b.DropdownButton(
-				html.Aria("controls", "dropdown-menu2"),
+				e.AriaControlsID("dropdown-menu2"),
 				"Content",
 			),
-			html.ID("dropdown-menu2"),
-			el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
+			e.ID("dropdown-menu2"),
+			e.P("You can insert ", e.Strong("any type of content"), " within the dropdown menu."),
 			b.DropdownDivider(),
-			el.P("You simply need to use a ", el.Code("b.DropdownItem"), ", or even no specific container, instead."),
+			e.P("You simply need to use a ", e.Code("b.DropdownItem"), ", or even no specific container, instead."),
 			b.DropdownDivider(),
 			b.DropdownAHref("#", "This is a link"),
 			b.Active,
@@ -158,7 +158,7 @@ var dropdown = c.NewPage(
 ).Subsection(
 	"Hoverable or Toggable",
 	"https://bulma.io/documentation/components/dropdown/#hoverable-or-toggable",
-	b.Content(el.P(el.Em("Bulma-Gomponents"), " provides the", el.Code("easy.ClickableDropdown"), " and ", el.Code("easy.HoverableDropdown"), "variants:")),
+	b.Content(e.P(e.Em("Bulma-Gomponents"), " provides the", e.Code("easy.ClickableDropdown"), " and ", e.Code("easy.HoverableDropdown"), "variants:")),
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
@@ -191,12 +191,12 @@ var dropdown = c.NewPage(
 		`b.Dropdown(
 	b.Hoverable,
 	"Hover me",
-	el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
+	e.P("You can insert ", e.Strong("any type of content"), " within the dropdown menu."),
 )`,
 		b.Dropdown(
 			b.Hoverable,
 			"Hover me",
-			el.P("You can insert ", el.Strong("any type of content"), " within the dropdown menu."),
+			e.P("You can insert ", e.Strong("any type of content"), " within the dropdown menu."),
 		),
 	),
 ).Subsection(
@@ -207,12 +207,12 @@ var dropdown = c.NewPage(
 		`b.Dropdown(
 	b.Clickable,
 	b.DropdownButton("Left aligned"),
-	el.P("The dropdown is ", el.Strong("left-aligned"), " by default."),
+	e.P("The dropdown is ", e.Strong("left-aligned"), " by default."),
 )`,
 		b.Dropdown(
 			b.Clickable,
 			b.DropdownButton("Left aligned"),
-			el.P("The dropdown is ", el.Strong("left-aligned"), " by default."),
+			e.P("The dropdown is ", e.Strong("left-aligned"), " by default."),
 		),
 	),
 	c.Example(
@@ -220,13 +220,13 @@ var dropdown = c.NewPage(
 	b.Clickable,
 	b.Right,
 	b.DropdownButton("Right aligned"),
-	el.P("Add the ", el.Code("b.Right"), " modifier for a ", el.Strong("right-aligned"), " dropdown."),
+	e.P("Add the ", e.Code("b.Right"), " modifier for a ", e.Strong("right-aligned"), " dropdown."),
 )`,
 		b.Dropdown(
 			b.Clickable,
 			b.Right,
 			b.DropdownButton("Right aligned"),
-			el.P("Add the ", el.Code("b.Right"), " modifier for a ", el.Strong("right-aligned"), " dropdown."),
+			e.P("Add the ", e.Code("b.Right"), " modifier for a ", e.Strong("right-aligned"), " dropdown."),
 		),
 	),
 ).Subsection(
@@ -237,13 +237,13 @@ var dropdown = c.NewPage(
 		`b.Dropdown(
 	b.Clickable,
 	b.Up,
-	el.P("You can use the ", el.Code("b.Up"), " modifier to have a dropdown menu that appears above the dropdown button."),
+	e.P("You can use the ", e.Code("b.Up"), " modifier to have a dropdown menu that appears above the dropdown button."),
 )`,
 		b.Dropdown(
 			b.Clickable,
 			b.Up,
 			b.DropdownButton("Dropup button"),
-			el.P("You can use the ", el.Code("b.Up"), " modifier to have a dropdown menu that appears above the dropdown button."),
+			e.P("You can use the ", e.Code("b.Up"), " modifier to have a dropdown menu that appears above the dropdown button."),
 		),
 	),
 )

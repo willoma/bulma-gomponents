@@ -2,9 +2,10 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
+
 	b "github.com/willoma/bulma-gomponents"
 	c "github.com/willoma/bulma-gomponents/docs/components"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -13,9 +14,9 @@ var skeletons = c.NewPage(
 	"",
 
 	b.Content(
-		el.P("The ", el.Code("b.SkeletonBlock"), " constructor creates a block skeleton."),
-		el.P("The ", el.Code("b.SkeletonLines"), " constructor creates a block of skeleton lines. It takes the number of lines as its only argument"),
-		el.P("Use the ", el.Code("b.Skeleton"), " modifier on any supported component to make it a skeleton. Use ", el.Code("b.HasSkeleton"), " for the ", el.Code("has-skeleton"), " class."),
+		e.P("The ", e.Code("b.SkeletonBlock"), " constructor creates a block skeleton."),
+		e.P("The ", e.Code("b.SkeletonLines"), " constructor creates a block of skeleton lines. It takes the number of lines as its only argument"),
+		e.P("Use the ", e.Code("b.Skeleton"), " modifier on any supported component to make it a skeleton. Use ", e.Code("b.HasSkeleton"), " for the ", e.Code("has-skeleton"), " class."),
 	),
 ).Section(
 	"Bulma examples",
@@ -97,22 +98,22 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 	),
 	b.Content(
 		b.Skeleton,
-		el.P(
-			el.Strong("John Smith"), " ", el.Small("@johnsmith"), " ", el.Small("31m"),
-			el.Br(),
+		e.P(
+			e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
+			e.Br(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.",
 		),
 	),
 	b.Level(
 		b.Mobile,
 		b.LevelLeft(
-			el.A(fa.Icon(fa.Solid, "reply", b.Small, b.Skeleton)),
-			el.A(fa.Icon(fa.Solid, "retweet", b.Small, b.Skeleton)),
-			el.A(fa.Icon(fa.Solid, "heart", b.Small, b.Skeleton)),
+			e.A(fa.Icon(fa.Solid, "reply", b.Small, b.Skeleton)),
+			e.A(fa.Icon(fa.Solid, "retweet", b.Small, b.Skeleton)),
+			e.A(fa.Icon(fa.Solid, "heart", b.Small, b.Skeleton)),
 		),
 	),
 	b.MediaRight(
-		b.Delete(html.Aria("label", "delete"), b.Skeleton),
+		b.Delete(e.AriaLabel("delete"), b.Skeleton),
 	),
 )`,
 		b.Media(
@@ -121,22 +122,22 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 			),
 			b.Content(
 				b.Skeleton,
-				el.P(
-					el.Strong("John Smith"), " ", el.Small("@johnsmith"), " ", el.Small("31m"),
-					el.Br(),
+				e.P(
+					e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
+					e.Br(),
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.",
 				),
 			),
 			b.Level(
 				b.Mobile,
 				b.LevelLeft(
-					el.A(fa.Icon(fa.Solid, "reply", b.Small, b.Skeleton)),
-					el.A(fa.Icon(fa.Solid, "retweet", b.Small, b.Skeleton)),
-					el.A(fa.Icon(fa.Solid, "heart", b.Small, b.Skeleton)),
+					e.A(fa.Icon(fa.Solid, "reply", b.Small, b.Skeleton)),
+					e.A(fa.Icon(fa.Solid, "retweet", b.Small, b.Skeleton)),
+					e.A(fa.Icon(fa.Solid, "heart", b.Small, b.Skeleton)),
 				),
 			),
 			b.MediaRight(
-				b.Delete(html.Aria("label", "delete"), b.Skeleton),
+				b.Delete(e.AriaLabel("delete"), b.Skeleton),
 			),
 		),
 	),
@@ -151,12 +152,12 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 	),
 	b.Level(
 		b.LevelLeft(
-			el.Div(
+			e.Div(
 				b.ButtonA(b.Info, b.Skeleton, "Submit"),
 			),
 		),
 		b.LevelRight(
-			el.Div(
+			e.Div(
 				b.Checkbox(
 					b.OnLabel(b.Skeleton),
 					"Press enter to submit",
@@ -175,12 +176,12 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 			),
 			b.Level(
 				b.LevelLeft(
-					el.Div(
+					e.Div(
 						b.ButtonA(b.Info, b.Skeleton, "Submit"),
 					),
 				),
 				b.LevelRight(
-					el.Div(
+					e.Div(
 						b.Checkbox(
 							b.OnLabel(b.Skeleton),
 							"Press enter to submit",

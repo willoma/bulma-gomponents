@@ -5,20 +5,20 @@ import (
 	"sync"
 
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 )
 
 // Dropdown creates a dropdown.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
-func Dropdown(children ...any) Element {
-	trigger := Elem(html.Div, Class("dropdown-trigger"))
-	content := Elem(html.Div, Class("dropdown-content"))
-	menu := Elem(html.Div, Class("dropdown-menu"), html.Role("menu"), content)
+func Dropdown(children ...any) e.Element {
+	trigger := e.Div(e.Class("dropdown-trigger"))
+	content := e.Div(e.Class("dropdown-content"))
+	menu := e.Div(e.Class("dropdown-menu"), e.AriaMenu, content)
 
 	d := &dropdown{
-		dropdown: Elem(
-			html.Div, Class("dropdown"),
+		dropdown: e.Div(
+			e.Class("dropdown"),
 			trigger,
 			menu,
 		),
@@ -31,18 +31,18 @@ func Dropdown(children ...any) Element {
 }
 
 type dropdown struct {
-	dropdown Element
-	trigger  Element
-	menu     Element
-	content  Element
+	dropdown e.Element
+	trigger  e.Element
+	menu     e.Element
+	content  e.Element
 
 	up        bool
 	clickable bool
-	button    Element
+	button    e.Element
 	rendered  sync.Once
 }
 
-func (d *dropdown) With(childran ...any) Element {
+func (d *dropdown) With(childran ...any) e.Element {
 	for _, c := range childran {
 		switch c := c.(type) {
 		case onDropdown:
@@ -63,12 +63,12 @@ func (d *dropdown) With(childran ...any) Element {
 			d.trigger.With(c)
 		case *dropdownDivider, *dropdownItem, *dropdownAhref:
 			d.content.With(c)
-		case ID:
+		case e.ID:
 			d.menu.With(c)
-		case Class:
+		case e.Class:
 			switch c {
 			case Clickable:
-				d.dropdown.With(OnClick(JSToggleMe))
+				d.dropdown.With(e.OnClick(JSToggleMe))
 				d.clickable = true
 			case Up:
 				d.up = true
@@ -79,10 +79,10 @@ func (d *dropdown) With(childran ...any) Element {
 		case string:
 			d.button = DropdownButton(c)
 			d.trigger.With(d.button)
-		case Element:
+		case e.Element:
 			d.content.With(DropdownItem(c))
 		case gomponents.Node:
-			if isAttribute(c) {
+			if e.IsAttribute(c) {
 				d.dropdown.With(c)
 			} else {
 				d.content.With(DropdownItem(c))
@@ -106,7 +106,7 @@ func (d *dropdown) Render(w io.Writer) error {
 			}
 
 			if d.clickable {
-				d.button.With(On("blur", JSCloseThisDropdown))
+				d.button.With(e.On("blur", JSCloseThisDropdown))
 			}
 		}
 	})
@@ -114,7 +114,7 @@ func (d *dropdown) Render(w io.Writer) error {
 	return d.dropdown.Render(w)
 }
 
-func (d *dropdown) Clone() Element {
+func (d *dropdown) Clone() e.Element {
 	return &dropdown{
 		dropdown: d.dropdown.Clone(),
 		trigger:  d.trigger.Clone(),
@@ -130,23 +130,23 @@ func (d *dropdown) Clone() Element {
 // DropdownButton creates a button to be used as a dropdown trigger. It automatically adds a Font Awesome icon to the right if no icon is provided.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
-func DropdownButton(children ...any) Element {
+func DropdownButton(children ...any) e.Element {
 	d := &dropdownButton{
-		button: Button(html.Aria("haspopup", "true")),
+		button: Button(e.AriaHasPopupTrue),
 	}
 	d.With(children...)
 	return d
 }
 
 type dropdownButton struct {
-	button  Element
+	button  e.Element
 	hasIcon bool
 	up      bool
 
 	rendered sync.Once
 }
 
-func (d *dropdownButton) With(children ...any) Element {
+func (d *dropdownButton) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
 		case IconElem:
@@ -173,7 +173,7 @@ func (d *dropdownButton) Render(w io.Writer) error {
 			}
 			d.button.With(
 				Icon(
-					Elem(html.I, Small, Class("fa-solid"), Class(iconName)),
+					e.I(Small, e.Class("fa-solid"), e.Class(iconName)),
 				),
 			)
 		}
@@ -182,7 +182,7 @@ func (d *dropdownButton) Render(w io.Writer) error {
 	return d.button.Render(w)
 }
 
-func (d *dropdownButton) Clone() Element {
+func (d *dropdownButton) Clone() e.Element {
 	return &dropdownButton{
 		button:  d.button.Clone(),
 		hasIcon: d.hasIcon,
@@ -193,50 +193,50 @@ func (d *dropdownButton) Clone() Element {
 // DropdownItem creates a div which is a dropdown item.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
-func DropdownItem(children ...any) Element {
-	d := &dropdownItem{Elem(html.Div, Class("dropdown-item"))}
+func DropdownItem(children ...any) e.Element {
+	d := &dropdownItem{e.Div(e.Class("dropdown-item"))}
 	d.With(children...)
 	return d
 }
 
 type dropdownItem struct {
-	Element
+	e.Element
 }
 
-func (d *dropdownItem) Clone() Element {
+func (d *dropdownItem) Clone() e.Element {
 	return &dropdownItem{d.Element.Clone()}
 }
 
 // DropdownAHref creates an AHref element which is a dropdown item.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
-func DropdownAHref(href string, children ...any) Element {
-	d := &dropdownAhref{AHref(href, Class("dropdown-item"))}
+func DropdownAHref(href string, children ...any) e.Element {
+	d := &dropdownAhref{e.AHref(href, e.Class("dropdown-item"))}
 	d.With(children...)
 	return d
 }
 
 type dropdownAhref struct {
-	Element
+	e.Element
 }
 
-func (d *dropdownAhref) Clone() Element {
+func (d *dropdownAhref) Clone() e.Element {
 	return &dropdownAhref{d.Element.Clone()}
 }
 
 // DropdownDivider creates a dropdown divider.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
-func DropdownDivider(children ...any) Element {
-	d := &dropdownDivider{Elem(html.Div, Class("dropdown-divider"))}
+func DropdownDivider(children ...any) e.Element {
+	d := &dropdownDivider{e.Div(e.Class("dropdown-divider"))}
 	d.With(children...)
 	return d
 }
 
 type dropdownDivider struct {
-	Element
+	e.Element
 }
 
-func (d *dropdownDivider) Clone() Element {
+func (d *dropdownDivider) Clone() e.Element {
 	return &dropdownDivider{d.Element.Clone()}
 }

@@ -7,9 +7,9 @@ import (
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
+	e "github.com/willoma/gomplements"
 
 	b "github.com/willoma/bulma-gomponents"
-	"github.com/willoma/bulma-gomponents/el"
 	"github.com/willoma/bulma-gomponents/fa"
 )
 
@@ -50,22 +50,22 @@ func NewPage(menuentry, title, path, bulmaURL string, children ...any) *Page {
 
 func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 	p.prepareOnce.Do(func() {
-		content := el.Div(
-			html.ID("bgd-content"),
-			b.Style("margin-left", "11.25rem"),
+		content := e.Div(
+			e.ID("bgd-content"),
+			e.Styles{"margin-left": "11.25rem"},
 			b.Padding(b.Spacing4),
 			b.Title(
-				el.A(html.Name("top")),
+				e.A(html.Name("top")),
 				p.Title,
 			),
 		)
 		if p.BulmaURL != "" {
-			content.With(b.Content(b.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")))
+			content.With(b.Content(e.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")))
 		}
 		content.With(p.Children, p.InternalMenu())
 
 		navbar := b.Navbar(
-			b.Style("z-index", "100"),
+			e.Styles{"z-index": "100"},
 			b.Shadow,
 			b.FixedTop,
 			b.NavbarBrand(
@@ -95,9 +95,9 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 							"https://bulma.io/documentation",
 							b.Link,
 							b.Icon(
-								b.ImgSrc(
+								e.ImgSrc(
 									"https://bulma.io/assets/brand/Bulma%20Icon%20White.svg",
-									b.Style("height", "1em"),
+									e.Styles{"height": "1em"},
 								),
 							),
 							"Bulma doc",
@@ -108,15 +108,15 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 		)
 
 		menu := b.Box(
-			b.Style(
-				"position", "fixed",
-				"height", "100vh",
-				"overflow-y", "auto",
-				"width", "11.25rem",
-				"top", "0",
-				"left", "0",
-				"padding-top", "3.25rem",
-			),
+			e.Styles{
+				"position":    "fixed",
+				"height":      "100vh",
+				"overflow-y":  "auto",
+				"width":       "11.25rem",
+				"top":         "0",
+				"left":        "0",
+				"padding-top": "3.25rem",
+			},
 			b.PaddingHorizontal(b.Spacing0),
 			navMenu(sections, p.Path),
 		)
@@ -127,17 +127,17 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 			b.CSSPath(path.Join(p.BaseURL, "bulma.css")),
 			fa.CSSHead(path.Join(p.BaseURL, "fa")),
 			gomponents.Attr("hx-on:htmx:load", `if(event.detail.elt.id ==='bgd-content')window.scrollTo(0,0)`),
-			b.Prepare(navbar),
-			b.Prepare(menu),
-			b.Prepare(content),
+			e.Prepare(navbar),
+			e.Prepare(menu),
+			e.Prepare(content),
 		)
 	})
 
 	return p.prepared
 }
 
-func (p *Page) MenuEntry(activePath string) b.Element {
-	a := b.AHref(
+func (p *Page) MenuEntry(activePath string) e.Element {
+	a := e.AHref(
 		p.URL(),
 		gomponents.Attr("hx-get", p.URL()),
 		p.menuentry,
@@ -160,7 +160,7 @@ func (p *Page) Subsection(title, peerURL string, content ...any) *Page {
 func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 	titleSlug := slug(title)
 
-	section := b.Block(html.ID(titleSlug))
+	section := b.Block(e.ID(titleSlug))
 
 	peerName := "Bulma"
 
@@ -177,7 +177,7 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 				html.H2,
 				title,
 				" ",
-				b.AHref(
+				e.AHref(
 					"#"+titleSlug,
 					b.FontSize5,
 					fa.Icon(fa.Solid, "link"),
@@ -188,9 +188,9 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 		p.internalMenu = append(
 			p.internalMenu,
 			b.MenuEntry(
-				b.AHref(
+				e.AHref(
 					"#"+titleSlug,
-					html.ID("bgd-nav-"+titleSlug),
+					e.ID("bgd-nav-"+titleSlug),
 					title,
 				),
 			),
@@ -198,11 +198,11 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 	case 2:
 		section.With(
 			b.Title5(
-				html.ID(titleSlug),
+				e.ID(titleSlug),
 				html.H3,
 				title,
 				" ",
-				b.AHref(
+				e.AHref(
 					"#"+titleSlug,
 					b.FontSize6,
 					html.Name(titleSlug),
@@ -214,11 +214,11 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 		p.internalMenu = append(
 			p.internalMenu,
 			b.MenuEntry(
-				b.AHref("#"+titleSlug,
-					html.ID("bgd-nav-"+titleSlug),
+				e.AHref("#"+titleSlug,
+					e.ID("bgd-nav-"+titleSlug),
 					fa.Icon(
 						fa.Solid, "caret-right",
-						b.Style("height", "1em", "width", "1em"),
+						e.Styles{"height": "1em", "width": "1em"},
 						fa.SizeSm,
 					),
 					title,
@@ -228,7 +228,7 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 	}
 	if peerURL != "" {
 		section.With(
-			b.Content(b.AHref(peerURL, html.Target("_blank"), peerName+" documentation")),
+			b.Content(e.AHref(peerURL, html.Target("_blank"), peerName+" documentation")),
 		)
 	}
 	section.With(content...)
@@ -245,25 +245,25 @@ func (p *Page) InternalMenu() []any {
 	}
 
 	return []any{
-		html.Script(gomponents.Raw(p.internalMenuScript)),
-		b.Style("margin-right", "9rem"),
+		e.Script(gomponents.Raw(p.internalMenuScript)),
+		e.Styles{"margin-right": "9rem"},
 		b.Box(
-			b.Style(
-				"position", "fixed",
-				"height", "100vh",
-				"overflow-y", "auto",
-				"width", "9rem",
-				"top", "0",
-				"right", "0",
-				"padding-top", "3.25rem",
-			),
+			e.Styles{
+				"position":    "fixed",
+				"height":      "100vh",
+				"overflow-y":  "auto",
+				"width":       "9rem",
+				"top":         "0",
+				"right":       "0",
+				"padding-top": "3.25rem",
+			},
 			b.PaddingHorizontal(b.Spacing0),
 			b.Menu(
 				b.FontSize7,
 				b.MenuList(
 					b.MenuEntry(
-						el.Strong(
-							b.AHref(
+						e.Strong(
+							e.AHref(
 								"#top",
 								p.Title,
 							),
@@ -283,9 +283,9 @@ func slug(src string) string {
 	return dst
 }
 
-func navMenu(sections []DocSection, currentPath string) b.Element {
+func navMenu(sections []DocSection, currentPath string) e.Element {
 	navmenu := b.Menu(
-		html.ID("bgd-menu"),
+		e.ID("bgd-menu"),
 		gomponents.Attr("hx-select-oob", "#bgd-menu,#bgd-content"),
 		gomponents.Attr("hx-push-url", "true"),
 	)
