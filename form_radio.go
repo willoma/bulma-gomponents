@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -42,34 +41,34 @@ var formRadio = c.NewPage(
 	"Bulma examples", "https://bulma.io/documentation/form/radio/",
 	c.Example(
 		`b.Control(
-	b.Radio(html.Name("answer"), "Yes"),
-	b.Radio(html.Name("answer"), "No"),
+	b.Radio(e.Name("answer"), "Yes"),
+	b.Radio(e.Name("answer"), "No"),
 )`,
 		b.Control(
-			b.Radio(html.Name("answer"), "Yes"),
-			b.Radio(html.Name("answer"), "No"),
+			b.Radio(e.Name("answer"), "Yes"),
+			b.Radio(e.Name("answer"), "No"),
 		),
 	),
 	c.Example(
 		`b.Control(
-	b.Radio(html.Name("foobar"), "Foo"),
-	b.Radio(html.Name("foobar"), "Bar", b.Checked),
+	b.Radio(e.Name("foobar"), "Foo"),
+	b.Radio(e.Name("foobar"), "Bar", b.Checked),
 )`,
 		b.Control(
-			b.Radio(html.Name("foobar"), "Foo"),
-			b.Radio(html.Name("foobar"), "Bar", b.Checked),
+			b.Radio(e.Name("foobar"), "Foo"),
+			b.Radio(e.Name("foobar"), "Bar", b.Checked),
 		),
 	),
 	c.Example(
 		`b.Control(
-	b.Radio(html.Name("rsvp"), "Going"),
-	b.Radio(html.Name("rsvp"), "Not going"),
-	b.Radio(b.Disabled, html.Name("rsvp"), "Maybe"),
+	b.Radio(e.Name("rsvp"), "Going"),
+	b.Radio(e.Name("rsvp"), "Not going"),
+	b.Radio(b.Disabled, e.Name("rsvp"), "Maybe"),
 )`,
 		b.Control(
-			b.Radio(html.Name("rsvp"), "Going"),
-			b.Radio(html.Name("rsvp"), "Not going"),
-			b.Radio(b.Disabled, html.Name("rsvp"), "Maybe"),
+			b.Radio(e.Name("rsvp"), "Going"),
+			b.Radio(e.Name("rsvp"), "Not going"),
+			b.Radio(b.Disabled, e.Name("rsvp"), "Maybe"),
 		),
 	),
 )

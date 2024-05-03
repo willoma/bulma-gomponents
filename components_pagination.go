@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -80,14 +79,14 @@ var pagination = c.NewPage(
 	),
 	c.HorizontalExample(
 		`b.Pagination(
-	b.PaginationPrevious(b.Disabled, "Previous", html.TitleAttr("This is the first page")),
+	b.PaginationPrevious(b.Disabled, "Previous", e.TitleAttr("This is the first page")),
 	b.PaginationNext("Next page"),
 	b.PaginationLink(e.AriaLabel("Page 1"), b.Current, "1"),
 	b.PaginationLink(e.AriaLabel("Goto page 2"), "2"),
 	b.PaginationLink(e.AriaLabel("Goto page 3"), "3"),
 )`,
 		b.Pagination(
-			b.PaginationPrevious(b.Disabled, "Previous", html.TitleAttr("This is the first page")),
+			b.PaginationPrevious(b.Disabled, "Previous", e.TitleAttr("This is the first page")),
 			b.PaginationNext("Next page"),
 			b.PaginationLink(e.AriaLabel("Page 1"), b.Current, "1"),
 			b.PaginationLink(e.AriaLabel("Goto page 2"), "2"),

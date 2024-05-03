@@ -61,7 +61,7 @@ var level = c.NewPage(
 		e.Div(
 			b.Field(
 				b.Addons,
-				b.Control(b.InputText(html.Placeholder("Find a post"))),
+				b.Control(b.InputText(e.Placeholder("Find a post"))),
 				b.Control(b.Button("Search")),
 			),
 		),
@@ -82,7 +82,7 @@ var level = c.NewPage(
 				e.Div(
 					b.Field(
 						b.Addons,
-						b.Control(b.InputText(html.Placeholder("Find a post"))),
+						b.Control(b.InputText(e.Placeholder("Find a post"))),
 						b.Control(b.Button("Search")),
 					),
 				),
@@ -141,14 +141,14 @@ var level = c.NewPage(
 		`b.Level(
 	e.P(b.TextCentered, e.A("Home")),
 	e.P(b.TextCentered, e.A("Menu")),
-	e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), e.Styles{"height": "30px"})),
+	e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", e.Alt(""), e.Styles{"height": "30px"})),
 	e.P(b.TextCentered, e.A("Reservations")),
 	e.P(b.TextCentered, e.A("Contact")),
 )`,
 		b.Level(
 			e.P(b.TextCentered, e.A("Home")),
 			e.P(b.TextCentered, e.A("Menu")),
-			e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", html.Alt(""), e.Styles{"height": "30px"})),
+			e.P(e.ImgSrc("https://bulma.io/assets/images/bulma-type.png", e.Alt(""), e.Styles{"height": "30px"})),
 			e.P(b.TextCentered, e.A("Reservations")),
 			e.P(b.TextCentered, e.A("Contact")),
 		),

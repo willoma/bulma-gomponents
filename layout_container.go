@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -32,29 +31,29 @@ var container = c.NewPage(
 		),
 		b.Row(
 			e.Code("b.Widescreen"),
-			b.TCell(html.ColSpan("2"), b.Light, "Full width"),
+			b.TCell(e.ColSpan("2"), b.Light, "Full width"),
 			"1152px",
 			"1344px",
 		),
 		b.Row(
 			e.Code("b.FullHD"),
-			b.TCell(html.ColSpan("3"), b.Light, "Full width"),
+			b.TCell(e.ColSpan("3"), b.Light, "Full width"),
 			"1344px",
 		),
 		b.Row(
 			e.Code("b.MaxDesktop"),
 			b.TCell(b.Light, "Full width"),
-			b.TCell(html.ColSpan("3"), "960px"),
+			b.TCell(e.ColSpan("3"), "960px"),
 		),
 		b.Row(
 			e.Code("b.MaxWidescreen"),
 			b.TCell(b.Light, "Full width"),
 			"960px",
-			b.TCell(html.ColSpan("2"), "1152px"),
+			b.TCell(e.ColSpan("2"), "1152px"),
 		),
 		b.Row(
 			e.Code("b.Fluid"),
-			b.TCell(html.ColSpan("4"), "100% with 32px gap on both sides"),
+			b.TCell(e.ColSpan("4"), "100% with 32px gap on both sides"),
 		),
 	),
 ).Section(

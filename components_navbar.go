@@ -27,7 +27,7 @@ func demoNavbar(white bool, color b.Color) e.Element {
 			b.NavbarDropdown(
 				b.OnLink(
 					e.A,
-					html.Href("https://bulma.io/documentation/overview/start/"),
+					e.Href("https://bulma.io/documentation/overview/start/"),
 				),
 				"Docs",
 				b.Active,
@@ -49,11 +49,11 @@ func demoNavbar(white bool, color b.Color) e.Element {
 						html.P,
 						b.ButtonA(
 							color.Soft(),
-							html.DataAttr("social-network", "Twitter"),
-							html.DataAttr("social-action", "tweet"),
-							html.DataAttr("social-target", "https://bulma.io"),
-							html.Target("_blank"),
-							html.Href("https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"),
+							e.DataAttr("social-network", "Twitter"),
+							e.DataAttr("social-action", "tweet"),
+							e.DataAttr("social-target", "https://bulma.io"),
+							e.Target("_blank"),
+							e.Href("https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"),
 							fa.Icon(fa.Brand, "twitter"),
 							"Tweet",
 						),
@@ -62,7 +62,7 @@ func demoNavbar(white bool, color b.Color) e.Element {
 						html.P,
 						b.ButtonA(
 							color.Light(),
-							html.Href("https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip"),
+							e.Href("https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip"),
 							fa.Icon(fa.Solid, "download"),
 							"Download",
 						),
@@ -229,7 +229,7 @@ var navbar = c.NewPage(
 			"https://bulma.io",
 			e.ImgSrc(
 				"https://bulma.io/assets/images/bulma-logo.png",
-				html.Width("112"), html.Height("28"),
+				e.Width("112"), e.Height("28"),
 			),
 		),
 	),
@@ -269,7 +269,7 @@ var navbar = c.NewPage(
 					"https://bulma.io",
 					e.ImgSrc(
 						"https://bulma.io/assets/images/bulma-logo.png",
-						html.Width("112"), html.Height("28"),
+						e.Width("112"), e.Height("28"),
 					),
 				),
 			),
@@ -314,7 +314,7 @@ var navbar = c.NewPage(
 			"https://bulma.io",
 			e.ImgSrc(
 				"https://bulma.io/assets/images/bulma-logo.png",
-				html.Width("112"), html.Height("28"),
+				e.Width("112"), e.Height("28"),
 			),
 		),
 	),
@@ -327,7 +327,7 @@ var navbar = c.NewPage(
 					"https://bulma.io",
 					e.ImgSrc(
 						"https://bulma.io/assets/images/bulma-logo.png",
-						html.Width("112"), html.Height("28"),
+						e.Width("112"), e.Height("28"),
 					),
 				),
 			),
@@ -341,7 +341,7 @@ var navbar = c.NewPage(
 	"Navbar menu",
 	"https://bulma.io/documentation/components/navbar/#navbar-menu",
 	b.Content(
-		e.P("JavaScript is already included, no addition needed for the base use-case. If you need to trigger the change, you can add an ID with ", e.Code("html.ID"), " and use the following:"),
+		e.P("JavaScript is already included, no addition needed for the base use-case. If you need to trigger the change, you can add an ID with ", e.Code("e.ID"), " and use the following:"),
 		e.Pre(`const navbar = document.getElementById("your-id")
 navbar.getElementsByClassName("navbar-burger")[0].classList.toggle("is-active")
 navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
@@ -370,8 +370,8 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 	"#",
 	e.ImgSrc(
 		"https://bulma.io/assets/images/bulma-logo.png",
-		html.Width("112"), html.Height("28"),
-		html.Alt("Bulma"),
+		e.Width("112"), e.Height("28"),
+		e.Alt("Bulma"),
 	),
 )`),
 			),
@@ -428,7 +428,7 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 		b.NavbarDropdown(
 			b.OnLink(
 				e.A,
-				html.Href("https://bulma.io/documentation/overview/start/"),
+				e.Href("https://bulma.io/documentation/overview/start/"),
 				"Docs",
 			),
 			b.Active,
@@ -450,11 +450,11 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 				b.Control(
 					html.P,
 					b.ButtonA(
-						html.DataAttr("social-network", "Twitter"),
-						html.DataAttr("social-action", "tweet"),
-						html.DataAttr("social-target", "https://bulma.io"),
-						html.Target("_blank"),
-						html.Href("https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"),
+						e.DataAttr("social-network", "Twitter"),
+						e.DataAttr("social-action", "tweet"),
+						e.DataAttr("social-target", "https://bulma.io"),
+						e.Target("_blank"),
+						e.Href("https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"),
 						fa.Icon(fa.Brand, "twitter"),
 						"Tweet",
 					),
@@ -463,7 +463,7 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 					html.P,
 					b.ButtonA(
 						b.Primary,
-						html.Href("https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip"),
+						e.Href("https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip"),
 						fa.Icon(fa.Solid, "download"),
 						"Download",
 					),
@@ -486,7 +486,7 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 				b.NavbarDropdown(
 					b.OnLink(
 						e.A,
-						html.Href("https://bulma.io/documentation/overview/start/"),
+						e.Href("https://bulma.io/documentation/overview/start/"),
 						"Docs",
 					),
 					b.Active,
@@ -508,11 +508,11 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 						b.Control(
 							html.P,
 							b.ButtonA(
-								html.DataAttr("social-network", "Twitter"),
-								html.DataAttr("social-action", "tweet"),
-								html.DataAttr("social-target", "https://bulma.io"),
-								html.Target("_blank"),
-								html.Href("https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"),
+								e.DataAttr("social-network", "Twitter"),
+								e.DataAttr("social-action", "tweet"),
+								e.DataAttr("social-target", "https://bulma.io"),
+								e.Target("_blank"),
+								e.Href("https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"),
 								fa.Icon(fa.Brand, "twitter"),
 								"Tweet",
 							),
@@ -521,7 +521,7 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 							html.P,
 							b.ButtonA(
 								b.Primary,
-								html.Href("https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip"),
+								e.Href("https://github.com/jgthms/bulma/releases/download/0.9.4/bulma-0.9.4.zip"),
 								fa.Icon(fa.Solid, "download"),
 								"Download",
 							),
@@ -754,8 +754,8 @@ b.Navbar(
 		"#",
 		e.ImgSrc(
 			"https://bulma.io/assets/images/bulma-logo.png",
-			html.Width("112"), html.Height("28"),
-			html.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
+			e.Width("112"), e.Height("28"),
+			e.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
 		),
 	),
 	b.NavbarDropdown(
@@ -782,8 +782,8 @@ b.Hero(
 				"#",
 				e.ImgSrc(
 					"https://bulma.io/assets/images/bulma-logo.png",
-					html.Width("112"), html.Height("28"),
-					html.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
+					e.Width("112"), e.Height("28"),
+					e.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
 				),
 			),
 			b.NavbarDropdown(
@@ -815,8 +815,8 @@ b.Hero(
 		"#",
 		e.ImgSrc(
 			"https://bulma.io/assets/images/bulma-logo.png",
-			html.Width("112"), html.Height("28"),
-			html.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
+			e.Width("112"), e.Height("28"),
+			e.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
 		),
 	),
 	b.NavbarDropdown(
@@ -844,8 +844,8 @@ b.Hero(
 				"#",
 				e.ImgSrc(
 					"https://bulma.io/assets/images/bulma-logo.png",
-					html.Width("112"), html.Height("28"),
-					html.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
+					e.Width("112"), e.Height("28"),
+					e.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
 				),
 			),
 			b.NavbarDropdown(
@@ -876,8 +876,8 @@ b.Hero(
 		"#",
 		e.ImgSrc(
 			"https://bulma.io/assets/images/bulma-logo.png",
-			html.Width("112"), html.Height("28"),
-			html.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
+			e.Width("112"), e.Height("28"),
+			e.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
 		),
 	),
 	b.NavbarDropdown(
@@ -904,8 +904,8 @@ b.Hero(
 				"#",
 				e.ImgSrc(
 					"https://bulma.io/assets/images/bulma-logo.png",
-					html.Width("112"), html.Height("28"),
-					html.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
+					e.Width("112"), e.Height("28"),
+					e.Alt("Bulma: Free, open source, and modern CSS framework based on Flexbox"),
 				),
 			),
 			b.NavbarDropdown(

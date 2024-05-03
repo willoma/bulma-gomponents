@@ -85,7 +85,7 @@ var formGeneral = c.NewPage(
 		`b.Field(
 	b.Label("Name"),
 	b.Control(
-		b.InputText(html.Placeholder("Text input")),
+		b.InputText(e.Placeholder("Text input")),
 	),
 ),
 b.Field(
@@ -94,8 +94,8 @@ b.Field(
 		b.IconsLeft, b.IconsRight,
 		b.InputText(
 			b.Success,
-			html.Placeholder("Text input"),
-			html.Value("bulma"),
+			e.Placeholder("Text input"),
+			e.Value("bulma"),
 		),
 		fa.Icon(fa.Solid, "user", b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", b.Small, b.Right),
@@ -108,8 +108,8 @@ b.Field(
 		b.IconsLeft, b.IconsRight,
 		b.InputEmail(
 			b.Danger,
-			html.Placeholder("Email input"),
-			html.Value("hello@"),
+			e.Placeholder("Email input"),
+			e.Value("hello@"),
 		),
 		fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 		fa.Icon(fa.Solid, "exclamation-triangle", b.Small, b.Right),
@@ -128,7 +128,7 @@ b.Field(
 b.Field(
 	b.Label("Message"),
 	b.Control(
-		b.Textarea(html.Placeholder("Textarea")),
+		b.Textarea(e.Placeholder("Textarea")),
 	),
 ),
 b.Field(
@@ -141,11 +141,11 @@ b.Field(
 b.Field(
 	b.Control(
 		b.Radio(
-			html.Name("question"),
+			e.Name("question"),
 			"Yes",
 		),
 		b.Radio(
-			html.Name("question"),
+			e.Name("question"),
 			"No",
 		),
 	),
@@ -162,7 +162,7 @@ b.Field(
 		b.Field(
 			b.Label("Name"),
 			b.Control(
-				b.InputText(html.Placeholder("Text input")),
+				b.InputText(e.Placeholder("Text input")),
 			),
 		),
 		b.Field(
@@ -171,8 +171,8 @@ b.Field(
 				b.IconsLeft, b.IconsRight,
 				b.InputText(
 					b.Success,
-					html.Placeholder("Text input"),
-					html.Value("bulma"),
+					e.Placeholder("Text input"),
+					e.Value("bulma"),
 				),
 				fa.Icon(fa.Solid, "user", b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", b.Small, b.Right),
@@ -185,8 +185,8 @@ b.Field(
 				b.IconsLeft, b.IconsRight,
 				b.InputEmail(
 					b.Danger,
-					html.Placeholder("Email input"),
-					html.Value("hello@"),
+					e.Placeholder("Email input"),
+					e.Value("hello@"),
 				),
 				fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 				fa.Icon(fa.Solid, "exclamation-triangle", b.Small, b.Right),
@@ -205,7 +205,7 @@ b.Field(
 		b.Field(
 			b.Label("Message"),
 			b.Control(
-				b.Textarea(html.Placeholder("Textarea")),
+				b.Textarea(e.Placeholder("Textarea")),
 			),
 		),
 		b.Field(
@@ -218,11 +218,11 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.Radio(
-					html.Name("question"),
+					e.Name("question"),
 					"Yes",
 				),
 				b.Radio(
-					html.Name("question"),
+					e.Name("question"),
 					"No",
 				),
 			),
@@ -244,14 +244,14 @@ b.Field(
 		`b.Field(
 	b.Label("Label"),
 	b.Control(
-		b.InputText(html.Placeholder("Text input")),
+		b.InputText(e.Placeholder("Text input")),
 	),
 	b.Help("This is a help text"),
 )`,
 		b.Field(
 			b.Label("Label"),
 			b.Control(
-				b.InputText(html.Placeholder("Text input")),
+				b.InputText(e.Placeholder("Text input")),
 			),
 			b.Help("This is a help text"),
 		),
@@ -260,25 +260,25 @@ b.Field(
 		`b.Field(
 	b.Label("Name"),
 	b.Control(
-		b.InputText(html.Placeholder("e.g Alex Smith")),
+		b.InputText(e.Placeholder("e.g Alex Smith")),
 	),
 ),
 b.Field(
 	b.Label("Email"),
 	b.Control(
-		b.InputEmail(html.Placeholder("e.g. alexsmith@gmail.com")),
+		b.InputEmail(e.Placeholder("e.g. alexsmith@gmail.com")),
 	),
 )`,
 		b.Field(
 			b.Label("Name"),
 			b.Control(
-				b.InputText(html.Placeholder("e.g Alex Smith")),
+				b.InputText(e.Placeholder("e.g Alex Smith")),
 			),
 		),
 		b.Field(
 			b.Label("Email"),
 			b.Control(
-				b.InputEmail(html.Placeholder("e.g. alexsmith@gmail.com")),
+				b.InputEmail(e.Placeholder("e.g. alexsmith@gmail.com")),
 			),
 		),
 	),
@@ -287,10 +287,10 @@ b.Field(
 	"https://bulma.io/documentation/form/general/#form-control",
 	c.Example(
 		`b.Control(
-	b.InputText(html.Placeholder("Text input")),
+	b.InputText(e.Placeholder("Text input")),
 )`,
 		b.Control(
-			b.InputText(html.Placeholder("Text input")),
+			b.InputText(e.Placeholder("Text input")),
 		),
 	),
 	c.Example(
@@ -322,7 +322,7 @@ b.Field(
 		`b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(html.Placeholder("Email")),
+		b.InputEmail(e.Placeholder("Email")),
 		fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", b.Small, b.Right),
 	),
@@ -330,7 +330,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft,
-		b.InputPassword(html.Placeholder("Password")),
+		b.InputPassword(e.Placeholder("Password")),
 		fa.Icon(fa.Solid, "lock", b.Small, b.Left),
 	),
 ),
@@ -342,7 +342,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(html.Placeholder("Email")),
+				b.InputEmail(e.Placeholder("Email")),
 				fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", b.Small, b.Right),
 			),
@@ -350,7 +350,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft,
-				b.InputPassword(html.Placeholder("Password")),
+				b.InputPassword(e.Placeholder("Password")),
 				fa.Icon(fa.Solid, "lock", b.Small, b.Left),
 			),
 		),
@@ -389,7 +389,7 @@ b.Field(
 	b.Label(b.Small, "Small input"),
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Small, html.Placeholder("Normal")),
+		b.InputEmail(b.Small, e.Placeholder("Normal")),
 		fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", b.Small, b.Right),
 	),
@@ -398,7 +398,7 @@ b.Field(
 			b.Label(b.Small, "Small input"),
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Small, html.Placeholder("Normal")),
+				b.InputEmail(b.Small, e.Placeholder("Normal")),
 				fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", b.Small, b.Right),
 			),
@@ -409,7 +409,7 @@ b.Field(
 	b.Label("Normal input"),
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(html.Placeholder("Extra small")),
+		b.InputEmail(e.Placeholder("Extra small")),
 		fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
 	),
@@ -417,7 +417,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(html.Placeholder("Normal")),
+		b.InputEmail(e.Placeholder("Normal")),
 		fa.Icon(fa.Solid, "envelope", b.Left),
 		fa.Icon(fa.Solid, "check", b.Right),
 	),
@@ -426,7 +426,7 @@ b.Field(
 			b.Label("Normal input"),
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(html.Placeholder("Extra small")),
+				b.InputEmail(e.Placeholder("Extra small")),
 				fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
 			),
@@ -434,7 +434,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(html.Placeholder("Normal")),
+				b.InputEmail(e.Placeholder("Normal")),
 				fa.Icon(fa.Solid, "envelope", b.Left),
 				fa.Icon(fa.Solid, "check", b.Right),
 			),
@@ -445,7 +445,7 @@ b.Field(
 	b.Label(b.Medium, "Medium input"),
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Medium, html.Placeholder("Extra small")),
+		b.InputEmail(b.Medium, e.Placeholder("Extra small")),
 		fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
 	),
@@ -453,7 +453,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Medium, html.Placeholder("Small")),
+		b.InputEmail(b.Medium, e.Placeholder("Small")),
 		fa.Icon(fa.Solid, "envelope", fa.SizeSm, b.Left),
 		fa.Icon(fa.Solid, "check", fa.SizeSm, b.Right),
 	),
@@ -461,7 +461,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Medium, html.Placeholder("Normal")),
+		b.InputEmail(b.Medium, e.Placeholder("Normal")),
 		fa.Icon(fa.Solid, "envelope", b.Medium, b.Left),
 		fa.Icon(fa.Solid, "check", b.Medium, b.Right),
 	),
@@ -470,7 +470,7 @@ b.Field(
 			b.Label(b.Medium, "Medium input"),
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Medium, html.Placeholder("Extra small")),
+				b.InputEmail(b.Medium, e.Placeholder("Extra small")),
 				fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
 			),
@@ -478,7 +478,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Medium, html.Placeholder("Small")),
+				b.InputEmail(b.Medium, e.Placeholder("Small")),
 				fa.Icon(fa.Solid, "envelope", fa.SizeSm, b.Left),
 				fa.Icon(fa.Solid, "check", fa.SizeSm, b.Right),
 			),
@@ -486,7 +486,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Medium, html.Placeholder("Normal")),
+				b.InputEmail(b.Medium, e.Placeholder("Normal")),
 				fa.Icon(fa.Solid, "envelope", b.Medium, b.Left),
 				fa.Icon(fa.Solid, "check", b.Medium, b.Right),
 			),
@@ -497,7 +497,7 @@ b.Field(
 	b.Label(b.Large, "Large input"),
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Large, html.Placeholder("Extra small")),
+		b.InputEmail(b.Large, e.Placeholder("Extra small")),
 		fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
 	),
@@ -505,7 +505,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Large, html.Placeholder("Small")),
+		b.InputEmail(b.Large, e.Placeholder("Small")),
 		fa.Icon(fa.Solid, "envelope", fa.SizeSm, b.Left),
 		fa.Icon(fa.Solid, "check", fa.SizeSm, b.Right),
 	),
@@ -513,7 +513,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Large, html.Placeholder("Normal")),
+		b.InputEmail(b.Large, e.Placeholder("Normal")),
 		fa.Icon(fa.Solid, "envelope", b.Large, b.Left),
 		fa.Icon(fa.Solid, "check", b.Large, b.Right),
 	),
@@ -521,7 +521,7 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Large, html.Placeholder("Large")),
+		b.InputEmail(b.Large, e.Placeholder("Large")),
 		fa.Icon(fa.Solid, "envelope", fa.SizeLg, b.Medium, b.Left),
 		fa.Icon(fa.Solid, "check", fa.SizeLg, b.Medium, b.Right),
 	),
@@ -530,7 +530,7 @@ b.Field(
 			b.Label(b.Large, "Large input"),
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Large, html.Placeholder("Extra small")),
+				b.InputEmail(b.Large, e.Placeholder("Extra small")),
 				fa.Icon(fa.Solid, "envelope", fa.SizeXs, b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", fa.SizeXs, b.Small, b.Right),
 			),
@@ -538,7 +538,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Large, html.Placeholder("Small")),
+				b.InputEmail(b.Large, e.Placeholder("Small")),
 				fa.Icon(fa.Solid, "envelope", fa.SizeSm, b.Left),
 				fa.Icon(fa.Solid, "check", fa.SizeSm, b.Right),
 			),
@@ -546,7 +546,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Large, html.Placeholder("Normal")),
+				b.InputEmail(b.Large, e.Placeholder("Normal")),
 				fa.Icon(fa.Solid, "envelope", b.Large, b.Left),
 				fa.Icon(fa.Solid, "check", b.Large, b.Right),
 			),
@@ -554,7 +554,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Large, html.Placeholder("Large")),
+				b.InputEmail(b.Large, e.Placeholder("Large")),
 				fa.Icon(fa.Solid, "envelope", fa.SizeLg, b.Medium, b.Left),
 				fa.Icon(fa.Solid, "check", fa.SizeLg, b.Medium, b.Right),
 			),
@@ -567,7 +567,7 @@ b.Field(
 		`b.Field(
 	b.Addons,
 	b.Control(
-		b.InputText(html.Placeholder("Find a repository")),
+		b.InputText(e.Placeholder("Find a repository")),
 	),
 	b.Control(
 		b.ButtonA(b.Info, "Search"),
@@ -576,7 +576,7 @@ b.Field(
 		b.Field(
 			b.Addons,
 			b.Control(
-				b.InputText(html.Placeholder("Find a repository")),
+				b.InputText(e.Placeholder("Find a repository")),
 			),
 			b.Control(
 				b.ButtonA(b.Info, "Search"),
@@ -587,7 +587,7 @@ b.Field(
 		`b.Field(
 	b.Addons,
 	b.Control(
-		b.InputText(html.Placeholder("Your email")),
+		b.InputText(e.Placeholder("Your email")),
 	),
 	b.Control(
 		b.ButtonA(b.Static, "@gmail.com"),
@@ -596,7 +596,7 @@ b.Field(
 		b.Field(
 			b.Addons,
 			b.Control(
-				b.InputText(html.Placeholder("Your email")),
+				b.InputText(e.Placeholder("Your email")),
 			),
 			b.Control(
 				b.ButtonA(b.Static, "@gmail.com"),
@@ -615,7 +615,7 @@ b.Field(
 		),
 	),
 	b.Control(
-		b.InputText(html.Placeholder("Amount of money")),
+		b.InputText(e.Placeholder("Amount of money")),
 	),
 	b.Control(
 		b.ButtonA("Transfer"),
@@ -633,7 +633,7 @@ b.Field(
 	),
 	b.Control(
 		b.Expanded,
-		b.InputText(html.Placeholder("Amount of money")),
+		b.InputText(e.Placeholder("Amount of money")),
 	),
 	b.Control(
 		b.ButtonA("Transfer"),
@@ -650,7 +650,7 @@ b.Field(
 				),
 			),
 			b.Control(
-				b.InputText(html.Placeholder("Amount of money")),
+				b.InputText(e.Placeholder("Amount of money")),
 			),
 			b.Control(
 				b.ButtonA("Transfer"),
@@ -668,7 +668,7 @@ b.Field(
 			),
 			b.Control(
 				b.Expanded,
-				b.InputText(html.Placeholder("Amount of money")),
+				b.InputText(e.Placeholder("Amount of money")),
 			),
 			b.Control(
 				b.ButtonA("Transfer"),
@@ -682,7 +682,7 @@ b.Field(
 		b.Expanded,
 		b.Select(
 			b.FullWidth,
-			html.Name("country"),
+			e.Name("country"),
 			b.Option("Argentina", "Argentina"),
 			b.Option("Bolivia", "Bolivia"),
 			b.Option("Brazil", "Brazil"),
@@ -707,7 +707,7 @@ b.Field(
 				b.Expanded,
 				b.Select(
 					b.FullWidth,
-					html.Name("country"),
+					e.Name("country"),
 					b.Option("Argentina", "Argentina"),
 					b.Option("Bolivia", "Bolivia"),
 					b.Option("Brazil", "Brazil"),
@@ -739,7 +739,7 @@ b.Field(
 		),
 	),
 	b.Control(
-		b.InputText(html.Placeholder("Amount of money")),
+		b.InputText(e.Placeholder("Amount of money")),
 	),
 	b.Control(
 		b.ButtonA(b.Primary, "Transfer"),
@@ -756,7 +756,7 @@ b.Field(
 				),
 			),
 			b.Control(
-				b.InputText(html.Placeholder("Amount of money")),
+				b.InputText(e.Placeholder("Amount of money")),
 			),
 			b.Control(
 				b.ButtonA(b.Primary, "Transfer"),
@@ -775,7 +775,7 @@ b.Field(
 		),
 	),
 	b.Control(
-		b.InputText(html.Placeholder("Amount of money")),
+		b.InputText(e.Placeholder("Amount of money")),
 	),
 	b.Control(
 		b.ButtonA(b.Primary, "Transfer"),
@@ -792,7 +792,7 @@ b.Field(
 				),
 			),
 			b.Control(
-				b.InputText(html.Placeholder("Amount of money")),
+				b.InputText(e.Placeholder("Amount of money")),
 			),
 			b.Control(
 				b.ButtonA(b.Primary, "Transfer"),
@@ -869,7 +869,7 @@ b.Field(
 	b.Grouped,
 	b.Control(
 		b.Expanded,
-		b.InputText(html.Placeholder("Find a repository")),
+		b.InputText(e.Placeholder("Find a repository")),
 	),
 	b.Control(
 		b.ButtonA(b.Info, "Search"),
@@ -879,7 +879,7 @@ b.Field(
 			b.Grouped,
 			b.Control(
 				b.Expanded,
-				b.InputText(html.Placeholder("Find a repository")),
+				b.InputText(e.Placeholder("Find a repository")),
 			),
 			b.Control(
 				b.ButtonA(b.Info, "Search"),
@@ -931,7 +931,7 @@ b.Field(
 			html.P,
 			b.Expanded,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Name")),
+			b.InputText(e.Placeholder("Name")),
 			fa.Icon(fa.Solid, "user", b.Small, b.Left),
 		),
 	),
@@ -941,7 +941,7 @@ b.Field(
 			b.Expanded,
 			b.IconsLeft,
 			b.IconsRight,
-			b.InputEmail(b.Success, html.Placeholder("Email"), html.Value("alex@smith.com")),
+			b.InputEmail(b.Success, e.Placeholder("Email"), e.Value("alex@smith.com")),
 			fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 			fa.Icon(fa.Solid, "check", b.Small, b.Right),
 		),
@@ -954,7 +954,7 @@ b.FieldHorizontal(
 		b.Field(
 			b.Addons,
 			b.Control(html.P, b.ButtonA(b.Static, "+44")),
-			b.Control(html.P, b.Expanded, b.InputTel(html.Placeholder("Your phone number")))),
+			b.Control(html.P, b.Expanded, b.InputTel(e.Placeholder("Your phone number")))),
 		b.Help("Do not enter the first zero"),
 	),
 ),
@@ -975,8 +975,8 @@ b.FieldHorizontal(
 	b.Field(
 		b.Narrow,
 		b.Control(
-			b.Radio(html.Name("member"), "Yes"),
-			b.Radio(html.Name("member"), "No"),
+			b.Radio(e.Name("member"), "Yes"),
+			b.Radio(e.Name("member"), "No"),
 		),
 	),
 ),
@@ -985,7 +985,7 @@ b.FieldHorizontal(
 	b.Field(
 		b.Control(b.InputText(
 			b.Danger,
-			html.Placeholder("e.g. Partnership opportunity"),
+			e.Placeholder("e.g. Partnership opportunity"),
 		)),
 		b.Help(b.Danger, "This field is required"),
 	),
@@ -993,7 +993,7 @@ b.FieldHorizontal(
 b.FieldHorizontal(
 	b.FieldLabel(b.Normal, b.Label("Question")),
 	b.Field(
-		b.Control(b.Textarea(html.Placeholder("Explain how we can help you"))),
+		b.Control(b.Textarea(e.Placeholder("Explain how we can help you"))),
 	),
 ),
 b.FieldHorizontal(
@@ -1010,7 +1010,7 @@ b.FieldHorizontal(
 					html.P,
 					b.Expanded,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Name")),
+					b.InputText(e.Placeholder("Name")),
 					fa.Icon(fa.Solid, "user", b.Small, b.Left),
 				),
 			),
@@ -1020,7 +1020,7 @@ b.FieldHorizontal(
 					b.Expanded,
 					b.IconsLeft,
 					b.IconsRight,
-					b.InputEmail(b.Success, html.Placeholder("Email"), html.Value("alex@smith.com")),
+					b.InputEmail(b.Success, e.Placeholder("Email"), e.Value("alex@smith.com")),
 					fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 					fa.Icon(fa.Solid, "check", b.Small, b.Right),
 				),
@@ -1032,7 +1032,7 @@ b.FieldHorizontal(
 				b.Field(
 					b.Addons,
 					b.Control(html.P, b.ButtonA(b.Static, "+44")),
-					b.Control(html.P, b.Expanded, b.InputTel(html.Placeholder("Your phone number")))),
+					b.Control(html.P, b.Expanded, b.InputTel(e.Placeholder("Your phone number")))),
 				b.Help("Do not enter the first zero"),
 			),
 		),
@@ -1054,8 +1054,8 @@ b.FieldHorizontal(
 			b.Field(
 				b.Narrow,
 				b.Control(
-					b.Radio(html.Name("member"), "Yes"),
-					b.Radio(html.Name("member"), "No"),
+					b.Radio(e.Name("member"), "Yes"),
+					b.Radio(e.Name("member"), "No"),
 				),
 			),
 		),
@@ -1065,7 +1065,7 @@ b.FieldHorizontal(
 			b.Field(
 				b.Control(b.InputText(
 					b.Danger,
-					html.Placeholder("e.g. Partnership opportunity"),
+					e.Placeholder("e.g. Partnership opportunity"),
 				)),
 				b.Help(b.Danger, "This field is required"),
 			),
@@ -1074,7 +1074,7 @@ b.FieldHorizontal(
 			b.OnLabel(b.Normal),
 			b.Label("Question"),
 			b.Field(
-				b.Control(b.Textarea(html.Placeholder("Explain how we can help you"))),
+				b.Control(b.Textarea(e.Placeholder("Explain how we can help you"))),
 			),
 		),
 		b.FieldHorizontal(
@@ -1090,19 +1090,19 @@ b.FieldHorizontal(
 ),
 b.FieldHorizontal(
 	b.FieldLabel(b.Small, b.Label("Small padding")),
-	b.Field(b.Control(b.InputText(b.Small, html.Placeholder("Small sized input")))),
+	b.Field(b.Control(b.InputText(b.Small, e.Placeholder("Small sized input")))),
 ),
 b.FieldHorizontal(
 	b.FieldLabel(b.Normal, b.Label("Normal label")),
-	b.Field(b.Control(b.InputText(html.Placeholder("Normal sized input")))),
+	b.Field(b.Control(b.InputText(e.Placeholder("Normal sized input")))),
 ),
 b.FieldHorizontal(
 	b.FieldLabel(b.Medium, b.Label("Medium label")),
-	b.Field(b.Control(b.InputText(b.Medium, html.Placeholder("Medium sized input")))),
+	b.Field(b.Control(b.InputText(b.Medium, e.Placeholder("Medium sized input")))),
 ),
 b.FieldHorizontal(
 	b.FieldLabel(b.Large, b.Label("Large label")),
-	b.Field(b.Control(b.InputText(b.Large, html.Placeholder("Large sized input")))),
+	b.Field(b.Control(b.InputText(b.Large, e.Placeholder("Large sized input")))),
 )`,
 		b.FieldHorizontal(
 			b.Label("No padding"),
@@ -1111,55 +1111,55 @@ b.FieldHorizontal(
 		b.FieldHorizontal(
 			b.OnLabel(b.Small),
 			b.Label("Small padding"),
-			b.Field(b.Control(b.InputText(b.Small, html.Placeholder("Small sized input")))),
+			b.Field(b.Control(b.InputText(b.Small, e.Placeholder("Small sized input")))),
 		),
 		b.FieldHorizontal(
 			b.OnLabel(b.Normal),
 			b.Label("Normal label"),
-			b.Field(b.Control(b.InputText(html.Placeholder("Normal sized input")))),
+			b.Field(b.Control(b.InputText(e.Placeholder("Normal sized input")))),
 		),
 		b.FieldHorizontal(
 			b.OnLabel(b.Medium),
 			b.Label("Medium label"),
-			b.Field(b.Control(b.InputText(b.Medium, html.Placeholder("Medium sized input")))),
+			b.Field(b.Control(b.InputText(b.Medium, e.Placeholder("Medium sized input")))),
 		),
 		b.FieldHorizontal(
 			b.OnLabel(b.Large),
 			b.Label("Large label"),
-			b.Field(b.Control(b.InputText(b.Large, html.Placeholder("Large sized input")))),
+			b.Field(b.Control(b.InputText(b.Large, e.Placeholder("Large sized input")))),
 		),
 	),
 ).Subsection(
 	"Disabled form",
 	"https://bulma.io/documentation/form/general/#disabled-form",
 	c.Example(
-		`html.FieldSet(
-	html.Disabled(),
+		`e.FieldSet(
+	e.Disabled(),
 	b.Field(
 		b.Label("Name"),
 		b.Control(
-			b.InputText(html.Placeholder("e.g Alex Smith")),
+			b.InputText(e.Placeholder("e.g Alex Smith")),
 		),
 	),
 	b.Field(
 		b.Label("Email"),
 		b.Control(
-			b.InputEmail(html.Placeholder("e.g. alexsmith@gmail.com")),
+			b.InputEmail(e.Placeholder("e.g. alexsmith@gmail.com")),
 		),
 	),
 )`,
-		html.FieldSet(
-			html.Disabled(),
+		e.FieldSet(
+			e.Disabled(),
 			b.Field(
 				b.Label("Name"),
 				b.Control(
-					b.InputText(html.Placeholder("e.g Alex Smith")),
+					b.InputText(e.Placeholder("e.g Alex Smith")),
 				),
 			),
 			b.Field(
 				b.Label("Email"),
 				b.Control(
-					b.InputEmail(html.Placeholder("e.g. alexsmith@gmail.com")),
+					b.InputEmail(e.Placeholder("e.g. alexsmith@gmail.com")),
 				),
 			),
 		),

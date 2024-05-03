@@ -46,7 +46,7 @@ var elements = c.NewPage(
 	b.CSSPath("/bulma.css"),
 	fa.CSSHead("/fa"),
 	b.Language("en"),
-	b.Head(html.Meta(html.Charset("utf-8"))),
+	b.Head(e.Meta(e.Charset("utf-8"))),
 	b.Content(
 		e.H1("Hello"),
 		e.P("Hello world"),
@@ -66,8 +66,8 @@ var elements = c.NewPage(
 	"github.com/willoma/bulma-gomponents/fa"
 )
 [...]
-h.Div(
-	h.Class("someClass otherClass"),
+html.Div(
+	html.Class("someClass otherClass"),
 	b.Box(
 		b.Title3("Here it is"),
 		b.IconText(
@@ -75,9 +75,9 @@ h.Div(
 			"The library",
 		),
 		" that makes it easier to create web GUIs, based on ",
-		e.A(html.Href("https://www.gomponents.com/"), "Gomponents"),
+		e.A(e.Href("https://www.gomponents.com/"), "Gomponents"),
 		" and ",
-		html.A(h.Href("https://bulma.io/"), gomponents.Text("Bulma")),
+		html.A(html.Href("https://bulma.io/"), gomponents.Text("Bulma")),
 		"!",
 	),
 )`,
@@ -90,7 +90,7 @@ h.Div(
 					"The library",
 				),
 				" that makes it easier to create web GUIs, based on ",
-				e.A(html.Href("https://www.gomponents.com/"), "Gomponents"),
+				e.A(e.Href("https://www.gomponents.com/"), "Gomponents"),
 				" and ",
 				html.A(html.Href("https://bulma.io/"), gomponents.Text("Bulma")),
 				"!",

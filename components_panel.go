@@ -64,7 +64,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -117,7 +117,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),
@@ -182,7 +182,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -218,7 +218,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),
@@ -256,7 +256,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -292,7 +292,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),
@@ -330,7 +330,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -366,7 +366,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),
@@ -404,7 +404,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -440,7 +440,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),
@@ -478,7 +478,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -514,7 +514,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),
@@ -552,7 +552,7 @@ var panel = c.NewPage(
 		b.Control(
 			html.P,
 			b.IconsLeft,
-			b.InputText(html.Placeholder("Search")),
+			b.InputText(e.Placeholder("Search")),
 			fa.Icon(fa.Solid, "search", b.Left),
 		),
 	),
@@ -588,7 +588,7 @@ var panel = c.NewPage(
 				b.Control(
 					html.P,
 					b.IconsLeft,
-					b.InputText(html.Placeholder("Search")),
+					b.InputText(e.Placeholder("Search")),
 					fa.Icon(fa.Solid, "search", b.Left),
 				),
 			),

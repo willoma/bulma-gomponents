@@ -86,21 +86,21 @@ var card = c.NewPage(
 		b.Img4By3,
 		e.ImgSrc(
 			"https://bulma.io/assets/images/placeholders/1280x960.png",
-			html.Alt("Placeholder image"),
+			e.Alt("Placeholder image"),
 		),
 	),
 	b.Media(
 		b.MediaLeft(
 			b.ImageImg(
 				"https://bulma.io/assets/images/placeholders/96x96.png",
-				html.Alt("Placeholder image"),
+				e.Alt("Placeholder image"),
 			),
 		),
 		b.Title4(html.P, "John Smith"),
 		b.Subtitle6(html.P, "@johnsmith"),
 	),
 	b.Content(
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), html.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016"),
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), e.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016"),
 	),
 )`,
 		b.Card(
@@ -108,14 +108,14 @@ var card = c.NewPage(
 				b.Img4By3,
 				e.ImgSrc(
 					"https://bulma.io/assets/images/placeholders/1280x960.png",
-					html.Alt("Placeholder image"),
+					e.Alt("Placeholder image"),
 				),
 			),
 			b.Media(
 				b.MediaLeft(
 					b.ImageImg(
 						"https://bulma.io/assets/images/placeholders/96x96.png",
-						html.Alt("Placeholder image"),
+						e.Alt("Placeholder image"),
 					),
 				),
 				b.Title4(html.P, "John Smith"),

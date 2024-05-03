@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -261,31 +260,31 @@ var content = c.NewPage(
 	c.Example(
 		`b.Content(
 	e.Ol(
-		html.Type("1"),
+		e.Type("1"),
 		e.Li("Coffee"),
 		e.Li("Tea"),
 		e.Li("Milk"),
 	),
 	e.Ol(
-		html.Type("A"),
+		e.Type("A"),
 		e.Li("Coffee"),
 		e.Li("Tea"),
 		e.Li("Milk"),
 	),
 	e.Ol(
-		html.Type("a"),
+		e.Type("a"),
 		e.Li("Coffee"),
 		e.Li("Tea"),
 		e.Li("Milk"),
 	),
 	e.Ol(
-		html.Type("I"),
+		e.Type("I"),
 		e.Li("Coffee"),
 		e.Li("Tea"),
 		e.Li("Milk"),
 	),
 	e.Ol(
-		html.Type("i"),
+		e.Type("i"),
 		e.Li("Coffee"),
 		e.Li("Tea"),
 		e.Li("Milk"),
@@ -293,31 +292,31 @@ var content = c.NewPage(
 )`,
 		b.Content(
 			e.Ol(
-				html.Type("1"),
+				e.Type("1"),
 				e.Li("Coffee"),
 				e.Li("Tea"),
 				e.Li("Milk"),
 			),
 			e.Ol(
-				html.Type("A"),
+				e.Type("A"),
 				e.Li("Coffee"),
 				e.Li("Tea"),
 				e.Li("Milk"),
 			),
 			e.Ol(
-				html.Type("a"),
+				e.Type("a"),
 				e.Li("Coffee"),
 				e.Li("Tea"),
 				e.Li("Milk"),
 			),
 			e.Ol(
-				html.Type("I"),
+				e.Type("I"),
 				e.Li("Coffee"),
 				e.Li("Tea"),
 				e.Li("Milk"),
 			),
 			e.Ol(
-				html.Type("i"),
+				e.Type("i"),
 				e.Li("Coffee"),
 				e.Li("Tea"),
 				e.Li("Milk"),

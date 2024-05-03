@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -37,10 +36,10 @@ var formInput = c.NewPage(
 			e.Code("b.Disabled"),
 			"Disable the input",
 
-			e.Code("html.ReadOnly()"),
+			e.Code("e.ReadOnly()"),
 			"Read only input",
 
-			e.Code("html.Placeholder(string)"),
+			e.Code("e.Placeholder(string)"),
 			"Add a placeholder to the input",
 
 			e.Code("b.Primary"),
@@ -77,163 +76,163 @@ var formInput = c.NewPage(
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/form/input/",
 	c.Example(
-		`b.InputText(html.Placeholder("Text input"))`,
-		b.InputText(html.Placeholder("Text input")),
+		`b.InputText(e.Placeholder("Text input"))`,
+		b.InputText(e.Placeholder("Text input")),
 	),
 ).Subsection(
 	"Colors",
 	"https://bulma.io/documentation/form/input/#colors",
 	c.Example(
-		`b.InputText(b.Primary, html.Placeholder("Primary input"))`,
-		b.InputText(b.Primary, html.Placeholder("Primary input")),
+		`b.InputText(b.Primary, e.Placeholder("Primary input"))`,
+		b.InputText(b.Primary, e.Placeholder("Primary input")),
 	),
 	c.Example(
-		`b.InputText(b.Link, html.Placeholder("Link input"))`,
-		b.InputText(b.Link, html.Placeholder("Link input")),
+		`b.InputText(b.Link, e.Placeholder("Link input"))`,
+		b.InputText(b.Link, e.Placeholder("Link input")),
 	),
 	c.Example(
-		`b.InputText(b.Info, html.Placeholder("Info input"))`,
-		b.InputText(b.Info, html.Placeholder("Info input")),
+		`b.InputText(b.Info, e.Placeholder("Info input"))`,
+		b.InputText(b.Info, e.Placeholder("Info input")),
 	),
 	c.Example(
-		`b.InputText(b.Success, html.Placeholder("Success input"))`,
-		b.InputText(b.Success, html.Placeholder("Success input")),
+		`b.InputText(b.Success, e.Placeholder("Success input"))`,
+		b.InputText(b.Success, e.Placeholder("Success input")),
 	),
 	c.Example(
-		`b.InputText(b.Warning, html.Placeholder("Warning input"))`,
-		b.InputText(b.Warning, html.Placeholder("Warning input")),
+		`b.InputText(b.Warning, e.Placeholder("Warning input"))`,
+		b.InputText(b.Warning, e.Placeholder("Warning input")),
 	),
 	c.Example(
-		`b.InputText(b.Danger, html.Placeholder("Danger input"))`,
-		b.InputText(b.Danger, html.Placeholder("Danger input")),
+		`b.InputText(b.Danger, e.Placeholder("Danger input"))`,
+		b.InputText(b.Danger, e.Placeholder("Danger input")),
 	),
 ).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/form/input/#sizes",
 	c.Example(
-		`b.InputText(b.Small, html.Placeholder("Small input"))`,
-		b.InputText(b.Small, html.Placeholder("Small input")),
+		`b.InputText(b.Small, e.Placeholder("Small input"))`,
+		b.InputText(b.Small, e.Placeholder("Small input")),
 	),
 	c.Example(
-		`b.InputText(b.Normal, html.Placeholder("Normal input"))`,
-		b.InputText(b.Normal, html.Placeholder("Normal input")),
+		`b.InputText(b.Normal, e.Placeholder("Normal input"))`,
+		b.InputText(b.Normal, e.Placeholder("Normal input")),
 	),
 	c.Example(
-		`b.InputText(b.Medium, html.Placeholder("Medium input"))`,
-		b.InputText(b.Medium, html.Placeholder("Medium input")),
+		`b.InputText(b.Medium, e.Placeholder("Medium input"))`,
+		b.InputText(b.Medium, e.Placeholder("Medium input")),
 	),
 	c.Example(
-		`b.InputText(b.Large, html.Placeholder("Large input"))`,
-		b.InputText(b.Large, html.Placeholder("Large input")),
+		`b.InputText(b.Large, e.Placeholder("Large input"))`,
+		b.InputText(b.Large, e.Placeholder("Large input")),
 	),
 ).Subsection(
 	"Styles",
 	"https://bulma.io/documentation/form/input/#styles",
 	c.Example(
-		`b.InputText(b.Rounded, html.Placeholder("Rounded input"))`,
-		b.InputText(b.Rounded, html.Placeholder("Rounded input")),
+		`b.InputText(b.Rounded, e.Placeholder("Rounded input"))`,
+		b.InputText(b.Rounded, e.Placeholder("Rounded input")),
 	),
 ).Subsection(
 	"States",
 	"https://bulma.io/documentation/form/input/#states",
 	c.Example(
 		`b.Control(
-	b.InputText(html.Placeholder("Normal input")),
+	b.InputText(e.Placeholder("Normal input")),
 )`,
 		b.Control(
-			b.InputText(html.Placeholder("Normal input")),
+			b.InputText(e.Placeholder("Normal input")),
 		),
 	),
 	c.Example(
 		`b.Control(
-	b.InputText(b.Hovered, html.Placeholder("Hovered input")),
+	b.InputText(b.Hovered, e.Placeholder("Hovered input")),
 )`,
 		b.Control(
-			b.InputText(b.Hovered, html.Placeholder("Hovered input")),
+			b.InputText(b.Hovered, e.Placeholder("Hovered input")),
 		),
 	),
 	c.Example(
 		`b.Control(
-	b.InputText(b.Focused, html.Placeholder("Focused input")),
+	b.InputText(b.Focused, e.Placeholder("Focused input")),
 )`,
 		b.Control(
-			b.InputText(b.Focused, html.Placeholder("Focused input")),
+			b.InputText(b.Focused, e.Placeholder("Focused input")),
 		),
 	),
 	c.Example(
 		`b.Control(
 	b.Loading,
-	b.InputText(html.Placeholder("Loading input")),
+	b.InputText(e.Placeholder("Loading input")),
 )`,
 		b.Control(
 			b.Loading,
-			b.InputText(html.Placeholder("Loading input")),
+			b.InputText(e.Placeholder("Loading input")),
 		),
 	),
 	c.Example(
 		`b.Field(
 	b.Control(
 		b.Small, b.Loading,
-		b.InputText(b.Small, html.Placeholder("Small loading input")),
+		b.InputText(b.Small, e.Placeholder("Small loading input")),
 	),
 ),
 b.Field(
 	b.Control(
 		b.Loading,
-		b.InputText(html.Placeholder("Normal loading input")),
+		b.InputText(e.Placeholder("Normal loading input")),
 	),
 ),
 b.Field(
 	b.Control(
 		b.Medium, b.Loading,
-		b.InputText(b.Medium, html.Placeholder("Medium loading input")),
+		b.InputText(b.Medium, e.Placeholder("Medium loading input")),
 	),
 ),
 b.Field(
 	b.Control(
 		b.Large, b.Loading,
-		b.InputText(b.Large, html.Placeholder("Large loading input")),
+		b.InputText(b.Large, e.Placeholder("Large loading input")),
 	),
 )`,
 		b.Field(
 			b.Control(
 				b.Small, b.Loading,
-				b.InputText(b.Small, html.Placeholder("Small loading input")),
+				b.InputText(b.Small, e.Placeholder("Small loading input")),
 			),
 		),
 		b.Field(
 			b.Control(
 				b.Loading,
-				b.InputText(html.Placeholder("Normal loading input")),
+				b.InputText(e.Placeholder("Normal loading input")),
 			),
 		),
 		b.Field(
 			b.Control(
 				b.Medium, b.Loading,
-				b.InputText(b.Medium, html.Placeholder("Medium loading input")),
+				b.InputText(b.Medium, e.Placeholder("Medium loading input")),
 			),
 		),
 		b.Field(
 			b.Control(
 				b.Large, b.Loading,
-				b.InputText(b.Large, html.Placeholder("Large loading input")),
+				b.InputText(b.Large, e.Placeholder("Large loading input")),
 			),
 		),
 	),
 	c.Example(
 		`b.Control(
-	b.InputText(html.Placeholder("Disabled input"), b.Disabled),
+	b.InputText(e.Placeholder("Disabled input"), b.Disabled),
 )`,
 		b.Control(
-			b.InputText(html.Placeholder("Disabled input"), b.Disabled),
+			b.InputText(e.Placeholder("Disabled input"), b.Disabled),
 		),
 	),
 	c.Example(
 		`b.Control(
-	b.InputText(html.Value("This text is readonly"), html.ReadOnly()),
+	b.InputText(e.Value("This text is readonly"), e.ReadOnly()),
 )`,
 		b.Control(
-			b.InputText(html.Value("This text is readonly"), html.ReadOnly()),
+			b.InputText(e.Value("This text is readonly"), e.ReadOnly()),
 		),
 	),
 	c.Example(
@@ -248,8 +247,8 @@ b.Field(
 			b.Control(
 				b.InputEmail(
 					b.Static,
-					html.Value("me@example.com"),
-					html.ReadOnly(),
+					e.Value("me@example.com"),
+					e.ReadOnly(),
 				),
 			),
 		),
@@ -264,7 +263,7 @@ b.Field(
 	b.FieldBody(
 		b.Field(
 			b.Control(
-				b.InputEmail(html.Placeholder("Recipient email")),
+				b.InputEmail(e.Placeholder("Recipient email")),
 			),
 		),
 	),
@@ -276,8 +275,8 @@ b.Field(
 				b.Control(
 					b.InputEmail(
 						b.Static,
-						html.Value("me@example.com"),
-						html.ReadOnly(),
+						e.Value("me@example.com"),
+						e.ReadOnly(),
 					),
 				),
 			),
@@ -287,7 +286,7 @@ b.Field(
 			b.Label("To"),
 			b.Field(
 				b.Control(
-					b.InputEmail(html.Placeholder("Recipient email")),
+					b.InputEmail(e.Placeholder("Recipient email")),
 				),
 			),
 		),
@@ -299,7 +298,7 @@ b.Field(
 		`b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(html.Placeholder("Email")),
+		b.InputEmail(e.Placeholder("Email")),
 		fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", b.Small, b.Right),
 	),
@@ -307,14 +306,14 @@ b.Field(
 b.Field(
 	b.Control(
 		b.IconsLeft,
-		b.InputPassword(html.Placeholder("Password")),
+		b.InputPassword(e.Placeholder("Password")),
 		fa.Icon(fa.Solid, "lock", b.Small, b.Left),
 	),
 )`,
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(html.Placeholder("Email")),
+				b.InputEmail(e.Placeholder("Email")),
 				fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", b.Small, b.Right),
 			),
@@ -322,7 +321,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft,
-				b.InputPassword(html.Placeholder("Password")),
+				b.InputPassword(e.Placeholder("Password")),
 				fa.Icon(fa.Solid, "lock", b.Small, b.Left),
 			),
 		),
@@ -331,7 +330,7 @@ b.Field(
 		`b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Small, html.Placeholder("Email")),
+		b.InputEmail(b.Small, e.Placeholder("Email")),
 		fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", b.Small, b.Right),
 	),
@@ -339,7 +338,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Small, html.Placeholder("Email")),
+				b.InputEmail(b.Small, e.Placeholder("Email")),
 				fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", b.Small, b.Right),
 			),
@@ -349,7 +348,7 @@ b.Field(
 		`b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(html.Placeholder("Email")),
+		b.InputEmail(e.Placeholder("Email")),
 		fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 		fa.Icon(fa.Solid, "check", b.Small, b.Right),
 	),
@@ -357,7 +356,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(html.Placeholder("Email")),
+				b.InputEmail(e.Placeholder("Email")),
 				fa.Icon(fa.Solid, "envelope", b.Small, b.Left),
 				fa.Icon(fa.Solid, "check", b.Small, b.Right),
 			),
@@ -367,7 +366,7 @@ b.Field(
 		`b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Medium, html.Placeholder("Email")),
+		b.InputEmail(b.Medium, e.Placeholder("Email")),
 		fa.Icon(fa.Solid, "envelope", b.Left),
 		fa.Icon(fa.Solid, "check", b.Right),
 	),
@@ -375,7 +374,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Medium, html.Placeholder("Email")),
+				b.InputEmail(b.Medium, e.Placeholder("Email")),
 				fa.Icon(fa.Solid, "envelope", b.Left),
 				fa.Icon(fa.Solid, "check", b.Right),
 			),
@@ -385,7 +384,7 @@ b.Field(
 		`b.Field(
 	b.Control(
 		b.IconsLeft, b.IconsRight,
-		b.InputEmail(b.Large, html.Placeholder("Email")),
+		b.InputEmail(b.Large, e.Placeholder("Email")),
 		fa.Icon(fa.Solid, "envelope", b.Medium, b.Left),
 		fa.Icon(fa.Solid, "check", b.Medium, b.Right),
 	),
@@ -393,7 +392,7 @@ b.Field(
 		b.Field(
 			b.Control(
 				b.IconsLeft, b.IconsRight,
-				b.InputEmail(b.Large, html.Placeholder("Email")),
+				b.InputEmail(b.Large, e.Placeholder("Email")),
 				fa.Icon(fa.Solid, "envelope", b.Medium, b.Left),
 				fa.Icon(fa.Solid, "check", b.Medium, b.Right),
 			),

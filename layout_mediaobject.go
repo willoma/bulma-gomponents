@@ -54,7 +54,7 @@ var mediaObject = c.NewPage(
 	b.Content(
 		e.P(
 			e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
-			html.Br(),
+			e.Br(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.",
 		),
 		b.Level(
@@ -79,7 +79,7 @@ var mediaObject = c.NewPage(
 			b.Content(
 				e.P(
 					e.Strong("John Smith"), " ", e.Small("@johnsmith"), " ", e.Small("31m"),
-					html.Br(),
+					e.Br(),
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.",
 				),
 				b.Level(
@@ -106,7 +106,7 @@ var mediaObject = c.NewPage(
 	b.Field(
 		b.Control(
 			b.Textarea(
-				html.Placeholder("Add a comment..."),
+				e.Placeholder("Add a comment..."),
 			),
 		),
 	),
@@ -132,7 +132,7 @@ var mediaObject = c.NewPage(
 			b.Field(
 				b.Control(
 					b.Textarea(
-						html.Placeholder("Add a comment..."),
+						e.Placeholder("Add a comment..."),
 					),
 				),
 			),
@@ -218,7 +218,7 @@ b.Media(
 	),
 	b.Field(b.Control(
 		b.Textarea(
-			html.Placeholder("Add a comment..."),
+			e.Placeholder("Add a comment..."),
 		),
 	)),
 	b.Field(b.Control(
@@ -291,7 +291,7 @@ b.Media(
 			),
 			b.Field(b.Control(
 				b.Textarea(
-					html.Placeholder("Add a comment..."),
+					e.Placeholder("Add a comment..."),
 				),
 			)),
 			b.Field(b.Control(

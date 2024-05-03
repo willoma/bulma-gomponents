@@ -1,7 +1,6 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -93,12 +92,12 @@ var formFile = c.NewPage(
 	"Bulma examples", "https://bulma.io/documentation/form/file/",
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
 		),
@@ -108,13 +107,13 @@ var formFile = c.NewPage(
 	"https://bulma.io/documentation/form/file/#modifiers",
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
 			b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
@@ -122,14 +121,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Right,
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Right,
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
@@ -138,14 +137,14 @@ var formFile = c.NewPage(
 	),
 	c.HorizontalExample(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.FullWidth,
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.FullWidth,
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
@@ -154,13 +153,13 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
@@ -168,14 +167,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
@@ -187,13 +186,13 @@ var formFile = c.NewPage(
 	"https://bulma.io/documentation/form/file/#colors",
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Primary,
 	fa.Icon(fa.Solid, "upload"),
 	"Primary file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Primary,
 			fa.Icon(fa.Solid, "upload"),
 			"Primary file…",
@@ -201,14 +200,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Info,
 	fa.Icon(fa.Solid, "upload"),
 	"Info file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Info,
 			fa.Icon(fa.Solid, "upload"),
 			"Info file…",
@@ -217,14 +216,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Warning,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Warning file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Warning,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -233,7 +232,7 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Danger,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
@@ -241,7 +240,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Danger,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -254,13 +253,13 @@ var formFile = c.NewPage(
 	"https://bulma.io/documentation/form/file/#sizes",
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Small,
 	fa.Icon(fa.Solid, "upload"),
 	"Small file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Small,
 			fa.Icon(fa.Solid, "upload"),
 			"Small file…",
@@ -268,13 +267,13 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Normal,
 	fa.Icon(fa.Solid, "upload"),
 	"Normal file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Normal,
 			fa.Icon(fa.Solid, "upload"),
 			"Normal file…",
@@ -282,13 +281,13 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Medium,
 	fa.Icon(fa.Solid, "upload"),
 	"Medium file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Medium,
 			fa.Icon(fa.Solid, "upload"),
 			"Medium file…",
@@ -296,13 +295,13 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Large,
 	fa.Icon(fa.Solid, "upload"),
 	"Large file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Large,
 			fa.Icon(fa.Solid, "upload"),
 			"Large file…",
@@ -310,14 +309,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Small,
 	fa.Icon(fa.Solid, "upload"),
 	"Small file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Small,
 			fa.Icon(fa.Solid, "upload"),
 			"Small file…",
@@ -326,14 +325,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Normal,
 	fa.Icon(fa.Solid, "upload"),
 	"Normal file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Normal,
 			fa.Icon(fa.Solid, "upload"),
 			"Normal file…",
@@ -342,14 +341,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Medium,
 	fa.Icon(fa.Solid, "upload"),
 	"Medium file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Medium,
 			fa.Icon(fa.Solid, "upload"),
 			"Medium file…",
@@ -358,14 +357,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Large,
 	fa.Icon(fa.Solid, "upload"),
 	"Large file…",
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Large,
 			fa.Icon(fa.Solid, "upload"),
 			"Large file…",
@@ -374,14 +373,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Small,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Small file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Small,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -390,14 +389,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Normal,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Normal file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Normal,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -406,14 +405,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Medium,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Medium file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Medium,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -422,14 +421,14 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Large,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
 	"Large file…",
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Large,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -438,7 +437,7 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Small,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
@@ -446,7 +445,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Small,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -456,7 +455,7 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Normal,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
@@ -464,7 +463,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Normal,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -474,7 +473,7 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Medium,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
@@ -482,7 +481,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Medium,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -492,7 +491,7 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Large,
 	b.Boxed,
 	fa.Icon(fa.Solid, "upload"),
@@ -500,7 +499,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Large,
 			b.Boxed,
 			fa.Icon(fa.Solid, "upload"),
@@ -513,7 +512,7 @@ var formFile = c.NewPage(
 	"https://bulma.io/documentation/form/file/#alignment",
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Centered,
 	b.Boxed,
 	b.Success,
@@ -522,7 +521,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Centered,
 			b.Boxed,
 			b.Success,
@@ -533,7 +532,7 @@ var formFile = c.NewPage(
 	),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	b.Right,
 	b.Info,
 	fa.Icon(fa.Solid, "upload"),
@@ -541,7 +540,7 @@ var formFile = c.NewPage(
 	b.FileName("Screen Shot 2017-07-29 at 15.54.25.png"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			b.Right,
 			b.Info,
 			fa.Icon(fa.Solid, "upload"),
@@ -555,13 +554,13 @@ var formFile = c.NewPage(
 	b.Content(e.P("In order to automatically change the file name when the user has selected a file, use ", e.Code("b.FileNameAutoUpdate"), " with a placeholder:")),
 	c.Example(
 		`b.File(
-	html.Name("resume"),
+	e.Name("resume"),
 	fa.Icon(fa.Solid, "upload"),
 	"Choose a file…",
 	b.FileNameAutoUpdate("No file uploaded"),
 )`,
 		b.File(
-			html.Name("resume"),
+			e.Name("resume"),
 			fa.Icon(fa.Solid, "upload"),
 			"Choose a file…",
 			b.FileNameAutoUpdate("No file uploaded"),

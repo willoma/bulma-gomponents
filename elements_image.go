@@ -2,7 +2,6 @@ package docs
 
 import (
 	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
@@ -119,11 +118,11 @@ var image = c.NewPage(
 	c.Example(
 		`b.Image(
 	b.ImgSq128,
-	e.Img(html.Src("https://bulma.io/assets/images/placeholders/128x128.png")),
+	e.Img(e.Src("https://bulma.io/assets/images/placeholders/128x128.png")),
 )`,
 		b.Image(
 			b.ImgSq128,
-			e.Img(html.Src("https://bulma.io/assets/images/placeholders/128x128.png")),
+			e.Img(e.Src("https://bulma.io/assets/images/placeholders/128x128.png")),
 		),
 	),
 	c.Example(
@@ -396,9 +395,9 @@ b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq128
 	b.Img16By9,
 	e.IFrame(
 		b.Ratio,
-		html.Width("640"),
-		html.Height("360"),
-		html.Src("https://www.youtube.com/embed/YE7VzlLtp-4"),
+		e.Width("640"),
+		e.Height("360"),
+		e.Src("https://www.youtube.com/embed/YE7VzlLtp-4"),
 		gomponents.Attr("frameborder", "0"),
 		gomponents.Attr("allowfullscreen"),
 	)
@@ -407,9 +406,9 @@ b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq128
 			b.Img16By9,
 			e.IFrame(
 				b.Ratio,
-				html.Width("640"),
-				html.Height("360"),
-				html.Src("https://www.youtube.com/embed/YE7VzlLtp-4"),
+				e.Width("640"),
+				e.Height("360"),
+				e.Src("https://www.youtube.com/embed/YE7VzlLtp-4"),
 				gomponents.Attr("frameborder", "0"),
 				gomponents.Attr("allowfullscreen"),
 			),

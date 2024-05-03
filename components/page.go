@@ -55,12 +55,12 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 			e.Styles{"margin-left": "11.25rem"},
 			b.Padding(b.Spacing4),
 			b.Title(
-				e.A(html.Name("top")),
+				e.A(e.Name("top")),
 				p.Title,
 			),
 		)
 		if p.BulmaURL != "" {
-			content.With(b.Content(e.AHref(p.BulmaURL, html.Target("_blank"), "Bulma documentation")))
+			content.With(b.Content(e.AHref(p.BulmaURL, e.Target("_blank"), "Bulma documentation")))
 		}
 		content.With(p.Children, p.InternalMenu())
 
@@ -205,7 +205,7 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 				e.AHref(
 					"#"+titleSlug,
 					b.FontSize6,
-					html.Name(titleSlug),
+					e.Name(titleSlug),
 					fa.Icon(fa.Solid, "link"),
 				),
 			),
@@ -228,7 +228,7 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 	}
 	if peerURL != "" {
 		section.With(
-			b.Content(e.AHref(peerURL, html.Target("_blank"), peerName+" documentation")),
+			b.Content(e.AHref(peerURL, e.Target("_blank"), peerName+" documentation")),
 		)
 	}
 	section.With(content...)

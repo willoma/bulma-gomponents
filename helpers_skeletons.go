@@ -147,7 +147,7 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 	b.Field(
 		b.Control(
 			html.P,
-			b.Textarea(b.Skeleton, html.Placeholder("Add a comment...")),
+			b.Textarea(b.Skeleton, e.Placeholder("Add a comment...")),
 		),
 	),
 	b.Level(
@@ -171,7 +171,7 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 			b.Field(
 				b.Control(
 					html.P,
-					b.Textarea(b.Skeleton, html.Placeholder("Add a comment...")),
+					b.Textarea(b.Skeleton, e.Placeholder("Add a comment...")),
 				),
 			),
 			b.Level(

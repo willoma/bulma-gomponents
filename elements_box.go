@@ -31,13 +31,13 @@ var box = c.NewPage(
 	b.Field(
 		b.Label("Email"),
 		b.Control(
-			b.InputEmail(html.Placeholder("e.g. alex@example.com")),
+			b.InputEmail(e.Placeholder("e.g. alex@example.com")),
 		),
 	),
 	b.Field(
 		b.Label("Password"),
 		b.Control(
-			b.InputPassword(html.Placeholder("********")),
+			b.InputPassword(e.Placeholder("********")),
 		),
 	),
 	b.Button(b.Primary, "Sign in"),
@@ -47,13 +47,13 @@ var box = c.NewPage(
 			b.Field(
 				b.Label("Email"),
 				b.Control(
-					b.InputEmail(html.Placeholder("e.g. alex@example.com")),
+					b.InputEmail(e.Placeholder("e.g. alex@example.com")),
 				),
 			),
 			b.Field(
 				b.Label("Password"),
 				b.Control(
-					b.InputPassword(html.Placeholder("********")),
+					b.InputPassword(e.Placeholder("********")),
 				),
 			),
 			b.Button(b.Primary, "Sign in"),

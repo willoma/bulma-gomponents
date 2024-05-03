@@ -292,7 +292,7 @@ b.Hero(
 			b.NavbarBrand(
 				b.NavbarAHref(
 					"#",
-					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", e.Alt("Logo")),
 				),
 			),
 			b.NavbarEnd(
@@ -340,7 +340,7 @@ b.Hero(
 					b.NavbarBrand(
 						b.NavbarAHref(
 							"#",
-							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", e.Alt("Logo")),
 						),
 					),
 					b.NavbarEnd(
@@ -389,7 +389,7 @@ b.Hero(
 			b.NavbarBrand(
 				b.NavbarAHref(
 					"#",
-					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", e.Alt("Logo")),
 				),
 			),
 			b.NavbarEnd(
@@ -433,7 +433,7 @@ b.Hero(
 					b.NavbarBrand(
 						b.NavbarAHref(
 							"#",
-							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", e.Alt("Logo")),
 						),
 					),
 					b.NavbarEnd(
@@ -479,7 +479,7 @@ b.Hero(
 			b.NavbarBrand(
 				b.NavbarAHref(
 					"#",
-					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+					e.ImgSrc("https://bulma.io/images/bulma-type-white.png", e.Alt("Logo")),
 				),
 			),
 			b.NavbarEnd(
@@ -523,7 +523,7 @@ b.Hero(
 					b.NavbarBrand(
 						b.NavbarAHref(
 							"#",
-							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", html.Alt("Logo")),
+							e.ImgSrc("https://bulma.io/images/bulma-type-white.png", e.Alt("Logo")),
 						),
 					),
 					b.NavbarEnd(

@@ -48,7 +48,7 @@ var button = c.NewPage(
 			e.Code("b.Static"),
 			"Make the button non-interactive",
 
-			e.Code("html.Disabled()"),
+			e.Code("e.Disabled()"),
 			"Disable the button",
 
 			e.Code("b.Selected"),
@@ -511,62 +511,62 @@ b.Buttons(
 	c.Example(
 		`b.Buttons(
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		e.Disabled(), "Disabled",
 	),
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		b.Primary, html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		b.Primary, e.Disabled(), "Disabled",
 	),
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		b.Link, html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		b.Link, e.Disabled(), "Disabled",
 	),
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		b.Info, html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		b.Info, e.Disabled(), "Disabled",
 	),
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		b.Success, html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		b.Success, e.Disabled(), "Disabled",
 	),
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		b.Warning, html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		b.Warning, e.Disabled(), "Disabled",
 	),
 	b.Button(
-		html.TitleAttr("Disabled button"),
-		b.Danger, html.Disabled(), "Disabled",
+		e.TitleAttr("Disabled button"),
+		b.Danger, e.Disabled(), "Disabled",
 	),
 )`,
 		b.Buttons(
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				e.Disabled(), "Disabled",
 			),
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				b.Primary, html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				b.Primary, e.Disabled(), "Disabled",
 			),
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				b.Link, html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				b.Link, e.Disabled(), "Disabled",
 			),
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				b.Info, html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				b.Info, e.Disabled(), "Disabled",
 			),
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				b.Success, html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				b.Success, e.Disabled(), "Disabled",
 			),
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				b.Warning, html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				b.Warning, e.Disabled(), "Disabled",
 			),
 			b.Button(
-				html.TitleAttr("Disabled button"),
-				b.Danger, html.Disabled(), "Disabled",
+				e.TitleAttr("Disabled button"),
+				b.Danger, e.Disabled(), "Disabled",
 			),
 		),
 	),
