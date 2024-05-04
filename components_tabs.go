@@ -79,7 +79,7 @@ func (t *tabs) Clone() e.Element {
 //
 // https://willoma.github.io/bulma-gomponents/tabs.html
 func TabLink(children ...any) e.Element {
-	a := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
+	a := &spanAroundNonIconsIfHasIcons{elemFn: html.A}
 	t := &tabLink{
 		Element: e.Li(a),
 		a:       a,

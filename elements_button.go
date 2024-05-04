@@ -7,7 +7,7 @@ import (
 )
 
 func newButton(fn func(...gomponents.Node) gomponents.Node, children ...any) e.Element {
-	b := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: fn}
+	b := &spanAroundNonIconsIfHasIcons{elemFn: fn}
 	b.With(e.Class("button")).With(children...)
 
 	return b

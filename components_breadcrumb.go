@@ -70,7 +70,7 @@ func BreadcrumbEntry(children ...any) e.Element {
 // It is better than BreadcrumbEntry(AHref(href, children...)),
 // because it ensures text is enclosed in span if a child is an icon.
 func BreadcrumbAHref(href string, children ...any) e.Element {
-	ahref := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
+	ahref := &spanAroundNonIconsIfHasIcons{elemFn: html.A}
 	ahref.With(html.Href(href)).With(children...)
 
 	return e.Li(ahref)
@@ -82,7 +82,7 @@ func BreadcrumbAHref(href string, children ...any) e.Element {
 // It is better than BreadcrumbEntry(Active, AHref(href, children)),
 // because it ensures text is enclosed in span if a child is an icon.
 func BreadcrumbActiveAHref(href string, children ...any) e.Element {
-	ahref := &elemOptionSpanAroundNonIconsIfHasIcons{elemFn: html.A}
+	ahref := &spanAroundNonIconsIfHasIcons{elemFn: html.A}
 	ahref.With(html.Href(href), e.AriaCurrentPage).With(children...)
 
 	return e.Li(Active, ahref)

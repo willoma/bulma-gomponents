@@ -81,9 +81,8 @@ func FlexIconText(children ...any) e.Element {
 }
 
 func newIconText(fn func(...gomponents.Node) gomponents.Node, children ...any) e.Element {
-	i := &elemOptionSpanAroundNonIcons{elemFn: fn}
-	i.With(e.Class("icon-text")).With(children...)
-
+	i := &spanAroundNonIcons{e.Elem(fn, e.Class("icon-text"))}
+	i.With(children...)
 	return i
 }
 
