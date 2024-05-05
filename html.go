@@ -7,7 +7,7 @@ import (
 	e "github.com/willoma/gomplements"
 )
 
-const cdnPath = "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+const cdnPath = "https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
 
 // CSSPath, when provided to HTML, sets the path to the Bulma CSS
 type CSSPath string
