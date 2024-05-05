@@ -7,30 +7,35 @@ import (
 	e "github.com/willoma/gomplements"
 )
 
-type Animation interface {
-	e.ParentModifier
-
-	setDelay(time.Duration)
-	setDirection(string)
-	setDuration(time.Duration)
-	setIterationCount(float64)
-	setTiming(string)
+type animationI interface {
+	isAnimation()
 }
 
-type animationBase struct {
-	delay          time.Duration
-	direction      string
-	duration       time.Duration
-	iterationCount float64
-	timing         string
+type animation struct {
+	delay     time.Duration
+	zeroDelay bool
+
+	direction string
+
+	duration     time.Duration
+	zeroDuration bool
+
+	iterationCount     float64
+	zeroIterationCount bool
+
+	timing string
 }
 
-func (a *animationBase) ModifyParent(p e.Element) {
+func (a *animation) isAnimation() {}
+
+func (a *animation) ModifyParent(p e.Element) {
 	if a.delay != 0 {
 		p.With(e.Style(
 			"--fa-animation-delay",
 			strconv.FormatFloat(a.delay.Seconds(), 'f', 2, 64)+"s",
 		))
+	} else if a.zeroDelay {
+		p.With(e.Style("--fa-animation-delay", "0s"))
 	}
 
 	if a.direction != "" {
@@ -42,6 +47,8 @@ func (a *animationBase) ModifyParent(p e.Element) {
 			"--fa-animation-duration",
 			strconv.FormatFloat(a.duration.Seconds(), 'f', 2, 64)+"s",
 		))
+	} else if a.zeroDuration {
+		p.With(e.Style("--fa-animation-duration", "0s"))
 	}
 
 	if a.iterationCount != 0 {
@@ -49,6 +56,8 @@ func (a *animationBase) ModifyParent(p e.Element) {
 			"--fa-animation-iteration-count",
 			strconv.FormatFloat(a.iterationCount, 'f', 2, 64),
 		))
+	} else if a.zeroIterationCount {
+		p.With(e.Style("--fa-animation-iteration-count", "0"))
 	}
 
 	if a.timing != "" {
@@ -56,84 +65,99 @@ func (a *animationBase) ModifyParent(p e.Element) {
 	}
 }
 
-func (a *animationBase) setDelay(d time.Duration) {
-	a.delay = d
-}
-
-func Delay(d time.Duration) func(a Animation) {
-	return func(a Animation) {
-		a.setDelay(d)
+func Delay(d time.Duration) func(a any) {
+	return func(a any) {
+		if b, ok := a.(*animation); ok {
+			b.zeroDelay = d == 0
+			b.delay = d
+		}
 	}
 }
 
-func (a *animationBase) setDirection(d string) {
-	a.direction = d
-}
-
-func DirectionNormal(a Animation) {
-	a.setDirection("normal")
-}
-
-func DirectionReverse(a Animation) {
-	a.setDirection("reverse")
-}
-
-func DirectionAlternate(a Animation) {
-	a.setDirection("alternate")
-}
-
-func DirectionAlternateReverse(a Animation) {
-	a.setDirection("alternate-reverse")
-}
-
-func (a *animationBase) setDuration(d time.Duration) {
-	a.duration = d
-}
-
-func Duration(d time.Duration) func(a Animation) {
-	return func(a Animation) {
-		a.setDuration(d)
+func DirectionNormal(a any) {
+	if b, ok := a.(*animation); ok {
+		b.direction = "normal"
 	}
 }
 
-func (a *animationBase) setIterationCount(c float64) {
-	a.iterationCount = c
-}
-
-func IterationCount(c float64) func(a Animation) {
-	return func(a Animation) {
-		a.setIterationCount(c)
+func DirectionReverse(a any) {
+	if b, ok := a.(*animation); ok {
+		b.direction = "reverse"
 	}
 }
 
-func (a *animationBase) setTiming(t string) {
+func DirectionAlternate(a any) {
+	if b, ok := a.(*animation); ok {
+		b.direction = "alternate"
+	}
+}
+
+func DirectionAlternateReverse(a any) {
+	if b, ok := a.(*animation); ok {
+		b.direction = "alternate-reverse"
+	}
+}
+
+func Duration(d time.Duration) func(a any) {
+	return func(a any) {
+		if b, ok := a.(*animation); ok {
+			b.zeroDuration = d == 0
+			b.duration = d
+		}
+	}
+}
+
+func IterationCount(c float64) func(a any) {
+	return func(a any) {
+		if b, ok := a.(*animation); ok {
+			b.zeroIterationCount = c == 0
+			b.iterationCount = c
+		}
+	}
+}
+
+func (a *animation) setTiming(t string) {
 	a.timing = t
 }
 
-func TimingEase(a Animation) {
-	a.setTiming("ease")
+func TimingEase(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "ease"
+	}
 }
 
-func TimingLinear(a Animation) {
-	a.setTiming("linear")
+func TimingLinear(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "linear"
+	}
 }
 
-func TimingEaseIn(a Animation) {
-	a.setTiming("ease-in")
+func TimingEaseIn(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "ease-in"
+	}
 }
 
-func TimingEaseOut(a Animation) {
-	a.setTiming("ease-out")
+func TimingEaseOut(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "ease-out"
+	}
 }
 
-func TimingEaseInOut(a Animation) {
-	a.setTiming("ease-in-out")
+func TimingEaseInOut(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "ease-in-out"
+	}
 }
 
-func TimingStepStart(a Animation) {
-	a.setTiming("step-start")
+func TimingStepStart(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "step-start"
+	}
 }
 
-func TimingStepEnd(a Animation) {
-	a.setTiming("step-end")
+func TimingStepEnd(a any) {
+	if b, ok := a.(*animation); ok {
+		b.timing = "step-end"
+	}
 }

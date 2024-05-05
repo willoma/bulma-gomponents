@@ -5,10 +5,10 @@ import (
 )
 
 type shake struct {
-	animationBase
+	animation
 }
 
-func Shake(options ...func(Animation)) Animation {
+func Shake(options ...func(any)) e.ParentModifier {
 	a := &shake{}
 
 	for _, o := range options {
@@ -21,5 +21,5 @@ func Shake(options ...func(Animation)) Animation {
 func (a *shake) ModifyParent(p e.Element) {
 	p.With(Class("fa-shake"))
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }

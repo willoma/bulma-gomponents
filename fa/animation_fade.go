@@ -7,12 +7,13 @@ import (
 )
 
 type fade struct {
-	animationBase
+	animation
 
-	minOpacity float64
+	minOpacity     float64
+	zeroMinOpacity bool
 }
 
-func Fade(options ...func(Animation)) Animation {
+func Fade(options ...func(any)) e.ParentModifier {
 	a := &fade{}
 
 	for _, o := range options {
@@ -30,17 +31,21 @@ func (a *fade) ModifyParent(p e.Element) {
 			"--fa-fade-opacity",
 			strconv.FormatFloat(a.minOpacity, 'f', 2, 64),
 		))
+	} else if a.zeroMinOpacity {
+		p.With(e.Style("--fa-fade-opacity", "0"))
 	}
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }
 
-func MinOpacity(opacity float64) func(Animation) {
-	return func(a Animation) {
+func MinOpacity(opacity float64) func(any) {
+	return func(a any) {
 		switch a := a.(type) {
 		case *fade:
+			a.zeroMinOpacity = opacity == 0
 			a.minOpacity = opacity
 		case *beatFade:
+			a.zeroMinOpacity = opacity == 0
 			a.minOpacity = opacity
 		}
 	}

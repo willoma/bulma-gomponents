@@ -5,13 +5,13 @@ import (
 )
 
 type spin struct {
-	animationBase
+	animation
 
 	pulse   bool
 	reverse bool
 }
 
-func Spin(options ...func(Animation)) Animation {
+func Spin(options ...func(any)) e.ParentModifier {
 	a := &spin{}
 
 	for _, o := range options {
@@ -32,16 +32,16 @@ func (a *spin) ModifyParent(p e.Element) {
 		p.With(Class("fa-spin-reverse"))
 	}
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }
 
-func Pulse(a Animation) {
+func Pulse(a any) {
 	if s, ok := a.(*spin); ok {
 		s.pulse = true
 	}
 }
 
-func Reverse(a Animation) {
+func Reverse(a any) {
 	if s, ok := a.(*spin); ok {
 		s.reverse = true
 	}

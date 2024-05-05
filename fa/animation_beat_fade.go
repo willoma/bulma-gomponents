@@ -7,13 +7,16 @@ import (
 )
 
 type beatFade struct {
-	animationBase
+	animation
 
-	maxScale   float64
-	minOpacity float64
+	maxScale     float64
+	zeroMaxScale bool
+
+	minOpacity     float64
+	zeroMinOpacity bool
 }
 
-func BeatFade(options ...func(Animation)) Animation {
+func BeatFade(options ...func(any)) e.ParentModifier {
 	a := &beatFade{}
 
 	for _, o := range options {
@@ -31,6 +34,8 @@ func (a *beatFade) ModifyParent(p e.Element) {
 			"--fa-beat-fade-scale",
 			strconv.FormatFloat(a.maxScale, 'f', 2, 64),
 		))
+	} else if a.zeroMaxScale {
+		p.With(e.Style("--fa-beat-fade-scale", "0"))
 	}
 
 	if a.minOpacity != 0 {
@@ -38,7 +43,9 @@ func (a *beatFade) ModifyParent(p e.Element) {
 			"--fa-beat-fade-opacity",
 			strconv.FormatFloat(a.minOpacity, 'f', 2, 64),
 		))
+	} else if a.zeroMinOpacity {
+		p.With(e.Style("--fa-beat-fade-opacity", "0"))
 	}
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }

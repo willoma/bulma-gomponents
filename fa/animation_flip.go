@@ -7,15 +7,22 @@ import (
 )
 
 type flip struct {
-	animationBase
+	animation
 
 	x     float64
+	zeroX bool
+
 	y     float64
+	zeroY bool
+
 	z     float64
-	angle float64
+	zeroZ bool
+
+	angle     float64
+	zeroAngle bool
 }
 
-func Flip(options ...func(Animation)) Animation {
+func Flip(options ...func(any)) e.ParentModifier {
 	a := &flip{}
 
 	for _, o := range options {
@@ -33,6 +40,8 @@ func (a *flip) ModifyParent(p e.Element) {
 			"--fa-flip-x",
 			strconv.FormatFloat(a.x, 'f', 2, 64),
 		))
+	} else if a.zeroX {
+		p.With(e.Style("--fa-flip-x", "0"))
 	}
 
 	if a.y != 0 {
@@ -40,6 +49,8 @@ func (a *flip) ModifyParent(p e.Element) {
 			"--fa-flip-y",
 			strconv.FormatFloat(a.y, 'f', 2, 64),
 		))
+	} else if a.zeroY {
+		p.With(e.Style("--fa-flip-y", "0"))
 	}
 
 	if a.z != 0 {
@@ -47,6 +58,8 @@ func (a *flip) ModifyParent(p e.Element) {
 			"--fa-flip-z",
 			strconv.FormatFloat(a.z, 'f', 2, 64),
 		))
+	} else if a.zeroZ {
+		p.With(e.Style("--fa-flip-z", "0"))
 	}
 
 	if a.angle != 0 {
@@ -54,38 +67,44 @@ func (a *flip) ModifyParent(p e.Element) {
 			"--fa-flip-angle",
 			strconv.FormatFloat(a.angle, 'f', 2, 64),
 		))
+	} else if a.zeroAngle {
+		p.With(e.Style("--fa-flip-angle", "0"))
 	}
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }
 
-func X(x float64) func(Animation) {
-	return func(a Animation) {
+func X(x float64) func(any) {
+	return func(a any) {
 		if f, ok := a.(*flip); ok {
+			f.zeroX = x == 0
 			f.x = x
 		}
 	}
 }
 
-func Y(y float64) func(Animation) {
-	return func(a Animation) {
+func Y(y float64) func(any) {
+	return func(a any) {
 		if f, ok := a.(*flip); ok {
+			f.zeroY = y == 0
 			f.y = y
 		}
 	}
 }
 
-func Z(z float64) func(Animation) {
-	return func(a Animation) {
+func Z(z float64) func(any) {
+	return func(a any) {
 		if f, ok := a.(*flip); ok {
+			f.zeroZ = z == 0
 			f.z = z
 		}
 	}
 }
 
-func Angle(angle float64) func(Animation) {
-	return func(a Animation) {
+func Angle(angle float64) func(any) {
+	return func(a any) {
 		if f, ok := a.(*flip); ok {
+			f.zeroAngle = angle == 0
 			f.angle = angle
 		}
 	}

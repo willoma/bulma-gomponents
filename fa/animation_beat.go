@@ -7,12 +7,13 @@ import (
 )
 
 type beat struct {
-	animationBase
+	animation
 
-	maxScale float64
+	maxScale     float64
+	zeroMaxScale bool
 }
 
-func Beat(options ...func(Animation)) Animation {
+func Beat(options ...func(any)) e.ParentModifier {
 	a := &beat{}
 
 	for _, o := range options {
@@ -30,17 +31,21 @@ func (a *beat) ModifyParent(p e.Element) {
 			"--fa-beat-scale",
 			strconv.FormatFloat(a.maxScale, 'f', 2, 64),
 		))
+	} else if a.zeroMaxScale {
+		p.With(e.Style("--fa-beat-scale", "0"))
 	}
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }
 
-func MaxScale(scale float64) func(Animation) {
-	return func(a Animation) {
+func MaxScale(scale float64) func(any) {
+	return func(a any) {
 		switch a := a.(type) {
 		case *beat:
+			a.zeroDelay = scale == 0
 			a.maxScale = scale
 		case *beatFade:
+			a.zeroDelay = scale == 0
 			a.maxScale = scale
 		}
 	}

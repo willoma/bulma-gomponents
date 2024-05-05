@@ -44,7 +44,7 @@ type li struct {
 func (l *li) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case Class, rotateOrFlip, Rotate, Animation:
+		case Class, rotateOrFlip, Rotate, animationI:
 			l.fa.With(c)
 		case b.Color:
 			l.span.With(c.Text())

@@ -7,19 +7,34 @@ import (
 )
 
 type bounce struct {
-	animationBase
+	animation
 
 	rebound     float64
-	height      float64
-	startScaleX float64
-	startScaleY float64
-	jumpScaleX  float64
-	jumpScaleY  float64
-	landScaleX  float64
-	landScaleY  float64
+	zeroRebound bool
+
+	height     float64
+	zeroHeight bool
+
+	startScaleX     float64
+	zeroStartScaleX bool
+
+	startScaleY     float64
+	zeroStartScaleY bool
+
+	jumpScaleX     float64
+	zeroJumpScaleX bool
+
+	jumpScaleY     float64
+	zeroJumpScaleY bool
+
+	landScaleX     float64
+	zeroLandScaleX bool
+
+	landScaleY     float64
+	zeroLandScaleY bool
 }
 
-func Bounce(options ...func(Animation)) Animation {
+func Bounce(options ...func(any)) e.ParentModifier {
 	a := &bounce{}
 
 	for _, o := range options {
@@ -37,6 +52,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-rebound",
 			strconv.FormatFloat(a.rebound, 'f', 2, 64),
 		))
+	} else if a.zeroRebound {
+		p.With(e.Style("--fa-bounce-rebound", "0"))
 	}
 
 	if a.height != 0 {
@@ -44,6 +61,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-height",
 			strconv.FormatFloat(a.height, 'f', 2, 64),
 		))
+	} else if a.zeroHeight {
+		p.With(e.Style("--fa-bounce-height", "0"))
 	}
 
 	if a.startScaleX != 0 {
@@ -51,6 +70,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-start-scale-x",
 			strconv.FormatFloat(a.startScaleX, 'f', 2, 64),
 		))
+	} else if a.zeroStartScaleX {
+		p.With(e.Style("--fa-bounce-start-scale-x", "0"))
 	}
 
 	if a.startScaleY != 0 {
@@ -58,6 +79,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-start-scale-y",
 			strconv.FormatFloat(a.startScaleY, 'f', 2, 64),
 		))
+	} else if a.zeroStartScaleY {
+		p.With(e.Style("--fa-bounce-start-scale-y", "0"))
 	}
 
 	if a.jumpScaleX != 0 {
@@ -65,6 +88,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-jump-scale-x",
 			strconv.FormatFloat(a.jumpScaleX, 'f', 2, 64),
 		))
+	} else if a.zeroJumpScaleX {
+		p.With(e.Style("--fa-bounce-jump-scale-x", "0"))
 	}
 
 	if a.jumpScaleY != 0 {
@@ -72,6 +97,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-jump-scale-y",
 			strconv.FormatFloat(a.jumpScaleY, 'f', 2, 64),
 		))
+	} else if a.zeroJumpScaleY {
+		p.With(e.Style("--fa-bounce-jump-scale-y", "0"))
 	}
 
 	if a.landScaleX != 0 {
@@ -79,6 +106,8 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-land-scale-x",
 			strconv.FormatFloat(a.landScaleX, 'f', 2, 64),
 		))
+	} else if a.zeroLandScaleX {
+		p.With(e.Style("--fa-bounce-land-scale-x", "0"))
 	}
 
 	if a.landScaleY != 0 {
@@ -86,70 +115,80 @@ func (a *bounce) ModifyParent(p e.Element) {
 			"--fa-bounce-land-scale-y",
 			strconv.FormatFloat(a.landScaleY, 'f', 2, 64),
 		))
+	} else if a.zeroLandScaleY {
+		p.With(e.Style("--fa-bounce-land-scale-y", "0"))
 	}
 
-	a.animationBase.ModifyParent(p)
+	a.animation.ModifyParent(p)
 }
 
-func Rebound(rebound float64) func(Animation) {
-	return func(a Animation) {
+func Rebound(rebound float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroRebound = rebound == 0
 			b.rebound = rebound
 		}
 	}
 }
 
-func Height(height float64) func(Animation) {
-	return func(a Animation) {
+func Height(height float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroHeight = height == 0
 			b.height = height
 		}
 	}
 }
 
-func StartScaleX(scale float64) func(Animation) {
-	return func(a Animation) {
+func StartScaleX(scale float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroStartScaleX = scale == 0
 			b.startScaleX = scale
 		}
 	}
 }
 
-func StartScaleY(scale float64) func(Animation) {
-	return func(a Animation) {
+func StartScaleY(scale float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroStartScaleY = scale == 0
 			b.startScaleY = scale
 		}
 	}
 }
 
-func JumpScaleX(scale float64) func(Animation) {
-	return func(a Animation) {
+func JumpScaleX(scale float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroJumpScaleX = scale == 0
 			b.jumpScaleX = scale
 		}
 	}
 }
 
-func JumpScaleY(scale float64) func(Animation) {
-	return func(a Animation) {
+func JumpScaleY(scale float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroJumpScaleY = scale == 0
 			b.jumpScaleY = scale
 		}
 	}
 }
 
-func LandScaleX(scale float64) func(Animation) {
-	return func(a Animation) {
+func LandScaleX(scale float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroLandScaleX = scale == 0
 			b.landScaleX = scale
 		}
 	}
 }
 
-func LandScaleY(scale float64) func(Animation) {
-	return func(a Animation) {
+func LandScaleY(scale float64) func(any) {
+	return func(a any) {
 		if b, ok := a.(*bounce); ok {
+			b.zeroLandScaleY = scale == 0
 			b.landScaleY = scale
 		}
 	}

@@ -119,7 +119,7 @@ func (i *icon) With(children ...any) e.Element {
 			i.fa.With(c...)
 		case onIcon:
 			i.Element.With(c...)
-		case Class, rotateOrFlip, Rotate, Animation:
+		case Class, rotateOrFlip, Rotate, animationI:
 			i.fa.With(c)
 		case b.Color:
 			i.Element.With(c.Text())
