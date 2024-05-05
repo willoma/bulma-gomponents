@@ -77,7 +77,7 @@ func (el *spanAroundNonIcons) With(children ...any) e.Element {
 			} else {
 				el.Element.With(e.Span(c))
 			}
-		case e.Element, string, fmt.Stringer:
+		case string, fmt.Stringer:
 			el.Element.With(e.Span(c))
 		case []any:
 			el.With(c...)
