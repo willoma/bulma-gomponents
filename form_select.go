@@ -75,19 +75,25 @@ func Option(value string, children ...any) e.Element {
 	return o
 }
 
-// OptionSelected creates a selected option element, to be used as a child of a
-// Select or SelectMultiple. The value argument is used as the option value
-// attribute.
-//
-// https://willoma.github.io/bulma-gomponents/form/select.html
-func OptionSelected(value string, children ...any) e.Element {
-	o := &option{e.Option(html.Value(value), html.Selected())}
-	o.With(children...)
-	return o
-}
-
 type option struct {
 	e.Element
+}
+
+func (o *option) With(children ...any) e.Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case e.Class:
+			if c == Selected {
+				o.Element.With(html.Selected())
+			}
+		case []any:
+			o.With(c...)
+		default:
+			o.Element.With(c)
+		}
+	}
+
+	return o
 }
 
 func (o *option) Clone() e.Element {
