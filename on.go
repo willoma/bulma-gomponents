@@ -31,6 +31,7 @@ type (
 	onSection   []any
 	onSelect    []any
 	onTabs      []any
+	onTextarea  []any
 	onTrigger   []any
 	onUl        []any
 )
@@ -153,6 +154,10 @@ func OnSelect(children ...any) onSelect {
 
 func OnTabs(children ...any) onTabs {
 	return onTabs(children)
+}
+
+func OnTextarea(children ...any) onTextarea {
+	return onTextarea(children)
 }
 
 func OnTrigger(children ...any) onTrigger {

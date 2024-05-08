@@ -24,6 +24,8 @@ type textarea struct {
 func (t *textarea) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
+		case onTextarea:
+			t.Element.With(c)
 		case e.Class:
 			switch c {
 			case Disabled:
