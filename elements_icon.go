@@ -639,8 +639,15 @@ fa.Stack(
 
 	b.Content(
 		e.P("The following modifiers allow customizing duotone icons:"),
-		b.DList(
-			c.Row("fa.SwapOpacity", "Swap the default opacity of each icon's layers"), c.Row("fa.PrimaryOpacity", "Set primary layer opacity"), c.Row("fa.SecondaryOpacity", "Set secondary layer opacity"), c.Row("fa.PrimaryColor", "Set primary layer color"), c.Row("fa.SecondaryColor", "Set secondary layer color")),
+		c.Modifiers(
+			c.Row("fa.SwapOpacity", "Swap the default opacity of each icon's layers"),
+			c.Row("fa.PrimaryOpacity(float64)", "Set primary layer opacity"),
+			c.Row("fa.SecondaryOpacity(float64)", "Set secondary layer opacity"),
+			c.Row("fa.DuoOpacities(primary, secondary float64)", "Set primary and secondary layers opacities"),
+			c.Row("fa.PrimaryColor(string)", "Set primary layer color"),
+			c.Row("fa.SecondaryColor(string)", "Set secondary layer color"),
+			c.Row("fa.DuoColors(primary, secondary string)", "Set primary and secondary colors"),
+		),
 	),
 	b.Message(
 		b.Danger,
