@@ -8,6 +8,21 @@ func (c ResponsiveClass) Class() e.Class {
 	return e.Class(c)
 }
 
+func (c ResponsiveClass) If(cond bool) e.ParentModifier {
+	return &conditionalResponsiveClass{class: c, cond: cond}
+}
+
+type conditionalResponsiveClass struct {
+	class ResponsiveClass
+	cond  bool
+}
+
+func (c *conditionalResponsiveClass) ModifyParent(p e.Element) {
+	if c.cond {
+		p.With(c.class)
+	}
+}
+
 // Mobile makes the class apply on mobile screens.
 func (c ResponsiveClass) Mobile() e.Class {
 	return e.Class(c) + "-mobile"
@@ -58,7 +73,7 @@ type ResponsiveClasses struct {
 	NonResponsive []string
 }
 
-func (c ResponsiveClasses) Classes() []e.Class {
+func (c *ResponsiveClasses) Classes() []e.Class {
 	classes := make([]e.Class, 0, len(c.Responsive)+len(c.NonResponsive))
 	for _, cl := range c.Responsive {
 		classes = append(classes, e.Class(cl))
@@ -69,7 +84,22 @@ func (c ResponsiveClasses) Classes() []e.Class {
 	return classes
 }
 
-func (c ResponsiveClasses) responsify(suffix string) e.Classeser {
+func (c *ResponsiveClasses) If(cond bool) e.ParentModifier {
+	return &conditionalResponsiveClasses{classes: c, cond: cond}
+}
+
+type conditionalResponsiveClasses struct {
+	classes *ResponsiveClasses
+	cond    bool
+}
+
+func (c *conditionalResponsiveClasses) ModifyParent(p e.Element) {
+	if c.cond {
+		p.With(c.classes)
+	}
+}
+
+func (c *ResponsiveClasses) responsify(suffix string) e.Classeser {
 	classes := make(e.Classes, 0, len(c.Responsive)+len(c.NonResponsive))
 	for _, cl := range c.Responsive {
 		classes = append(classes, e.Class(cl+suffix))
@@ -81,22 +111,22 @@ func (c ResponsiveClasses) responsify(suffix string) e.Classeser {
 }
 
 // Mobile makes the class apply on mobile screens.
-func (c ResponsiveClasses) Mobile() e.Classeser {
+func (c *ResponsiveClasses) Mobile() e.Classeser {
 	return c.responsify("-mobile")
 }
 
 // Tablet makes the class apply on tablet and larger screens.
-func (c ResponsiveClasses) Tablet() e.Classeser {
+func (c *ResponsiveClasses) Tablet() e.Classeser {
 	return c.responsify("-tablet")
 }
 
 // TabletOnly makes the class apply on tablet screens only.
-func (c ResponsiveClasses) TabletOnly() e.Classeser {
+func (c *ResponsiveClasses) TabletOnly() e.Classeser {
 	return c.responsify("-tablet-only")
 }
 
 // Touch makes the class apply on touch screens (mobile and tablet) only.
-func (c ResponsiveClasses) Touch() e.Classeser {
+func (c *ResponsiveClasses) Touch() e.Classeser {
 	return c.responsify("-touch")
 }
 
@@ -106,21 +136,21 @@ func (c ResponsiveClasses) Desktop() e.Classeser {
 }
 
 // DesktopOnly makes the class apply on desktop screens only.
-func (c ResponsiveClasses) DesktopOnly() e.Classeser {
+func (c *ResponsiveClasses) DesktopOnly() e.Classeser {
 	return c.responsify("-desktop-only")
 }
 
 // Widescreen makes the class apply on widescreen and larger screens.
-func (c ResponsiveClasses) Widescreen() e.Classeser {
+func (c *ResponsiveClasses) Widescreen() e.Classeser {
 	return c.responsify("-widescreen")
 }
 
 // WidescreenOnly makes the class apply on widescreen screens only.
-func (c ResponsiveClasses) WidescreenOnly() e.Classeser {
+func (c *ResponsiveClasses) WidescreenOnly() e.Classeser {
 	return c.responsify("-widescreen-only")
 }
 
 // FullHD makes the class apply on full hd screens only.
-func (c ResponsiveClasses) FullHD() e.Classeser {
+func (c *ResponsiveClasses) FullHD() e.Classeser {
 	return c.responsify("-fullhd")
 }

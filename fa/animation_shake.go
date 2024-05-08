@@ -5,7 +5,7 @@ import (
 )
 
 type shake struct {
-	animation
+	animationBase
 }
 
 func Shake(options ...func(any)) e.ParentModifier {
@@ -21,5 +21,9 @@ func Shake(options ...func(any)) e.ParentModifier {
 func (a *shake) ModifyParent(p e.Element) {
 	p.With(Class("fa-shake"))
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *shake) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }

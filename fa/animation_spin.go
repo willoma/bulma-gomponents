@@ -5,7 +5,7 @@ import (
 )
 
 type spin struct {
-	animation
+	animationBase
 
 	pulse   bool
 	reverse bool
@@ -32,7 +32,11 @@ func (a *spin) ModifyParent(p e.Element) {
 		p.With(Class("fa-spin-reverse"))
 	}
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *spin) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }
 
 func Pulse(a any) {

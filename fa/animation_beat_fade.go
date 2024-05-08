@@ -7,7 +7,7 @@ import (
 )
 
 type beatFade struct {
-	animation
+	animationBase
 
 	maxScale     float64
 	zeroMaxScale bool
@@ -47,5 +47,9 @@ func (a *beatFade) ModifyParent(p e.Element) {
 		p.With(e.Style("--fa-beat-fade-opacity", "0"))
 	}
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *beatFade) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }

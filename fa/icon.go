@@ -17,6 +17,21 @@ func (c Class) Class() e.Class {
 	return e.Class(c)
 }
 
+func (c Class) If(cond bool) e.ParentModifier {
+	return &conditionalClass{class: c, cond: cond}
+}
+
+type conditionalClass struct {
+	class Class
+	cond  bool
+}
+
+func (c *conditionalClass) ModifyParent(p e.Element) {
+	if c.cond {
+		p.With(c.class)
+	}
+}
+
 // Styles
 const (
 	Brand        = Style("fa-brands")
@@ -119,7 +134,7 @@ func (i *icon) With(children ...any) e.Element {
 			i.fa.With(c...)
 		case onIcon:
 			i.Element.With(c...)
-		case Class, rotateOrFlip, Rotate, animationI:
+		case Class, rotateOrFlip, Rotate, Animation:
 			i.fa.With(c)
 		case b.Color:
 			i.Element.With(c.Text())

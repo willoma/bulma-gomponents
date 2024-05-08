@@ -7,7 +7,7 @@ import (
 )
 
 type fade struct {
-	animation
+	animationBase
 
 	minOpacity     float64
 	zeroMinOpacity bool
@@ -35,7 +35,11 @@ func (a *fade) ModifyParent(p e.Element) {
 		p.With(e.Style("--fa-fade-opacity", "0"))
 	}
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *fade) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }
 
 func MinOpacity(opacity float64) func(any) {

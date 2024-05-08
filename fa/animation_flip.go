@@ -7,7 +7,7 @@ import (
 )
 
 type flip struct {
-	animation
+	animationBase
 
 	x     float64
 	zeroX bool
@@ -71,7 +71,11 @@ func (a *flip) ModifyParent(p e.Element) {
 		p.With(e.Style("--fa-flip-angle", "0"))
 	}
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *flip) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }
 
 func X(x float64) func(any) {

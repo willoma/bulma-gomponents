@@ -7,7 +7,7 @@ import (
 )
 
 type bounce struct {
-	animation
+	animationBase
 
 	rebound     float64
 	zeroRebound bool
@@ -119,7 +119,11 @@ func (a *bounce) ModifyParent(p e.Element) {
 		p.With(e.Style("--fa-bounce-land-scale-y", "0"))
 	}
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *bounce) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }
 
 func Rebound(rebound float64) func(any) {

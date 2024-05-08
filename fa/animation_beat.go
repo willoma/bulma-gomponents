@@ -7,7 +7,7 @@ import (
 )
 
 type beat struct {
-	animation
+	animationBase
 
 	maxScale     float64
 	zeroMaxScale bool
@@ -35,7 +35,11 @@ func (a *beat) ModifyParent(p e.Element) {
 		p.With(e.Style("--fa-beat-scale", "0"))
 	}
 
-	a.animation.ModifyParent(p)
+	a.animationBase.modifyParent(p)
+}
+
+func (a *beat) If(cond bool) e.ParentModifier {
+	return &conditionalAnimation{animation: a, cond: cond}
 }
 
 func MaxScale(scale float64) func(any) {

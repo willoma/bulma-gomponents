@@ -399,19 +399,19 @@ const (
 
 // "is-" classes with automatic adding of other class
 var (
-	ColumnGap0       = ResponsiveClasses{[]string{"is-0"}, []string{"is-variable"}} // Columns
-	ColumnGap1       = ResponsiveClasses{[]string{"is-1"}, []string{"is-variable"}} // Columns
-	ColumnGap2       = ResponsiveClasses{[]string{"is-2"}, []string{"is-variable"}} // Columns
-	ColumnGap3       = ResponsiveClasses{[]string{"is-3"}, []string{"is-variable"}} // Columns
-	ColumnGap4       = ResponsiveClasses{[]string{"is-4"}, []string{"is-variable"}} // Columns
-	ColumnGap5       = ResponsiveClasses{[]string{"is-5"}, []string{"is-variable"}} // Columns
-	ColumnGap6       = ResponsiveClasses{[]string{"is-6"}, []string{"is-variable"}} // Columns
-	ColumnGap7       = ResponsiveClasses{[]string{"is-7"}, []string{"is-variable"}} // Columns
-	ColumnGap8       = ResponsiveClasses{[]string{"is-8"}, []string{"is-variable"}} // Columns
-	GroupedCentered  = e.Classes{"is-grouped", "is-grouped-centered"}               // Field
-	GroupedMultiline = e.Classes{"is-grouped", "is-grouped-multiline"}              // Field
-	GroupedRight     = e.Classes{"is-grouped", "is-grouped-right"}                  // Field
-	ToggleRounded    = e.Classes{"is-toggle", "is-toggle-rounded"}                  // Tabs
+	ColumnGap0       = &ResponsiveClasses{[]string{"is-0"}, []string{"is-variable"}} // Columns
+	ColumnGap1       = &ResponsiveClasses{[]string{"is-1"}, []string{"is-variable"}} // Columns
+	ColumnGap2       = &ResponsiveClasses{[]string{"is-2"}, []string{"is-variable"}} // Columns
+	ColumnGap3       = &ResponsiveClasses{[]string{"is-3"}, []string{"is-variable"}} // Columns
+	ColumnGap4       = &ResponsiveClasses{[]string{"is-4"}, []string{"is-variable"}} // Columns
+	ColumnGap5       = &ResponsiveClasses{[]string{"is-5"}, []string{"is-variable"}} // Columns
+	ColumnGap6       = &ResponsiveClasses{[]string{"is-6"}, []string{"is-variable"}} // Columns
+	ColumnGap7       = &ResponsiveClasses{[]string{"is-7"}, []string{"is-variable"}} // Columns
+	ColumnGap8       = &ResponsiveClasses{[]string{"is-8"}, []string{"is-variable"}} // Columns
+	GroupedCentered  = e.Classes{"is-grouped", "is-grouped-centered"}                // Field
+	GroupedMultiline = e.Classes{"is-grouped", "is-grouped-multiline"}               // Field
+	GroupedRight     = e.Classes{"is-grouped", "is-grouped-right"}                   // Field
+	ToggleRounded    = e.Classes{"is-toggle", "is-toggle-rounded"}                   // Tabs
 )
 
 // "has-" classes with automatic adding of other class

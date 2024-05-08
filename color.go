@@ -1,5 +1,7 @@
 package bulma
 
+import e "github.com/willoma/gomplements"
+
 //go:generate go run cmd/colors_generator/*.go
 
 type Color interface {
@@ -41,6 +43,9 @@ type Color interface {
 	//   - For Invert colors, it returns the non-inverted color equivalent.
 	//   - For Base colors, it returns itself because base colors have no inverted equivalent.
 	Invert() Color
+
+	// If applies the color conditionally
+	If(cond bool) e.ParentModifier
 }
 
 const (

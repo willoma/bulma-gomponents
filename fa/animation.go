@@ -7,11 +7,14 @@ import (
 	e "github.com/willoma/gomplements"
 )
 
-type animationI interface {
+type Animation interface {
 	isAnimation()
+
+	ModifyParent(p e.Element)
+	If(bool) e.ParentModifier
 }
 
-type animation struct {
+type animationBase struct {
 	delay     time.Duration
 	zeroDelay bool
 
@@ -26,9 +29,9 @@ type animation struct {
 	timing string
 }
 
-func (a *animation) isAnimation() {}
+func (a *animationBase) isAnimation() {}
 
-func (a *animation) ModifyParent(p e.Element) {
+func (a *animationBase) modifyParent(p e.Element) {
 	if a.delay != 0 {
 		p.With(e.Style(
 			"--fa-animation-delay",
@@ -65,9 +68,20 @@ func (a *animation) ModifyParent(p e.Element) {
 	}
 }
 
+type conditionalAnimation struct {
+	animation Animation
+	cond      bool
+}
+
+func (a *conditionalAnimation) ModifyParent(p e.Element) {
+	if a.cond {
+		p.With(a.animation)
+	}
+}
+
 func Delay(d time.Duration) func(a any) {
 	return func(a any) {
-		if b, ok := a.(*animation); ok {
+		if b, ok := a.(*animationBase); ok {
 			b.zeroDelay = d == 0
 			b.delay = d
 		}
@@ -75,32 +89,32 @@ func Delay(d time.Duration) func(a any) {
 }
 
 func DirectionNormal(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.direction = "normal"
 	}
 }
 
 func DirectionReverse(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.direction = "reverse"
 	}
 }
 
 func DirectionAlternate(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.direction = "alternate"
 	}
 }
 
 func DirectionAlternateReverse(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.direction = "alternate-reverse"
 	}
 }
 
 func Duration(d time.Duration) func(a any) {
 	return func(a any) {
-		if b, ok := a.(*animation); ok {
+		if b, ok := a.(*animationBase); ok {
 			b.zeroDuration = d == 0
 			b.duration = d
 		}
@@ -109,55 +123,55 @@ func Duration(d time.Duration) func(a any) {
 
 func IterationCount(c float64) func(a any) {
 	return func(a any) {
-		if b, ok := a.(*animation); ok {
+		if b, ok := a.(*animationBase); ok {
 			b.zeroIterationCount = c == 0
 			b.iterationCount = c
 		}
 	}
 }
 
-func (a *animation) setTiming(t string) {
+func (a *animationBase) setTiming(t string) {
 	a.timing = t
 }
 
 func TimingEase(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "ease"
 	}
 }
 
 func TimingLinear(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "linear"
 	}
 }
 
 func TimingEaseIn(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "ease-in"
 	}
 }
 
 func TimingEaseOut(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "ease-out"
 	}
 }
 
 func TimingEaseInOut(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "ease-in-out"
 	}
 }
 
 func TimingStepStart(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "step-start"
 	}
 }
 
 func TimingStepEnd(a any) {
-	if b, ok := a.(*animation); ok {
+	if b, ok := a.(*animationBase); ok {
 		b.timing = "step-end"
 	}
 }
