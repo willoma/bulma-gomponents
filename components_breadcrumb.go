@@ -76,14 +76,24 @@ func BreadcrumbAHref(href string, children ...any) e.Element {
 	return e.Li(ahref)
 }
 
-// BreadcrumbActiveAHref creates an active breadcrumb entry which contains
-// a link to the provided URL.
-//
-// It is better than BreadcrumbEntry(Active, AHref(href, children)),
-// because it ensures text is enclosed in span if a child is an icon.
-func BreadcrumbActiveAHref(href string, children ...any) e.Element {
-	ahref := &spanAroundNonIconsIfHasIcons{elemFn: html.A}
-	ahref.With(html.Href(href), e.AriaCurrentPage).With(children...)
+type breadcrumbAHref struct {
+	e.Element
+}
 
-	return e.Li(Active, ahref)
+func (b *breadcrumbAHref) With(children ...any) e.Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case e.Class:
+			if c == Active {
+				b.Element.With(e.AriaCurrentPage)
+			}
+			b.With(c)
+		case []any:
+			b.With(c...)
+		default:
+			b.Element.With(c)
+		}
+	}
+
+	return b
 }
