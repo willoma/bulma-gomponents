@@ -1,5 +1,7 @@
 package fa
 
+import "strconv"
+
 // Font Awesome icons sizes
 var (
 	Size2Xs = Class("fa-2xs")
@@ -8,15 +10,9 @@ var (
 	SizeLg  = Class("fa-lg")
 	SizeXl  = Class("fa-xl")
 	Size2Xl = Class("fa-2xl")
-
-	Size1x  = Class("fa-1x")
-	Size2x  = Class("fa-2x")
-	Size3x  = Class("fa-3x")
-	Size4x  = Class("fa-4x")
-	Size5x  = Class("fa-5x")
-	Size6x  = Class("fa-6x")
-	Size7x  = Class("fa-7x")
-	Size8x  = Class("fa-8x")
-	Size9x  = Class("fa-9x")
-	Size10x = Class("fa-10x")
 )
+
+// Font Awesome icons sizes as multipliers (works with 1 to 10).
+func Size(size int) Class {
+	return Class("fa-" + strconv.Itoa(size) + "x")
+}

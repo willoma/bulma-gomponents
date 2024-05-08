@@ -100,6 +100,6 @@ func (o *option) Clone() e.Element {
 	return &option{o.Element.Clone()}
 }
 
-func Size(size int) gomponents.Node {
+func SelectSize(size int) gomponents.Node {
 	return gomponents.Attr("size", strconv.Itoa(size))
 }

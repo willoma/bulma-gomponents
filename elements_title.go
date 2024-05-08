@@ -1,6 +1,7 @@
 package bulma
 
 import (
+	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
 )
 
@@ -8,96 +9,55 @@ import (
 //
 // https://willoma.github.io/bulma-gomponents/title.html
 func Title(children ...any) e.Element {
-	return e.H1(e.Class("title"), children)
+	t := &title{e.H1(e.Class("title"))}
+
+	t.With(children...)
+
+	return t
 }
 
 // Subtitle creates a h2 subtitle.
 //
 // https://willoma.github.io/bulma-gomponents/title.html
 func Subtitle(children ...any) e.Element {
-	return e.H2(e.Class("subtitle"), children)
+	t := &title{e.H2(e.Class("subtitle"))}
+
+	t.With(children...)
+
+	return t
 }
 
-// Title1 creates a h1 title of size 1.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Title1(children ...any) e.Element {
-	return e.H1(e.Class("title"), e.Class("is-1"), children)
+type title struct {
+	e.Element
 }
 
-// Title2 creates a h2 title of size 2.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Title2(children ...any) e.Element {
-	return e.H2(e.Class("title"), e.Class("is-2"), children)
+func (t *title) With(children ...any) e.Element {
+	for _, c := range children {
+		switch c := c.(type) {
+		case int:
+			switch c {
+			case 1:
+				t.Element.With(html.H1, e.Class("is-1"))
+			case 2:
+				t.Element.With(html.H2, e.Class("is-2"))
+			case 3:
+				t.Element.With(html.H3, e.Class("is-3"))
+			case 4:
+				t.Element.With(html.H4, e.Class("is-4"))
+			case 5:
+				t.Element.With(html.H5, e.Class("is-5"))
+			case 6:
+				t.Element.With(html.H6, e.Class("is-6"))
+			}
+		case []any:
+			t.With(c...)
+		default:
+			t.Element.With(c)
+		}
+	}
+	return t
 }
 
-// Title3 creates a h3 title of size 3.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Title3(children ...any) e.Element {
-	return e.H3(e.Class("title"), e.Class("is-3"), children)
-}
-
-// Title4 creates a h4 title of size 4.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Title4(children ...any) e.Element {
-	return e.H4(e.Class("title"), e.Class("is-4"), children)
-}
-
-// Title5 creates a h5 title of size 5.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Title5(children ...any) e.Element {
-	return e.H5(e.Class("title"), e.Class("is-5"), children)
-}
-
-// Title6 creates a h6 title of size 6.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Title6(children ...any) e.Element {
-	return e.H6(e.Class("title"), e.Class("is-6"), children)
-}
-
-// Subitle1 creates a h1 subtitle of size 1.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Subtitle1(children ...any) e.Element {
-	return e.H1(e.Class("subtitle"), e.Class("is-1"), children)
-}
-
-// Subitle2 creates a h2 subtitle of size 2.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Subtitle2(children ...any) e.Element {
-	return e.H2(e.Class("subtitle"), e.Class("is-2"), children)
-}
-
-// Subitle3 creates a h3 subtitle of size 3.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Subtitle3(children ...any) e.Element {
-	return e.H3(e.Class("subtitle"), e.Class("is-3"), children)
-}
-
-// Subitle4 creates a h4 subtitle of size 4.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Subtitle4(children ...any) e.Element {
-	return e.H4(e.Class("subtitle"), e.Class("is-4"), children)
-}
-
-// Subitle5 creates a h5 subtitle of size 5.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Subtitle5(children ...any) e.Element {
-	return e.H5(e.Class("subtitle"), e.Class("is-5"), children)
-}
-
-// Subitle6 creates a h6 subtitle of size 6.
-//
-// https://willoma.github.io/bulma-gomponents/title.html
-func Subtitle6(children ...any) e.Element {
-	return e.H6(e.Class("subtitle"), e.Class("is-6"), children)
+func (t *title) Clone() e.Element {
+	return &title{t.Element.Clone()}
 }
