@@ -14,6 +14,10 @@ type partColor struct {
 }
 
 func (c partColor) Class() e.Class {
+	if c.name == "" {
+		return ""
+	}
+
 	class := "has-"
 
 	if c.text {
@@ -35,8 +39,12 @@ func (c partColor) Class() e.Class {
 	return e.Class(class)
 }
 
-func (c partColor) If(cond bool) e.ParentModifier {
-	return &conditionalPartColor{color: c, cond: cond}
+func (c partColor) If(cond bool) Color {
+	if cond {
+		return c
+	}
+
+	return partColor{}
 }
 
 type conditionalPartColor struct {

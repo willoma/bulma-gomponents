@@ -8,19 +8,12 @@ func (c ResponsiveClass) Class() e.Class {
 	return e.Class(c)
 }
 
-func (c ResponsiveClass) If(cond bool) e.ParentModifier {
-	return &conditionalResponsiveClass{class: c, cond: cond}
-}
-
-type conditionalResponsiveClass struct {
-	class ResponsiveClass
-	cond  bool
-}
-
-func (c *conditionalResponsiveClass) ModifyParent(p e.Element) {
-	if c.cond {
-		p.With(c.class)
+func (c ResponsiveClass) If(cond bool) ResponsiveClass {
+	if cond {
+		return c
 	}
+
+	return ""
 }
 
 // Mobile makes the class apply on mobile screens.
@@ -84,19 +77,12 @@ func (c *ResponsiveClasses) Classes() []e.Class {
 	return classes
 }
 
-func (c *ResponsiveClasses) If(cond bool) e.ParentModifier {
-	return &conditionalResponsiveClasses{classes: c, cond: cond}
-}
-
-type conditionalResponsiveClasses struct {
-	classes *ResponsiveClasses
-	cond    bool
-}
-
-func (c *conditionalResponsiveClasses) ModifyParent(p e.Element) {
-	if c.cond {
-		p.With(c.classes)
+func (c *ResponsiveClasses) If(cond bool) *ResponsiveClasses {
+	if cond {
+		return c
 	}
+
+	return &ResponsiveClasses{}
 }
 
 func (c *ResponsiveClasses) responsify(suffix string) e.Classeser {

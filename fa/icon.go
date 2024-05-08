@@ -17,19 +17,12 @@ func (c Class) Class() e.Class {
 	return e.Class(c)
 }
 
-func (c Class) If(cond bool) e.ParentModifier {
-	return &conditionalClass{class: c, cond: cond}
-}
-
-type conditionalClass struct {
-	class Class
-	cond  bool
-}
-
-func (c *conditionalClass) ModifyParent(p e.Element) {
-	if c.cond {
-		p.With(c.class)
+func (c Class) If(cond bool) Class {
+	if cond {
+		return c
 	}
+
+	return ""
 }
 
 // Styles

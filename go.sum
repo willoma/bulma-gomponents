@@ -8,3 +8,5 @@ github.com/willoma/gomplements v0.5.0 h1:l6zaPHx1ie3RbKsEIvPPx0KKXeExV165/Ll3h0s
 github.com/willoma/gomplements v0.5.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
 github.com/willoma/gomplements v0.6.0 h1:wXl1FWieE64fd6nJqpeEjdUKaZygpWpfGAQ7WP3tJUI=
 github.com/willoma/gomplements v0.6.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
+github.com/willoma/gomplements v0.6.1 h1:JtOVIHFnMXqloflQHafVmsvtqlpf5b+d0Uj18KqrP1k=
+github.com/willoma/gomplements v0.6.1/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=

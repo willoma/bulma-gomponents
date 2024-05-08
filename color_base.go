@@ -8,6 +8,10 @@ type baseColor struct {
 }
 
 func (c baseColor) Classes() []e.Class {
+	if c.name == "" {
+		return []e.Class{}
+	}
+
 	classes := []e.Class{e.Class("is-" + c.name)}
 
 	if c.variant != "" {
@@ -17,19 +21,12 @@ func (c baseColor) Classes() []e.Class {
 	return classes
 }
 
-func (c baseColor) If(cond bool) e.ParentModifier {
-	return &conditionalBaseColor{color: c, cond: cond}
-}
-
-type conditionalBaseColor struct {
-	color baseColor
-	cond  bool
-}
-
-func (c *conditionalBaseColor) ModifyParent(p e.Element) {
-	if c.cond {
-		p.With(c.color)
+func (c baseColor) If(cond bool) Color {
+	if cond {
+		return c
 	}
+
+	return baseColor{}
 }
 
 func (c baseColor) Base() Color {

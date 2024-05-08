@@ -24,6 +24,10 @@ func (a *shake) ModifyParent(p e.Element) {
 	a.animationBase.modifyParent(p)
 }
 
-func (a *shake) If(cond bool) e.ParentModifier {
-	return &conditionalAnimation{animation: a, cond: cond}
+func (a *shake) If(cond bool) Animation {
+	if cond {
+		return a
+	}
+
+	return nil
 }

@@ -74,8 +74,12 @@ func (a *flip) ModifyParent(p e.Element) {
 	a.animationBase.modifyParent(p)
 }
 
-func (a *flip) If(cond bool) e.ParentModifier {
-	return &conditionalAnimation{animation: a, cond: cond}
+func (a *flip) If(cond bool) Animation {
+	if cond {
+		return a
+	}
+
+	return nil
 }
 
 func X(x float64) func(any) {

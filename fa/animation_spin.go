@@ -35,8 +35,12 @@ func (a *spin) ModifyParent(p e.Element) {
 	a.animationBase.modifyParent(p)
 }
 
-func (a *spin) If(cond bool) e.ParentModifier {
-	return &conditionalAnimation{animation: a, cond: cond}
+func (a *spin) If(cond bool) Animation {
+	if cond {
+		return a
+	}
+
+	return nil
 }
 
 func Pulse(a any) {

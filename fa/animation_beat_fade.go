@@ -50,6 +50,10 @@ func (a *beatFade) ModifyParent(p e.Element) {
 	a.animationBase.modifyParent(p)
 }
 
-func (a *beatFade) If(cond bool) e.ParentModifier {
-	return &conditionalAnimation{animation: a, cond: cond}
+func (a *beatFade) If(cond bool) Animation {
+	if cond {
+		return a
+	}
+
+	return nil
 }

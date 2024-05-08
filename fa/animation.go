@@ -11,7 +11,7 @@ type Animation interface {
 	isAnimation()
 
 	ModifyParent(p e.Element)
-	If(bool) e.ParentModifier
+	If(bool) Animation
 }
 
 type animationBase struct {
@@ -65,17 +65,6 @@ func (a *animationBase) modifyParent(p e.Element) {
 
 	if a.timing != "" {
 		p.With(e.Style("--fa-animation-timing", a.timing))
-	}
-}
-
-type conditionalAnimation struct {
-	animation Animation
-	cond      bool
-}
-
-func (a *conditionalAnimation) ModifyParent(p e.Element) {
-	if a.cond {
-		p.With(a.animation)
 	}
 }
 

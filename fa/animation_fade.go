@@ -38,8 +38,12 @@ func (a *fade) ModifyParent(p e.Element) {
 	a.animationBase.modifyParent(p)
 }
 
-func (a *fade) If(cond bool) e.ParentModifier {
-	return &conditionalAnimation{animation: a, cond: cond}
+func (a *fade) If(cond bool) Animation {
+	if cond {
+		return a
+	}
+
+	return nil
 }
 
 func MinOpacity(opacity float64) func(any) {

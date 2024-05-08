@@ -122,8 +122,12 @@ func (a *bounce) ModifyParent(p e.Element) {
 	a.animationBase.modifyParent(p)
 }
 
-func (a *bounce) If(cond bool) e.ParentModifier {
-	return &conditionalAnimation{animation: a, cond: cond}
+func (a *bounce) If(cond bool) Animation {
+	if cond {
+		return a
+	}
+
+	return nil
 }
 
 func Rebound(rebound float64) func(any) {
