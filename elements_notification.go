@@ -34,7 +34,7 @@ var notification = c.NewPage(
 			c.Row("b.DangerLight", "Set color to danger light"),
 		),
 		e.P(
-			"When you provide ", e.Code("b.Delete(...any)"), " as a child, you may add ", e.Code("e.OnClick(b.JSRemoveThisNotification)"), " to its children in order to close the notification when the user clicks on it.",
+			"The ", e.Code("b.NotificationCloseButton"), ` constructor creates a "delete" button to close the notification.`,
 		),
 	),
 ).Section(
@@ -42,11 +42,11 @@ var notification = c.NewPage(
 
 	c.Example(
 		`b.Notification(
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		)`,
 		b.Notification(
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
@@ -56,12 +56,12 @@ var notification = c.NewPage(
 	c.Example(
 		`b.Notification(
 	b.Primary,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Primary,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
@@ -69,60 +69,60 @@ var notification = c.NewPage(
 	c.Example(
 		`b.Notification(
 	b.Link,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Link,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Info,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Info,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Success,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Success,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Warning,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Warning,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.Danger,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.Danger,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
@@ -132,12 +132,12 @@ var notification = c.NewPage(
 	c.Example(
 		`b.Notification(
 	b.PrimaryLight,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.PrimaryLight,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
@@ -145,60 +145,60 @@ var notification = c.NewPage(
 	c.Example(
 		`b.Notification(
 	b.LinkLight,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.LinkLight,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.InfoLight,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.InfoLight,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.SuccessLight,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.SuccessLight,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.WarningLight,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.WarningLight,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),
 	c.Example(
 		`b.Notification(
 	b.DangerLight,
-	b.Delete(),
+	b.NotificationCloseButton(),
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 )`,
 		b.Notification(
 			b.DangerLight,
-			b.Delete(),
+			b.NotificationCloseButton(),
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor. ", e.Strong("Pellentesque risus mi"), ", tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum ", e.A("felis venenatis"), " efficitur.",
 		),
 	),

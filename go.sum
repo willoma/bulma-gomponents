@@ -12,5 +12,7 @@ github.com/maragudk/gomponents v0.20.2 h1:39FhnBNNCJzqNcD9Hmvp/5xj0otweFoyvVgFG6
 github.com/maragudk/gomponents v0.20.2/go.mod h1:nHkNnZL6ODgMBeJhrZjkMHVvNdoYsfmpKB2/hjdQ0Hg=
 github.com/willoma/bulma-gomponents v0.9.1 h1:gHNTmEsoUpBUaxpoHpksDyBBjQ3JR+L4V6JZqRauF70=
 github.com/willoma/bulma-gomponents v0.9.1/go.mod h1:1hkVH4/pPHtlPH5aIkS1pHMaerOV3SI1SDe8QXShHqA=
+github.com/willoma/bulma-gomponents v0.10.0 h1:qJj4diNQ/JO+8G8TDLnaomKGzuzWZaAJMXpswj5+jf0=
+github.com/willoma/bulma-gomponents v0.10.0/go.mod h1:1hkVH4/pPHtlPH5aIkS1pHMaerOV3SI1SDe8QXShHqA=
 github.com/willoma/gomplements v0.6.1 h1:JtOVIHFnMXqloflQHafVmsvtqlpf5b+d0Uj18KqrP1k=
 github.com/willoma/gomplements v0.6.1/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
