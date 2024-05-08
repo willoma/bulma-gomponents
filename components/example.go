@@ -45,9 +45,9 @@ func exampleContainer(children ...any) e.Element {
 			"padding-left":  "0.2em",
 			"padding-right": "0.2em",
 		},
-		b.PaddingHorizontal(b.Spacing2),
+		b.PaddingHorizontal(2),
 		e.Div(
-			b.FontSize7,
+			b.FontSize(7),
 			b.WeightBold,
 			b.TextWhite,
 			e.Styles{
@@ -66,18 +66,18 @@ func exampleContainer(children ...any) e.Element {
 func Example(code string, result ...any) e.Element {
 	return exampleContainer(
 		b.Columns(
-			b.Gap1,
+			b.ColumnGap(1),
 			b.Column(
 				b.Clipped,
-				b.FlexGrow1, b.FlexShrink1,
-				b.PaddingVertical(b.Spacing0),
+				b.FlexGrow(1), b.FlexShrink(1),
+				b.PaddingVertical(0),
 				codeTag(),
 				ExamplePre(code),
 			),
 			b.Column(
 				e.Class("exampleresult"),
-				b.FlexGrow1, b.FlexShrink1,
-				b.PaddingVertical(b.Spacing0),
+				b.FlexGrow(1), b.FlexShrink(1),
+				b.PaddingVertical(0),
 				resultTags(),
 				e.Div(
 					e.Styles{"position": "relative"},
@@ -93,7 +93,7 @@ func HorizontalExample(code string, result ...any) e.Element {
 	return exampleContainer(
 		e.Div(
 			e.Class("exampleresult"),
-			b.MarginBottom(b.Spacing1),
+			b.MarginBottom(1),
 			resultTags(),
 			e.Div(
 				e.Styles{"position": "relative"},
@@ -111,18 +111,18 @@ func HorizontalExample(code string, result ...any) e.Element {
 
 func codeTag() e.Element {
 	return b.Tags(
-		b.MarginBottom(b.Spacing1),
-		b.Tag(b.Primary, "Code", b.MarginBottom(b.Spacing0)),
+		b.MarginBottom(1),
+		b.Tag(b.Primary, "Code", b.MarginBottom(0)),
 	)
 }
 
 func resultTags() e.Element {
 	return b.Tags(
-		b.MarginBottom(b.Spacing1),
-		b.Tag(b.Info, "Result", b.MarginBottom(b.Spacing0)),
+		b.MarginBottom(1),
+		b.Tag(b.Info, "Result", b.MarginBottom(0)),
 		b.Tag(
 			b.WarningLight, "HTML",
-			b.MarginBottom(b.Spacing0),
+			b.MarginBottom(0),
 			e.Styles{"cursor": "pointer"},
 			e.OnClick(`
 			this.closest(".exampleresult").getElementsByClassName("html")[0].classList.toggle("is-hidden")
@@ -138,8 +138,8 @@ func ExamplePre(code string) e.Element {
 
 func pre(children ...any) e.Element {
 	return e.Pre(
-		b.Padding(b.Spacing2),
-		b.FontSize7,
+		b.Padding(2),
+		b.FontSize(7),
 		e.Styles{"tab-size": "4"},
 		children,
 	)
@@ -157,7 +157,7 @@ func htmlPre(elements []any) e.Element {
 	return b.Box(
 		b.Hidden,
 		e.Class("html"),
-		b.Padding(b.Spacing2),
+		b.Padding(2),
 		e.Styles{
 			"position": "absolute",
 			"width":    "100%",

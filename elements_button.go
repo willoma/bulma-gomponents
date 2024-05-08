@@ -561,13 +561,13 @@ b.Buttons(
 			html.P,
 			b.Button(b.Medium, fa.Icon(fa.Solid, "heading", b.Small)),
 			b.Button(b.Medium, fa.Icon(fa.Solid, "heading", fa.SizeLg)),
-			b.Button(b.Medium, fa.Icon(fa.Solid, "heading", b.Medium, fa.Size2x)),
+			b.Button(b.Medium, fa.Icon(fa.Solid, "heading", b.Medium, fa.Size(2))),
 		),
 		b.Buttons(
 			html.P,
 			b.Button(b.Large, fa.Icon(fa.Solid, "heading", b.Small)),
 			b.Button(b.Large, fa.Icon(fa.Solid, "heading", fa.SizeLg)),
-			b.Button(b.Large, fa.Icon(fa.Solid, "heading", b.Medium, fa.Size2x)),
+			b.Button(b.Large, fa.Icon(fa.Solid, "heading", b.Medium, fa.Size(2))),
 		),
 	),
 ).Subsection(

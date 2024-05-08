@@ -70,8 +70,8 @@ var card = c.NewPage(
 				e.Alt("Placeholder image"),
 			),
 		),
-		b.Title4(html.P, "John Smith"),
-		b.Subtitle6(html.P, "@johnsmith"),
+		b.Title(4, html.P, "John Smith"),
+		b.Subtitle(6, html.P, "@johnsmith"),
 	),
 	b.Content(
 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), e.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016"),
@@ -92,8 +92,8 @@ var card = c.NewPage(
 						e.Alt("Placeholder image"),
 					),
 				),
-				b.Title4(html.P, "John Smith"),
-				b.Subtitle6(html.P, "@johnsmith"),
+				b.Title(4, html.P, "John Smith"),
+				b.Subtitle(6, html.P, "@johnsmith"),
 			),
 			b.Content(
 				b.NoP("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. ", e.A("@bulmaio"), ". ", e.AHref("#", "#css"), " ", e.AHref("#", "#responsive"), e.Br(), e.Time(gomponents.Attr("datetime", "2016-1-1"), "11:09 PM - 1 Jan 2016")),
@@ -167,7 +167,7 @@ b.Block(
 	),
 	c.Example(
 		`b.Card(
-	b.MarginBottom(b.Spacing4),
+	b.MarginBottom(4),
 	b.CardImage(
 		b.Img4By3,
 		e.ImgSrc(
@@ -183,7 +183,7 @@ b.Card(
 	),
 )`,
 		b.Card(
-			b.MarginBottom(b.Spacing4),
+			b.MarginBottom(4),
 			b.CardImage(
 				b.Img4By3,
 				e.ImgSrc(

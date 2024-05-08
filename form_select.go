@@ -78,7 +78,7 @@ var formSelect = c.NewPage(
 )`,
 		b.Select(
 			b.Multiple,
-			b.Size(8),
+			b.SelectSize(8),
 			b.Option("Argentina", "Argentina"),
 			b.Option("Bolivia", "Bolivia"),
 			b.Option("Brazil", "Brazil"),

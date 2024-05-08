@@ -38,7 +38,7 @@ var level = c.NewPage(
 		`b.Level(
 	b.LevelLeft(
 		e.Div(
-			b.Subtitle5(e.Strong("123"), " posts"),
+			b.Subtitle(5, e.Strong("123"), " posts"),
 		),
 		e.Div(
 			b.Field(
@@ -59,7 +59,7 @@ var level = c.NewPage(
 		b.Level(
 			b.LevelLeft(
 				e.Div(
-					b.Subtitle5(e.Strong("123"), " posts"),
+					b.Subtitle(5, e.Strong("123"), " posts"),
 				),
 				e.Div(
 					b.Field(

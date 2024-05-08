@@ -86,7 +86,7 @@ var content = c.NewPage(
 	e.H4("Fourth level"),
 	"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.",
 	e.Pre(
-		b.Padding(b.Spacing2),
+		b.Padding(2),
 		b.FontSize7,
 		e.Styles{"tab-size": "4"},
 		`+"`"+`<!DOCTYPE html>
@@ -186,8 +186,8 @@ var content = c.NewPage(
 			e.H4("Fourth level"),
 			"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.",
 			e.Pre(
-				b.Padding(b.Spacing2),
-				b.FontSize7,
+				b.Padding(2),
+				b.FontSize(7),
 				e.Styles{"tab-size": "4"},
 				`<!DOCTYPE html>
 <html>

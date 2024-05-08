@@ -50,7 +50,7 @@ var skeletons = c.NewPage(
 	"Bulma components with skeletons",
 	"https://bulma.io/documentation/features/skeletons/#bulma-components-with-skeletons",
 
-	b.Title4("Button"),
+	b.Title(4, "Button"),
 	c.Example(
 		`b.Buttons(
 	b.Button(b.Skeleton, "Button"),
@@ -72,13 +72,13 @@ var skeletons = c.NewPage(
 		),
 	),
 
-	b.Title4("Icon"),
+	b.Title(4, "Icon"),
 	c.Example(
 		`fa.Icon(fa.Solid, "reply", b.Skeleton)`,
 		fa.Icon(fa.Solid, "reply", b.Skeleton),
 	),
 
-	b.Title4("Image"),
+	b.Title(4, "Image"),
 	c.Example(
 		`b.ImageImg("https://placehold.co/16x16", b.ImgSq16, b.Skeleton),
 b.ImageImg("https://placehold.co/32x32", b.ImgSq32, b.Skeleton),
@@ -90,7 +90,7 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 		b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton),
 	),
 
-	b.Title4("Media object"),
+	b.Title(4, "Media object"),
 	c.Example(
 		`b.Media(
 	b.MediaLeft(
@@ -192,7 +192,7 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 		),
 	),
 
-	b.Title4("Notification"),
+	b.Title(4, "Notification"),
 	c.Example(
 		`b.Notification(
 	b.Skeleton,
@@ -204,7 +204,7 @@ b.ImageImg("https://placehold.co/128x128", b.ImgSq128, b.Skeleton)`,
 		),
 	),
 
-	b.Title4("Tag"),
+	b.Title(4, "Tag"),
 	c.Example(
 		`b.Tag(b.Skeleton, "Tag"), " ",
 b.Tag(b.Link, b.Skeleton, "Link"), " ",
@@ -222,7 +222,7 @@ b.Tag(b.Danger, b.Skeleton, "Danger")`,
 		b.Tag(b.Danger, b.Skeleton, "Danger"),
 	),
 
-	b.Title4("Title and subtitle"),
+	b.Title(4, "Title and subtitle"),
 	c.Example(
 		`b.Title(b.Skeleton, "Title")`,
 		b.Title(b.Skeleton, "Title"),
@@ -252,7 +252,7 @@ b.Subtitle(b.HasSkeleton, "Subtitle")`,
 		b.Subtitle(b.HasSkeleton, "Subtitle"),
 	),
 
-	b.Title4("Form control"),
+	b.Title(4, "Form control"),
 	c.Example(
 		`b.InputText(b.Skeleton)`,
 		b.InputText(b.Skeleton),

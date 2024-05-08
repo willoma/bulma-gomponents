@@ -63,7 +63,7 @@ var elements = c.NewPage(
 html.Div(
 	html.Class("someClass otherClass"),
 	b.Box(
-		b.Title3("Here it is"),
+		b.Title(3, "Here it is"),
 		b.IconText(
 			fa.Icon(fa.Solid, "lightbulb"),
 			"The library",
@@ -78,7 +78,7 @@ html.Div(
 		html.Div(
 			html.Class("someClass otherClass"),
 			b.Box(
-				b.Title3("Here it is"),
+				b.Title(3, "Here it is"),
 				b.IconText(
 					fa.Icon(fa.Solid, "lightbulb"),
 					"The library",

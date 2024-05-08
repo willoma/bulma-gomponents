@@ -53,7 +53,7 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 		content := e.Div(
 			e.ID("bgd-content"),
 			e.Styles{"margin-left": "11.25rem"},
-			b.Padding(b.Spacing4),
+			b.Padding(4),
 			b.Title(
 				e.A(e.Name("top")),
 				p.Title,
@@ -117,7 +117,7 @@ func (p *Page) Prepare(sections []DocSection) gomponents.Node {
 				"left":        "0",
 				"padding-top": "3.25rem",
 			},
-			b.PaddingHorizontal(b.Spacing0),
+			b.PaddingHorizontal(0),
 			navMenu(sections, p.Path),
 		)
 
@@ -173,13 +173,13 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 	switch level {
 	case 1:
 		section.With(
-			b.Title4(
+			b.Title(4,
 				html.H2,
 				title,
 				" ",
 				e.AHref(
 					"#"+titleSlug,
-					b.FontSize5,
+					b.FontSize(5),
 					fa.Icon(fa.Solid, "link"),
 				),
 			),
@@ -197,14 +197,14 @@ func (p *Page) section(level int, title, peerURL string, content ...any) *Page {
 		)
 	case 2:
 		section.With(
-			b.Title5(
+			b.Title(5,
 				e.ID(titleSlug),
 				html.H3,
 				title,
 				" ",
 				e.AHref(
 					"#"+titleSlug,
-					b.FontSize6,
+					b.FontSize(6),
 					e.Name(titleSlug),
 					fa.Icon(fa.Solid, "link"),
 				),
@@ -257,9 +257,9 @@ func (p *Page) InternalMenu() []any {
 				"right":       "0",
 				"padding-top": "3.25rem",
 			},
-			b.PaddingHorizontal(b.Spacing0),
+			b.PaddingHorizontal(0),
 			b.Menu(
-				b.FontSize7,
+				b.FontSize(7),
 				b.MenuList(
 					b.MenuEntry(
 						e.Strong(
@@ -293,7 +293,7 @@ func navMenu(sections []DocSection, currentPath string) e.Element {
 	for _, section := range sections {
 		if section.Title != "" {
 			navmenu.With(b.MenuLabel(
-				b.PaddingLeft(b.Spacing2),
+				b.PaddingLeft(2),
 				section.Title,
 			))
 		}

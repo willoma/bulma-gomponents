@@ -14,14 +14,14 @@ func Table(children ...any) e.Element {
 
 func Modifiers(children ...any) e.Element {
 	return Table(
-		b.FontSize7,
+		b.FontSize(7),
 		b.HeadRow("Modifier", "Action"),
 	).With(children...)
 }
 
 func Children(children ...any) e.Element {
 	return Table(
-		b.FontSize7,
+		b.FontSize(7),
 		b.HeadRow("Child", "Action"),
 	).With(children...)
 }
@@ -50,6 +50,13 @@ func Row2(el1, el2 string, description ...any) e.Element {
 func RowTo(el1, el2 string, description ...any) e.Element {
 	return b.Row(
 		b.TCell(e.Code(el1), " to ", e.Code(el2)),
+		b.TCell(description...),
+	)
+}
+
+func RowToDetail(el1, el2, detail string, description ...any) e.Element {
+	return b.Row(
+		b.TCell(e.Code(el1), " to ", e.Code(el2), " ", detail),
 		b.TCell(description...),
 	)
 }

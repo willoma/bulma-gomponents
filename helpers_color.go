@@ -31,7 +31,7 @@ var (
 func colorSample(col, inv b.Color, name string) e.Element {
 	box := b.Box(
 		e.Class("colorsample"),
-		b.Padding(b.Spacing0),
+		b.Padding(0),
 		b.Relative,
 		e.Styles{
 			"width":         "4em",
@@ -43,7 +43,7 @@ func colorSample(col, inv b.Color, name string) e.Element {
 
 	popup := b.Box(
 		e.Class("popup"),
-		b.Padding(b.Spacing2),
+		b.Padding(2),
 		e.Styles{
 			"position": "absolute",
 			"top":      "2.5em",
@@ -69,16 +69,16 @@ func colorSample(col, inv b.Color, name string) e.Element {
 
 		popup.With(
 			e.Pre(
-				b.Padding(b.Spacing2),
-				b.Margin(b.Spacing0),
+				b.Padding(2),
+				b.Margin(0),
 				e.Styles{"border-radius": "var(--bulma-radius-medium) var(--bulma-radius-medium) 0 0"},
 				col.Text(),
 				inv,
 				"b.Text"+name+"\nb.Background"+name+"Invert",
 			),
 			e.Pre(
-				b.Padding(b.Spacing2),
-				b.Margin(b.Spacing0),
+				b.Padding(2),
+				b.Margin(0),
 				e.Styles{"border-radius": "0 0 var(--bulma-radius-medium) var(--bulma-radius-medium)"},
 				col,
 				inv.Text(),
@@ -88,14 +88,14 @@ func colorSample(col, inv b.Color, name string) e.Element {
 	} else {
 		popup.With(
 			e.Pre(
-				b.Padding(b.Spacing2),
+				b.Padding(2),
 				e.Styles{"border-radius": "var(--bulma-radius-medium) var(--bulma-radius-medium) 0 0"},
 				col.Text(),
 				b.BackgroundWhite,
 				"b.Text"+name,
 			),
 			e.Pre(
-				b.Padding(b.Spacing2),
+				b.Padding(2),
 				e.Styles{"border-radius": "0 0 var(--bulma-radius-medium) var(--bulma-radius-medium)"},
 				col,
 				b.TextWhite,
@@ -198,7 +198,7 @@ var color = c.NewPage(
 	b.Content(
 		e.P(e.Em("Bulma-Gomponents"), " provides predefined modifier variables for all colors available in ", e.Em("Bulma"), ". These modifiers names (corresponding to ", e.Em("Bulma"), " classes) are formatted as:", e.Br(), e.Code("b.[Target][Color][Variant][Invert]"), ", where:"),
 		c.Table(
-			b.HeadRow(b.FontSize6, b.TCell(e.Code("Target"), "..."), "means..."),
+			b.HeadRow(b.FontSize(6), b.TCell(e.Code("Target"), "..."), "means..."),
 			c.Row("Text", "Set text color"),
 			c.Row("Background", "Set background color"),
 			c.RowNoCode(
@@ -228,7 +228,7 @@ var color = c.NewPage(
 			),
 		),
 		c.Table(
-			b.HeadRow(b.FontSize6, b.TCell(e.Code("Color"), "..."), "means..."),
+			b.HeadRow(b.FontSize(6), b.TCell(e.Code("Color"), "..."), "means..."),
 			c.RowNoCode(
 				b.TCell(
 					e.Code("White"), ", ",
@@ -256,7 +256,7 @@ var color = c.NewPage(
 			),
 		),
 		c.Table(
-			b.HeadRow(b.FontSize6, b.TCell(e.Code("Variant"), "..."), "means..."),
+			b.HeadRow(b.FontSize(6), b.TCell(e.Code("Variant"), "..."), "means..."),
 			c.RowNoCode("No variant", "The base color"),
 			c.RowMultiple(
 				[]string{"00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"},
@@ -274,7 +274,7 @@ var color = c.NewPage(
 			),
 		),
 		c.Table(
-			b.HeadRow(b.FontSize6, b.TCell(e.Code("Invert"), "..."), "means..."),
+			b.HeadRow(b.FontSize(6), b.TCell(e.Code("Invert"), "..."), "means..."),
 			c.RowNoCode("No invert", "The base color"),
 			c.Row("Invert", "Invert the color"),
 		),
