@@ -18,32 +18,35 @@ func TCell(children ...any) e.Element {
 
 type tcell struct {
 	e.Element
-
-	hasChangedElem bool
-}
-
-func (c *tcell) With(children ...any) e.Element {
-	for _, ch := range children {
-		switch ch := ch.(type) {
-		case func(...gomponents.Node) gomponents.Node:
-			if !c.hasChangedElem {
-				c.hasChangedElem = true
-				c.Element.With(ch)
-			}
-		case []any:
-			c.With(ch...)
-		default:
-			c.Element.With(ch)
-		}
-	}
-
-	return c
 }
 
 func (c *tcell) Clone() e.Element {
 	return &tcell{
-		Element:        c.Element.Clone(),
-		hasChangedElem: c.hasChangedElem,
+		Element: c.Element.Clone(),
+	}
+}
+
+// Th creates a table cell with header type.
+func Th(children ...any) e.Element {
+	c := &tcellPredefined{Element: e.Th()}
+	c.With(children...)
+	return c
+}
+
+// Td creates a table cell with data type.
+func Td(children ...any) e.Element {
+	c := &tcellPredefined{Element: e.Td()}
+	c.With(children...)
+	return c
+}
+
+type tcellPredefined struct {
+	e.Element
+}
+
+func (c *tcellPredefined) Clone() e.Element {
+	return &tcellPredefined{
+		Element: c.Element.Clone(),
 	}
 }
 
@@ -98,6 +101,8 @@ func (r *row) With(children ...any) e.Element {
 		switch c := c.(type) {
 		case *tcell:
 			c.With(r.elemFn)
+			r.Element.With(c)
+		case *tcellPredefined:
 			r.Element.With(c)
 		case string:
 			r.Element.With(TCell(r.elemFn, c))
