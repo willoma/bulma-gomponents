@@ -12,9 +12,9 @@ var container = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Container"), " constructor creates a container e.Element. Its ", e.Strong("maximum width"), " depends on the applied modifier:"),
+		e.P("The ", e.Code("b.Container"), " constructor creates a container element. Its ", e.Strong("maximum width"), " depends on the applied modifier:"),
 	),
-	b.Table(
+	c.Table(
 		b.HeadRow(
 			"Modifier",
 			"Up to 1023px",

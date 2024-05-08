@@ -14,48 +14,35 @@ var breadcrumb = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Breadcrumb"), " constructor creates a breadcrumb. The following children have a special meaning:",
+			"The ", e.Code("b.Breadcrumb"), " constructor creates a breadcrumb.",
 		),
-		b.DList(
-			e.Code("b.OnNav(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<nav>"), " element"},
-
-			e.Code("b.OnUl(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<ul>"), " element"},
-
-			[]any{"one of the class or style types defined in package ", e.Code("b")},
-			[]any{"Apply the class or style to the ", e.Code(`<nav class="breadcrumb">`), " element"},
-
-			e.Code("b.Centered"),
-			"Center the breadcrumb in its container",
-
-			e.Code("b.Right"),
-			"Align the breadcrumb to the right",
-
-			e.Code("b.ArrowSeparator"),
-			[]any{"Use an arrow (", e.Code("→"), ") as the separator"},
-
-			e.Code("b.BulletSeparator"),
-			[]any{"Use a bullet (", e.Code("•"), ") as the separator"},
-
-			e.Code("b.DotSeparator"),
-			[]any{"Use a dot (", e.Code("·"), ") as the separator"},
-
-			e.Code("b.SucceedsSeparator"),
-			[]any{`Use a "succeeds" character (`, e.Code("≻"), `) as the separator`},
-
-			e.Code("b.Small"),
-			"Set breadcrumb size to small",
-
-			e.Code("b.Medium"),
-			"Set breadcrumb size to medium",
-
-			e.Code("b.Large"),
-			"Set breadcrumb size to large",
+		c.Modifiers(
+			c.Row("b.Centered", "Center the breadcrumb in its container"),
+			c.Row("b.Right", "Align the breadcrumb to the right"),
+			c.Row("b.ArrowSeparator", "Use an arrow (", e.Code("→"), ") as the separator"),
+			c.Row("b.BulletSeparator", "Use a bullet (", e.Code("•"), ") as the separator"),
+			c.Row("b.DotSeparator", "Use a dot (", e.Code("·"), ") as the separator"),
+			c.Row("b.SucceedsSeparator", `Use a "succeeds" character (`, e.Code("≻"), `) as the separator`),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
 		),
-		e.P("Other children are added to the ", e.Code("<ul>"), " element."),
+		c.Children(
+			c.Row("b.OnUl(...any)", "Apply children to the ", e.Code("<ul>"), " element"),
+			c.Row("b.OnNav(...any)", "Apply children to the ", e.Code("<nav>"), " element"),
+			c.RowClassesStyles("Apply child to the ", e.Code(`<nav>`), " element"),
+			c.RowNodeAttribute("Apply child to the ", e.Code(`<nav>`), " element"),
+			c.RowNodeElement("Apply child to the ", e.Code(`<ul>`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<ul>`), " element"),
+		),
 		e.P(
-			"The ", e.Code("b.BreadcrumbEntry"), " constructor creates a breadcrumb entry (which is a regular <li> e.Element). The ", e.Code("b.BreadcrumbAHref"), " constructor creates a breadcrumb link entry. The ", e.Code("b.BreadcrumbActiveAHref"), " constructor creates an active breadcrumb link entry.",
+			"The ", e.Code("b.BreadcrumbEntry"), " constructor creates a breadcrumb entry (which is a regular ", e.Code("<li>"), " element).",
+		),
+		e.P(
+			"The ", e.Code("b.BreadcrumbAHref"), " constructor creates a breadcrumb link entry.",
+		),
+		c.Modifiers(
+			c.Row("b.Active", "Apply the active style and add the ", e.Code(`aria-current="page"`), " attribute"),
 		),
 	),
 ).Section(
@@ -98,13 +85,13 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 ).Subsection(
@@ -116,14 +103,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.Centered,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 	c.Example(
@@ -132,14 +119,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.Right,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 ).Subsection(
@@ -150,13 +137,13 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "home"), "Bulma"),
 	b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "book"), "Documentation"),
 	b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "puzzle-piece"), "Components"),
-	b.BreadcrumbActiveAHref("#", fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "home"), "Bulma"),
 			b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "book"), "Documentation"),
 			b.BreadcrumbAHref("#", fa.Icon(fa.Solid, "puzzle-piece"), "Components"),
-			b.BreadcrumbActiveAHref("#", fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, fa.Icon(fa.Solid, "thumbs-up"), "Breadcrumb"),
 		),
 	),
 ).Subsection(
@@ -168,14 +155,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.ArrowSeparator,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 	c.Example(
@@ -184,14 +171,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 `,
 		b.Breadcrumb(
 			b.BulletSeparator,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 	c.Example(
@@ -200,14 +187,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.DotSeparator,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 	c.Example(
@@ -216,14 +203,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.SucceedsSeparator,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 ).Subsection(
@@ -235,14 +222,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.Small,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 	c.Example(
@@ -251,14 +238,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.Medium,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 	c.Example(
@@ -267,14 +254,14 @@ var breadcrumb = c.NewPage(
 	b.BreadcrumbAHref("#", "Bulma"),
 	b.BreadcrumbAHref("#", "Documentation"),
 	b.BreadcrumbAHref("#", "Components"),
-	b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+	b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 )`,
 		b.Breadcrumb(
 			b.Large,
 			b.BreadcrumbAHref("#", "Bulma"),
 			b.BreadcrumbAHref("#", "Documentation"),
 			b.BreadcrumbAHref("#", "Components"),
-			b.BreadcrumbActiveAHref("#", "Breadcrumb"),
+			b.BreadcrumbAHref("#", b.Active, "Breadcrumb"),
 		),
 	),
 )

@@ -28,6 +28,6 @@ var intro = c.NewPage(
 	"Bulma examples", "",
 	b.Content(
 		e.P("This documentation contains examples corresponding to the ", e.AHref("https://bulma.io/documentation/", "official Bulma documentation"), " examples."),
-		e.P("This documentation is entirely written with ", e.Em("Bulma-Gomponents"), ", its source code is in ", e.AHref("https://github.com/willoma/bulma-gomponents/tree/main/docs", "the library repository"), ". Don't hesitate to refer to it if needed."),
+		e.P("This documentation is entirely written with ", e.Em("Bulma-Gomponents"), ", its source code is in ", e.AHref("https://github.com/willoma/bulma-gomponents/tree/docs", "the library repository"), ". Don't hesitate to refer to it if needed."),
 	),
 )

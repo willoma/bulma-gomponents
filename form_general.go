@@ -14,67 +14,36 @@ var formGeneral = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Field"), " constructor creates a field. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Addons"),
-			"Attach the child controls together",
-
-			e.Code("b.AddonsCentered"),
-			"Attach the child controls together and center them",
-
-			e.Code("b.AddonsRight"),
-			"Attach the child controls together and align them to the right",
-
-			e.Code("b.Grouped"),
-			"Group child controls together",
-
-			e.Code("b.GroupedCentered"),
-			"Group child controls together and center them",
-
-			e.Code("b.GroupedRight"),
-			"Group child controls together and align them to the right",
-
-			e.Code("b.GroupedMultiline"),
-			"Group child controls together and allow them to fill up multiple lines",
-
-			e.Code("b.Horizontal"),
-			"Make the field horizontal",
+		e.P("The ", e.Code("b.Field"), " constructor creates a field."),
+		c.Modifiers(
+			c.Row("b.Addons", "Attach the child controls together"),
+			c.Row("b.AddonsCentered", "Attach the child controls together and center them"),
+			c.Row("b.AddonsRight", "Attach the child controls together and align them to the right"),
+			c.Row("b.Grouped", "Group child controls together"),
+			c.Row("b.GroupedCentered", "Group child controls together and center them"),
+			c.Row("b.GroupedRight", "Group child controls together and align them to the right"),
+			c.Row("b.GroupedMultiline", "Group child controls together and allow them to fill up multiple lines"),
+			c.Row("b.Horizontal", "Make the field horizontal"),
 		),
 
 		e.P("The ", e.Code("b.Label"), " constructor creates a label."),
 
-		e.P("The ", e.Code("b.Control"), " constructor creates a control e.Element. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.IconsLeft"),
-			"Leave space on the left side of the input or select child for an icon - the ", e.Code("b.Icon"), " e.Element must be a direct child of ", e.Code("b.Control"), " and have the ", e.Code("b.Left"), " modifier",
-
-			e.Code("b.IconsRight"),
-			"Leave space on the right side of the input or select child for an icon - the ", e.Code("b.Icon"), " e.Element must be a direct child of ", e.Code("b.Control"), " and have the ", e.Code("b.Right"), " modifier",
-
-			e.Code("b.Expanded"),
-			"Expand the control to fill the available width - to apply this style to a ", e.Code("<select>"), " e.Element, you must also add the ", e.Code("b.FullWidth"), " modifier to the ", e.Code("b.Select"), " constructor",
+		e.P("The ", e.Code("b.Control"), " constructor creates a control element."),
+		c.Modifiers(
+			c.Row("b.IconsLeft", "Leave space on the left side of the input or select child for an icon - the ", e.Code("b.Icon"), " element must be a direct child of ", e.Code("b.Control"), " and have the ", e.Code("b.Left"), " modifier"),
+			c.Row("b.IconsRight", "Leave space on the right side of the input or select child for an icon - the ", e.Code("b.Icon"), " element must be a direct child of ", e.Code("b.Control"), " and have the ", e.Code("b.Right"), " modifier"),
+			c.Row("b.Expanded", "Expand the control to fill the available width - to apply this style to a ", e.Code("<select>"), " element, you must also add the ", e.Code("b.FullWidth"), " modifier to the ", e.Code("b.Select"), " constructor"),
 		),
-
-		e.P("The ", e.Code("b.Help"), " constructor creates a help e.Element, to be used as a child of a ", e.Code("b.Field"), "."),
-
-		e.P("The ", e.Code("b.FieldHorizontal"), " constructor creates a horizontal field. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnField(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`< class="field">`), " e.Element"},
-
-			e.Code("b.OnLabel(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`< class="field-label">`), " e.Element"},
-
-			e.Code("b.OnBody(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`< class="field-body">`), " e.Element"},
-
-			e.Code("b.Label(...)"),
-			"Add the label to the field label section",
-
-			e.Code("e.Element"),
-			"Add the element to the field body section",
+		e.P("The ", e.Code("b.Help"), " constructor creates a help element, to be used as a child of a ", e.Code("b.Field"), "."),
+		e.P("The ", e.Code("b.FieldHorizontal"), " constructor creates a horizontal field."),
+		c.Children(
+			c.Row("b.OnField(...any)", "Apply children to the ", e.Code(`<div class="field">`), " element"),
+			c.Row("b.OnLabel(...any)", "Apply children to the ", e.Code(`<div class="field-label">`), " element"),
+			c.Row("b.OnBody(...any)", "Apply children to the ", e.Code(`<div class="field-body">`), " element"),
+			c.Row("b.Label(...any)", "Add label to the ", e.Code(`<div class="field-label">`), " element"),
+			c.Row("e.Element", "Add element to the ", e.Code(`<div class="field-body">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="field">`), " element"),
 		),
-		e.P("Other children are added to the ", e.Code(`<div class="field">`), " e.Element."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/form/general/",
@@ -376,7 +345,7 @@ b.Field(
 			b.Control(
 				b.IconsLeft,
 				b.Select(
-					b.OptionSelected("", "Country"),
+					b.Option("", b.Selected, "Country"),
 					b.Option("", "Select dropdown"),
 					b.Option("", "With options"),
 				),

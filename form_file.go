@@ -13,79 +13,36 @@ var formFile = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.File"), " constructor creates a file input. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnCTA(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<span class="file-cta">`), " e.Element"},
-
-			e.Code("b.OnDiv(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="file">`), " e.Element"},
-
-			e.Code("b.OnInput(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<input>"), " e.Element"},
-
-			e.Code("string"),
-			"Define the call-to-action label",
-
-			e.Code("b.FileName"),
-			"Define the content of the file-name e.Element",
-
-			e.Code("b.FileNameAutoUpdate"),
-			"Define the content of the file-name e.Element, which changes when a file is selected",
-
-			e.Code("b.Right"),
-			"Move the call-to-action to the right side, align the file input to the right",
-
-			e.Code("b.FullWidth"),
-			"Expand the name to fill up the space",
-
-			e.Code("b.Boxed"),
-			"Make the input a boxed block",
-
-			e.Code("b.Centered"),
-			"Alight the file input to the center",
-
-			e.Code("b.White"),
-			"Set file input color to white",
-
-			e.Code("b.Black"),
-			"Set file input color to black",
-
-			e.Code("b.Light"),
-			"Set file input color to light",
-
-			e.Code("b.Dark"),
-			"Set file input color to dark",
-
-			e.Code("b.Primary"),
-			"Set file input color to primary",
-
-			e.Code("b.Link"),
-			"Set file input color to link",
-
-			e.Code("b.Info"),
-			"Set file input color to info",
-
-			e.Code("b.Success"),
-			"Set file input color to success",
-
-			e.Code("b.Warning"),
-			"Set file input color to warning",
-
-			e.Code("b.Danger"),
-			"Set file input color to danger",
-
-			e.Code("b.Small"),
-			"Set file input size to small",
-
-			e.Code("b.Normal"),
-			"Set file input size to normal",
-
-			e.Code("b.Medium"),
-			"Set file input size to medium",
-
-			e.Code("b.Large"),
-			"Set file input size to large",
+		e.P("The ", e.Code("b.File"), " constructor creates a file input."),
+		c.Modifiers(
+			c.Row("b.Right", "Move the call-to-action to the right side, align the file input to the right"),
+			c.Row("b.FullWidth", "Expand the name to fill up the space"),
+			c.Row("b.Boxed", "Make the input a boxed block"),
+			c.Row("b.Centered", "Alight the file input to the center"),
+			c.Row("b.White", "Set color to white"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
+		),
+		c.Children(
+			c.Row("b.OnCTA(...any)", "Apply children to the ", e.Code(`<span class="file-cta">`), " element"),
+			c.Row("b.OnDiv(...any)", "Apply children to the ", e.Code(`<div class="file">`), " element"),
+			c.Row("b.OnInput(...any)", "Apply children to the ", e.Code("<input>"), " element"),
+			c.Row("string", "Define the call-to-action label"),
+			c.Row("b.FileName", "Define the content of the ", e.Code(`<span class="file-name">`), " element"),
+			c.Row("b.FileNameAutoUpdate", "Define the content of the ", e.Code(`<span class="file-name">`), " element, which changes when a file is selected"),
+			c.Row("e.Element", "Add element to the ", e.Code(`<span class="file-cta">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code("<input>"), " element"),
 		),
 	),
 ).Section(

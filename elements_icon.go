@@ -16,207 +16,80 @@ var icon = c.NewPage(
 	"",
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Icon"), " constructor returns a container for an ", e.Strong("icon font"), ". The following children have a special meaning:",
+			"The ", e.Code("b.Icon"), " constructor creates a container for an ", e.Strong("icon font"), ".",
 		),
-		b.DList(
-			e.Code("b.White"),
-			"Set icon color to white",
-
-			e.Code("b.Black"),
-			"Set icon color to black",
-
-			e.Code("b.Light"),
-			"Set icon color to light",
-
-			e.Code("b.Dark"),
-			"Set icon color to dark",
-
-			e.Code("b.Primary"),
-			"Set icon color to primary",
-
-			e.Code("b.Link"),
-			"Set icon color to link",
-
-			e.Code("b.Info"),
-			"Set icon color to info",
-
-			e.Code("b.Success"),
-			"Set icon color to success",
-
-			e.Code("b.Warning"),
-			"Set icon color to warning",
-
-			e.Code("b.Danger"),
-			"Set icon color to danger",
-
-			e.Code("b.BlackBis"),
-			"Set icon color to black bis",
-
-			e.Code("b.BlackTer"),
-			"Set icon color to black ter",
-
-			e.Code("b.GreyDarker"),
-			"Set icon color to grey darker",
-
-			e.Code("b.GreyDark"),
-			"Set icon color to grey dark",
-
-			e.Code("b.Grey"),
-			"Set icon color to grey",
-
-			e.Code("b.GreyLight"),
-			"Set icon color to grey light",
-
-			e.Code("b.GreyLigher"),
-			"Set icon color to grey lighter",
-
-			e.Code("b.WhiteTer"),
-			"Set icon color to white ter",
-
-			e.Code("b.WhiteBis"),
-			"Set icon color to white bis",
-
-			e.Code("b.PrimaryLight"),
-			"Set icon color to primary light",
-
-			e.Code("b.LinkLight"),
-			"Set icon color to link light",
-
-			e.Code("b.InfoLight"),
-			"Set icon color to info light",
-
-			e.Code("b.SuccessLight"),
-			"Set icon color to success light",
-
-			e.Code("b.WarningLight"),
-			"Set icon color to warning light",
-
-			e.Code("b.DangerLight"),
-			"Set icon color to danger light",
-
-			e.Code("b.PrimaryDark"),
-			"Set icon color to primary dark",
-
-			e.Code("b.LinkDark"),
-			"Set icon color to link dark",
-
-			e.Code("b.InfoDark"),
-			"Set icon color to info dark",
-
-			e.Code("b.SuccessDark"),
-			"Set icon color to success dark",
-
-			e.Code("b.WarningDark"),
-			"Set icon color to warning dark",
-
-			e.Code("b.DangerDark"),
-			"Set icon color to danger dark",
-
-			e.Code("b.Small"),
-			"Set icon size to small",
-
-			e.Code("b.Medium"),
-			"Set icon size to medium",
-
-			e.Code("b.Large"),
-			"Set icon size to large",
+		c.Modifiers(
+			c.Row("b.White", "Set color to white"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.BlackBis", "Set color to black bis"),
+			c.Row("b.BlackTer", "Set color to black ter"),
+			c.Row("b.GreyDarker", "Set color to grey darker"),
+			c.Row("b.GreyDark", "Set color to grey dark"),
+			c.Row("b.Grey", "Set color to grey"),
+			c.Row("b.GreyLight", "Set color to grey light"),
+			c.Row("b.GreyLigher", "Set color to grey lighter"),
+			c.Row("b.WhiteTer", "Set color to white ter"),
+			c.Row("b.WhiteBis", "Set color to white bis"),
+			c.Row("b.PrimaryLight", "Set color to primary light"),
+			c.Row("b.LinkLight", "Set color to link light"),
+			c.Row("b.InfoLight", "Set color to info light"),
+			c.Row("b.SuccessLight", "Set color to success light"),
+			c.Row("b.WarningLight", "Set color to warning light"),
+			c.Row("b.DangerLight", "Set color to danger light"),
+			c.Row("b.PrimaryDark", "Set color to primary dark"),
+			c.Row("b.LinkDark", "Set color to link dark"),
+			c.Row("b.InfoDark", "Set color to info dark"),
+			c.Row("b.SuccessDark", "Set color to success dark"),
+			c.Row("b.WarningDark", "Set color to warning dark"),
+			c.Row("b.DangerDark", "Set color to danger dark"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
 		),
 
 		e.P(
-			"The ", e.Code("b.IconText"), " constructor creates an icon+text span container and embeds all its non-icon children into spans. The ", e.Code("b.FlexIconText"), " constructor creates a flex icon+text span container and embeds all its non-icon children into spans. The following children have a special meaning:",
+			"The ", e.Code("b.IconText"), " constructor creates an icon+text span container and embeds all its non-icon children into spans. The ", e.Code("b.FlexIconText"), " constructor creates a flex icon+text span container and embeds all its non-icon children into spans.",
 		),
-		b.DList(e.Code("b.White"),
-			"Set icon color to white",
-
-			e.Code("b.Black"),
-			"Set icon color to black",
-
-			e.Code("b.Light"),
-			"Set icon color to light",
-
-			e.Code("b.Dark"),
-			"Set icon color to dark",
-
-			e.Code("b.Primary"),
-			"Set icon color to primary",
-
-			e.Code("b.Link"),
-			"Set icon color to link",
-
-			e.Code("b.Info"),
-			"Set icon color to info",
-
-			e.Code("b.Success"),
-			"Set icon color to success",
-
-			e.Code("b.Warning"),
-			"Set icon color to warning",
-
-			e.Code("b.Danger"),
-			"Set icon color to danger",
-
-			e.Code("b.BlackBis"),
-			"Set icon color to black bis",
-
-			e.Code("b.BlackTer"),
-			"Set icon color to black ter",
-
-			e.Code("b.GreyDarker"),
-			"Set icon color to grey darker",
-
-			e.Code("b.GreyDark"),
-			"Set icon color to grey dark",
-
-			e.Code("b.Grey"),
-			"Set icon color to grey",
-
-			e.Code("b.GreyLight"),
-			"Set icon color to grey light",
-
-			e.Code("b.GreyLigher"),
-			"Set icon color to grey lighter",
-
-			e.Code("b.WhiteTer"),
-			"Set icon color to white ter",
-
-			e.Code("b.WhiteBis"),
-			"Set icon color to white bis",
-
-			e.Code("b.PrimaryLight"),
-			"Set icon color to primary light",
-
-			e.Code("b.LinkLight"),
-			"Set icon color to link light",
-
-			e.Code("b.InfoLight"),
-			"Set icon color to info light",
-
-			e.Code("b.SuccessLight"),
-			"Set icon color to success light",
-
-			e.Code("b.WarningLight"),
-			"Set icon color to warning light",
-
-			e.Code("b.DangerLight"),
-			"Set icon color to danger light",
-
-			e.Code("b.PrimaryDark"),
-			"Set icon color to primary dark",
-
-			e.Code("b.LinkDark"),
-			"Set icon color to link dark",
-
-			e.Code("b.InfoDark"),
-			"Set icon color to info dark",
-
-			e.Code("b.SuccessDark"),
-			"Set icon color to success dark",
-
-			e.Code("b.WarningDark"),
-			"Set icon color to warning dark",
-
-			e.Code("b.DangerDark"),
-			"Set icon color to danger dark",
+		c.Modifiers(
+			c.Row("b.White", "Set color to white"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.BlackBis", "Set color to black bis"),
+			c.Row("b.BlackTer", "Set color to black ter"),
+			c.Row("b.GreyDarker", "Set color to grey darker"),
+			c.Row("b.GreyDark", "Set color to grey dark"),
+			c.Row("b.Grey", "Set color to grey"),
+			c.Row("b.GreyLight", "Set color to grey light"),
+			c.Row("b.GreyLigher", "Set color to grey lighter"),
+			c.Row("b.WhiteTer", "Set color to white ter"),
+			c.Row("b.WhiteBis", "Set color to white bis"),
+			c.Row("b.PrimaryLight", "Set color to primary light"),
+			c.Row("b.LinkLight", "Set color to link light"),
+			c.Row("b.InfoLight", "Set color to info light"),
+			c.Row("b.SuccessLight", "Set color to success light"),
+			c.Row("b.WarningLight", "Set color to warning light"),
+			c.Row("b.DangerLight", "Set color to danger light"),
+			c.Row("b.PrimaryDark", "Set color to primary dark"),
+			c.Row("b.LinkDark", "Set color to link dark"),
+			c.Row("b.InfoDark", "Set color to info dark"),
+			c.Row("b.SuccessDark", "Set color to success dark"),
+			c.Row("b.WarningDark", "Set color to warning dark"),
+			c.Row("b.DangerDark", "Set color to danger dark"),
 		),
 	),
 ).Section(
@@ -225,25 +98,19 @@ var icon = c.NewPage(
 	b.Content(
 		e.P("The", e.Code("github.com/willoma/bulma-gomponents/fa"), " package provides helpers for ", e.Em("Font Awesome"), " icons."),
 		e.P(
-			"The ", e.Code("fa.Icon"), " constructor creates a ", e.Em("Font Awesome"), " icon, embedded in an icon container, dealing with appropriately applying children to the icon e.Element or to the span container. It accepts the same values as ", e.Code("b.Icon"), ", as well as the ", e.Em("Font Awesome"), "-specific values described below. The following children have a special meaning:",
+			"The ", e.Code("fa.Icon"), " constructor creates a ", e.Em("Font Awesome"), " icon, embedded in an icon container, dealing with appropriately applying children to the icon element or to the span container. The ", e.Code("fa.FA"), " constructor creates a ", e.Em("Font Awesome"), " icon only, without the icon container. These constructors accept the same modifiers as ", e.Code("b.Icon"), ", as well as the ", e.Em("Font Awesome"), "-specific values described in following sections.",
 		),
-		b.DList(
-			e.Code("fa.OnFA(...)"),
-			[]any{"Force childen to be applied to the Font Awesome ", e.Code("<i>"), " e.Element"},
-
-			e.Code("fa.OnIcon(...)"),
-			[]any{"Force childen to be applied to the icon span"},
-		),
-		e.P("Other children are added to the icon span."),
-		e.P(
-			"The ", e.Code("fa.FA"), " constructor creates a ", e.Em("Font Awesome"), " icon. It accepts the ", e.Em("Font Awesome"), "-specific values described below.",
+		c.Children(
+			c.Row("fa.OnFA(...any)", "Apply children to the Font Awesome ", e.Code("<i>"), " element"),
+			c.Row("fa.OnIcon(...any)", "Apply children to the ", e.Code("<span>"), " element"),
+			c.RowDefault("Apply children to the ", e.Code("<span>"), " element"),
 		),
 	),
 ).Subsection(
 	"First arguments", "Font Awesome::https://docs.fontawesome.com/web/add-icons/how-to#families--styles",
 
 	b.Content(
-		e.P("The ", e.Code("fa.Icon"), " function requires at least two arguments:"),
+		e.P("The ", e.Code("fa.Icon"), " and ", e.Code("fa.FA"), " functions require at least two arguments:"),
 		e.Ol(
 			e.Li(
 				"The font style, one of ", e.Code("fa.Brand"), ", ", e.Code("fa.Duotone"), ", ", e.Code("fa.Light"), ", ", e.Code("fa.SharpLight"), ", ", e.Code("fa.Regular"), ", ", e.Code("fa.SharpRegular"), ", ", e.Code("fa.Solid"), ", ", e.Code("fa.SharpSolid"), ", ", e.Code("fa.Thin"), " or ", e.Code("fa.SharpThin"),
@@ -257,7 +124,7 @@ var icon = c.NewPage(
 	"Styling basics", "Font Awesome::https://docs.fontawesome.com/web/style/basics",
 
 	b.Content(
-		e.P("Arguments provided to ", e.Code("fa.Icon"), " are automatically applied to the ", e.Code("<span>"), " or ", e.Code("<i>"), " e.Element, depending on its nature. If you need to explicitly apply a child to the ", e.Code("<i>"), " e.Element, use ", e.Code("fa.FA"), " and include it manually as a child of ", e.Code("b.Icon"), "."),
+		e.P("Arguments provided to ", e.Code("fa.Icon"), " are automatically applied to the ", e.Code("<span>"), " or ", e.Code("<i>"), " element, depending on its nature. If you need to explicitly apply a child to the ", e.Code("<i>"), " element, use ", e.Code("fa.FA"), " and include it manually as a child of ", e.Code("b.Icon"), "."),
 	),
 	c.Example(
 		`e.Span(
@@ -463,51 +330,23 @@ fa.FA(fa.Solid, "snowboarding", fa.Rotate(20), fa.FlipBoth), " "`,
 	"Animating icons", "Font Awesome::https://docs.fontawesome.com/web/style/animate",
 
 	b.Content(
-		e.P("The icons can be animated using one of the structures implementing ", e.Code("fa.Animation"), " (see below). All these structures accept these options"),
-		b.DList(
-			e.Code("fa.Delay(time.Duration)"),
-			"Add an initial delay",
-
-			e.Code("fa.DirectionNormal"),
-			[]any{"Change the animation direction to normal"},
-
-			e.Code("fa.DirectionReverse"),
-			[]any{"Change the animation direction to reverse"},
-
-			e.Code("fa.DirectionAlternate"),
-			[]any{"Change the animation direction to alternate"},
-
-			e.Code("fa.DirectionAlternateReverse"),
-			[]any{"Change the animation direction to alternate reverse"},
-
-			e.Code("fa.Duration(time.Duration)"),
-			"Set duration",
-
-			e.Code("fa.IterationCount(float64)"),
-			"Set number of iterations",
-
-			e.Code("fa.TimingEase"),
-			[]any{"Set animation progress timing to ease"},
-
-			e.Code("fa.TimingLinear"),
-			[]any{"Set animation progress timing to linear"},
-
-			e.Code("fa.TimingEaseIn"),
-			[]any{"Set animation progress timing to ease-in"},
-
-			e.Code("fa.TimingEaseOut"),
-			[]any{"Set animation progress timing to ease-out"},
-
-			e.Code("fa.TimingEaseInOut"),
-			[]any{"Set animation progress timing to ease-in-out"},
-
-			e.Code("fa.TimingStepStart"),
-			[]any{"Set animation progress timing to step-start"},
-
-			e.Code("fa.TimingStepEnd"),
-			[]any{"Set animation progress timing to step-end"},
+		e.P("The icons can be animated using one of the structures implementing ", e.Code("fa.Animation"), ". Values are rounded to the 2nd decimal."),
+		c.Modifiers(
+			c.Row("fa.Delay(time.Duration)", "Add an initial delay"),
+			c.Row("fa.DirectionNormal", "Change the animation direction to normal"),
+			c.Row("fa.DirectionReverse", "Change the animation direction to reverse"),
+			c.Row("fa.DirectionAlternate", "Change the animation direction to alternate"),
+			c.Row("fa.DirectionAlternateReverse", "Change the animation direction to alternate reverse"),
+			c.Row("fa.Duration(time.Duration)", "Set duration"),
+			c.Row("fa.IterationCount(float64)", "Set number of iterations"),
+			c.Row("fa.TimingEase", "Set animation progress timing to ease"),
+			c.Row("fa.TimingLinear", "Set animation progress timing to linear"),
+			c.Row("fa.TimingEaseIn", "Set animation progress timing to ease-in"),
+			c.Row("fa.TimingEaseOut", "Set animation progress timing to ease-out"),
+			c.Row("fa.TimingEaseInOut", "Set animation progress timing to ease-in-out"),
+			c.Row("fa.TimingStepStart", "Set animation progress timing to step-start"),
+			c.Row("fa.TimingStepEnd", "Set animation progress timing to step-end"),
 		),
-		e.P("Values are rounded to the 2nd decimal. Please note you cannot use ", e.Code("0"), " as a value, because it is the default value in ", e.Em("Go"), " structures and, as such, is ignored by this library. If you need a zero value for one of the animation attributes, provide a very small float, for instance ", e.Code("0.001"), " which, after rounding, results in ", e.Em("0.00"), "."),
 	),
 	b.Content(
 		e.P("The ", e.Code("fa.Beat"), " animation type scales an icon up or down. Additionally to the common attributes, it uses the ", e.Code("fa.MaxScale(float64)"), " attribute to set the maximum value the icon will scale."),
@@ -556,34 +395,18 @@ fa.FA(fa.Solid, "circle-info", fa.BeatFade(fa.MinOpacity(0.67), fa.MaxScale(1.07
 	b.Content(
 		e.P("The ", e.Code("fa.Bounce"), " animation type bounces an icon up and down. Additionally to the common attributes, it uses the following attributes:"),
 		b.DList(
-			e.Code("fa.Rebound(float64)"),
-			"Set the amount of rebound when landing after the jump",
-			e.Code("fa.Height(float64)"),
-			"Set the max height to jump when bouncing",
-			e.Code("fa.StartScaleX(float64)"),
-			"Set the icon's horizontal distortion (squish) when starting to bounce",
-			e.Code("fa.StartScaleY(float64)"),
-			"Set the icon's vertical distortion (squish) when starting to bounce",
-			e.Code("fa.JumpScaleX(float64)"),
-			"Set the icon's horizontal distortion (squish) at the top of the jump",
-			e.Code("fa.JumpScaleY(float64)"),
-			"Set the icon's vertical distortion (squish) at the top of the jump",
-			e.Code("fa.LandScaleX(float64)"),
-			"Set the icon's horizontal distortion (squish) when landing after the jump",
-			e.Code("fa.LandScaleY(float64)"),
-			"Set the icon's vertical distortion (squish) when landing after the jump",
-		),
+			c.Row("fa.Rebound(float64)", "Set the amount of rebound when landing after the jump"), c.Row("fa.Height(float64)", "Set the max height to jump when bouncing"), c.Row("fa.StartScaleX(float64)", "Set the icon's horizontal distortion (squish) when starting to bounce"), c.Row("fa.StartScaleY(float64)", "Set the icon's vertical distortion (squish) when starting to bounce"), c.Row("fa.JumpScaleX(float64)", "Set the icon's horizontal distortion (squish) at the top of the jump"), c.Row("fa.JumpScaleY(float64)", "Set the icon's vertical distortion (squish) at the top of the jump"), c.Row("fa.LandScaleX(float64)", "Set the icon's horizontal distortion (squish) when landing after the jump"), c.Row("fa.LandScaleY(float64)", "Set the icon's vertical distortion (squish) when landing after the jump")),
 	),
 	c.Example(
 		`fa.FA(fa.Solid, "basketball", fa.Bounce()), " ",
 fa.FA(fa.Solid, "volleyball", fa.Bounce()), " ",
 fa.FA(fa.Solid, "frog", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.JumpScaleX(1), fa.JumpScaleY(1), fa.LandScaleX(1), fa.LandScaleY(1))), " ",
-fa.FA(fa.Solid, "envelope", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.JumpScaleX(1), fa.JumpScaleY(1), fa.LandScaleX(1), fa.LandScaleY(1), fa.Rebound(0.001)))`,
+fa.FA(fa.Solid, "envelope", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.JumpScaleX(1), fa.JumpScaleY(1), fa.LandScaleX(1), fa.LandScaleY(1), fa.Rebound(0)))`,
 		fa.Size2x,
 		fa.FA(fa.Solid, "basketball", fa.Bounce()), " ",
 		fa.FA(fa.Solid, "volleyball", fa.Bounce()), " ",
 		fa.FA(fa.Solid, "frog", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.JumpScaleX(1), fa.JumpScaleY(1), fa.LandScaleX(1), fa.LandScaleY(1))), " ",
-		fa.FA(fa.Solid, "envelope", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.JumpScaleX(1), fa.JumpScaleY(1), fa.LandScaleX(1), fa.LandScaleY(1), fa.Rebound(0.001))),
+		fa.FA(fa.Solid, "envelope", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.JumpScaleX(1), fa.JumpScaleY(1), fa.LandScaleX(1), fa.LandScaleY(1), fa.Rebound(0))),
 	),
 	b.Content(
 		e.P("The ", e.Code("fa.Flip"), " animation type rotates an icon in 3D space. By default, it rotates about the Y axis 180 degrees. Additionally to the common attributes, it uses the ", e.Code("fa.X(float64)"), ", ", e.Code("fa.Y(float64)"), ", ", e.Code("fa.Z(float64)"), " attributes to denote the axis of rotation (between ", e.Code("0"), " and ", e.Code("1"), ") and the ", e.Code("fa.Angle(float64)"), " attribute to set the rotation angle."),
@@ -592,13 +415,13 @@ fa.FA(fa.Solid, "envelope", fa.Bounce(fa.StartScaleX(1), fa.StartScaleY(1), fa.J
 		`fa.FA(fa.Solid, "compact-disc", fa.Flip()), " ",
 fa.FA(fa.Solid, "camera-rotate", fa.Flip()), " ",
 fa.FA(fa.Solid, "floppy-disk", fa.Flip()), " ",
-fa.FA(fa.Solid, "scroll", fa.Flip(fa.X(1), fa.Y(0.001))), " ",
+fa.FA(fa.Solid, "scroll", fa.Flip(fa.X(1), fa.Y(0))), " ",
 fa.FA(fa.Solid, "money-check-dollar", fa.Flip(fa.Duration(3*time.Second)))`,
 		fa.Size2x,
 		fa.FA(fa.Solid, "compact-disc", fa.Flip()), " ",
 		fa.FA(fa.Solid, "camera-rotate", fa.Flip()), " ",
 		fa.FA(fa.Solid, "floppy-disk", fa.Flip()), " ",
-		fa.FA(fa.Solid, "scroll", fa.Flip(fa.X(1), fa.Y(0.001))), " ",
+		fa.FA(fa.Solid, "scroll", fa.Flip(fa.X(1), fa.Y(0))), " ",
 		fa.FA(fa.Solid, "money-check-dollar", fa.Flip(fa.Duration(3*time.Second))),
 	),
 	b.Content(
@@ -662,19 +485,7 @@ fa.FA(fa.Solid, "spinner", fa.Spin(fa.Pulse, fa.Reverse))`,
 	b.Content(
 		e.P("The following modifiers allow customizing the border and pulling effects:"),
 		b.DList(
-			e.Code("fa.BorderColor"),
-			"Set border color",
-			e.Code("fa.BorderPadding"),
-			"Set padding around icon",
-			e.Code("fa.BorderRadius"),
-			"Set border radius",
-			e.Code("fa.BorderStyle"),
-			"Set border style",
-			e.Code("fa.BorderWidth"),
-			"Set border width",
-			e.Code("fa.PullMargin"),
-			"Set margin around icon",
-		),
+			c.Row("fa.BorderColor", "Set border color"), c.Row("fa.BorderPadding", "Set padding around icon"), c.Row("fa.BorderRadius", "Set border radius"), c.Row("fa.BorderStyle", "Set border style"), c.Row("fa.BorderWidth", "Set border width"), c.Row("fa.PullMargin", "Set margin around icon")),
 	),
 	c.Example(
 		`e.P(
@@ -801,11 +612,7 @@ fa.FA(fa.Regular, "circle", e.Styles{"vertical-align": "middle"})`,
 	b.Content(
 		e.P("The following modifiers allow customizing stacked icons:"),
 		b.DList(
-			e.Code("fa.ZIndex"),
-			"Set z-index of a stacked icon",
-			e.Code("fa.InverseColor"),
-			"Set color of an inversed stacked icon",
-		),
+			c.Row("fa.ZIndex", "Set z-index of a stacked icon"), c.Row("fa.InverseColor", "Set color of an inversed stacked icon")),
 	),
 	c.Example(
 		`fa.Stack(
@@ -833,17 +640,7 @@ fa.Stack(
 	b.Content(
 		e.P("The following modifiers allow customizing duotone icons:"),
 		b.DList(
-			e.Code("fa.SwapOpacity"),
-			"Swap the default opacity of each icon's layers",
-			e.Code("fa.PrimaryOpacity"),
-			"Set primary layer opacity",
-			e.Code("fa.SecondaryOpacity"),
-			"Set secondary layer opacity",
-			e.Code("fa.PrimaryColor"),
-			"Set primary layer color",
-			e.Code("fa.SecondaryColor"),
-			"Set secondary layer color",
-		),
+			c.Row("fa.SwapOpacity", "Swap the default opacity of each icon's layers"), c.Row("fa.PrimaryOpacity", "Set primary layer opacity"), c.Row("fa.SecondaryOpacity", "Set secondary layer opacity"), c.Row("fa.PrimaryColor", "Set primary layer color"), c.Row("fa.SecondaryColor", "Set secondary layer color")),
 	),
 	b.Message(
 		b.Danger,

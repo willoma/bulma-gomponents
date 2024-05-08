@@ -14,7 +14,13 @@ var title = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Title"), " constructor creates a title. The ", e.Code("b.Subtitle"), " constructor creates a subtitle. These constructors accept the ", e.Code("b.Spaced"), " modifier additionally to the standard set of children types, to maintain normal spacing between title and the following subtitle - otherwise, a title followed by a subtitle are grouped together.",
+			"The ", e.Code("b.Title"), " constructor creates a title.",
+		),
+		c.Modifiers(
+			c.Row("b.Spaced", "Maintain normal spacing between title and the following subtitle"),
+		),
+		e.P(
+			"The ", e.Code("b.Subtitle"), " constructor creates a subtitle.",
 		),
 		e.P(
 			"The following constructors create titles and subtitles of sizes 1 to 6:",

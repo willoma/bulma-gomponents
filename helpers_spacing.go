@@ -12,7 +12,7 @@ var spacing = c.NewPage(
 	"https://bulma.io/documentation/helpers/spacing-helpers/",
 	b.Content(e.P("Spacing is applied with the ", e.Code("b.Margin*"), " and ", e.Code("b.Padding*"), " functions, associated with ", e.Code("b.Spacing"), " constants:")),
 	b.Columns(
-		b.Table(
+		c.Table(
 			b.HeadRow("Property", "Function"),
 			b.Row("margin", e.Code("b.Margin")),
 			b.Row("margin-top", e.Code("b.MarginTop")),
@@ -29,7 +29,7 @@ var spacing = c.NewPage(
 			b.Row("padding-left and padding-right", e.Code("b.PaddingHorizontal")),
 			b.Row("padding-top and padding-bottom", e.Code("b.PaddingVertical")),
 		),
-		b.Table(
+		c.Table(
 			b.HeadRow("Spacing constant", "Value"),
 			b.Row(e.Code("b.Spacing0"), "0"),
 			b.Row(e.Code("b.Spacing1"), "0.25rem"),

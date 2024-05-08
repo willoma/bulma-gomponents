@@ -10,9 +10,9 @@ github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUq
 github.com/hexops/gotextdiff v1.0.3/go.mod h1:pSWU5MAI3yDq+fZBTazCSJysOMbxWL1BSow5/V2vxeg=
 github.com/maragudk/gomponents v0.20.2 h1:39FhnBNNCJzqNcD9Hmvp/5xj0otweFoyvVgFG6kXoy0=
 github.com/maragudk/gomponents v0.20.2/go.mod h1:nHkNnZL6ODgMBeJhrZjkMHVvNdoYsfmpKB2/hjdQ0Hg=
-github.com/willoma/bulma-gomponents v0.6.0 h1:E8vaNBx0RdB+CysWSp9teRDIK5koNqBry4CvmmKYHAs=
-github.com/willoma/bulma-gomponents v0.6.0/go.mod h1:E+1xeTSBQgMZzhla82ltthRl1PV6jhwDX7LTvZkgiKY=
-github.com/willoma/gomplements v0.2.0 h1:Nfb4gKzl0SK8ISDiPpjgsI/ft5fPY2NYAFOzB3XnqkQ=
-github.com/willoma/gomplements v0.2.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
+github.com/willoma/bulma-gomponents v0.7.0 h1:60gGo+2q8+8lhXvMJaOWgRNWT6KiPTVW5JX8cTdE2aE=
+github.com/willoma/bulma-gomponents v0.7.0/go.mod h1:5o8xzTIx+zTBjH7LZHzeSnVe5xShSpkGeLaNP2VhJNs=
+github.com/willoma/bulma-gomponents v0.8.0 h1:RyGfF1mDMDUuy415A2EjDqj398Or3tEkF/qIgedp8t8=
+github.com/willoma/bulma-gomponents v0.8.0/go.mod h1:5mBr2zfkWTgC8daquoP4/jb45Cw8ocDEjpx+LyQ0484=
 github.com/willoma/gomplements v0.4.0 h1:Q7LmeghO/sNflgzFa5jL90Kt8Bj7CqP5bJATVk+531s=
 github.com/willoma/gomplements v0.4.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=

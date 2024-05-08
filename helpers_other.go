@@ -4,23 +4,32 @@ import (
 	e "github.com/willoma/gomplements"
 
 	c "bulma-gomponents.docs/components"
-	b "github.com/willoma/bulma-gomponents"
 )
 
 var other = c.NewPage(
 	"Other", "Other helpers", "/other",
 	"https://bulma.io/documentation/helpers/other-helpers/",
-	b.Table(
-		b.HeadRow("Modifier", "Action"),
-		b.Row(e.Code("b.Clearfix"), b.Cell("Fixes an e.Element's floating children")),
-		b.Row(e.Code("b.PulledLeft"), b.Cell("Moves an e.Element to the ", e.Strong("left"))),
-		b.Row(e.Code("b.PulledRight"), b.Cell("Moves an e.Element to the ", e.Strong("right"))),
-		b.Row(e.Code("b.Overlay"), b.Cell("Completely ", e.Strong("covers"), " the first positioned parent")),
-		b.Row(e.Code("b.Clipped"), b.Cell("Adds overflow ", e.Strong("hidden"))),
-		b.Row(e.Code("b.Radiusless"), b.Cell("Removes any ", e.Strong("radius"))),
-		b.Row(e.Code("b.Shadowless"), b.Cell("Removes any ", e.Strong("shadow"))),
-		b.Row(e.Code("b.Unselectable"), b.Cell("Prevents the text from being ", e.Strong("selectable"))),
-		b.Row(e.Code("b.Clickable"), b.Cell("Applies ", e.Code("cursor: pointer !important"), " to the element")),
-		b.Row(e.Code("b.Relative"), b.Cell("Applies ", e.Code("position: relative"), " to the element")),
+	c.Modifiers(
+		c.Row("b.Clearfix", "Fix the element's floating children"),
+		c.Row("b.PulledLeft", "Move the element to the ", e.Strong("left")),
+		c.Row("b.PulledRight", "Move the element to the ", e.Strong("right")),
+		c.Row("b.Overlay", "Completely ", e.Strong("cover"), " the first positioned parent"),
+		c.Row("b.Clipped", "Add overflow ", e.Strong("hidden")),
+		c.Row("b.Radiusless", "Remove any ", e.Strong("radius")),
+		c.Row("b.Shadowless", "Remove any ", e.Strong("shadow")),
+		c.Row("b.Unselectable", "Prevent the text from being ", e.Strong("selectable")),
+		c.Row("b.Clickable", "Apply ", e.Code("cursor: pointer !important"), " to the element"),
+		c.Row("b.Relative", "Apply ", e.Code("position: relative"), " to the element"),
+	),
+).Section(
+	"Positioning helpers",
+	"",
+
+	c.Modifiers(
+		c.Row("b.PositionAbsolute", "Remove the element from the document flow and position it relative to its closed positioned ancestor (", e.Strong("absolute positioning"), ")"),
+		c.Row("b.PositionFixed", "Remove the element from the document flow and position it relative to the viewport (", e.Strong("fixed positioning"), ")"),
+		c.Row("b.PositionRelative", "Position the element according to the document flow and offset relative to itself (", e.Strong("relative positioning"), ")"),
+		c.Row("b.PositionStatic", "Position the element according to the document flow with no offset (", e.Strong("static positioning"), ")"),
+		c.Row("b.PositionSticky", "Position the element according to the document flow and offset relative to its nearest scrolling ancestor (", e.Strong("sticky positioning"), ")"),
 	),
 )

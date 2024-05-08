@@ -13,59 +13,28 @@ var notification = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Notification"), " constructor creates a simple color block meant to draw the attention to the user about something. As such, it an be used as a pinned notification in the corner of the viewport. The following children have a special meaning:",
+			"The ", e.Code("b.Notification"), " constructor creates a simple color block meant to draw the attention to the user about something. As such, it an be used as a pinned notification in the corner of the viewport.",
 		),
-		b.DList(
-			e.Code("b.White"),
-			"Set the notification color to white",
-
-			e.Code("b.Black"),
-			"Set the notification color to black",
-
-			e.Code("b.Light"),
-			"Set the notification color to light",
-
-			e.Code("b.Dark"),
-			"Set the notification color to dark",
-
-			e.Code("b.Primary"),
-			"Set the notification color to primary",
-
-			e.Code("b.Link"),
-			"Set the notification color to link",
-
-			e.Code("b.Info"),
-			"Set the notification color to info",
-
-			e.Code("b.Success"),
-			"Set the notification color to success",
-
-			e.Code("b.Warning"),
-			"Set the notification color to warning",
-
-			e.Code("b.Danger"),
-			"Set the notification color to danger",
-
-			e.Code("b.PrimaryLight"),
-			"Set the notification color to primary light",
-
-			e.Code("b.LinkLight"),
-			"Set the notification color to link light",
-
-			e.Code("b.InfoLight"),
-			"Set the notification color to info light",
-
-			e.Code("b.SuccessLight"),
-			"Set the notification color to success light",
-
-			e.Code("b.WarningLight"),
-			"Set the notification color to warning light",
-
-			e.Code("b.DangerLight"),
-			"Set the notification color to danger light",
+		c.Modifiers(
+			c.Row("b.White", "Set color to white"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.PrimaryLight", "Set color to primary light"),
+			c.Row("b.LinkLight", "Set color to link light"),
+			c.Row("b.InfoLight", "Set color to info light"),
+			c.Row("b.SuccessLight", "Set color to success light"),
+			c.Row("b.WarningLight", "Set color to warning light"),
+			c.Row("b.DangerLight", "Set color to danger light"),
 		),
 		e.P(
-			"When you provide ", e.Code("b.Delete(...)"), " as a child, you may add ", e.Code("e.OnClick(b.JSRemoveThisNotification)"), " to its children in order to close the notification when the user clicks on it.",
+			"When you provide ", e.Code("b.Delete(...any)"), " as a child, you may add ", e.Code("e.OnClick(b.JSRemoveThisNotification)"), " to its children in order to close the notification when the user clicks on it.",
 		),
 	),
 ).Section(

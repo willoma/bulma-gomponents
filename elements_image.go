@@ -14,102 +14,46 @@ var image = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Image"), " constructor creates a Bulma image e.Element. The following children have a special meaning:",
+			"The ", e.Code("b.Image"), " constructor creates a Bulma image element.",
 		),
-		b.DList(
-			e.Code("b.ImgSq16"),
-			"Fixed square image, of 16x16px",
-
-			e.Code("b.ImgSq24"),
-			"Fixed square image, of 24x24px",
-
-			e.Code("b.ImgSq32"),
-			"Fixed square image, of 32x32px",
-
-			e.Code("b.ImgSq48"),
-			"Fixed square image, of 48x48px",
-
-			e.Code("b.ImgSq64"),
-			"Fixed square image, of 64x64px",
-
-			e.Code("b.ImgSq96"),
-			"Fixed square image, of 96x96px",
-
-			e.Code("b.ImgSq128"),
-			"Fixed square image, of 128x128px",
-
-			e.Code("b.ImgSquare"),
-			"Force image ratio to square",
-
-			e.Code("b.Img1By1"),
-			"Force image ratio to 1 by 1",
-
-			e.Code("b.Img5By4"),
-			"Force image ratio to 5 by 4",
-
-			e.Code("b.Img4By3"),
-			"Force image ratio to 4 by 3",
-
-			e.Code("b.Img3By2"),
-			"Force image ratio to 3 by 2",
-
-			e.Code("b.Img5By3"),
-			"Force image ratio to 5 by 3",
-
-			e.Code("b.Img16By9"),
-			"Force image ratio to 16 by 9",
-
-			e.Code("b.Img2By1"),
-			"Force image ratio to 2 by 1",
-
-			e.Code("b.Img3By1"),
-			"Force image ratio to 3 by 1",
-
-			e.Code("b.Img4By5"),
-			"Force image ratio to 4 by 5",
-
-			e.Code("b.Img3By4"),
-			"Force image ratio to 3 by 4",
-
-			e.Code("b.Img2By3"),
-			"Force image ratio to 2 by 3",
-
-			e.Code("b.Img3By5"),
-			"Force image ratio to 3 by 5",
-
-			e.Code("b.Img9By16"),
-			"Force image ratio to 9 by 16",
-
-			e.Code("b.Img1By2"),
-			"Force image ratio to 1 by 2",
-
-			e.Code("b.Img1By3"),
-			"Force image ratio to 1 by 3",
-
-			e.Code("b.FullWidth"),
-			"Make the image take the whole width of its container",
+		c.Modifiers(
+			c.Row("b.ImgSq16", "Fixed square image, of 16x16px"),
+			c.Row("b.ImgSq24", "Fixed square image, of 24x24px"),
+			c.Row("b.ImgSq32", "Fixed square image, of 32x32px"),
+			c.Row("b.ImgSq48", "Fixed square image, of 48x48px"),
+			c.Row("b.ImgSq64", "Fixed square image, of 64x64px"),
+			c.Row("b.ImgSq96", "Fixed square image, of 96x96px"),
+			c.Row("b.ImgSq128", "Fixed square image, of 128x128px"),
+			c.Row("b.ImgSquare", "Force image ratio to square"),
+			c.Row("b.Img1By1", "Force image ratio to 1 by 1"),
+			c.Row("b.Img5By4", "Force image ratio to 5 by 4"),
+			c.Row("b.Img4By3", "Force image ratio to 4 by 3"),
+			c.Row("b.Img3By2", "Force image ratio to 3 by 2"),
+			c.Row("b.Img5By3", "Force image ratio to 5 by 3"),
+			c.Row("b.Img16By9", "Force image ratio to 16 by 9"),
+			c.Row("b.Img2By1", "Force image ratio to 2 by 1"),
+			c.Row("b.Img3By1", "Force image ratio to 3 by 1"),
+			c.Row("b.Img4By5", "Force image ratio to 4 by 5"),
+			c.Row("b.Img3By4", "Force image ratio to 3 by 4"),
+			c.Row("b.Img2By3", "Force image ratio to 2 by 3"),
+			c.Row("b.Img3By5", "Force image ratio to 3 by 5"),
+			c.Row("b.Img9By16", "Force image ratio to 9 by 16"),
+			c.Row("b.Img1By2", "Force image ratio to 1 by 2"),
+			c.Row("b.Img1By3", "Force image ratio to 1 by 3"),
+			c.Row("b.FullWidth", "Make the image take the whole width of its container"),
 		),
 		e.P(
-			"Use ", e.Code("e.ImgSrc"), " to create an <img> e.Element with the provided URL as its src attribute. Apply ", e.Code("b.Rounded"), " to the inner image to make it rounded, associated with an ", e.Code("b.Img*By*"), " modifier on the ", e.Code("b.Image"), " e.Element. Apply ", e.Code("b.Ratio"), " to an inner e.Element to apply the parent ratio to that e.Element.",
+			"Use ", e.Code("e.ImgSrc"), " to create an ", e.Code("<img>"), " element with the provided URL as its src attribute. Apply ", e.Code("b.Rounded"), " to the inner image to make it rounded, associated with an ", e.Code("b.Img*By*"), " modifier on the ", e.Code("b.Image"), " element. Apply ", e.Code("b.Ratio"), " to an inner element to apply the parent ratio to that element.",
 		),
 		e.P(
-			"The ", e.Code("b.ImageImg"), " constructor creates a Bulma image e.Element with an inner img. It accepts the same values as ", e.Code("b.Image"), ". The following children have a special meaning:",
+			"The ", e.Code("b.ImageImg"), " constructor creates a Bulma image element with an inner ", e.Code("<img>"), ". It accepts the same modifiers as ", e.Code("b.Image"), ".",
 		),
-		b.DList(
-			e.Code("b.OnImg(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<img>"), " e.Element"},
-
-			e.Code("b.OnFigure(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<figure>"), " e.Element"},
-
-			e.Code("b.Rounded"),
-			[]any{"Make the image rounded (class applied to the ", e.Code("<img>"), " e.Element)"},
-
-			e.Code("b.ImgAlt"),
-			"Define the image alt text",
-		),
-		e.P(
-			"Other children are added to the ", e.Code("<figure>"), " e.Element.",
+		c.Children(
+			c.Row("b.OnImg(...any)", "Apply children to the ", e.Code("<img>"), " element"),
+			c.Row("b.OnFigure(...any)", "Apply children to the ", e.Code("<figure>"), " element"),
+			c.Row("b.Rounded", "Make the image rounded (class applied to the ", e.Code("<img>"), " element)"),
+			c.Row("b.ImgAlt", "Define the image alt text"),
+			c.RowDefault("Apply children to the ", e.Code("<figure>"), " element"),
 		),
 	),
 ).Section(
@@ -388,8 +332,8 @@ b.ImageImg("https://bulma.io/assets/images/placeholders/128x128.png", b.ImgSq128
 		),
 	),
 ).Subsection(
-	"Arbitrary ratios with any e.Element",
-	"https://bulma.io/documentation/elements/image/#arbitrary-ratios-with-any-e.Element",
+	"Arbitrary ratios with any element",
+	"https://bulma.io/documentation/elements/image/#arbitrary-ratios-with-any-element",
 	c.Example(
 		`b.Image(
 	b.Img16By9,

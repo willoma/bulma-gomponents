@@ -14,66 +14,32 @@ var hero = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Hero"), " constructor creates a hero. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnBody(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="hero-body">`), " e.Element"},
-
-			e.Code("b.On(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<section class="hero">`), " e.Element"},
-
-			e.Code("b.HeroHead(...)"),
-			"Add the children to the head part of the hero",
-
-			e.Code("b.HeroFoot(...)"),
-			"Add the children to the foot part of the hero",
-
-			e.Code("e.Element"),
-			"Add this e.Element to the body part of the hero",
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the hero section",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			"Add this e.Element to the body part",
-
-			e.Code("b.Primary"),
-			"Set hero color to primary",
-
-			e.Code("b.Link"),
-			"Set hero color to link",
-
-			e.Code("b.Info"),
-			"Set hero color to info",
-
-			e.Code("b.Success"),
-			"Set hero color to success",
-
-			e.Code("b.Warning"),
-			"Set hero color to warning",
-
-			e.Code("b.Danger"),
-			"Set hero color to danger",
-
-			e.Code("b.Small"),
-			"Set hero size to small",
-
-			e.Code("b.Medium"),
-			"Set hero size to medium",
-
-			e.Code("b.Large"),
-			"Set hero size to large",
-
-			e.Code("b.HalfHeight"),
-			"Set hero size to 50% of the height of the viewport",
-
-			e.Code("b.FullHeight"),
-			"Set hero size to 100% of the height of the viewport",
-
-			e.Code("b.FullHeightWithNavbar"),
-			"Set hero size to 100% of the height of the viewport minus the navbar height",
+		e.P("The ", e.Code("b.Hero"), " constructor creates a hero."),
+		c.Modifiers(
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
+			c.Row("b.HalfHeight", "Set size to 50% of the height of the viewport"),
+			c.Row("b.FullHeight", "Set size to 100% of the height of the viewport"),
+			c.Row("b.FullHeightWithNavbar", "Set size to 100% of the height of the viewport minus the navbar height"),
 		),
-		e.P("Other children are added to the ", e.Code(`<section class="hero">`), " e.Element. The head, body and foot elements are created only if at least one child has been provided for the part."),
+		c.Children(
+			c.Row("b.OnSection(...any)", "Apply children to the ", e.Code(`<section class="hero">`), " element"),
+			c.Row("b.OnBody(...any)", "Apply children to the ", e.Code(`<div class="hero-body">`), " element"),
+			c.Row("b.HeroHead(...any)", "Apply children to the ", e.Code(`<div class="hero-head">`), " element"),
+			c.Row("b.HeroFoot(...any)", "Apply children to the ", e.Code(`<div class="hero-foot">`), " element"),
+			c.Row("e.Element", "Add element to the ", e.Code(`<div class="hero-body">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<section class="hero">`), " element"),
+			c.RowNodeElement("Add element to the ", e.Code(`<div class="hero-body">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<section class="hero">`), " element"),
+		),
+		e.P("The head, body and foot elements are created only if at least one child has been provided for the part."),
 	),
 ).Section(
 	"Bulma examples",

@@ -12,13 +12,10 @@ var section = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Section"), " constructor creates a section. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Medium"),
-			"Set spacing to medium",
-
-			e.Code("b.Large"),
-			"Set spacing to large",
+		e.P("The ", e.Code("b.Section"), " constructor creates a section."),
+		c.Modifiers(
+			c.Row("b.Medium", "Set spacing to medium"),
+			c.Row("b.Large", "Set spacing to large"),
 		),
 	),
 ).Section(

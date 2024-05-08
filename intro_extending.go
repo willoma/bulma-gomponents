@@ -15,7 +15,7 @@ var extending = c.NewPage(
 		e.P("Here are some developer notes useful when there is a need to extend ", e.Em("Bulma-Gomponents"), "."),
 	),
 ).Section(
-	"Implementing icon e.Element", "",
+	"Implementing icon element", "",
 
 	b.Content(
 		e.P("If you need to provide new icon elements to ", e.Em("Bulma-Gomponents"), " functions, you must implement the ", e.Code("b.IconElem"), " interface. This interface is implemented by the elements returned by ", e.Code("b.Icon"), " and ", e.Code("fa.Icon"), "."),

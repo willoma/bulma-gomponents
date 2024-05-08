@@ -12,43 +12,32 @@ var content = c.NewPage(
 	"",
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Content"), " constructor creates a block make to contain ", e.Strong("WYSIWYG"), " text. The following children have a special meaning:",
+			"The ", e.Code("b.Content"), " constructor creates a block make to contain ", e.Strong("WYSIWYG"), " text.",
 		),
-		b.DList(
-			e.Code("b.Small"),
-			"Set content size to small",
-
-			e.Code("b.Normal"),
-			"Set content size to normal",
-
-			e.Code("b.Medium"),
-			"Set content size to medium",
-
-			e.Code("b.Large"),
-			"Set content size to large",
-
-			e.Code("string"),
-			[]any{"Wrap the text in a ", e.Code("<p>"), " e.Element"},
-
-			e.Code("b.NoP(...)"),
-			[]any{"Remove the ", e.Code("<p>"), " wrapper for the provided children"},
+		c.Modifiers(
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
 		),
+		c.Children(
+			c.Row("string", "Wrap text in a ", e.Code("<p>"), " element"),
+			c.Row("b.NoP(...any)", "Remove the ", e.Code("<p>"), " wrapper for the provided children"),
+			c.RowDefault("Apply child to the content, as-is"),
+		),
+
 		e.P("You may apply the following modifiers on ", e.Code("e.Ol"), " children in order to change their style:"),
-		b.DList(
-			e.Code("b.OlLowerAlpha"),
-			"Lowercase letters",
-
-			e.Code("b.OlLowerRoman"),
-			"Lowercase roman numbers",
-
-			e.Code("b.OlUpperAlpha"),
-			"Uppercase letters",
-
-			e.Code("b.OlUpperRoman"),
-			"Uppercase roman numbers",
+		c.Modifiers(
+			c.Row("b.OlLowerAlpha", "Lowercase letters"),
+			c.Row("b.OlLowerRoman", "Lowercase roman numbers"),
+			c.Row("b.OlUpperAlpha", "Uppercase letters"),
+			c.Row("b.OlUpperRoman", "Uppercase roman numbers"),
 		),
 	),
 ).Section(
+	"Bulma examples",
+	"",
+).Subsection(
 	"Full example",
 	"https://bulma.io/documentation/elements/content/#full-example",
 	c.Example(
@@ -82,7 +71,7 @@ var content = c.NewPage(
 	),
 	e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis."),
 	e.P(
-		"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
+		"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
 	),
 	"Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo.",
 	e.Dl(
@@ -93,9 +82,9 @@ var content = c.NewPage(
 		e.Dt("CSS"),
 		e.Dd("A technology to make HTML look better"),
 	),
-	"Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
+	"Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
 	e.H4("Fourth level"),
-	"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur.",
+	"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.",
 	e.Pre(
 		b.Padding(b.Spacing2),
 		b.FontSize7,
@@ -182,7 +171,7 @@ var content = c.NewPage(
 			),
 			e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis."),
 			e.P(
-				"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
+				"Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie.",
 			),
 			"Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo.",
 			e.Dl(
@@ -193,9 +182,9 @@ var content = c.NewPage(
 				e.Dt("CSS"),
 				e.Dd("A technology to make HTML look better"),
 			),
-			"Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
+			"Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante.",
 			e.H4("Fourth level"),
-			"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur.",
+			"Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur.",
 			e.Pre(
 				b.Padding(b.Spacing2),
 				b.FontSize7,
@@ -254,7 +243,7 @@ var content = c.NewPage(
 			"Cras in nibh lacinia, venenatis nisi et, auctor urna. Donec pulvinar lacus sed diam dignissim, ut eleifend eros accumsan. Phasellus non tortor eros. Ut sed rutrum lacus. Etiam purus nunc, scelerisque quis enim vitae, malesuada ultrices turpis. Nunc vitae maximus purus, nec consectetur dui. Suspendisse euismod, elit vel rutrum commodo, ipsum tortor maximus dui, sed varius sapien odio vitae est. Etiam at cursus metus.",
 		),
 	),
-).Section(
+).Subsection(
 	"Ordered lists alternatives",
 	"https://bulma.io/documentation/elements/content/#ordered-lists-alternatives",
 	c.Example(
@@ -377,7 +366,7 @@ var content = c.NewPage(
 			),
 		),
 	),
-).Section(
+).Subsection(
 	"Sizes",
 	"https://bulma.io/documentation/elements/content/#sizes",
 	c.Example(

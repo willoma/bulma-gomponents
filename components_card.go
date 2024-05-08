@@ -16,67 +16,41 @@ var card = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Card"), " constructor creates a card. Non-specific content is automatically grouped in a ", e.Code(`<div class="card-content">`), " e.Element. If you need to force starting a new card content, use the ", e.Code("b.SplitContent()"), " function. The following children have a special meaning:",
+			"The ", e.Code("b.Card"), " constructor creates a card.",
 		),
-		b.DList(
-			e.Code("b.OnCard(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="card">`), " e.Element"},
-
-			e.Code("b.OnContent(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="card-content">`), " e.Element being currently built"},
-
-			e.Code("b.CardHeader(...)"),
-			"Add items to the card header",
-
-			e.Code("b.CardHeaderIcon(...)"),
-			"Add an icon to the card header",
-
-			e.Code("b.CardHeaderTitle(...)"),
-			"Add a title to the card header",
-
-			e.Code("b.CardFooter(...)"),
-			"Add items to the card footer",
-
-			e.Code("b.CardImage(...)"),
-			"Add this image to the card",
-
-			e.Code("b.CardImageImg(...)"),
-			"Add this image to the card",
-
-			[]any{"one of the class or style types defined in package ", e.Code("b")},
-			[]any{"Apply the class or style to the ", e.Code(`<div class="card">`), " e.Element"},
-
-			e.Code("e.Element"),
-			"Add this e.Element to the card content",
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the card",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			"Add this e.Element to the card content",
-		),
-		e.P("Other children are added to the ", e.Code(`<div class="card">`), " e.Element."),
-		e.P(
-			"The ", e.Code("b.CardHeader"), " function marks children as being part of the card header. The following children have a special meaning:",
-		),
-		b.DList(
-			e.Code("b.IconElem"),
-			"Add this icon as the card header icon",
-
-			e.Code("string"),
-			"Add this text as the card header title",
+		c.Children(
+			c.Row("b.OnCard(...any)", "Apply children to the ", e.Code(`<div class="card">`), " element"),
+			c.Row("b.OnContent(...any)", "Apply children to the current ", e.Code(`<div class="card-content">`), " element"),
+			c.Row("b.SplitContent()", "Force starting a new ", e.Code(`<div class="card-content">`), " element"),
+			c.Row("b.CardHeader(...any)", "Apply children to the ", e.Code(`<header class="card-header">`), " element"),
+			c.Row("b.CardHeaderIcon(...any", "Apply an icon to the ", e.Code(`<header class="card-header">`), " element"),
+			c.Row("b.CardHeaderTitle(...any)", "Add a title to the ", e.Code(`<header class="card-header">`), " element"),
+			c.Row("b.CardFooter(...any)", "Apply children to the ", e.Code(`<header class="card-footer">`), " element"),
+			c.Row("b.CardImage(...any)", "Add image to the ", e.Code(`<div class="card">`), " element"),
+			c.Row("b.CardImageImg(...any)", "Add image to the ", e.Code(`<div class="card">`), " element"),
+			c.Row("e.Element", "Add element to the ", e.Code(`<div class="card-content">`), " element"),
+			c.RowNodeAttribute("Apply child to the ", e.Code(`<div class="card">`), " element"),
+			c.RowNodeElement("Apply child to the ", e.Code(`<div class="card-content">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="card-content">`), " element"),
 		),
 		e.P(
-			"The ", e.Code("b.CardHeaderIcon"), " constructor creates a card header icon e.Element, as an alternative to providing an icon to ", e.Code("b.CardHeader"), " allowing to customize the icon. The ", e.Code("b.CardHeaderTitle"), " constructor creates a card header title e.Element, as an alternative to providing a string to ", e.Code("b.CardHeader"), " allowing to customize the title.",
+			"The ", e.Code("b.CardHeader"), " function marks children as being part of the card header.",
+		),
+		c.Children(
+			c.Row("b.IconElem", "Add this icon as the card header icon"),
+			c.Row("string", "Add this text as the card header title"),
+			c.RowDefault("Apply child to the card header"),
 		),
 		e.P(
-			"The ", e.Code("b.CardImage"), " constructor creates an image by calling ", e.Code("b.Image"), " and wrapping it into a card image e.Element. The ", e.Code("b.CardImageImg"), " constructor creates an image by calling ", e.Code("b.ImageImg"), " and wrapping it into a card image e.Element. The following child has a special meaning:",
+			"The ", e.Code("b.CardHeaderIcon"), " constructor creates a card header icon element, as an alternative to providing an icon to ", e.Code("b.CardHeader"), ", allowing to customize the icon. The ", e.Code("b.CardHeaderTitle"), " constructor creates a card header title element, as an alternative to providing a string to ", e.Code("b.CardHeader"), ", allowing to customize the title.",
 		),
-		b.DList(
-			e.Code("b.OnCardImage(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="card-image">`), " e.Element"},
+		e.P(
+			"The ", e.Code("b.CardImage"), " constructor creates an image by calling ", e.Code("b.Image"), " and wrapping it into a card image element. The ", e.Code("b.CardImageImg"), " constructor creates an image by calling ", e.Code("b.ImageImg"), " and wrapping it into a card image element.",
 		),
-		e.P("Other children are added to the ", e.Code("<figure>"), " e.Element."),
+		c.Children(
+			c.Row("b.OnCardImage(...any)", "Apply children to the ", e.Code(`<div class="card-image">`), " element"),
+			c.RowDefault("Apply children to the ", e.Code(`<figure class="image">`), " element"),
+		),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/card/",

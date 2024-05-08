@@ -8,13 +8,13 @@ import (
 )
 
 var visibility = c.NewPage(
-	"Visibility", "Responsive helpers", "/visibility",
+	"Visibility", "Visibility helpers", "/visibility",
 	"https://bulma.io/documentation/helpers/visibility-helpers/",
 ).Section(
 	"Show",
 	"https://bulma.io/documentation/helpers/visibility-helpers/#show",
 	b.Content(
-		e.P("You can use one of the following display classes:"),
+		e.P("You can use one of the following display modifiers:"),
 		b.UList(
 			e.Code("b.VisibilityBlock"),
 			e.Code("b.Flex"),
@@ -22,14 +22,14 @@ var visibility = c.NewPage(
 			e.Code("b.InlineBlock"),
 			e.Code("b.InlineFlex"),
 		),
-		e.P("Modifiers to display on specific breakpoints:"),
+		e.P("Methods to display on specific breakpoints:"),
 		b.UList(
 			e.Code(".Mobile()"),
 			e.Code(".TabletOnly()"),
 			e.Code(".DesktopOnly()"),
 			e.Code(".WidescreenOnly()"),
 		),
-		e.P("Modifiers to display up to or from a specific breakpoint:"),
+		e.P("Methods to display up to or from a specific breakpoint:"),
 		b.UList(
 			e.Code(".Touch()"),
 			e.Code(".Tablet()"),
@@ -61,9 +61,9 @@ var visibility = c.NewPage(
 ).Section(
 	"Other visibility helpers",
 	"https://bulma.io/documentation/helpers/visibility-helpers/#other-visibility-helpers",
-	b.Table(
+	c.Table(
 		b.HeadRow("Modifier", "Result"),
-		b.Row(e.Code("b.Invisible"), b.Cell("Adds visibility ", e.Strong("hidden"))),
-		b.Row(e.Code("b.SrOnly"), b.Cell("Hide elements ", e.Strong("visually"), " but keep the element available to be announced by a ", e.Strong("screen reader"))),
+		c.Row("b.Invisible", "Add visibility ", e.Strong("hidden")),
+		c.Row("b.SrOnly", "Hide elements ", e.Strong("visually"), " but keep the element available to be announced by a ", e.Strong("screen reader")),
 	),
 )

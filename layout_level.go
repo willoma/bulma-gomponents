@@ -13,40 +13,22 @@ var level = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Level"), " constructor creates a level. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.LevelLeft(...)"),
-			[]any{"Add children to the left part of the level"},
-
-			e.Code("b.LevelRight(...)"),
-			[]any{"Add children to the right part of the level"},
-
-			e.Code("e.Element"),
-			[]any{"Add the ", e.Code("level-item"), " class to the element and apply the element to the level"},
-
-			e.Code("string"),
-			[]any{"Wrap the string into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level"},
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the level",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			[]any{"Wrap the element into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level"},
+		e.P("The ", e.Code("b.Level"), " constructor creates a level."),
+		c.Children(
+			c.Row("b.LevelLeft(...any)", "Apply children to the ", e.Code(`<div class="level-left">`), " element"),
+			c.Row("b.LevelRight(...any)", "Apply children to the ", e.Code(`<div class="level-right">`), " element"),
+			c.Row("e.Element", "Add the ", e.Code("level-item"), " class to the element and apply the element to the ", e.Code(`<nav class="level">`), " element"),
+			c.Row("string", "Wrap text into an ", e.Code("<p>"), " element with class ", e.Code("level-item"), " and apply it to the ", e.Code(`<nav class="level">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<nav class="level">`), " element"),
+			c.RowNodeElement("Wrap element into a ", e.Code("<div>"), " element with class ", e.Code("level-item"), " and apply it to the ", e.Code(`<nav class="level">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<nav class="level">`), " element"),
 		),
-		e.P("Children in ", e.Code("b.LevelLeft"), " and ", e.Code("b.LevelRight"), " have the following rules:"),
-		b.DList(
-
-			e.Code("e.Element"),
-			[]any{"Add the ", e.Code("level-item"), " class to the element and apply the element to the level section"},
-
-			e.Code("string"),
-			[]any{"Wrap the string into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level section"},
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the level section",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			[]any{"Wrap the element into a ", e.Code("e.Element"), " div with class ", e.Code("level-item"), " and apply it to the level section"},
+		e.P("The ", e.Code("b.LevelLeft"), " and ", e.Code("b.LevelRight"), " functions create content for the level left or right sections."),
+		c.Children(
+			c.Row("e.Element", "Add the ", e.Code("level-item"), " class to the element"),
+			c.Row("string", "Wrap text into an ", e.Code("<p>"), " element with class ", e.Code("level-item")),
+			c.RowNodeAttribute("Apply attribute to the level section"),
+			c.RowNodeElement("Wrap element into a ", e.Code("<div>"), " element with class ", e.Code("level-item")),
 		),
 	),
 ).Section(

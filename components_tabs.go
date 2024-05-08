@@ -13,54 +13,29 @@ var tabs = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Tabs"), " constructor creates a tabs section. Its link children must be created with the ", e.Code("b.TabLink"), " constructor. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnTabs(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="tabs">`), " e.Element"},
-
-			e.Code("b.OnUl(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<ul>"), " e.Element"},
-
-			[]any{"one of the class or style types defined in package ", e.Code("b")},
-			[]any{"Apply the class or style to the ", e.Code(`<div class="tabs">`), " e.Element"},
-
-			e.Code("b.Container()"),
-			"Use this e.Element as an intermediate container",
-
-			e.Code("b.Centered"),
-			"Center the tabs",
-
-			e.Code("b.Right"),
-			"Align the tabs to the right",
-
-			e.Code("b.Boxed"),
-			"Draw boxed tabs",
-
-			e.Code("b.Toggle"),
-			"Button-looking tabs",
-
-			e.Code("b.ToggleRounded"),
-			"Rounded button-looking tabs",
-
-			e.Code("b.FullWidth"),
-			"Take the whole width",
-
-			e.Code("b.Small"),
-			"Set tabs size to small",
-
-			e.Code("b.Medium"),
-			"Set tabs size to medium",
-
-			e.Code("b.Large"),
-			"Set tabs size to large",
+		e.P("The ", e.Code("b.Tabs"), " constructor creates a tabs container. Its link children must be created with the ", e.Code("b.TabLink"), " constructor."),
+		c.Modifiers(
+			c.Row("b.Centered", "Center the tabs"),
+			c.Row("b.Right", "Align the tabs to the right"),
+			c.Row("b.Boxed", "Draw boxed tabs"),
+			c.Row("b.Toggle", "Button-looking tabs"),
+			c.Row("b.ToggleRounded", "Rounded button-looking tabs"),
+			c.Row("b.FullWidth", "Take the whole width"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
 		),
-		e.P("Other children are added to the ", e.Code("<ul>"), " e.Element."),
-		e.P("The ", e.Code("b.TabLink"), " and ", e.Code("b.TabAHref"), " constructors create tab entries which are links. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Active"),
-			[]any{"Apply the ", e.Code("is-active"), " class to the ", e.Code("<li>"), " e.Element"},
+		c.Children(
+			c.Row("b.OnTabs(...any)", "Apply children to the ", e.Code(`<div class="tabs">`), " element"),
+			c.Row("b.OnUl(...any)", "Apply children to the ", e.Code("<ul>"), " element"),
+			c.RowClassesStyles("Apply child to the ", e.Code(`<div class="tabs">`), " element"),
+			c.Row("b.Container(...any)", "Use element as an intermediate container"),
+			c.RowDefault("Apply children to the ", e.Code("<ul>"), " element"),
 		),
-		e.P("Other children are added to the ", e.Code("<a>"), " e.Element."),
+		e.P("The ", e.Code("b.TabLink"), " and ", e.Code("b.TabAHref"), " constructors create tab entries which are links."),
+		c.Modifiers(
+			c.Row("b.Active", "Apply the ", e.Code("is-active"), " class to the ", e.Code("<li>"), " element"),
+		),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/tabs/",

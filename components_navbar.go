@@ -78,142 +78,69 @@ var navbar = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Navbar"), " constructor creates a navbar. The brand section is added only if at least one brand, start or end child is provided. The section part and the burger button are added only if at least one start or end child is provided. The click event on the burger, which toggles the navbar menu on mobile devices, is already included. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.NavbarBrand(...)"),
-			"Add children to the brand section (left side, always visible)",
-
-			e.Code("b.NavbarStart(...)"),
-			"Add children to the start section (left part of the menu)",
-
-			e.Code("b.NavbarEnd(...)"),
-			"Add children to the end section (right part of the menu)",
-
-			e.Code("b.Container()"),
-			"Use this e.Element as an intermediate container",
-
-			e.Code("b.FixedTop"),
-			[]any{"Fix the navbar to the top of the page - the ", e.Code("has-navbar-fixed-top"), " class is automatically added to the parent e.Element (which should be the body for this to work)"},
-
-			e.Code("b.FixedBottom"),
-			[]any{"Fix the navbar to the bottom of the page - the ", e.Code("has-navbar-fixed-bottom"), " class is automatically added to the parent e.Element (which should be the body for this to work)"},
-
-			e.Code("b.Transparent"),
-			"Remove hover and active backgrounds from the items",
-
-			e.Code("b.Spaced"),
-			"Increase padding",
-
-			e.Code("b.Shadow"),
-			"Add a small shadow around the navbar",
-
-			e.Code("b.Primary"),
-			"Set icon color to primary",
-
-			e.Code("b.Link"),
-			"Set icon color to link",
-
-			e.Code("b.Info"),
-			"Set icon color to info",
-
-			e.Code("b.Success"),
-			"Set icon color to success",
-
-			e.Code("b.Warning"),
-			"Set icon color to warning",
-
-			e.Code("b.Danger"),
-			"Set icon color to danger",
-
-			e.Code("b.Black"),
-			"Set icon color to black",
-
-			e.Code("b.Light"),
-			"Set icon color to light",
-
-			e.Code("b.Dark"),
-			"Set icon color to dark",
-
-			e.Code("b.White"),
-			"Set icon color to white",
+		e.P("The ", e.Code("b.Navbar"), " constructor creates a navbar. The brand section is added only if at least one brand, start or end child is provided. The section part and the burger button are added only if at least one start or end child is provided. The click event on the burger, which toggles the navbar menu on mobile devices, is already included."),
+		c.Modifiers(
+			c.Row("b.FixedTop", "Fix the navbar to the top of the page - the ", e.Code("has-navbar-fixed-top"), " class is automatically added to the parent element (which should be the body for this to work)"),
+			c.Row("b.FixedBottom", "Fix the navbar to the bottom of the page - the ", e.Code("has-navbar-fixed-bottom"), " class is automatically added to the parent element (which should be the body for this to work)"),
+			c.Row("b.Transparent", "Remove hover and active backgrounds from the items"),
+			c.Row("b.Spaced", "Increase padding"),
+			c.Row("b.Shadow", "Add a small shadow around the navbar"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.White", "Set color to white"),
+		),
+		c.Children(
+			c.Row("b.NavbarBrand(...any)", "Apply children to the brand section (left side, always visible)"),
+			c.Row("b.NavbarStart(...any)", "Apply children to the start section (left part of the menu)"),
+			c.Row("b.NavbarEnd(...any)", "Apply children to the end section (right part of the menu)"),
+			c.Row("b.Container(...any)", "Use element as an intermediate container"),
+			c.RowDefault("Apply children to the ", e.Code(`<nav class="navbar">`), " element"),
+		),
+		e.P("The ", e.Code("b.NavbarItem"), " constructor creates a navbar item for a navbar brand, start or end section, or for a ", e.Code("b.NavbarDropdown"), "."),
+		c.Modifiers(
+			c.Row("b.Expanded", "Turn the item into a full-width element"),
+			c.Row("b.Tab", "Add a bottom border on hover, always show the bottom border when adding ", e.Code("b.Active")),
+			c.Row("b.HasDropdown", "Make the item a link+dropdown container"),
+			c.Row("b.HasDropup", "Make the item a dropdown container, with the dropdown opening above the link"),
+			c.Row("b.Hoverable", "Make the included dropdown automatically show on hover"),
+			c.Row("b.Active", "Force the dropdown to be open"),
 		),
 
-		e.P("Other children are added to the ", e.Code(`<nav class="navbar">`), " e.Element."),
-
-		e.P("The ", e.Code("b.NavbarItem"), " constructor creates a navbar item for a navbar brand, start or end section, or for a ", e.Code("b.NavbarDropdown"), ". The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Expanded"),
-			"Turn the item into a full-width e.Element",
-
-			e.Code("b.Tab"),
-			[]any{"Add a bottom border on hover, always show the bottom border when adding ", e.Code("b.Active")},
-
-			e.Code("b.HasDropdown"),
-			"Make the item a link+dropdown container",
-
-			e.Code("b.HasDropup"),
-			"Make the item a dropdown container, with the dropdown opening above the link",
-
-			e.Code("b.Hoverable"),
-			"Make the included dropdown automatically show on hover",
-
-			e.Code("b.Active"),
-			"Force the dropdown to be open",
+		e.P("The ", e.Code("b.NavbarAHref"), " constructor creates a link item for a navbar brand, start or end section, or to a ", e.Code("b.NavbarDropdown"), "."),
+		c.Modifiers(
+			c.Row("b.Expanded", "Turn the item into a full-width element"),
+			c.Row("b.Tab", "Add a bottom border on hover, always show the bottom border when adding ", e.Code("b.Active")),
 		),
-
-		e.P("The ", e.Code("b.NavbarAHref"), " constructor creates a link item for a navbar brand, start or end section, or to a ", e.Code("b.NavbarDropdown"), ". The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Expanded"),
-			"Turn the item into a full-width e.Element",
-
-			e.Code("b.Tab"),
-			[]any{"Add a bottom border on hover, always show the bottom border when adding ", e.Code("b.Active")},
+		e.P("The ", e.Code("b.NavbarDropdown"), " constructor creates navbar item with a dropdown menu."),
+		c.Modifiers(
+			c.Row("b.Hoverable", "Make the menu open when the cursor hovers the trigger"),
+			c.Row("b.Clickable", "Make the menu open when the button is clicked (javascript is automatically added)"),
+			c.Row("b.Up", "Make the dropdown open to the top"),
+			c.Row("b.Arrowless", "Remove the arrow in the item"),
+			c.Row("b.Boxed", "Show the dropdown as a boxed element, without the top grey border"),
+			c.Row("b.Active", "Force the dropdown to be open"),
+			c.Row("b.Right", "Used when a dropdown is on the right side (end section), in order to open its content aligned to the right of the link"),
 		),
-
-		e.P("The ", e.Code("b.NavbarDropdown"), " constructor creates navbar item with a dropdown menu. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnItem(...)"),
-			[]any{"Force childen to be applied to the item"},
-
-			e.Code("b.OnLink(...)"),
-			[]any{"Force childen to be applied to the trigger link"},
-
-			e.Code("b.OnDropdown(...)"),
-			[]any{"Force childen to be applied to the dropdown menu"},
-
-			e.Code("b.Hoverable"),
-			"Make the menu open when the cursor hovers the trigger",
-
-			e.Code("b.Clickable"),
-			"Make the menu open when the button is clicked (javascript is automatically added)",
-
-			e.Code("b.Up"),
-			"Make the dropdown open to the top",
-
-			e.Code("b.Arrowless"),
-			"Remove the arrow in the item",
-
-			e.Code("b.Boxed"),
-			"Show the dropdown as a boxed e.Element, without the top grey border",
-
-			e.Code("b.Active"),
-			"Force the dropdown to be open",
-
-			e.Code("b.Right"),
-			"Used when a dropdown is on the right side (end section), in order to open its content aligned to the right of the link",
-
-			e.Code("string"),
-			"Use this string as the content of the trigger",
+		c.Children(
+			c.Row("b.OnItem(...any)", "Apply children to the ", e.Code(`<div class="navbar-item">`), " element"),
+			c.Row("b.OnLink(...any)", "Apply children to the ", e.Code(`<a class="navbar-link">`), " element"),
+			c.Row("b.OnDropdown(...any)", "Apply children to the ", e.Code(`<div class="navbar-dropdown">`), " element"),
+			c.Row("e.Class", "Apply class to the ", e.Code(`<div class="navbar-dropdown">`), " element"),
+			c.Row("string", "Add string to the ", e.Code(`<a class="navbar-link">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="navbar-dropdown">`), " element"),
 		),
-		e.P("Other children are added to the dropdown menu."),
-
-		e.P("The ", e.Code("b.NavbarLink"), " constructor creates a link e.Element, to include in a ", e.Code("b.NavbarItem"), " with the ", e.Code("b.HasDropdown"), " modifier. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Arrowless"),
-			"Remove the arrow in the item",
+		e.P("The ", e.Code("b.NavbarLink"), " constructor creates a link element, to include in a ", e.Code("b.NavbarItem"), " with the ", e.Code("b.HasDropdown"), " modifier."),
+		c.Modifiers(
+			c.Row("b.Arrowless", "Remove the arrow in the item"),
 		),
-
-		e.P("The ", e.Code("b.NavbarDivider"), " constructor creates a divider e.Element, to include in a ", e.Code("b.NavbarDropdown"), "."),
+		e.P("The ", e.Code("b.NavbarDivider"), " constructor creates a divider element, to include in a ", e.Code("b.NavbarDropdown"), "."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/navbar/",
@@ -406,7 +333,7 @@ navbar.getElementsByClassName("navbar-menu")[0].classList.toggle("is-active")`),
 		),
 		e.P("You can add the following ", e.Strong("modifier"), " classes:"),
 		e.Ul(
-			e.Li(e.Code("b.Expanded"), " to turn it into a full-width e.Element"),
+			e.Li(e.Code("b.Expanded"), " to turn it into a full-width element"),
 			e.Li(e.Code("b.Tab"), " to add a bottom border on hover and show the bottom border using ", e.Code("b.Active")),
 		),
 	),
@@ -720,7 +647,7 @@ b.Navbar(
 	),
 	b.Content(
 		e.H3("Dropdown without arrow"),
-		e.P("You can remove the arrow in the items of the navbar by adding the ", e.Code("b.Arrowless"), " modifier to the ", e.Code("b.NavbarDropdown"), " e.Element."),
+		e.P("You can remove the arrow in the items of the navbar by adding the ", e.Code("b.Arrowless"), " modifier to the ", e.Code("b.NavbarDropdown"), " element."),
 	),
 	c.Example(
 		`b.NavbarDropdown(

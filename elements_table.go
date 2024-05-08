@@ -28,44 +28,35 @@ var table = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Table"), " constructor creates a table. The ", e.Code("b.ScrollableTable"), " constructor creates a table in a table-container e.Element, making the table scrollable. The following children have a special meaning:",
+			"The ", e.Code("b.Table"), " constructor creates a table. The ", e.Code("b.ScrollableTable"), " constructor creates a table in a table-container element, making the table scrollable.",
 		),
-		b.DList(
-			e.Code("b.OnHead(any)"),
-			[]any{"Forcibly apply the child to the ", e.Code("<thead>"), " e.Element"},
-
-			e.Code("b.OnBody(any)"),
-			[]any{"Forcibly apply the child to the ", e.Code("<tbody>"), " e.Element"},
-
-			e.Code("b.OnFoot(any)"),
-			[]any{"Forcibly apply the child to the ", e.Code("<tfoot>"), " e.Element"},
-
-			e.Code("b.Bordered"),
-			"Add borders to the table",
-
-			e.Code("b.Striped"),
-			"Add stripes to the body rows",
-
-			e.Code("b.Narrow"),
-			"Make the cells narrower",
-
-			e.Code("b.Hoverable"),
-			"Add a hover effect on the body rows",
-
-			e.Code("b.FullWidth"),
-			"Take the whole width",
-
-			e.Code("b.Row(...)"),
-			[]any{"Add a row to the table body, its cells are defined as ", e.Code("<td>"), " elements"},
-
-			e.Code("b.HeadRow(...)"),
-			[]any{"Add a row to the table header, its cells are defined as ", e.Code("<th>"), " elements"},
-
-			e.Code("b.FootRow(...)"),
-			[]any{"Add a row to the table footer, its cells are defined as ", e.Code("<th>"), " elements"},
+		c.Modifiers(
+			c.Row("b.Bordered", "Add borders to the table"),
+			c.Row("b.Striped", "Add stripes to the body rows"),
+			c.Row("b.Narrow", "Make the cells narrower"),
+			c.Row("b.Hoverable", "Add a hover effect on the body rows"),
+			c.Row("b.FullWidth", "Take the whole width"),
 		),
-		e.P("Other children are added to the ", e.Code("<table>"), " e.Element."),
-		e.P("The rows constructors accept either children embedded in ", e.Code("b.TCell(...)"), " constructors, or embed their children automatically."),
+		c.Children(
+			c.Row("b.OnHead(...any)", "Apply children to the ", e.Code("<thead>"), " element"),
+			c.Row("b.OnBody(...any)", "Apply children to the ", e.Code("<tbody>"), " element"),
+			c.Row("b.OnFoot(...any)", "Apply children to the ", e.Code("<tfoot>"), " element"),
+			c.Row("b.Row(...any)", "Add a row to the ", e.Code("<tbody>"), " element, its cells are defined as ", e.Code("<td>"), " elements"),
+			c.Row("b.HeadRow(...any)", "Add a row to the ", e.Code("<thead>"), " element, its cells are defined as ", e.Code("<th>"), " elements"),
+			c.Row("b.FootRow(...any)", "Add a row to the ", e.Code("<tfoot>"), " element, its cells are defined as ", e.Code("<th>"), " elements"),
+			c.RowDefault("Apply children to the ", e.Code("<table>"), " element"),
+		),
+		e.P("The ", e.Code("b.Row"), ", ", e.Code("b.HeadRow"), " and ", e.Code("b.FootRow"), " constructors create rows, respectively for the body, head and foot of a table."),
+		c.Children(
+			c.Row("b.TCell(...any)", "Add a cell to the row, chosing its element automatically according to the row destination"),
+			c.Row("b.Th(...any)", "Add a cell to the row, with element ", e.Code("<th>")),
+			c.Row("b.Td(...any)", "Add a cell to the row, with element ", e.Code("<td>")),
+			c.Row("string", "Add a cell to the row with the given string as its only content"),
+			c.RowNodeAttribute("Apply child to the ", e.Code("<tr>"), " element"),
+			c.RowNodeElement("Add a cell to the row with the given element as its only content"),
+			c.RowDefault("Apply child to the ", e.Code("<tr>"), " element"),
+		),
+		e.P("The ", e.Code("b.TCell"), ", ", e.Code("b.Th"), " and ", e.Code("b.Td"), " element create cells with the given children as their content."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/elements/table/",

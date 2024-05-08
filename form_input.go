@@ -13,64 +13,29 @@ var formInput = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.InputText"), " constructor creates a text input. The ", e.Code("b.InputPassword"), " constructor creates a password input. The ", e.Code("b.InputEmail"), " constructor creates an email input. The ", e.Code("b.InputTel"), " constructor creates a telephone input. For all these constructors, the following children have a special meaning:"),
-		b.DList(
-			e.Code("b.On(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<input>"), " e.Element (only useful with the ", e.Code("b.Disabled"), " modifier if you want to apply the ", e.Code("is-disabled"), " class to the input)"},
-
-			e.Code("b.Rounded"),
-			"Make the input rounded",
-
-			e.Code("b.Hovered"),
-			"Apply the hovered style",
-
-			e.Code("b.Focused"),
-			"Apply the focused style",
-
-			e.Code("b.Loading"),
-			"Add a loading spinner to the right of the input",
-
-			e.Code("b.Static"),
-			"Remove specific styling but maintain vertical spacing",
-
-			e.Code("b.Disabled"),
-			"Disable the input",
-
-			e.Code("e.ReadOnly()"),
-			"Read only input",
-
-			e.Code("e.Placeholder(string)"),
-			"Add a placeholder to the input",
-
-			e.Code("b.Primary"),
-			"Set input color to primary",
-
-			e.Code("b.Link"),
-			"Set input color to link",
-
-			e.Code("b.Info"),
-			"Set input color to info",
-
-			e.Code("b.Success"),
-			"Set input color to success",
-
-			e.Code("b.Warning"),
-			"Set input color to warning",
-
-			e.Code("b.Danger"),
-			"Set input color to danger",
-
-			e.Code("b.Small"),
-			"Set input size to small",
-
-			e.Code("b.Normal"),
-			"Set input size to normal",
-
-			e.Code("b.Medium"),
-			"Set input size to medium",
-
-			e.Code("b.Large"),
-			"Set input size to large",
+		e.P("The ", e.Code("b.InputText"), " constructor creates a text input. The ", e.Code("b.InputPassword"), " constructor creates a password input. The ", e.Code("b.InputEmail"), " constructor creates an email input. The ", e.Code("b.InputTel"), " constructor creates a telephone number input."),
+		c.Modifiers(
+			c.Row("b.Rounded", "Make the input rounded"),
+			c.Row("b.Hovered", "Apply the hovered style"),
+			c.Row("b.Focused", "Apply the focused style"),
+			c.Row("b.Loading", "Add a loading spinner to the right of the input"),
+			c.Row("b.Static", "Remove specific styling but maintain vertical spacing"),
+			c.Row("b.Disabled", "Disable the input (apply the ", e.Code("disabled"), " attribute)"),
+			c.Row("e.ReadOnly()", "Read only input"),
+			c.Row("e.Placeholder(string)", "Add a placeholder to the input"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
+		),
+		c.Children(
+			c.Row("b.OnInput(...any)", "Apply children to the ", e.Code("<input>"), " element - only useful with the ", e.Code("b.Disabled"), " modifier if you want to apply the ", e.Code("is-disabled"), " class to the input instead of using the ", e.Code("disabled"), " attribute"),
 		),
 	),
 ).Section(

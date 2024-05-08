@@ -13,62 +13,28 @@ var message = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Message"), " constructor creates a message. The following children have a special meaning:",
+			"The ", e.Code("b.Message"), " constructor creates a message.",
 		),
-		b.DList(
-			e.Code("b.Dark"),
-			"Set message color to dark",
-
-			e.Code("b.Primary"),
-			"Set message color to primary",
-
-			e.Code("b.Link"),
-			"Set message color to link",
-
-			e.Code("b.Info"),
-			"Set message color to info",
-
-			e.Code("b.Success"),
-			"Set message color to success",
-
-			e.Code("b.Warning"),
-			"Set message color to warning",
-
-			e.Code("b.Danger"),
-			"Set message color to danger",
+		c.Modifiers(
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
 		),
-		e.P("A ", e.Code("b.MessageBody(...)"), " child is needed to define the message body, and an optional ", e.Code("b.MessageHeader(...)"), ` child may be provided to define the header. With no header, the message is displayed with the "message body only" style.`),
-	),
-).Section(
-	"Easy helper", "",
-
-	e.P(
-		"The ", e.Code("b.Message"), " constructor creates a message. It accepts the same colors definitions as the ", e.Code("b.Message"), " constructor as well as the following values additionally to the standard set of children types:",
-	),
-	b.DList(
-		e.Code("b.Inner(any)"),
-		[]any{"forcibly apply the child to the body e.Element"},
-
-		e.Code("b.Outer(any)"),
-		[]any{"forcibly apply the child to the message e.Element"},
-
-		e.Code("b.MessageTitle"),
-		"Include a header with the provided title",
-
-		e.Code("b.MessageDeleteOnClick"),
-		"Include a delete button in the header, with the provided script as an onclick event",
-
-		"A class or style",
-		"Apply to the message e.Element",
-
-		[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-		"Apply the attribute to the message e.Element",
-
-		[]any{"Other ", e.Code("gomponents.Node")},
-		"Add this e.Element to the body e.Element",
-
-		"Any other type",
-		"Add the child to the body e.Element",
+		c.Children(
+			c.Row("b.OnHeader(...any)", "Apply children to the ", e.Code(`<div class="message-header">`), " element"),
+			c.Row("b.OnBody(...any)", "Apply children to the ", e.Code(`<div class="message-body">`), " element"),
+			c.Row("b.OnMessage(...any)", "Apply children to the ", e.Code(`<article class="message">`), " element"),
+			c.Row("b.MessageTitle", "Set message title as a ", e.Code("<p>"), " element in the ", e.Code(`<div class="message-header">`), " element"),
+			c.Row("b.Delete(...any)", "Apply child to the ", e.Code(`<div class="message-header">`), " element"),
+			c.RowClassesStyles("Apply child to the ", e.Code(`<article class="message">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<article class="message">`), " element"),
+			c.RowNodeElement("Add element to the ", e.Code(`<div class="message-body">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="message-body">`), " element"),
+		),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/message/",

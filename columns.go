@@ -33,164 +33,67 @@ var columns = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Columns"), " constructor creates a columns container. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Column(...)"),
-			"Add the column",
-
-			e.Code("e.Element"),
-			"Wrap the element in a column and add it",
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the columns container",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			"Wrap the element in a column and add it",
-
-			e.Code("b.Gapless"),
-			"No gap",
-
-			e.Code("b.ColumnGap0"),
-			"No gap",
-
-			e.Code("b.ColumnGap1"),
-			"0.25rem gap",
-
-			e.Code("b.ColumnGap2"),
-			"0.5rem gap",
-
-			e.Code("b.ColumnGap3"),
-			"0.75rem gap",
-
-			e.Code("b.ColumnGap4"),
-			"1rem gap",
-
-			e.Code("b.ColumnGap5"),
-			"1.25rem gap",
-
-			e.Code("b.ColumnGap6"),
-			"1.5rem gap",
-
-			e.Code("b.ColumnGap7"),
-			"1.75rem gap",
-
-			e.Code("b.ColumnGap8"),
-			"2rem gap",
-
-			e.Code("b.Centered"),
-			"Center columns",
-
-			e.Code("b.Desktop"),
-			"Allow columns only on desktops upward (not on tablets)",
-
-			e.Code("b.Mobile"),
-			"Allow columns on mobile phones too",
-
-			e.Code("b.Multiline"),
-			"Create a new line when columns do not fit in a single line",
-
-			e.Code("b.VCentered"),
-			"Center columns vertically",
+		e.P("The ", e.Code("b.Columns"), " constructor creates a columns container."),
+		c.Modifiers(
+			c.Row("b.Gapless", "No gap"),
+			c.Row("b.ColumnGap0", "No gap"),
+			c.Row("b.ColumnGap1", "0.25rem gap"),
+			c.Row("b.ColumnGap2", "0.5rem gap"),
+			c.Row("b.ColumnGap3", "0.75rem gap"),
+			c.Row("b.ColumnGap4", "1rem gap"),
+			c.Row("b.ColumnGap5", "1.25rem gap"),
+			c.Row("b.ColumnGap6", "1.5rem gap"),
+			c.Row("b.ColumnGap7", "1.75rem gap"),
+			c.Row("b.ColumnGap8", "2rem gap"),
+			c.Row("b.Centered", "Center columns"),
+			c.Row("b.Desktop", "Allow columns only on desktops upward (not on tablets)"),
+			c.Row("b.Mobile", "Allow columns on mobile phones too"),
+			c.Row("b.Multiline", "Create a new line when columns do not fit in a single line"),
+			c.Row("b.VCentered", "Center columns vertically"),
 		),
 		e.P("The gap may be breakpoint-based, with ", e.Code("b.ColumnGap*.Mobile()"), " to ", e.Code("b.ColumnGap*.FullHD()"), "."),
-
-		e.P("The ", e.Code("b.Column"), " constructor creates a single column. The following children have a special meaning:"),
-		b.DList(
-			[]any{e.Code("b.Full"), ", ", e.Code("b.Size12")},
-			[]any{"Set column width to 100% (", frac(12, 12), ")"},
-
-			e.Code("b.Size11"),
-			[]any{"Set column width to 91.66% (", frac(11, 12), ")"},
-
-			e.Code("b.Size10"),
-			[]any{"Set column width to 83.33% (", frac(10, 12), ")"},
-
-			e.Code("b.FourFifths"),
-			[]any{"Set column width to 80% (", frac(4, 5), ")"},
-
-			[]any{e.Code("b.ThreeQuarters"), ", ", e.Code("b.Size9")},
-			[]any{"Set column width to 75% (", frac(3, 4), ", ", frac(9, 12), ")"},
-
-			[]any{e.Code("b.TwoThirds"), ", ", e.Code("b.Size8")},
-			[]any{"Set column width to 66.66% (", frac(2, 3), ", ", frac(8, 12), ")"},
-
-			e.Code("b.ThreeFifths"),
-			[]any{"Set column width to 60% (", frac(3, 5), ")"},
-
-			e.Code("b.Size7"),
-			[]any{"Set column width to 58.33% (", frac(7, 12), ")"},
-
-			[]any{e.Code("b.Half"), ", ", e.Code("b.Size6")},
-			[]any{"Set column width to 50% (", frac(1, 2), ", ", frac(6, 12), ")"},
-
-			e.Code("b.Size5"),
-			[]any{"Set column width to 41.66% (", frac(5, 12), ")"},
-
-			e.Code("b.TwoFifths"),
-			[]any{"Set column width to 40% (", frac(2, 5), ")"},
-
-			[]any{e.Code("b.OneThird"), ", ", e.Code("b.Size4")},
-			[]any{"Set column width to 33.33% (", frac(1, 3), ", ", frac(4, 12), ")"},
-
-			[]any{e.Code("b.OneQuarter"), ", ", e.Code("b.Size3")},
-			[]any{"Set column width to 25% (", frac(1, 4), ", ", frac(3, 12), ")"},
-
-			e.Code("b.OneFifth"),
-			[]any{"Set column width to 20% (", frac(1, 5), ")"},
-
-			e.Code("b.Size2"),
-			[]any{"Set column width to 16.66% (", frac(2, 12), ")"},
-
-			e.Code("b.Size1"),
-			[]any{"Set column width to 8.33% (", frac(1, 12), ")"},
-
-			e.Code("b.Offset11"),
-			[]any{"Set column offset to 91.66% (", frac(11, 12), ")"},
-
-			e.Code("b.Offset10"),
-			[]any{"Set column offset to 83.33% (", frac(10, 12), ")"},
-
-			e.Code("b.OffsetFourFifths"),
-			[]any{"Set column offset to 80% (", frac(4, 5), ")"},
-
-			[]any{e.Code("b.OffsetThreeQuarters"), ", ", e.Code("b.Offset9")},
-			[]any{"Set column offset to 75% (", frac(3, 4), ", ", frac(9, 12), ")"},
-
-			[]any{e.Code("b.OffsetTwoThirds"), ", ", e.Code("b.Offset8")},
-			[]any{"Set column offset to 66.66% (", frac(2, 3), ", ", frac(8, 12), ")"},
-
-			e.Code("b.OffsetThreeFifths"),
-			[]any{"Set column offset to 60% (", frac(3, 5), ")"},
-
-			e.Code("b.Offset7"),
-			[]any{"Set column offset to 58.33% (", frac(7, 12), ")"},
-
-			[]any{e.Code("b.OffsetHalf"), ", ", e.Code("b.Offset6")},
-			[]any{"Set column offset to 50% (", frac(1, 2), ", ", frac(6, 12), ")"},
-
-			e.Code("b.Offset5"),
-			[]any{"Set column offset to 41.66% (", frac(5, 12), ")"},
-
-			e.Code("b.OffsetTwoFifths"),
-			[]any{"Set column offset to 40% (", frac(2, 5), ")"},
-
-			[]any{e.Code("b.OffsetOneThird"), ", ", e.Code("b.Offset4")},
-			[]any{"Set column offset to 33.33% (", frac(1, 3), ", ", frac(4, 12), ")"},
-
-			[]any{e.Code("b.OffsetOneQuarter"), ", ", e.Code("b.Offset3")},
-			[]any{"Set column offset to 25% (", frac(1, 4), ", ", frac(3, 12), ")"},
-
-			e.Code("b.OffsetOneFifth"),
-			[]any{"Set column offset to 20% (", frac(1, 5), ")"},
-
-			e.Code("b.Offset2"),
-			[]any{"Set column offset to 16.66% (", frac(2, 12), ")"},
-
-			e.Code("b.Offset1"),
-			[]any{"Set column offset to 8.33% (", frac(1, 12), ")"},
-
-			e.Code("b.Narrow"),
-			"The column takes only the width it needs",
+		c.Children(
+			c.Row("b.Column(...any)", "Add column to the ", e.Code(`<div class="columns">`), " element"),
+			c.Row("e.Element", "Wrap element in a column and add it to the ", e.Code(`<div class="columns">`), " element"),
+			c.Row("string", "Wrap text in a column and add it to the ", e.Code(`<div class="columns">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<div class="columns">`), " element"),
+			c.RowNodeElement("Wrap element in a column and add it to the ", e.Code(`<div class="columns">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="columns">`), " element"),
+		),
+		e.P("The ", e.Code("b.Column"), " constructor creates a single column."),
+		c.Modifiers(
+			c.Row2("b.Full", "b.Size12", "Set width to 100% (", frac(12, 12), ")"),
+			c.Row("b.Size11", "Set width to 91.66% (", frac(11, 12), ")"),
+			c.Row("b.Size10", "Set width to 83.33% (", frac(10, 12), ")"),
+			c.Row("b.FourFifths", "Set width to 80% (", frac(4, 5), ")"),
+			c.Row2("b.ThreeQuarters", "b.Size9", "Set width to 75% (", frac(3, 4), ", ", frac(9, 12), ")"),
+			c.Row2("b.TwoThirds", "b.Size8", "Set width to 66.66% (", frac(2, 3), ", ", frac(8, 12), ")"),
+			c.Row("b.ThreeFifths", "Set width to 60% (", frac(3, 5), ")"),
+			c.Row("b.Size7", "Set width to 58.33% (", frac(7, 12), ")"),
+			c.Row2("b.Half", "b.Size6", "Set width to 50% (", frac(1, 2), ", ", frac(6, 12), ")"),
+			c.Row("b.Size5", "Set width to 41.66% (", frac(5, 12), ")"),
+			c.Row("b.TwoFifths", "Set width to 40% (", frac(2, 5), ")"),
+			c.Row2("b.OneThird", "b.Size4", "Set width to 33.33% (", frac(1, 3), ", ", frac(4, 12), ")"),
+			c.Row2("b.OneQuarter", "b.Size3", "Set width to 25% (", frac(1, 4), ", ", frac(3, 12), ")"),
+			c.Row("b.OneFifth", "Set width to 20% (", frac(1, 5), ")"),
+			c.Row("b.Size2", "Set width to 16.66% (", frac(2, 12), ")"),
+			c.Row("b.Size1", "Set width to 8.33% (", frac(1, 12), ")"),
+			c.Row("b.Offset11", "Set offset to 91.66% (", frac(11, 12), ")"),
+			c.Row("b.Offset10", "Set offset to 83.33% (", frac(10, 12), ")"),
+			c.Row("b.OffsetFourFifths", "Set offset to 80% (", frac(4, 5), ")"),
+			c.Row2("b.OffsetThreeQuarters", "b.Offset9", "Set offset to 75% (", frac(3, 4), ", ", frac(9, 12), ")"),
+			c.Row2("b.OffsetTwoThirds", "b.Offset8", "Set offset to 66.66% (", frac(2, 3), ", ", frac(8, 12), ")"),
+			c.Row("b.OffsetThreeFifths", "Set offset to 60% (", frac(3, 5), ")"),
+			c.Row("b.Offset7", "Set offset to 58.33% (", frac(7, 12), ")"),
+			c.Row2("b.OffsetHalf", "b.Offset6", "Set offset to 50% (", frac(1, 2), ", ", frac(6, 12), ")"),
+			c.Row("b.Offset5", "Set offset to 41.66% (", frac(5, 12), ")"),
+			c.Row("b.OffsetTwoFifths", "Set offset to 40% (", frac(2, 5), ")"),
+			c.Row2("b.OffsetOneThird", "b.Offset4", "Set offset to 33.33% (", frac(1, 3), ", ", frac(4, 12), ")"),
+			c.Row2("b.OffsetOneQuarter", "b.Offset3", "Set offset to 25% (", frac(1, 4), ", ", frac(3, 12), ")"),
+			c.Row("b.OffsetOneFifth", "Set offset to 20% (", frac(1, 5), ")"),
+			c.Row("b.Offset2", "Set offset to 16.66% (", frac(2, 12), ")"),
+			c.Row("b.Offset1", "Set offset to 8.33% (", frac(1, 12), ")"),
+			c.Row("b.Narrow", "The column takes only the width it needs"),
 		),
 		e.P("The width, offset and narrow behaviour may be breakpoint-based, by calling ", e.Code(".Mobile()"), " to ", e.Code(".FullHD()"), " on the modifier(s)."),
 	),

@@ -13,74 +13,36 @@ var tag = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Tag"), " constructor creates a tag. The ", e.Code("b.DeleteTag"), " constructor creates a delete button-looking tag. The following children have a special meaning:",
+			"The ", e.Code("b.Tag"), " constructor creates a tag. The ", e.Code("b.DeleteTag"), " constructor creates a delete button-looking tag.",
 		),
-		b.DList(
-			e.Code("b.White"),
-			"Set tag color to white",
-
-			e.Code("b.Black"),
-			"Set tag color to black",
-
-			e.Code("b.Light"),
-			"Set tag color to light",
-
-			e.Code("b.Dark"),
-			"Set tag color to dark",
-
-			e.Code("b.Primary"),
-			"Set tag color to primary",
-
-			e.Code("b.Link"),
-			"Set tag color to link",
-
-			e.Code("b.Info"),
-			"Set tag color to info",
-
-			e.Code("b.Success"),
-			"Set tag color to success",
-
-			e.Code("b.Warning"),
-			"Set tag color to warning",
-
-			e.Code("b.Danger"),
-			"Set tag color to danger",
-
-			e.Code("b.PrimaryLight"),
-			"Set tag color to primary light",
-
-			e.Code("b.LinkLight"),
-			"Set tag color to link light",
-
-			e.Code("b.InfoLight"),
-			"Set tag color to info light",
-
-			e.Code("b.SuccessLight"),
-			"Set tag color to success light",
-
-			e.Code("b.WarningLight"),
-			"Set tag color to warning light",
-
-			e.Code("b.DangerLight"),
-			"Set tag color to danger light",
-
-			e.Code("b.Small"),
-			"Set tag size to small",
-
-			e.Code("b.Normal"),
-			"Set tag size to normal",
-
-			e.Code("b.Medium"),
-			"Set tag size to medium",
-
-			e.Code("b.Large"),
-			"Set tag size to large",
-
-			e.Code("b.Rounded"),
-			"Make a rounded tag",
+		c.Modifiers(
+			c.Row("b.White", "Set color to white"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.PrimaryLight", "Set color to primary light"),
+			c.Row("b.LinkLight", "Set color to link light"),
+			c.Row("b.InfoLight", "Set color to info light"),
+			c.Row("b.SuccessLight", "Set color to success light"),
+			c.Row("b.WarningLight", "Set color to warning light"),
+			c.Row("b.DangerLight", "Set color to danger light"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
+			c.Row("b.Rounded", "Make a rounded tag"),
 		),
 		e.P(
-			"The ", e.Code("b.Tags"), " constructor creates a list of tags. It accepts the ", e.Code("b.Addons"), " modifier to attach the contained tags together and may contain any number of ", e.Code("b.Tag"), " or ", e.Code("b.DeleteTag"), ".",
+			"The ", e.Code("b.Tags"), " constructor creates a list of tags.",
+		),
+		c.Modifiers(
+			c.Row("b.Addons", "Attach the contained tags together"),
 		),
 	),
 ).Section(

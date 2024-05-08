@@ -12,20 +12,13 @@ var delete = c.NewPage(
 	"",
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Delete"), " constructor creates a delete cross. It accepts the following values additionally to the standard set of children types:",
+			"The ", e.Code("b.Delete"), " constructor creates a delete cross.",
 		),
-		b.DList(
-			e.Code("b.Small"),
-			"Set delete icon size to small",
-
-			e.Code("b.Normal"),
-			"Set delete icon size to normal",
-
-			e.Code("b.Medium"),
-			"Set delete icon size to medium",
-
-			e.Code("b.Large"),
-			"Set delete icon size to large",
+		c.Modifiers(
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
 		),
 	),
 ).Section(

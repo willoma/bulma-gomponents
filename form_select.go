@@ -13,67 +13,36 @@ var formSelect = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Select"), " constructor creates a dropdown select. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnDiv(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="select">`), " e.Element"},
-
-			e.Code("b.OnSelect(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<select>"), " e.Element"},
-
-			e.Code("b.Size(int)"),
-			"For multiple selects, set the select size to the specified number of options",
-
-			e.Code("b.Rounded"),
-			"Make the select rounded",
-
-			e.Code("b.Hovered"),
-			"Apply the hovered style",
-
-			e.Code("b.Focused"),
-			"Apply the focused style",
-
-			e.Code("b.Multiple"),
-			"Make the select a multiple select",
-
-			e.Code("b.Disabled"),
-			"Disable the select",
-
-			e.Code("b.Loading"),
-			"Add a loading spinner to the right of the select",
-
-			e.Code("b.Primary"),
-			"Set select color to primary",
-
-			e.Code("b.Link"),
-			"Set select color to link",
-
-			e.Code("b.Info"),
-			"Set select color to info",
-
-			e.Code("b.Success"),
-			"Set select color to success",
-
-			e.Code("b.Warning"),
-			"Set select color to warning",
-
-			e.Code("b.Danger"),
-			"Set select color to danger",
-
-			e.Code("b.Small"),
-			"Set select size to small",
-
-			e.Code("b.Normal"),
-			"Set select size to normal",
-
-			e.Code("b.Medium"),
-			"Set select size to medium",
-
-			e.Code("b.Large"),
-			"Set select size to large",
+		e.P("The ", e.Code("b.Select"), " constructor creates a dropdown select."),
+		c.Modifiers(
+			c.Row("b.Size(int)", "For multiple selects, set size to the specified number of options"),
+			c.Row("b.Rounded", "Make the select rounded"),
+			c.Row("b.Hovered", "Apply the hovered style"),
+			c.Row("b.Focused", "Apply the focused style"),
+			c.Row("b.Multiple", "Make the select a multiple select"),
+			c.Row("b.Disabled", "Disable the select"),
+			c.Row("b.Loading", "Add a loading spinner to the right of the select"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
+		),
+		c.Children(
+			c.Row("b.OnSelect(...any)", "Apply children to the ", e.Code("<select>"), " element"),
+			c.Row("b.OnDiv(...any)", "Apply children to the ", e.Code(`<div class="select">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="select">`), " element"),
 		),
 
-		e.P("The ", e.Code("b.Option"), " constructor creates an option e.Element to be used as a child of ", e.Code("b.Select"), ". The ", e.Code("b.OptionSelected"), " constructor creates a selected option e.Element."),
+		e.P("The ", e.Code("b.Option"), " constructor creates an option element to be used as a child of ", e.Code("b.Select"), "."),
+		c.Modifiers(
+			c.Row("b.Selected", "Mark the option as selected (for multiple selects)"),
+		),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/form/select/",
@@ -330,7 +299,7 @@ var formSelect = c.NewPage(
 		b.Control(
 			b.IconsLeft,
 			b.Select(
-				b.OptionSelected("", "Country"),
+				b.Option("", b.Selected, "Country"),
 				b.Option("", "Select dropdown"),
 				b.Option("", "With options"),
 			),
@@ -352,7 +321,7 @@ var formSelect = c.NewPage(
 			b.IconsLeft,
 			b.Select(
 				b.Small,
-				b.OptionSelected("", "Country"),
+				b.Option("", b.Selected, "Country"),
 				b.Option("", "Select dropdown"),
 				b.Option("", "With options"),
 			),
@@ -372,7 +341,7 @@ var formSelect = c.NewPage(
 		b.Control(
 			b.IconsLeft,
 			b.Select(
-				b.OptionSelected("", "Country"),
+				b.Option("", b.Selected, "Country"),
 				b.Option("", "Select dropdown"),
 				b.Option("", "With options"),
 			),
@@ -394,7 +363,7 @@ var formSelect = c.NewPage(
 			b.IconsLeft,
 			b.Select(
 				b.Medium,
-				b.OptionSelected("", "Country"),
+				b.Option("", b.Selected, "Country"),
 				b.Option("", "Select dropdown"),
 				b.Option("", "With options"),
 			),
@@ -416,7 +385,7 @@ var formSelect = c.NewPage(
 			b.IconsLeft,
 			b.Select(
 				b.Large,
-				b.OptionSelected("", "Country"),
+				b.Option("", b.Selected, "Country"),
 				b.Option("", "Select dropdown"),
 				b.Option("", "With options"),
 			),

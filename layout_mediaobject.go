@@ -14,30 +14,18 @@ var mediaObject = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Media"), " constructor creates a media. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnContent(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<>"), " e.Element"},
-
-			e.Code("b.OnMedia(...)"),
-			[]any{"Force childen to be applied to the ", e.Code("<>"), " e.Element"},
-
-			e.Code("b.MediaLeft(...)"),
-			[]any{"Apply children to the left section"},
-
-			e.Code("b.MediaRight(...)"),
-			[]any{"Apply children to the right section"},
-
-			e.Code("e.Element"),
-			"Apply to the content section",
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the media",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			[]any{"Apply to the content section"},
+		e.P("The ", e.Code("b.Media"), " constructor creates a media."),
+		c.Children(
+			c.Row("b.OnMedia(...any)", "Apply children to the ", e.Code(`<article class="media">`), " element"),
+			c.Row("b.OnContent(...any)", "Apply children to the ", e.Code(`<div class="media-content">`), " element"),
+			c.Row("b.MediaLeft(...any)", "Apply children to the ", e.Code(`<div class="media-left">`), " element"),
+			c.Row("b.MediaRight(...any)", "Apply children to the ", e.Code(`<div class="media-right">`), " element"),
+			c.Row("e.Element", "Add element the ", e.Code(`<div class="media-content">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<article class="media">`), " element"),
+			c.RowNodeElement("Apply child to the ", e.Code(`<div class="media-content">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<article class="media">`), " element"),
 		),
-		e.P("Each of the left, content and right parts is only included if it has content. Other children are added to the ", e.Code(`<article class="media">`), " e.Element."),
+		e.P("Each of the left, content and right parts is only included if it has content."),
 	),
 ).Section(
 	"Bulma examples",

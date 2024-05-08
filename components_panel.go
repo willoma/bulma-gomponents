@@ -14,46 +14,28 @@ var panel = c.NewPage(
 	"",
 
 	b.Content(
-		e.P("The ", e.Code("b.Panel"), " constructor creates a panel. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Primary"),
-			"Set panel color to primary",
-
-			e.Code("b.Link"),
-			"Set panel color to link",
-
-			e.Code("b.Info"),
-			"Set panel color to info",
-
-			e.Code("b.Success"),
-			"Set panel color to success",
-
-			e.Code("b.Warning"),
-			"Set panel color to warning",
-
-			e.Code("b.Danger"),
-			"Set panel color to danger",
+		e.P("The ", e.Code("b.Panel"), " constructor creates a panel."),
+		c.Modifiers(
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
 		),
 		e.P("The ", e.Code("b.PanelHeading"), " constructor creates a panel heading."),
 		e.P("The ", e.Code("b.PanelBlock"), " constructor creates a panel block."),
 		e.P("The ", e.Code("b.PanelLink"), " and ", e.Code("b.PanelAHref"), " constructors create panel blocks which are ", e.Code("<a>"), " elements."),
-		e.P("The ", e.Code("b.PanelLabel"), " constructor creates a panel block which is a ", e.Code("<label>"), " e.Element."),
-		e.P("The ", e.Code("b.PanelCheckbox"), " constructor creates a panel block which is a ", e.Code("<label>"), " e.Element, containing a checkbox. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnLabel(...)"),
-			[]any{"Force children to be applied to the ", e.Code(`<label class="panel-block">`), " e.Element"},
-
-			e.Code("b.OnInput(...)"),
-			[]any{"Force children to be applied to the ", e.Code("<input>"), " e.Element"},
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the input e.Element",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			"Add this e.Element to the block e.Element",
+		e.P("The ", e.Code("b.PanelLabel"), " constructor creates a panel block which is a ", e.Code("<label>"), " element."),
+		e.P("The ", e.Code("b.PanelTabs"), " constructor creates a panel tabs section. Its children must be link elements (for instance ", e.Code("e.AHref"), "). Add the ", e.Code("b.Active"), "modifier to a link to mark it as the active tab."),
+		e.P("The ", e.Code("b.PanelCheckbox"), " constructor creates a panel block which is a ", e.Code("<label>"), " element, containing a checkbox."),
+		c.Children(
+			c.Row("b.OnLabel(...any)", "Apply children to the ", e.Code("<label>"), " element"),
+			c.Row("b.OnInput(...any)", "Apply children to the ", e.Code("<input>"), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code("<input>"), " element"),
+			c.RowNodeElement("Add element to the ", e.Code("<label>"), " element"),
+			c.RowDefault("Add element to the ", e.Code("<label>"), " element"),
 		),
-		e.P("Other children are added to the ", e.Code("<input>"), " e.Element."),
-		e.P("The ", e.Code("b.PanelTabs"), " constructor creates a panel tabs section. Its children must be ", e.Code("<a>"), " elements (for instance ", e.Code("e.AHref"), "). Add the ", e.Code("b.Active"), "modifier to a link to mark it as the active tab."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/panel/",

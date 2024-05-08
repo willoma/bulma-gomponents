@@ -11,43 +11,26 @@ var pagination = c.NewPage(
 	"Pagination", "Pagination", "/pagination",
 	"",
 	b.Content(
-		e.P("The ", e.Code("b.Pagination"), " constructor creates a pagination. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.OnList(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<ul class="pagination-list">`), " e.Element"},
-
-			e.Code("b.PaginationLink(...)"),
-			"Add a button-looking link to the pagination list",
-
-			e.Code("b.PaginationEllipsis()"),
-			"Add an ellipsis to the pagination list",
-
-			e.Code("b.Centered"),
-			`Center the pagination list ("Previous" button on the left side, "Next" on the right side)`,
-
-			e.Code("b.Right"),
-			`Align the pagination list to the right ("Previous" and "Next" buttons on the left side)`,
-
-			e.Code("b.Rounded"),
-			"Have rounded pagination buttons",
-
-			e.Code("b.Small"),
-			"Set pagination size to small",
-
-			e.Code("b.Medium"),
-			"Set pagination size to medium",
-
-			e.Code("b.Large"),
-			"Set pagination size to large",
+		e.P("The ", e.Code("b.Pagination"), " constructor creates a pagination."),
+		c.Modifiers(
+			c.Row("b.Centered", `Center the pagination list ("Previous" button on the left side, "Next" on the right side)`),
+			c.Row("b.Right", `Align the pagination list to the right ("Previous" and "Next" buttons on the left side)`),
+			c.Row("b.Rounded", "Have rounded pagination buttons"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
 		),
-		e.P("Other children are added to the ", e.Code(`<div class="pagination">`), " e.Element."),
-		e.P("The ", e.Code("b.PaginationLink"), " and ", e.Code("b.PaginationAHref"), " constructors create button-looking links for the pagination list section. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Current"),
-			"Mark this link as being the current page",
-
-			e.Code("b.Disabled"),
-			"Mark this link as inactive",
+		c.Children(
+			c.Row("b.OnList(...any)", "Apply children to the ", e.Code(`<ul class="pagination-list">`), " element"),
+			c.Row("b.PaginationLink(...any)", "Add button-looking link to the ", e.Code(`<ul class="pagination-list">`), " element"),
+			c.Row("b.PaginationEllipsis(...any)", "Add ellipsis to the ", e.Code(`<ul class="pagination-list">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<nav class="pagination">`), " element"),
+		),
+		e.P("The ", e.Code("b.PaginationPrevious"), " and ", e.Code("b.PaginationNext"), " constructors create button-looking links."),
+		e.P("The ", e.Code("b.PaginationLink"), " and ", e.Code("b.PaginationAHref"), " constructors create button-looking links for the pagination list section."),
+		c.Modifiers(
+			c.Row("b.Current", "Mark this link as being the current page"),
+			c.Row("b.Disabled", "Mark this link as inactive"),
 		),
 		e.P("The ", e.Code("b.PaginationEllipsis"), " constructor creates an ellipsis for the pagination list section."),
 	),

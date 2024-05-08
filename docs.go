@@ -82,11 +82,10 @@ var Sections = []c.DocSection{
 		},
 	},
 	{
-		Title: "Helpers and features",
+		Title: "Helpers & features",
 		Pages: []*c.Page{
 			skeletons,
 			color,
-			positioning,
 			spacing,
 			typography,
 			visibility,

@@ -15,50 +15,31 @@ var modal = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Modal"), " constructor creates a modal. The following children have a special meaning:",
+			"The ", e.Code("b.Modal"), " constructor creates a modal.",
 		),
-		b.DList(
-			e.Code("b.OnModal(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="modal">`), " e.Element"},
-
-			e.Code("b.OnContent(...)"),
-			[]any{"Force childen to be applied to the content"},
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the modal",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			"Add this e.Element to the modal content",
+		c.Children(
+			c.Row("b.OnModal(...any)", "Apply children to the ", e.Code(`<div class="modal">`), " element"),
+			c.Row("b.OnContent(...any)", "Apply children to the ", e.Code(`<div class="modal-content">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<div class="modal">`), " element"),
+			c.RowNodeElement("Add element to the ", e.Code(`<div class="modal-content">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="modal-content">`), " element"),
 		),
 		e.P(
-			"The ", e.Code("b.ModalCard"), " constructor creates a card modal. The following children have a special meaning:",
+			"The ", e.Code("b.ModalCard"), " constructor creates a card modal.",
 		),
-		b.DList(
-			e.Code("b.OnModal(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="modal">`), " e.Element"},
+		c.Children(
+			c.Row("b.OnModal(...any)", "Apply children to the ", e.Code(`<div class="modal">`), " element"),
 
-			e.Code("b.OnCard(...)"),
-			[]any{"Force childen to be applied to the ", e.Code(`<div class="modal-card">`), " e.Element"},
+			c.Row("b.OnCard(...any)", "Apply children to the ", e.Code(`<div class="modal-card">`), " element"),
 
-			e.Code("b.ModalCardHead(...)"),
-			"Add items to the modal card head",
-
-			e.Code("b.ModalCardTitle(...)"),
-			"Add a title to the modal card head",
-
-			e.Code("b.ModalCardTitleWithClose(title string)"),
-			"Add a title with a close button to the modal card head",
-
-			e.Code("b.ModalCardFoot(...)"),
-			"Add items to the modal card foot",
-
-			[]any{e.Code("gomponents.Node"), " of type ", e.Code("gomponents.AttributeType")},
-			"Apply the attribute to the modal",
-
-			[]any{"Other ", e.Code("gomponents.Node")},
-			"Add this e.Element to the modal card body",
+			c.Row("b.ModalCardHead(...any)", "Apply children to the ", e.Code(`<div class="modal-card-head">`), " element"),
+			c.Row("b.ModalCardTitle(...any)", "Add title to the ", e.Code(`<div class="modal-card-head">`), " element"),
+			c.Row("b.ModalCardTitleWithClose(string)", "Add title with a close button to the ", e.Code(`<div class="modal-card-head">`), " element"),
+			c.Row("b.ModalCardFoot(...any)", "Apply children to the ", e.Code(`<div class="modal-card-foot">`), " element"),
+			c.RowNodeAttribute("Apply attribute to the ", e.Code(`<div class="modal">`), " element"),
+			c.RowNodeElement("Add element to the ", e.Code(`<div class="modal-card-body">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code(`<div class="modal-card-body">`), " element"),
 		),
-		e.P("Other children are added to the modal card body e.Element."),
 	),
 ).Section(
 	"Bulma examples", "https://bulma.io/documentation/components/modal/",
@@ -148,11 +129,11 @@ b.ModalCard(
 			"Vivamus maximus ultricies pulvinar.",
 		),
 		e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis"),
-		e.P("Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie."),
+		e.P("Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie."),
 		e.P("Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo."),
-		e.P("Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante."),
+		e.P("Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante."),
 		e.H4("Fourth level"),
-		e.P("Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur."),
+		e.P("Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur."),
 		e.P("Maecenas eleifend sollicitudin dui, faucibus sollicitudin auue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien."),
 		e.P("Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque."),
 		e.H5("Fifth level"),
@@ -194,11 +175,11 @@ b.ModalCard(
 					"Vivamus maximus ultricies pulvinar.",
 				),
 				e.BlockQuote("Ut venenatis, nisl scelerisque sollicitudin fermentum, quam libero hendrerit ipsum, ut blandit est tellus sit amet turpis"),
-				e.P("Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " e.Elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie."),
+				e.P("Quisque at semper enim, eu hendrerit odio. Etiam auctor nisl et ", e.Em("justo sodales"), " elementum. Maecenas ultrices lacus quis neque consectetur, et lobortis nisi molestie."),
 				e.P("Sed sagittis enim ac tortor maximus rutrum. Nulla facilisi. Donec mattis vulputate risus in luctus. Maecenas vestibulum interdum commodo."),
-				e.P("Suspendisse egestas sapien non felis placerat e.Elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante."),
+				e.P("Suspendisse egestas sapien non felis placerat elementum. Morbi tortor nisl, suscipit sed mi sit amet, mollis malesuada nulla. Nulla facilisi. Nullam ac erat ante."),
 				e.H4("Fourth level"),
-				e.P("Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at e.Elementum ex efficitur."),
+				e.P("Nulla efficitur eleifend nisi, sit amet bibendum sapien fringilla ac. Mauris euismod metus a tellus laoreet, at elementum ex efficitur."),
 				e.P("Maecenas eleifend sollicitudin dui, faucibus sollicitudin auue cursus non. Ut finibus eleifend arcu ut vehicula. Mauris eu est maximus est porta condimentum in eu justo. Nulla id iaculis sapien."),
 				e.P("Phasellus porttitor enim id metus volutpat ultricies. Ut nisi nunc, blandit sed dapibus at, vestibulum in felis. Etiam iaculis lorem ac nibh bibendum rhoncus. Nam interdum efficitur ligula sit amet ullamcorper. Etiam tristique, leo vitae porta faucibus, mi lacus laoreet metus, at cursus leo est vel tellus. Sed ac posuere est. Nunc ultricies nunc neque, vitae ultricies ex sodales quis. Aliquam eu nibh in libero accumsan pulvinar. Nullam nec nisl placerat, pretium metus vel, euismod ipsum. Proin tempor cursus nisl vel condimentum. Nam pharetra varius metus non pellentesque."),
 				e.H5("Fifth level"),

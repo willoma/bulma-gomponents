@@ -15,148 +15,61 @@ var button = c.NewPage(
 
 	b.Content(
 		e.P(
-			"The ", e.Code("b.Button"), ", ", e.Code("b.ButtonA"), ", ", e.Code("b.ButtonAHref"), ", ", e.Code("b.ButtonSubmit"), ", ", e.Code("b.ButtonInputSubmit"), " and ", e.Code("b.ButtonInputReset"), " constructors create buttons. The following children have a special meaning:",
+			"The ", e.Code("b.Button"), ", ", e.Code("b.ButtonA"), ", ", e.Code("b.ButtonAHref"), ", ", e.Code("b.ButtonSubmit"), ", ", e.Code("b.ButtonInputSubmit"), " and ", e.Code("b.ButtonInputReset"), " constructors create buttons.",
 		),
-		b.DList(
-			e.Code("b.Responsive"),
-			"Responsive size",
-
-			e.Code("b.FullWidth"),
-			"Take the whole width",
-
-			e.Code("b.Outlined"),
-			"Outline style",
-
-			e.Code("b.Inverted"),
-			"Inverted style",
-
-			e.Code("b.Rounded"),
-			"Rounded button",
-
-			e.Code("b.Hovered"),
-			"Apply the hovered style",
-
-			e.Code("b.Focused"),
-			"Apply the focused style",
-
-			e.Code("b.Active"),
-			"Apply the active style",
-
-			e.Code("b.Loading"),
-			"Replace the content with a loading spinner",
-
-			e.Code("b.Static"),
-			"Make the button non-interactive",
-
-			e.Code("e.Disabled()"),
-			"Disable the button",
-
-			e.Code("b.Selected"),
-			"In a list of attached buttons (Buttons with Addons), make sure this button is above the other buttons",
-
-			e.Code("b.Small"),
-			"Set button size to small",
-
-			e.Code("b.Normal"),
-			"Set button size to normal",
-
-			e.Code("b.Medium"),
-			"Set button size to medium",
-
-			e.Code("b.Large"),
-			"Set button size to large",
-
-			e.Code("b.White"),
-			"Set button color to white",
-
-			e.Code("b.Light"),
-			"Set button color to light",
-
-			e.Code("b.Dark"),
-			"Set button color to dark",
-
-			e.Code("b.Black"),
-			"Set button color to black",
-
-			e.Code("b.Text"),
-			"Set button style to underlined text",
-
-			e.Code("b.Ghost"),
-			"Set button style to link-looking blue text",
-
-			e.Code("b.Primary"),
-			"Set button color to primary",
-
-			e.Code("b.Link"),
-			"Set button color to link",
-
-			e.Code("b.Info"),
-			"Set button color to info",
-
-			e.Code("b.Success"),
-			"Set button color to success",
-
-			e.Code("b.Warning"),
-			"Set button color to warning",
-
-			e.Code("b.Danger"),
-			"Set button color to danger",
-
-			e.Code("b.PrimaryLight"),
-			"Set button color to primary light",
-
-			e.Code("b.LinkLight"),
-			"Set button color to link light",
-
-			e.Code("b.InfoLight"),
-			"Set button color to info light",
-
-			e.Code("b.SuccessLight"),
-			"Set button color to success light",
-
-			e.Code("b.WarningLight"),
-			"Set button color to warning light",
-
-			e.Code("b.DangerLight"),
-			"Set button color to danger light",
-
-			e.Code("b.PrimaryDark"),
-			"Set button color to primary dark",
-
-			e.Code("b.LinkDark"),
-			"Set button color to link dark",
-
-			e.Code("b.InfoDark"),
-			"Set button color to info dark",
-
-			e.Code("b.SuccessDark"),
-			"Set button color to success dark",
-
-			e.Code("b.WarningDark"),
-			"Set button color to warning dark",
-
-			e.Code("b.DangerDark"),
-			"Set button color to danger dark",
+		c.Modifiers(
+			b.Small,
+			c.Row("b.Responsive", "Responsive size"),
+			c.Row("b.FullWidth", "Take the whole width"),
+			c.Row("b.Outlined", "Outline style"),
+			c.Row("b.Inverted", "Inverted style"),
+			c.Row("b.Rounded", "Rounded button"),
+			c.Row("b.Hovered", "Apply the hovered style"),
+			c.Row("b.Focused", "Apply the focused style"),
+			c.Row("b.Active", "Apply the active style"),
+			c.Row("b.Loading", "Replace the content with a loading spinner"),
+			c.Row("b.Static", "Make the button non-interactive"),
+			c.Row("e.Disabled()", "Disable the button"),
+			c.Row("e.Disabled(bool)", "Disable the button conditionally"),
+			c.Row("b.Selected", "In a list of attached buttons (Buttons with Addons), make sure this button is above the other buttons"),
+			c.Row("b.Small", "Set size to small"),
+			c.Row("b.Normal", "Set size to normal"),
+			c.Row("b.Medium", "Set size to medium"),
+			c.Row("b.Large", "Set size to large"),
+			c.Row("b.White", "Set color to white"),
+			c.Row("b.Light", "Set color to light"),
+			c.Row("b.Dark", "Set color to dark"),
+			c.Row("b.Black", "Set color to black"),
+			c.Row("b.Text", "Set style to underlined text"),
+			c.Row("b.Ghost", "Set style to link-looking blue text"),
+			c.Row("b.Primary", "Set color to primary"),
+			c.Row("b.Link", "Set color to link"),
+			c.Row("b.Info", "Set color to info"),
+			c.Row("b.Success", "Set color to success"),
+			c.Row("b.Warning", "Set color to warning"),
+			c.Row("b.Danger", "Set color to danger"),
+			c.Row("b.PrimaryLight", "Set color to primary light"),
+			c.Row("b.LinkLight", "Set color to link light"),
+			c.Row("b.InfoLight", "Set color to info light"),
+			c.Row("b.SuccessLight", "Set color to success light"),
+			c.Row("b.WarningLight", "Set color to warning light"),
+			c.Row("b.DangerLight", "Set color to danger light"),
+			c.Row("b.PrimaryDark", "Set color to primary dark"),
+			c.Row("b.LinkDark", "Set color to link dark"),
+			c.Row("b.InfoDark", "Set color to info dark"),
+			c.Row("b.SuccessDark", "Set color to success dark"),
+			c.Row("b.WarningDark", "Set color to warning dark"),
+			c.Row("b.DangerDark", "Set color to danger dark"),
 		),
-		e.P("The ", e.Code("b.Buttons"), " constructor creates a button. The following children have a special meaning:"),
-		b.DList(
-			e.Code("b.Addons"),
-			"Attach the buttons together",
 
-			e.Code("b.Centered"),
-			"Center the buttons",
-
-			e.Code("b.Right"),
-			"Align the buttons to the right",
-
-			e.Code("b.Small"),
-			"Set buttons size to small",
-
-			e.Code("b.Medium"),
-			"Set buttons size to medium",
-
-			e.Code("b.Large"),
-			"Set buttons size to large",
+		e.P("The ", e.Code("b.Buttons"), " constructor creates a button."),
+		c.Modifiers(
+			c.Row("b.Addons", "Attach the buttons together"),
+			c.Row("b.Centered", "Center the buttons"),
+			c.Row("b.Right", "Align the buttons to the right"),
+			c.Row("b.Small", "Set the buttons size to small"),
+			c.Row("b.Medium", "Set the buttons size to medium"),
+			c.Row("b.Large", "Set the buttons size to large"),
 		),
 	),
 ).Section(
