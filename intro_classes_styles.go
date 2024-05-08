@@ -90,4 +90,14 @@ var classes = c.NewPage(
 			"Hello, my size changes according to your screen",
 		),
 	),
+).Section(
+	"Applying classes and styles conditionally", "",
+
+	b.Content(
+		e.P("You may apply classes and styles conditionally by using the ", e.Code(".If(bool)"), " method, which is implemented in ", e.Code("e.Class"), ", ", e.Code("e.Classes"), "as well as ", e.Em("Bulma-Gomponents"), "specific derivatives (for instance, ", e.Code("fa.Class"), ", ", e.Code("b.ResponsiveClass"), ", etc):"),
+	),
+	c.Example(
+		`b.Message(b.Success.If(false), b.Danger.If(true), "Hello world")`,
+		b.Message(b.Success.If(false), b.Danger.If(true), "Hello world"),
+	),
 )
