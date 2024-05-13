@@ -43,6 +43,9 @@ func (m *menu) With(children ...any) e.Element {
 		case string:
 			m.flushCurrentMenuList()
 			m.menu.With(MenuLabel(c))
+		case *menuList:
+			m.flushCurrentMenuList()
+			m.currentMenuList = c
 		case *menuLabel:
 			m.flushCurrentMenuList()
 			m.menu.With(c)
@@ -116,7 +119,7 @@ func (m *menuList) Clone() e.Element {
 //
 // https://willoma.github.io/bulma-gomponents/menu.html
 func MenuEntry(children ...any) e.Element {
-	m := &menuEntry{li: e.Li(e.Class("menu-list"))}
+	m := &menuEntry{li: e.Li()}
 	m.With(children...)
 	return m
 }
