@@ -9,11 +9,22 @@ import (
 // Spacing is used for spacing sizes, used in Margin* and Padding*. Values may be 0 to 6. Any other value will be treated as "auto".
 type Spacing int
 
+const (
+	Spacing0 Spacing = 0
+	Spacing1 Spacing = 1
+	Spacing2 Spacing = 2
+	Spacing3 Spacing = 3
+	Spacing4 Spacing = 4
+	Spacing5 Spacing = 5
+	Spacing6 Spacing = 6
+)
+
 func (s Spacing) String() string {
-	if s < 0 || s > 6 {
+	if s < Spacing0 || s > Spacing6 {
 		return "auto"
 	}
-	return strconv.FormatInt(int64(s), 10)
+
+	return strconv.Itoa(int(s))
 }
 
 // Margin sets all margins on the element.
