@@ -191,6 +191,10 @@ const (
 	FixedSize         = e.Class("has-fixed-size")             // Textarea
 	IconsLeft         = e.Class("has-icons-left")             // Control
 	IconsRight        = e.Class("has-icons-right")            // Control
+	RadiusSmall       = e.Class("has-radius-small")           // any component
+	RadiusNormal      = e.Class("has-radius-normal")          // any component
+	RadiusLarge       = e.Class("has-radius-large")           // any component
+	RadiusRounded     = e.Class("has-radius-rounded")         // any component
 	Ratio             = e.Class("has-ratio")                  // Image/*
 	Shadow            = e.Class("has-shadow")                 // Navbar
 	HasSkeleton       = e.Class("has-skeleton")               // any component
