@@ -4,8 +4,8 @@ import (
 	"io"
 	"sync"
 
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 )
 
 // Dropdown creates a dropdown.

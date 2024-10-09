@@ -1,8 +1,8 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 )
 
 // Title creates a h1 title.

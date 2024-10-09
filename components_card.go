@@ -4,8 +4,8 @@ import (
 	"io"
 	"sync"
 
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 )
 
 // Card creates a card.

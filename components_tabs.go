@@ -4,8 +4,8 @@ import (
 	"io"
 	"sync"
 
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 )
 
 // Tabs create a tabs container.

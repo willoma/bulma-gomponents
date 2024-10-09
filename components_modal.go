@@ -1,8 +1,8 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 )
 
 func modalBackground() e.Element {

@@ -1,12 +1,4 @@
-github.com/maragudk/gomponents v0.20.2 h1:39FhnBNNCJzqNcD9Hmvp/5xj0otweFoyvVgFG6kXoy0=
-github.com/maragudk/gomponents v0.20.2/go.mod h1:nHkNnZL6ODgMBeJhrZjkMHVvNdoYsfmpKB2/hjdQ0Hg=
-github.com/willoma/gomplements v0.3.0 h1:jkIK5DVA2AMbfg/WsTzmvmoNT2SsA4DesysTo75s/EU=
-github.com/willoma/gomplements v0.3.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
-github.com/willoma/gomplements v0.4.0 h1:Q7LmeghO/sNflgzFa5jL90Kt8Bj7CqP5bJATVk+531s=
-github.com/willoma/gomplements v0.4.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
-github.com/willoma/gomplements v0.5.0 h1:l6zaPHx1ie3RbKsEIvPPx0KKXeExV165/Ll3h0sK47o=
-github.com/willoma/gomplements v0.5.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
-github.com/willoma/gomplements v0.6.0 h1:wXl1FWieE64fd6nJqpeEjdUKaZygpWpfGAQ7WP3tJUI=
-github.com/willoma/gomplements v0.6.0/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
-github.com/willoma/gomplements v0.6.1 h1:JtOVIHFnMXqloflQHafVmsvtqlpf5b+d0Uj18KqrP1k=
-github.com/willoma/gomplements v0.6.1/go.mod h1:G/9prZq6jA7EZwIu0AF27HtULgAbUbOVp9oRhsunpkg=
+github.com/willoma/gomplements v0.6.2-0.20241009103531-e1436bfcc789 h1:iDP8m52dHds6+wr11ARMaN5E9vqOEYseaCpyWXb93o0=
+github.com/willoma/gomplements v0.6.2-0.20241009103531-e1436bfcc789/go.mod h1:FxWghkXXBkJ8Jrrojala85tZyID3fHOPEl5WqCJFmc4=
+maragu.dev/gomponents v1.0.0-beta1 h1:I51NqKfrtQC4GxuWShqW5CT5BrfToMEueLD76IhdSXs=
+maragu.dev/gomponents v1.0.0-beta1/go.mod h1:oEDahza2gZoXDoDHhw8jBNgH+3UR5ni7Ur648HORydM=

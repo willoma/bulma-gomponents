@@ -4,9 +4,9 @@ import (
 	"io"
 	"sync"
 
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/html"
 )
 
 // TCell creates a table cell.

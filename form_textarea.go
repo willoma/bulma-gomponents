@@ -3,9 +3,9 @@ package bulma
 import (
 	"strconv"
 
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/html"
 )
 
 // Textarea creates a textarea element.

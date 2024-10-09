@@ -4,7 +4,7 @@ import (
 	"embed"
 	"net/http"
 
-	"github.com/maragudk/gomponents/html"
+	"maragu.dev/gomponents/html"
 
 	b "github.com/willoma/bulma-gomponents"
 )

@@ -1,9 +1,9 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/html"
 )
 
 // Radio creates a radio element, together with its label container.
