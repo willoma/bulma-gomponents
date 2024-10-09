@@ -24,12 +24,22 @@ var other = c.NewPage(
 ).Section(
 	"Positioning helpers",
 	"",
-
+	e.P("These helpers are not documented in the Bulma documentation"),
 	c.Modifiers(
 		c.Row("b.PositionAbsolute", "Remove the element from the document flow and position it relative to its closed positioned ancestor (", e.Strong("absolute positioning"), ")"),
 		c.Row("b.PositionFixed", "Remove the element from the document flow and position it relative to the viewport (", e.Strong("fixed positioning"), ")"),
 		c.Row("b.PositionRelative", "Position the element according to the document flow and offset relative to itself (", e.Strong("relative positioning"), ")"),
 		c.Row("b.PositionStatic", "Position the element according to the document flow with no offset (", e.Strong("static positioning"), ")"),
 		c.Row("b.PositionSticky", "Position the element according to the document flow and offset relative to its nearest scrolling ancestor (", e.Strong("sticky positioning"), ")"),
+	),
+).Section(
+	"Radius helpers",
+	"",
+	e.P("These helpers are not documented in the Bulma documentation"),
+	c.Modifiers(
+		c.Row("b.RadiusSmall", "Apply a small radius to the element"),
+		c.Row("b.RadiusNormal", "Apply a normal radius to the element"),
+		c.Row("b.RadiusLarge", "Apply a large radius to the element"),
+		c.Row("b.RadiusRounded", "Apply a rounded radius to the element"),
 	),
 )
