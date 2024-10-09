@@ -6,8 +6,8 @@ import (
 	"github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/alecthomas/chroma/v2/lexers"
 	"github.com/alecthomas/chroma/v2/styles"
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 
 	b "github.com/willoma/bulma-gomponents"
 )

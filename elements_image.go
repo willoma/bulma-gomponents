@@ -1,8 +1,8 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 
 	c "bulma-gomponents.docs/components"
 	b "github.com/willoma/bulma-gomponents"

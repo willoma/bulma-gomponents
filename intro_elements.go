@@ -1,9 +1,9 @@
 package docs
 
 import (
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/html"
 
 	c "bulma-gomponents.docs/components"
 	b "github.com/willoma/bulma-gomponents"
@@ -54,8 +54,8 @@ var elements = c.NewPage(
 	),
 	c.Example(
 		`import (
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/html"
 	b "github.com/willoma/bulma-gomponents"
 	"github.com/willoma/bulma-gomponents/fa"
 )
