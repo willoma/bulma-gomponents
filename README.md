@@ -17,8 +17,9 @@ interfaces, without the need to write HTML, CSS or JS code. It fits well with
 
 ## Documentation
 
-To run the documentation server locally, execute:
+To run the documentation server locally, switch to the `docs` branch and run `cmd/serve`, execute:
 
 ```shell
-go run docs/cmd/*.go
+git checkout docs
+go run cmd/serve/main.go
 ```
