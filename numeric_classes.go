@@ -97,10 +97,13 @@ func RowGap(gap GapSize) e.Class {
 	return e.Class("is-row-gap-" + g)
 }
 
-type cols ResponsiveClass
+type ColsDef struct {
+	ResponsiveClass
+}
 
-func Cols(num ColNum) ResponsiveClass {
-	return ResponsiveClass(cols("has-" + num.String() + "-cols"))
+// Cols defines the columns count for a fixed grid
+func Cols(num ColNum) ColsDef {
+	return ColsDef{ResponsiveClass("has-" + num.String() + "-cols")}
 }
 
 // Offset defines the numeric offset for a Column. Accepted values are 1 to 11.
