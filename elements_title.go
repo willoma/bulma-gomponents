@@ -5,6 +5,18 @@ import (
 	e "github.com/willoma/gomplements"
 )
 
+// TitleLevel is used for thtle level, it corresponds to h1 to h6
+type TitleLevel int
+
+const (
+	TitleLevel1 TitleLevel = 1
+	TitleLevel2 TitleLevel = 2
+	TitleLevel3 TitleLevel = 3
+	TitleLevel4 TitleLevel = 4
+	TitleLevel5 TitleLevel = 5
+	TitleLevel6 TitleLevel = 6
+)
+
 // Title creates a h1 title.
 //
 // https://willoma.github.io/bulma-gomponents/title.html
@@ -34,19 +46,19 @@ type title struct {
 func (t *title) With(children ...any) e.Element {
 	for _, c := range children {
 		switch c := c.(type) {
-		case int:
+		case TitleLevel:
 			switch c {
-			case 1:
+			case TitleLevel1:
 				t.Element.With(html.H1, e.Class("is-1"))
-			case 2:
+			case TitleLevel2:
 				t.Element.With(html.H2, e.Class("is-2"))
-			case 3:
+			case TitleLevel3:
 				t.Element.With(html.H3, e.Class("is-3"))
-			case 4:
+			case TitleLevel4:
 				t.Element.With(html.H4, e.Class("is-4"))
-			case 5:
+			case TitleLevel5:
 				t.Element.With(html.H5, e.Class("is-5"))
-			case 6:
+			case TitleLevel6:
 				t.Element.With(html.H6, e.Class("is-6"))
 			}
 		case []any:
