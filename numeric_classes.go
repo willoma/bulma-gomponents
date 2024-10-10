@@ -16,7 +16,7 @@ func (c ColNum) String() string {
 		return "end"
 	}
 
-	return strconv.FormatInt(int64(c), 10)
+	return strconv.Itoa(int(c))
 }
 
 // ColFromEnd defines the column number from the end of the grid for a Cell.
@@ -139,7 +139,7 @@ func FontSize(size int) ResponsiveClass {
 		return ""
 	}
 
-	return ResponsiveClass("is-size-" + strconv.FormatInt(int64(size), 10))
+	return ResponsiveClass("is-size-" + strconv.Itoa(size))
 }
 
 // FlexGrow defines the flex-grow value of any child of an element with Flex.
@@ -149,7 +149,7 @@ func FlexGrow(size int) e.Class {
 		return ""
 	}
 
-	return e.Class("is-flex-grow-" + strconv.FormatInt(int64(size), 10))
+	return e.Class("is-flex-grow-" + strconv.Itoa(size))
 }
 
 // FlexShrink defines the flex-shrink value of any child of an element with Flex.
@@ -159,5 +159,5 @@ func FlexShrink(size int) e.Class {
 		return ""
 	}
 
-	return e.Class("is-flex-shrink-" + strconv.FormatInt(int64(size), 10))
+	return e.Class("is-flex-shrink-" + strconv.Itoa(size))
 }
