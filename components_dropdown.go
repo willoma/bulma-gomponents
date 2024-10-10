@@ -133,7 +133,6 @@ var dropdown = c.NewPage(
 ).Subsection(
 	"Hoverable or Toggable",
 	"https://bulma.io/documentation/components/dropdown/#hoverable-or-toggable",
-	b.Content(e.P(e.Em("Bulma-Gomponents"), " provides the", e.Code("easy.ClickableDropdown"), " and ", e.Code("easy.HoverableDropdown"), "variants:")),
 	c.Example(
 		`b.Dropdown(
 	b.Clickable,
