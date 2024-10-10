@@ -559,6 +559,9 @@ var (
 	TextWhiteTer    Color = partColor{name: "white-ter", text: true}
 	TextWhiteBis    Color = partColor{name: "white-bis", text: true}
 
+	TextCurrent Color = partColor{name: "current", text: true}
+	TextInherit Color = partColor{name: "inherit", text: true}
+
 	BackgroundWhite       Color = partColor{name: "white"}
 	BackgroundWhiteInvert Color = partColor{name: "white", invert: true}
 	BackgroundBlack       Color = partColor{name: "black"}
@@ -962,4 +965,7 @@ var (
 	BackgroundGreyLighter Color = partColor{name: "grey-lighter"}
 	BackgroundWhiteTer    Color = partColor{name: "white-ter"}
 	BackgroundWhiteBis    Color = partColor{name: "white-bis"}
+
+	BackgroundCurrent Color = partColor{name: "current"}
+	BackgroundInherit Color = partColor{name: "inherit"}
 )
