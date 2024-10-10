@@ -85,6 +85,8 @@ func (o *option) With(children ...any) e.Element {
 		case e.Class:
 			if c == Selected {
 				o.Element.With(html.Selected())
+			} else {
+				o.Element.With(c)
 			}
 		case []any:
 			o.With(c...)
