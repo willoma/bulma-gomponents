@@ -41,7 +41,7 @@ var dropdown = c.NewPage(
 			c.RowDefault("Apply child to the ", e.Code(`<div class="dropdown">`), " element"),
 		),
 		e.P(
-			"The ", e.Code("b.DropdownButton"), " constructor creates a button to be used as a dropdown trigger. It automatically adds a Font Awesome icon to the right if no icon is provided.",
+			"The ", e.Code("b.DropdownButton"), " constructor creates a button to be used as a dropdown trigger, with a Font Awesome caret icon to the right.",
 		),
 		e.P(
 			"The ", e.Code("b.DropdownItem"), " constructor creates a dropdown item.",
