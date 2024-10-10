@@ -58,7 +58,7 @@ const (
 	FourFifths                 = ResponsiveClass("is-four-fifths")           // Column
 	Full                       = ResponsiveClass("is-full")                  // Column
 	FullHD                     = e.Class("is-fullhd")                        // Container
-	FullHeight                 = e.Class("is-fullheight")                    // Hero
+	FullHeight                 = e.Class("is-fullheight")                    // Hero, Section
 	FullHeightWithNavbar       = e.Class("is-fullheight-with-navbar")        // Hero
 	FullWidth                  = e.Class("is-fullwidth")                     // Button*, Image, ImageImg, Table, Tabs, File, Select
 	Gapless                    = e.Class("is-gapless")                       // Columns
