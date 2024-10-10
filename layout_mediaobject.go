@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
@@ -22,8 +21,6 @@ type media struct {
 	left    e.Element
 	content e.Element
 	right   e.Element
-
-	rendered sync.Once
 }
 
 func (m *media) addToLeft(children ...any) {
@@ -77,21 +74,21 @@ func (m *media) With(children ...any) e.Element {
 }
 
 func (m *media) Render(w io.Writer) error {
-	m.rendered.Do(func() {
-		if m.left != nil {
-			m.media.With(m.left)
-		}
+	media := m.media.Clone()
 
-		if m.content != nil {
-			m.media.With(m.content)
-		}
+	if m.left != nil {
+		media.With(m.left)
+	}
 
-		if m.right != nil {
-			m.media.With(m.right)
-		}
-	})
+	if m.content != nil {
+		media.With(m.content)
+	}
 
-	return m.media.Render(w)
+	if m.right != nil {
+		media.With(m.right)
+	}
+
+	return media.Render(w)
 }
 
 func (m *media) Clone() e.Element {

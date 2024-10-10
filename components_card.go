@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
@@ -24,7 +23,6 @@ type card struct {
 	footer  e.Element
 
 	currentContent e.Element
-	rendered       sync.Once
 }
 
 func (c *card) addToCurrentContent(children ...any) {
@@ -99,23 +97,23 @@ func (c *card) With(children ...any) e.Element {
 }
 
 func (c *card) Render(w io.Writer) error {
-	c.rendered.Do(func() {
-		c.flushCurrentContent()
+	c.flushCurrentContent()
 
-		if c.header != nil {
-			c.card.With(c.header)
-		}
+	card := c.card.Clone()
 
-		if c.content != nil {
-			c.card.With(c.content...)
-		}
+	if c.header != nil {
+		card.With(c.header)
+	}
 
-		if c.footer != nil {
-			c.card.With(c.footer)
-		}
-	})
+	if c.content != nil {
+		card.With(c.content...)
+	}
 
-	return c.card.Render(w)
+	if c.footer != nil {
+		card.With(c.footer)
+	}
+
+	return card.Render(w)
 }
 
 func (c *card) Clone() e.Element {

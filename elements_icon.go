@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -22,7 +21,6 @@ type icon struct {
 	icon e.Element
 
 	iconClass e.Class
-	rendered  sync.Once
 }
 
 func (i *icon) SetIconClass(c e.Class) {
@@ -45,11 +43,7 @@ func (i *icon) With(children ...any) e.Element {
 }
 
 func (i *icon) Render(w io.Writer) error {
-	i.rendered.Do(func() {
-		i.With(i.iconClass)
-	})
-
-	return i.icon.Render(w)
+	return i.icon.Clone().With(i.iconClass).Render(w)
 }
 
 func (i *icon) Clone() e.Element {

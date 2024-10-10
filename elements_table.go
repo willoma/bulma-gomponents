@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	"github.com/maragudk/gomponents/html"
@@ -144,8 +143,6 @@ type table struct {
 	head  e.Element
 	body  e.Element
 	foot  e.Element
-
-	rendered sync.Once
 }
 
 func (t *table) addToHead(children ...any) {
@@ -198,19 +195,19 @@ func (t *table) With(children ...any) e.Element {
 }
 
 func (t *table) Render(w io.Writer) error {
-	t.rendered.Do(func() {
-		if t.head != nil {
-			t.table.With(t.head)
-		}
-		if t.body != nil {
-			t.table.With(t.body)
-		}
-		if t.foot != nil {
-			t.table.With(t.foot)
-		}
-	})
+	table := t.table.Clone()
 
-	return t.table.Render(w)
+	if t.head != nil {
+		table.With(t.head)
+	}
+	if t.body != nil {
+		table.With(t.body)
+	}
+	if t.foot != nil {
+		table.With(t.foot)
+	}
+
+	return table.Render(w)
 }
 
 func (t *table) Clone() e.Element {

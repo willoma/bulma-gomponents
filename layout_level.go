@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
@@ -21,8 +20,6 @@ type level struct {
 	level e.Element
 	left  e.Element
 	right e.Element
-
-	rendered sync.Once
 }
 
 func (l *level) addToLeft(children ...any) {
@@ -68,16 +65,16 @@ func (l *level) With(children ...any) e.Element {
 }
 
 func (l *level) Render(w io.Writer) error {
-	l.rendered.Do(func() {
-		if l.left != nil {
-			l.level.With(l.left)
-		}
-		if l.right != nil {
-			l.level.With(l.right)
-		}
-	})
+	level := l.level.Clone()
 
-	return l.level.Render(w)
+	if l.left != nil {
+		level.With(l.left)
+	}
+	if l.right != nil {
+		level.With(l.right)
+	}
+
+	return level.Render(w)
 }
 
 func (l *level) Clone() e.Element {

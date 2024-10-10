@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
@@ -36,10 +35,10 @@ type dropdown struct {
 	menu     e.Element
 	content  e.Element
 
-	up        bool
-	clickable bool
-	button    e.Element
-	rendered  sync.Once
+	up                  bool
+	clickable           bool
+	blurAppliedToButton bool
+	button              e.Element
 }
 
 func (d *dropdown) With(childran ...any) e.Element {
@@ -97,7 +96,7 @@ func (d *dropdown) With(childran ...any) e.Element {
 }
 
 func (d *dropdown) Render(w io.Writer) error {
-	d.rendered.Do(func() {
+	if !d.blurAppliedToButton {
 		if d.button != nil {
 			if d.up {
 				if ddb, ok := d.button.(*dropdownButton); ok {
@@ -109,7 +108,9 @@ func (d *dropdown) Render(w io.Writer) error {
 				d.button.With(e.On("blur", JSCloseThisDropdown))
 			}
 		}
-	})
+
+		d.blurAppliedToButton = true
+	}
 
 	return d.dropdown.Render(w)
 }

@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
@@ -26,8 +25,6 @@ type message struct {
 	message e.Element
 	header  e.Element
 	body    e.Element
-
-	rendered sync.Once
 
 	title  MessageTitle
 	delete e.Element
@@ -72,13 +69,15 @@ func (m *message) With(children ...any) e.Element {
 }
 
 func (m *message) Render(w io.Writer) error {
-	m.rendered.Do(func() {
-		if m.header != nil {
-			m.message.With(m.header)
-		}
-		m.message.With(m.body)
-	})
-	return m.message.Render(w)
+	message := m.message.Clone()
+
+	if m.header != nil {
+		message.With(m.header)
+	}
+
+	message.With(m.body)
+
+	return message.Render(w)
 }
 
 func (m *message) Clone() e.Element {

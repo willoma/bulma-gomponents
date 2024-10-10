@@ -2,7 +2,6 @@ package fa
 
 import (
 	"io"
-	"sync"
 
 	b "github.com/willoma/bulma-gomponents"
 	e "github.com/willoma/gomplements"
@@ -58,8 +57,6 @@ type fa struct {
 	e.Element
 
 	rotateOrFlips []any
-
-	rendered sync.Once
 }
 
 func (f *fa) With(children ...any) e.Element {
@@ -82,13 +79,11 @@ func (f *fa) With(children ...any) e.Element {
 }
 
 func (f *fa) Render(w io.Writer) error {
-	f.rendered.Do(func() {
-		if len(f.rotateOrFlips) > 0 {
-			f.Element.With(f.rotateOrFlips[len(f.rotateOrFlips)-1])
-		}
-	})
+	elem := f.Element.Clone()
 
-	elem := f.Element
+	if len(f.rotateOrFlips) > 0 {
+		elem.With(f.rotateOrFlips[len(f.rotateOrFlips)-1])
+	}
 
 	for i := len(f.rotateOrFlips) - 2; i >= 0; i-- {
 		elem = e.Span(e.Style("display", "inline-block"), f.rotateOrFlips[i], elem)
