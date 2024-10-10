@@ -711,7 +711,7 @@ b.Columns(
 ).Subsection(
 	"Variable gap",
 	"https://bulma.io/documentation/columns/gap/#variable-gap",
-	b.Content(e.P("Use ", e.Code("b.ColumnGap(0)"), " to ", e.Code("b.ColumnGap(8)"), ". The ", e.Code("is-variable"), " class is automatically set.")),
+	b.Content(e.P("Use ", e.Code("b.ColumnGap(0)"), " to ", e.Code("b.ColumnGap(8)"), ".")),
 ).Subsection(
 	"Breakpoint based column gaps",
 	"https://bulma.io/documentation/columns/gap/#breakpoint-based-column-gaps",
