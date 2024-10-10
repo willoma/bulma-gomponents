@@ -24,12 +24,15 @@ var (
 	colorHTMLLexer = lexers.Get("html")
 )
 
+var CellStyle = []any{
+	b.PaddingVertical(3), b.PaddingHorizontal(4),
+	b.BackgroundPrimary, b.TextPrimaryInvert,
+	b.RadiusNormal,
+}
+
 func ColParagraph(children ...any) e.Element {
 	return e.P(
-		e.Styles{
-			"outline":       "1px dashed #36b6e0",
-			"border-radius": "0.25em",
-		},
+		CellStyle,
 		b.TextCentered,
 		children,
 	)

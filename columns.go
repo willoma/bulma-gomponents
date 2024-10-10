@@ -100,7 +100,7 @@ var columns = c.NewPage(
 ).Section(
 	"Bulma example: Basics", "https://bulma.io/documentation/columns/basics/",
 
-	c.Example(
+	c.HorizontalExample(
 		`b.Columns(
 	b.Column(e.P("First column")),
 	e.P("Second column"),
@@ -117,7 +117,7 @@ var columns = c.NewPage(
 ).Section(
 	"Bulma examples: Sizes", "https://bulma.io/documentation/columns/sizes/",
 
-	c.Example(
+	c.HorizontalExample(
 		`b.Columns(
 	b.Column(
 		b.SizeFourFifths,
@@ -501,7 +501,7 @@ b.Columns(
 ).Section(
 	"Bulma examples: Nesting", "https://bulma.io/documentation/columns/nesting/",
 
-	c.Example(
+	c.HorizontalExample(
 		`b.Columns(
 	b.Column(
 		e.P(
