@@ -127,65 +127,39 @@ func (d *dropdown) Clone() e.Element {
 	}
 }
 
-// DropdownButton creates a button to be used as a dropdown trigger. It automatically adds a Font Awesome icon to the right if no icon is provided.
+// DropdownButton creates a button to be used as a dropdown trigger, with a Font Awesome caret icon to the right.
 //
 // https://willoma.github.io/bulma-gomponents/dropdown.html
 func DropdownButton(children ...any) e.Element {
 	d := &dropdownButton{
-		button: Button(e.AriaHasPopupTrue),
+		Element: Button(e.AriaHasPopupTrue, children),
 	}
-	d.With(children...)
 	return d
 }
 
 type dropdownButton struct {
-	button  e.Element
-	hasIcon bool
-	up      bool
-
-	rendered sync.Once
-}
-
-func (d *dropdownButton) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case IconElem:
-			d.hasIcon = true
-			d.button.With(c)
-		case []any:
-			d.With(c...)
-		default:
-			d.button.With(c)
-		}
-	}
-
-	return d
+	e.Element
+	up bool
 }
 
 func (d *dropdownButton) Render(w io.Writer) error {
-	d.rendered.Do(func() {
-		if !d.hasIcon {
-			var iconName string
-			if d.up {
-				iconName = "fa-angle-up"
-			} else {
-				iconName = "fa-angle-down"
-			}
-			d.button.With(
-				Icon(
-					e.I(Small, e.Class("fa-solid"), e.Class(iconName)),
-				),
-			)
-		}
-	})
+	var iconName string
+	if d.up {
+		iconName = "fa-angle-up"
+	} else {
+		iconName = "fa-angle-down"
+	}
 
-	return d.button.Render(w)
+	return d.Element.Clone().With(
+		Icon(
+			e.I(Small, e.Class("fa-solid"), e.Class(iconName)),
+		),
+	).Render(w)
 }
 
 func (d *dropdownButton) Clone() e.Element {
 	return &dropdownButton{
-		button:  d.button.Clone(),
-		hasIcon: d.hasIcon,
+		Element: d.Element.Clone(),
 		up:      d.up,
 	}
 }
