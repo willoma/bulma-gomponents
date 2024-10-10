@@ -114,6 +114,7 @@ const (
 	Loading                    = e.Class("is-loading")                       // Button*, Input*, Select, SelectMultiple
 	Lowercase                  = e.Class("is-lowercase")                     // any text element
 	MaxDesktop                 = e.Class("is-max-desktop")                   // Container
+	MaxTablet                  = e.Class("is-max-tablet")                    // Container
 	MaxWidescreen              = e.Class("is-max-widescreen")                // Container
 	Medium                     = e.Class("is-medium")                        // Button*, Buttons, Content, Delete, Icon, Tag, Breadcrumb, Pagination, File, Hero, Section
 	Mobile                     = e.Class("is-mobile")                        // Columns, Level
