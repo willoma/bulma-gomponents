@@ -34,19 +34,19 @@ var section = c.NewPage(
 	c.Example(
 		`b.Section(
 	b.Medium,
-	b.Title("Section"),
+	b.Title("Medium section"),
 	b.Subtitle("A simple container to divide your page into ", e.Strong("sections"), ", like the one you're currently reading."),
 )`,
 		b.Section(
 			b.Medium,
-			b.Title("Section"),
+			b.Title("Medium section"),
 			b.Subtitle("A simple container to divide your page into ", e.Strong("sections"), ", like the one you're currently reading."),
 		),
 	),
 	c.Example(
 		`b.Section(
 	b.Large,
-	b.Title("Medium section"),
+	b.Title("Large section"),
 	b.Subtitle("A simple container to divide your page into ", e.Strong("sections"), ", like the one you're currently reading."),
 )`,
 		b.Section(
