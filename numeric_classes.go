@@ -123,12 +123,14 @@ func Size(size ColNum) ResponsiveClass {
 }
 
 // ColumnGap defines the gap size for Columns. Accepted values are 0 to 8.
-func ColumnGap(gap int) *ResponsiveClasses {
-	if gap < 0 || gap > 8 {
-		return &ResponsiveClasses{}
+func ColumnGap(gap int) ResponsiveClass {
+	if gap < 0 {
+		gap = 0
+	} else if gap > 8 {
+		gap = 8
 	}
 
-	return &ResponsiveClasses{[]string{"is-" + strconv.FormatInt(int64(gap), 10)}, []string{"is-variable"}}
+	return ResponsiveClass("is-" + strconv.Itoa(gap))
 }
 
 // FontSize defines the font size. Accepted values are 1 to 7.
