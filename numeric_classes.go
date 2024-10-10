@@ -6,9 +6,9 @@ import (
 	e "github.com/willoma/gomplements"
 )
 
-// ColNum is used for classes based on column numbers (ColMin, ColSpan, Offset,
-// etc - things related to Grid or Columns). Values may be 1 to 12. Any other
-// value will be treated as "end", which may be used for ColStart and RowStart.
+// ColNum is used for classes based on column numbers (ColSpan, Offset, etc -
+// things related to Grid or Columns). Values may be 1 to 12. Any other value
+// will be treated as "end", which may be used for ColStart and RowStart.
 type ColNum int
 
 func (c ColNum) String() string {
@@ -24,9 +24,15 @@ func ColFromEnd(end ColNum) ResponsiveClass {
 	return ResponsiveClass("is-col-from-end-" + end.String())
 }
 
-// ColMin defines the minimum column width for a Grid.
-func ColMin(min ColNum) e.Class {
-	return e.Class("is-col-min-" + min.String())
+// ColMin defines the minimum column width for a Grid (valid values are 1 to 32).
+func ColMin(min int) e.Class {
+	if min < 1 {
+		min = 1
+	} else if min > 32 {
+		min = 32
+	}
+
+	return e.Class("is-col-min-" + strconv.Itoa(min))
 }
 
 // ColSpan defines the number of columns to span over for a Cell.
