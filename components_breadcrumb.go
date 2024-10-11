@@ -75,25 +75,3 @@ func BreadcrumbAHref(href string, children ...any) e.Element {
 
 	return e.Li(ahref)
 }
-
-type breadcrumbAHref struct {
-	e.Element
-}
-
-func (b *breadcrumbAHref) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case e.Class:
-			if c == Active {
-				b.Element.With(e.AriaCurrentPage)
-			}
-			b.With(c)
-		case []any:
-			b.With(c...)
-		default:
-			b.Element.With(c)
-		}
-	}
-
-	return b
-}

@@ -79,26 +79,3 @@ func newIconText(fn func(...gomponents.Node) gomponents.Node, children ...any) e
 	i.With(children...)
 	return i
 }
-
-type iconText struct {
-	e.Element
-}
-
-func (i *iconText) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case Color:
-			i.Element.With(c.Text())
-		case []any:
-			i.With(c...)
-		default:
-			i.Element.With(c)
-		}
-	}
-
-	return i
-}
-
-func (i *iconText) Clone() e.Element {
-	return &iconText{i.Element.Clone()}
-}

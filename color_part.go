@@ -47,17 +47,6 @@ func (c partColor) If(cond bool) Color {
 	return partColor{}
 }
 
-type conditionalPartColor struct {
-	color partColor
-	cond  bool
-}
-
-func (c conditionalPartColor) ModifyParent(p e.Element) {
-	if c.cond {
-		p.With(c.color)
-	}
-}
-
 func (c partColor) Base() Color {
 	return baseColor{
 		name:    c.name,
