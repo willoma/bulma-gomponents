@@ -8,9 +8,9 @@ github.com/dlclark/regexp2 v1.11.0 h1:G/nrcoOa7ZXlpoa/91N3X7mM3r8eIlMBBJZvsz/mxK
 github.com/dlclark/regexp2 v1.11.0/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
 github.com/hexops/gotextdiff v1.0.3/go.mod h1:pSWU5MAI3yDq+fZBTazCSJysOMbxWL1BSow5/V2vxeg=
-github.com/willoma/bulma-gomponents v0.11.2-0.20241009104459-69c28f3f9fc2 h1:5CGHpv71ulOO/qis8p/gDWidgJQIdHr+GDt/x64BdEI=
-github.com/willoma/bulma-gomponents v0.11.2-0.20241009104459-69c28f3f9fc2/go.mod h1:R4tXaZjHeRnsxVyepYxbrs5RCUsPoUrOdl8qnrq6v78=
-github.com/willoma/gomplements v0.6.2-0.20241009103531-e1436bfcc789 h1:iDP8m52dHds6+wr11ARMaN5E9vqOEYseaCpyWXb93o0=
-github.com/willoma/gomplements v0.6.2-0.20241009103531-e1436bfcc789/go.mod h1:FxWghkXXBkJ8Jrrojala85tZyID3fHOPEl5WqCJFmc4=
-maragu.dev/gomponents v1.0.0-beta1 h1:I51NqKfrtQC4GxuWShqW5CT5BrfToMEueLD76IhdSXs=
-maragu.dev/gomponents v1.0.0-beta1/go.mod h1:oEDahza2gZoXDoDHhw8jBNgH+3UR5ni7Ur648HORydM=
+github.com/willoma/bulma-gomponents v0.13.0 h1:2l3t354lcG2P3bGzCscaoTBzhENZxt+fNFIeUb4l1+Q=
+github.com/willoma/bulma-gomponents v0.13.0/go.mod h1:UyHpsnXNr1ekHlF+730EoNPBTlJfexR8/dd2UWnZQD0=
+github.com/willoma/gomplements v0.8.0 h1:WIf8K18LHDiGbhYFg2OL8d8NrNnLgtym5MLF2IkMSCw=
+github.com/willoma/gomplements v0.8.0/go.mod h1:oCdic+eK6q5s8EfGrqnimTYB2qOWrOt8PaI2twu4tFM=
+maragu.dev/gomponents v1.0.0 h1:eeLScjq4PqP1l+r5z/GC+xXZhLHXa6RWUWGW7gSfLh4=
+maragu.dev/gomponents v1.0.0/go.mod h1:oEDahza2gZoXDoDHhw8jBNgH+3UR5ni7Ur648HORydM=

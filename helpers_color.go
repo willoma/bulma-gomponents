@@ -286,6 +286,14 @@ var color = c.NewPage(
 			c.Row("b.BackgroundDangerLight", "Danger color in its light variant on the background"),
 			c.Row("b.BackgroundInfo, b.TextInfoInvert", "Info color on the background and a decent-looking color for the text"),
 		),
+		e.P("You can also ", e.Strong("inherit"), " the color, or use the ", e.Strong("current"), " one:"),
+		c.Table(
+			b.HeadRow("Class", "Value"),
+			c.Row("b.TextCurrent", "currentColor"),
+			c.Row("b.TextInherit", "inherit"),
+			c.Row("b.BackgroundCurrent", "currentColor"),
+			c.Row("b.BackgroundInherit", "inherit"),
+		),
 	),
 ).Section(
 	"Variant generation", "",

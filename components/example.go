@@ -12,7 +12,8 @@ import (
 	b "github.com/willoma/bulma-gomponents"
 )
 
-const warningDark = "hsl(48, 100%, 29%)"
+// Color code from https://bulma.io/documentation/helpers/color-helpers/
+const colorInfo = "hsl(217, 71%, 45%)"
 
 var (
 	colorFormatter = html.New(
@@ -24,12 +25,15 @@ var (
 	colorHTMLLexer = lexers.Get("html")
 )
 
+var CellStyle = []any{
+	b.PaddingVertical(3), b.PaddingHorizontal(4),
+	b.BackgroundPrimary, b.TextPrimaryInvert,
+	b.RadiusNormal,
+}
+
 func ColParagraph(children ...any) e.Element {
 	return e.P(
-		e.Styles{
-			"outline":       "1px dashed #36b6e0",
-			"border-radius": "0.25em",
-		},
+		CellStyle,
 		b.TextCentered,
 		children,
 	)
@@ -38,8 +42,8 @@ func ColParagraph(children ...any) e.Element {
 func exampleContainer(children ...any) e.Element {
 	return b.Block(
 		e.Styles{
-			"border-left":   "1em solid " + warningDark,
-			"border-right":  "0.25em solid " + warningDark,
+			"border-left":   "1em solid " + colorInfo,
+			"border-right":  "0.25em solid " + colorInfo,
 			"border-radius": "1.2em 0.5em 0.5em 1.2em",
 			"position":      "relative",
 			"padding-left":  "0.2em",
@@ -81,7 +85,7 @@ func Example(code string, result ...any) e.Element {
 				resultTags(),
 				e.Div(
 					e.Styles{"position": "relative"},
-					e.Div(result...),
+					e.Div(e.Class("result"), result),
 					htmlPre(result),
 				),
 			),
@@ -97,11 +101,12 @@ func HorizontalExample(code string, result ...any) e.Element {
 			resultTags(),
 			e.Div(
 				e.Styles{"position": "relative"},
-				e.Div(result...),
+				e.Div(e.Class("result"), result),
 				htmlPre(result),
 			),
 		),
 		e.Div(
+			b.MarginTop(2),
 			b.Clipped,
 			codeTag(),
 			ExamplePre(code),
@@ -111,22 +116,40 @@ func HorizontalExample(code string, result ...any) e.Element {
 
 func codeTag() e.Element {
 	return b.Tags(
-		b.MarginBottom(1),
-		b.Tag(b.Primary, "Code", b.MarginBottom(0)),
+		b.MarginBottom(0),
+		b.Tag(
+			b.GreyLight, "Code", b.WeightBold, b.MarginBottom(0),
+			e.Styles{
+				"border-bottom-left-radius":  "0",
+				"border-bottom-right-radius": "0",
+			},
+		),
 	)
 }
 
 func resultTags() e.Element {
 	return b.Tags(
 		b.MarginBottom(1),
-		b.Tag(b.Info, "Result", b.MarginBottom(0)),
+		b.Tag(
+			b.Info, "Result",
+			b.MarginBottom(0),
+			b.Clickable,
+			e.OnClick(`
+				this.closest(".exampleresult").getElementsByClassName("html")[0].classList.toggle("is-hidden")
+				this.closest(".exampleresult").getElementsByClassName("result")[0].classList.toggle("is-invisible")
+				this.classList.toggle("is-light")
+				this.nextSibling.classList.toggle("is-light")
+			`),
+		),
 		b.Tag(
 			b.WarningLight, "HTML",
 			b.MarginBottom(0),
-			e.Styles{"cursor": "pointer"},
+			b.Clickable,
 			e.OnClick(`
-			this.closest(".exampleresult").getElementsByClassName("html")[0].classList.toggle("is-hidden")
-			this.classList.toggle("is-light")
+				this.closest(".exampleresult").getElementsByClassName("html")[0].classList.toggle("is-hidden")
+				this.closest(".exampleresult").getElementsByClassName("result")[0].classList.toggle("is-invisible")
+				this.previousSibling.classList.toggle("is-light")
+				this.classList.toggle("is-light")
 			`),
 		),
 	)
@@ -158,6 +181,7 @@ func htmlPre(elements []any) e.Element {
 		b.Hidden,
 		e.Class("html"),
 		b.Padding(2),
+		b.BackgroundWarning,
 		e.Styles{
 			"position": "absolute",
 			"width":    "100%",

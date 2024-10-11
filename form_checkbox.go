@@ -40,4 +40,26 @@ var formCheckbox = c.NewPage(
 		`b.Checkbox(b.Disabled, "Save my preferences")`,
 		b.Checkbox(b.Disabled, "Save my preferences"),
 	),
+).Subsection(
+	"List of Checkboxes", "https://bulma.io/documentation/form/checkbox/#list-of-checkboxes",
+	c.Example(
+		`b.Checkboxes(
+	b.Checkbox("Monday"),
+	b.Checkbox("Tuesday"),
+	b.Checkbox("Wednesday"),
+	b.Checkbox("Thursday"),
+	b.Checkbox("Friday"),
+	b.Checkbox("Saturday", b.Checked),
+	b.Checkbox("Sunday", b.Checked),
+)`,
+		b.Checkboxes(
+			b.Checkbox("Monday"),
+			b.Checkbox("Tuesday"),
+			b.Checkbox("Wednesday"),
+			b.Checkbox("Thursday"),
+			b.Checkbox("Friday"),
+			b.Checkbox("Saturday", b.Checked),
+			b.Checkbox("Sunday", b.Checked),
+		),
+	),
 )

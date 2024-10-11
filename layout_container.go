@@ -111,8 +111,24 @@ var container = c.NewPage(
 		),
 	),
 ).Subsection(
-	"Desktop and Widescreen maximum widths",
+	"Tablet, Desktop and Widescreen maximum widths",
 	"https://bulma.io/documentation/layout/container/#desktop-and-widescreen-maximum-widths",
+	c.HorizontalExample(
+		`b.Container(
+	b.MaxTablet,
+	b.Notification(
+		b.Primary,
+		"This container has a ", e.Code("max-width"), " of ", e.Code("$tablet - $container-offset"), ".",
+	),
+)`,
+		b.Container(
+			b.MaxTablet,
+			b.Notification(
+				b.Primary,
+				"This container has a ", e.Code("max-width"), " of ", e.Code("$tablet - $container-offset"), ".",
+			),
+		),
+	),
 	c.HorizontalExample(
 		`b.Container(
 	b.MaxDesktop,

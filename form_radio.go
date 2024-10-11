@@ -60,4 +60,18 @@ var formRadio = c.NewPage(
 			b.Radio(b.Disabled, e.Name("rsvp"), "Maybe"),
 		),
 	),
+).Subsection(
+	"List of Radio Buttons", "https://bulma.io/documentation/form/radio/#list-of-radio-buttons",
+	c.Example(
+		`b.Radios(
+	b.Radio(e.Name("rsvp"), "Going"),
+	b.Radio(e.Name("rsvp"), "Not going"),
+	b.Radio(b.Disabled, e.Name("rsvp"), "Maybe"),
+)`,
+		b.Radios(
+			b.Radio(e.Name("rsvp"), "Going"),
+			b.Radio(e.Name("rsvp"), "Not going"),
+			b.Radio(b.Disabled, e.Name("rsvp"), "Maybe"),
+		),
+	),
 )

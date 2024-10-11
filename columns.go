@@ -100,7 +100,7 @@ var columns = c.NewPage(
 ).Section(
 	"Bulma example: Basics", "https://bulma.io/documentation/columns/basics/",
 
-	c.Example(
+	c.HorizontalExample(
 		`b.Columns(
 	b.Column(e.P("First column")),
 	e.P("Second column"),
@@ -108,6 +108,7 @@ var columns = c.NewPage(
 	e.P("Fourth column"),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Column(c.ColParagraph("First column")),
 			c.ColParagraph("Second column"),
 			b.Column(c.ColParagraph("Third column")),
@@ -117,7 +118,7 @@ var columns = c.NewPage(
 ).Section(
 	"Bulma examples: Sizes", "https://bulma.io/documentation/columns/sizes/",
 
-	c.Example(
+	c.HorizontalExample(
 		`b.Columns(
 	b.Column(
 		b.SizeFourFifths,
@@ -191,6 +192,7 @@ b.Columns(
 	b.Column(e.P("Auto")),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Column(
 				b.FourFifths,
 				c.ColParagraph("is-four-fifths"),
@@ -321,6 +323,7 @@ b.Columns(
 	),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Mobile,
 			b.Column(
 				b.Half,
@@ -390,6 +393,7 @@ b.Columns(
 	),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Column(
 				b.Narrow,
 				b.Box(
@@ -420,6 +424,7 @@ b.Columns(
 	b.Column(e.P("4")),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Mobile,
 			b.Column(c.ColParagraph("1")),
 			b.Column(c.ColParagraph("2")),
@@ -436,6 +441,7 @@ b.Columns(
 	b.Column(e.P("4")),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Desktop,
 			b.Column(c.ColParagraph("1")),
 			b.Column(c.ColParagraph("2")),
@@ -473,6 +479,7 @@ b.Columns(
 	b.Column(e.P("5")),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Mobile,
 			b.Column(
 				b.ThreeQuarters.Mobile(),
@@ -501,7 +508,7 @@ b.Columns(
 ).Section(
 	"Bulma examples: Nesting", "https://bulma.io/documentation/columns/nesting/",
 
-	c.Example(
+	c.HorizontalExample(
 		`b.Columns(
 	b.Column(
 		e.P(
@@ -554,6 +561,7 @@ b.Columns(
 	),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Column(
 				c.ColParagraph(
 					b.BackgroundInfo,
@@ -619,6 +627,7 @@ b.Columns(
 	b.Column(e.P("No gap")),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Gapless,
 			b.Column(c.ColParagraph("No gap")),
 			b.Column(c.ColParagraph("No gap")),
@@ -668,6 +677,7 @@ b.Columns(
 	),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Gapless,
 			b.Multiline,
 			b.Mobile,
@@ -711,7 +721,7 @@ b.Columns(
 ).Subsection(
 	"Variable gap",
 	"https://bulma.io/documentation/columns/gap/#variable-gap",
-	b.Content(e.P("Use ", e.Code("b.ColumnGap(0)"), " to ", e.Code("b.ColumnGap(8)"), ". The ", e.Code("is-variable"), " class is automatically set.")),
+	b.Content(e.P("Use ", e.Code("b.ColumnGap(0)"), " to ", e.Code("b.ColumnGap(8)"), ".")),
 ).Subsection(
 	"Breakpoint based column gaps",
 	"https://bulma.io/documentation/columns/gap/#breakpoint-based-column-gaps",
@@ -730,6 +740,7 @@ b.Columns(
 	b.Column(e.P("Column")),
 )`,
 		b.Columns(
+			b.MarginTop(0),
 			b.ColumnGap(1).Mobile(),
 			b.ColumnGap(0).Tablet(),
 			b.ColumnGap(3).Desktop(),
@@ -760,6 +771,7 @@ b.Columns(
 		),
 	)`,
 		b.Columns(
+			b.MarginTop(0),
 			b.VCentered,
 			b.Column(
 				b.Size(8),
@@ -814,6 +826,7 @@ b.Columns(
 		),
 	)`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Multiline,
 			b.Mobile,
 			b.Column(
@@ -866,6 +879,7 @@ b.Columns(
 		),
 	)`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Mobile,
 			b.Centered,
 			b.Column(
@@ -921,6 +935,7 @@ b.Columns(
 		),
 	)`,
 		b.Columns(
+			b.MarginTop(0),
 			b.Mobile,
 			b.Multiline,
 			b.Centered,

@@ -83,8 +83,6 @@ type myWeirdElement struct {
 	other e.Element
 
 	weirdOption weirdOption
-
-	rendered sync.Once
 }
 
 func (m *myWeirdElement) With(children ...any) e.Element {
@@ -94,7 +92,7 @@ func (m *myWeirdElement) With(children ...any) e.Element {
 			// Apply classes and styles to content
 			m.container.With(c)
 		case weirdOption:
-			b.weirdOption = weirdOption
+			m.weirdOption = weirdOption
 		case e.Element:
 			// Add element to content
 			m.container.With(c)
@@ -118,11 +116,11 @@ func (m *myWeirdElement) With(children ...any) e.Element {
 }
 
 func (m *myWeirdElement) Render(w io.Writer) error {
-	m.rendered.Do(func() {
-		if m.weirdOption != "" {
-			doSomethingWeird(m.container, m.other)
-		}
-	})
+	container := m.container.Clone()
+	
+	if m.weirdOption != "" {
+		doSomethingWeird(container, m.other)
+	}
 
 	return m.container.Render(w)
 }

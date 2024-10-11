@@ -36,7 +36,8 @@ var formSelect = c.NewPage(
 		c.Children(
 			c.Row("b.OnSelect(...any)", "Apply children to the ", e.Code("<select>"), " element"),
 			c.Row("b.OnDiv(...any)", "Apply children to the ", e.Code(`<div class="select">`), " element"),
-			c.RowDefault("Apply child to the ", e.Code(`<div class="select">`), " element"),
+			c.Row("b.IconElem", "Apply icon to the ", e.Code(`<div class="select">`), " element"),
+			c.RowDefault("Apply child to the ", e.Code("<select>"), " element"),
 		),
 
 		e.P("The ", e.Code("b.Option"), " constructor creates an option element to be used as a child of ", e.Code("b.Select"), "."),
