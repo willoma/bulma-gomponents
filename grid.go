@@ -116,7 +116,7 @@ var grid = c.NewPage(
 	b.Cell("Cell 22"),
 	b.Cell("Cell 23"),
 	b.Cell("Cell 24"),
-`,
+)`,
 		b.Grid(
 			b.Cell(c.CellStyle, "Cell 1"),
 			b.Cell(c.CellStyle, "Cell 2"),
