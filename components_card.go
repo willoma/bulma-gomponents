@@ -54,8 +54,6 @@ func (c *card) addToFooter(children ...any) {
 }
 
 func (c *card) With(children ...any) e.Element {
-	var currentContent []any
-
 	for _, ch := range children {
 		switch ch := ch.(type) {
 		case onCard:
@@ -86,7 +84,7 @@ func (c *card) With(children ...any) e.Element {
 				c.addToCurrentContent(ch)
 			}
 		case []any:
-			currentContent = append(currentContent, ch...)
+			c.addToCurrentContent(ch...)
 
 		default:
 			c.addToCurrentContent(ch)
