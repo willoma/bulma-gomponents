@@ -5,9 +5,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/html"
 
 	b "github.com/willoma/bulma-gomponents"
 	"github.com/willoma/bulma-gomponents/fa"

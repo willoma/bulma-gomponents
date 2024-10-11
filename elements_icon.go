@@ -3,8 +3,8 @@ package docs
 import (
 	"time"
 
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 
 	c "bulma-gomponents.docs/components"
 	b "github.com/willoma/bulma-gomponents"
