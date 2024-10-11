@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	e "github.com/willoma/gomplements"
 	"maragu.dev/gomponents/html"
@@ -25,8 +24,6 @@ type tabs struct {
 	tabs                  e.Element
 	list                  e.Element
 	intermediateContainer *container
-
-	rendered sync.Once
 }
 
 func (t *tabs) With(children ...any) e.Element {
@@ -51,19 +48,15 @@ func (t *tabs) With(children ...any) e.Element {
 }
 
 func (t *tabs) Render(w io.Writer) error {
-	t.rendered.Do(func() {
-		var target e.Element
-		if t.intermediateContainer != nil {
-			target = t.intermediateContainer
-			t.tabs.With(target)
-		} else {
-			target = t.tabs
-		}
+	tabs := t.tabs.Clone()
 
-		target.With(t.list)
-	})
+	if t.intermediateContainer != nil {
+		tabs.With(t.intermediateContainer.Clone().With(t.list))
+	} else {
+		tabs.With(t.list)
+	}
 
-	return t.tabs.Render(w)
+	return tabs.Render(w)
 }
 
 func (t *tabs) Clone() e.Element {

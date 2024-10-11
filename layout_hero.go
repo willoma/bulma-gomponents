@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	e "github.com/willoma/gomplements"
 	"maragu.dev/gomponents"
@@ -22,8 +21,6 @@ type hero struct {
 	head e.Element
 	body e.Element
 	foot e.Element
-
-	rendered sync.Once
 }
 
 func (h *hero) addToHead(children ...any) {
@@ -77,21 +74,21 @@ func (h *hero) With(children ...any) e.Element {
 }
 
 func (h *hero) Render(w io.Writer) error {
-	h.rendered.Do(func() {
-		if h.head != nil {
-			h.hero.With(h.head)
-		}
+	hero := h.hero.Clone()
 
-		if h.body != nil {
-			h.hero.With(h.body)
-		}
+	if h.head != nil {
+		hero.With(h.head)
+	}
 
-		if h.foot != nil {
-			h.hero.With(h.foot)
-		}
-	})
+	if h.body != nil {
+		hero.With(h.body)
+	}
 
-	return h.hero.Render(w)
+	if h.foot != nil {
+		hero.With(h.foot)
+	}
+
+	return hero.Render(w)
 }
 
 func (h *hero) Clone() e.Element {

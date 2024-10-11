@@ -13,5 +13,6 @@ var CSS []byte
 // CSSHandlerFunc is a http handler function that writes the Bulma CSS
 func CSSHandlerFunc(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "text/css")
+	//nolint:errcheck // We have nothing we can do with the erro here...
 	w.Write(CSS)
 }

@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	e "github.com/willoma/gomplements"
 	"maragu.dev/gomponents/html"
@@ -24,9 +23,8 @@ type navbar struct {
 	end                   e.Element
 	intermediateContainer e.Element
 
-	hasMenu  bool
-	fixed    e.Class
-	rendered sync.Once
+	hasMenu bool
+	fixed   e.Class
 }
 
 func (n *navbar) ModifyParent(parent e.Element) {
@@ -91,49 +89,55 @@ func (n *navbar) With(children ...any) e.Element {
 }
 
 func (n *navbar) Render(w io.Writer) error {
-	n.rendered.Do(func() {
-		var target e.Element
-		if n.intermediateContainer != nil {
-			target = n.intermediateContainer
-			n.navbar.With(target)
-		} else {
-			target = n.navbar
+	navbar := n.navbar.Clone()
+
+	var target e.Element
+
+	if n.intermediateContainer != nil {
+		target = n.intermediateContainer.Clone()
+		navbar.With(target)
+	} else {
+		target = navbar
+	}
+
+	var brand e.Element
+	if n.brand != nil {
+		brand = n.brand.Clone()
+		target.With(brand)
+	}
+
+	if n.hasMenu {
+		if brand == nil {
+			brand = e.Div(e.Class("navbar-brand"))
 		}
 
-		if n.brand != nil {
-			target.With(n.brand)
+		brand.With(e.A(
+			e.AriaButton,
+			e.Class("navbar-burger"),
+			e.AriaLabel("menu"),
+			e.AriaExpandedFalse,
+			e.Span(e.AriaHiddenTrue),
+			e.Span(e.AriaHiddenTrue),
+			e.Span(e.AriaHiddenTrue),
+			e.Span(e.AriaHiddenTrue),
+			e.OnClick("this.classList.toggle('is-active');this.closest('.navbar').getElementsByClassName('navbar-menu')[0].classList.toggle('is-active')"),
+		))
+
+		menu := e.Div(e.Class("navbar-menu"))
+
+		if n.start != nil {
+			menu.With(n.start)
 		}
 
-		if n.hasMenu {
-			n.addToBrand(
-				e.A(
-					e.AriaButton,
-					e.Class("navbar-burger"),
-					e.AriaLabel("menu"),
-					e.AriaExpandedFalse,
-					e.Span(e.AriaHiddenTrue),
-					e.Span(e.AriaHiddenTrue),
-					e.Span(e.AriaHiddenTrue),
-					e.Span(e.AriaHiddenTrue),
-					e.OnClick("this.classList.toggle('is-active');this.closest('.navbar').getElementsByClassName('navbar-menu')[0].classList.toggle('is-active')"),
-				),
-			)
-
-			menu := e.Div(e.Class("navbar-menu"))
-
-			if n.start != nil {
-				menu.With(n.start)
-			}
-
-			if n.end != nil {
-				menu.With(n.end)
-			}
-
-			target.With(menu)
+		if n.end != nil {
+			menu.With(n.end)
 		}
-	})
 
-	return n.navbar.Render(w)
+		target.With(menu)
+
+	}
+
+	return navbar.Render(w)
 }
 
 func (n *navbar) Clone() e.Element {

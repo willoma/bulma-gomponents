@@ -6,9 +6,9 @@ import (
 	e "github.com/willoma/gomplements"
 )
 
-// ColNum is used for classes based on column numbers (ColMin, ColSpan, Offset,
-// etc - things related to Grid or Columns). Values may be 1 to 12. Any other
-// value will be treated as "end", which may be used for ColStart and RowStart.
+// ColNum is used for classes based on column numbers (ColSpan, Offset, etc -
+// things related to Grid or Columns). Values may be 1 to 12. Any other value
+// will be treated as "end", which may be used for ColStart and RowStart.
 type ColNum int
 
 func (c ColNum) String() string {
@@ -16,7 +16,7 @@ func (c ColNum) String() string {
 		return "end"
 	}
 
-	return strconv.FormatInt(int64(c), 10)
+	return strconv.Itoa(int(c))
 }
 
 // ColFromEnd defines the column number from the end of the grid for a Cell.
@@ -24,9 +24,15 @@ func ColFromEnd(end ColNum) ResponsiveClass {
 	return ResponsiveClass("is-col-from-end-" + end.String())
 }
 
-// ColMin defines the minimum column width for a Grid.
-func ColMin(min ColNum) e.Class {
-	return e.Class("is-col-min-" + min.String())
+// ColMin defines the minimum column width for a Grid (valid values are 1 to 32).
+func ColMin(min int) e.Class {
+	if min < 1 {
+		min = 1
+	} else if min > 32 {
+		min = 32
+	}
+
+	return e.Class("is-col-min-" + strconv.Itoa(min))
 }
 
 // ColSpan defines the number of columns to span over for a Cell.
@@ -97,10 +103,13 @@ func RowGap(gap GapSize) e.Class {
 	return e.Class("is-row-gap-" + g)
 }
 
-type cols ResponsiveClass
+type ColsDef struct {
+	ResponsiveClass
+}
 
-func Cols(num ColNum) ResponsiveClass {
-	return ResponsiveClass(cols("has-" + num.String() + "-cols"))
+// Cols defines the columns count for a fixed grid
+func Cols(num ColNum) ColsDef {
+	return ColsDef{ResponsiveClass("has-" + num.String() + "-cols")}
 }
 
 // Offset defines the numeric offset for a Column. Accepted values are 1 to 11.
@@ -114,12 +123,14 @@ func Size(size ColNum) ResponsiveClass {
 }
 
 // ColumnGap defines the gap size for Columns. Accepted values are 0 to 8.
-func ColumnGap(gap int) *ResponsiveClasses {
-	if gap < 0 || gap > 8 {
-		return &ResponsiveClasses{}
+func ColumnGap(gap int) ResponsiveClass {
+	if gap < 0 {
+		gap = 0
+	} else if gap > 8 {
+		gap = 8
 	}
 
-	return &ResponsiveClasses{[]string{"is-" + strconv.FormatInt(int64(gap), 10)}, []string{"is-variable"}}
+	return ResponsiveClass("is-" + strconv.Itoa(gap))
 }
 
 // FontSize defines the font size. Accepted values are 1 to 7.
@@ -128,7 +139,7 @@ func FontSize(size int) ResponsiveClass {
 		return ""
 	}
 
-	return ResponsiveClass("is-size-" + strconv.FormatInt(int64(size), 10))
+	return ResponsiveClass("is-size-" + strconv.Itoa(size))
 }
 
 // FlexGrow defines the flex-grow value of any child of an element with Flex.
@@ -138,7 +149,7 @@ func FlexGrow(size int) e.Class {
 		return ""
 	}
 
-	return e.Class("is-flex-grow-" + strconv.FormatInt(int64(size), 10))
+	return e.Class("is-flex-grow-" + strconv.Itoa(size))
 }
 
 // FlexShrink defines the flex-shrink value of any child of an element with Flex.
@@ -148,5 +159,5 @@ func FlexShrink(size int) e.Class {
 		return ""
 	}
 
-	return e.Class("is-flex-shrink-" + strconv.FormatInt(int64(size), 10))
+	return e.Class("is-flex-shrink-" + strconv.Itoa(size))
 }

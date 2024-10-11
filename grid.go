@@ -72,7 +72,7 @@ func (f *fixedGrid) With(children ...any) e.Element {
 			f.Element.With(c...)
 		case onGrid:
 			f.grid.With(c...)
-		case cols:
+		case ColsDef:
 			f.Element.With(c)
 		case e.Class:
 			switch c {

@@ -58,7 +58,7 @@ const (
 	FourFifths                 = ResponsiveClass("is-four-fifths")           // Column
 	Full                       = ResponsiveClass("is-full")                  // Column
 	FullHD                     = e.Class("is-fullhd")                        // Container
-	FullHeight                 = e.Class("is-fullheight")                    // Hero
+	FullHeight                 = e.Class("is-fullheight")                    // Hero, Section
 	FullHeightWithNavbar       = e.Class("is-fullheight-with-navbar")        // Hero
 	FullWidth                  = e.Class("is-fullwidth")                     // Button*, Image, ImageImg, Table, Tabs, File, Select
 	Gapless                    = e.Class("is-gapless")                       // Columns
@@ -114,6 +114,7 @@ const (
 	Loading                    = e.Class("is-loading")                       // Button*, Input*, Select, SelectMultiple
 	Lowercase                  = e.Class("is-lowercase")                     // any text element
 	MaxDesktop                 = e.Class("is-max-desktop")                   // Container
+	MaxTablet                  = e.Class("is-max-tablet")                    // Container
 	MaxWidescreen              = e.Class("is-max-widescreen")                // Container
 	Medium                     = e.Class("is-medium")                        // Button*, Buttons, Content, Delete, Icon, Tag, Breadcrumb, Pagination, File, Hero, Section
 	Mobile                     = e.Class("is-mobile")                        // Columns, Level
@@ -191,6 +192,10 @@ const (
 	FixedSize         = e.Class("has-fixed-size")             // Textarea
 	IconsLeft         = e.Class("has-icons-left")             // Control
 	IconsRight        = e.Class("has-icons-right")            // Control
+	RadiusSmall       = e.Class("has-radius-small")           // any component
+	RadiusNormal      = e.Class("has-radius-normal")          // any component
+	RadiusLarge       = e.Class("has-radius-large")           // any component
+	RadiusRounded     = e.Class("has-radius-rounded")         // any component
 	Ratio             = e.Class("has-ratio")                  // Image/*
 	Shadow            = e.Class("has-shadow")                 // Navbar
 	HasSkeleton       = e.Class("has-skeleton")               // any component

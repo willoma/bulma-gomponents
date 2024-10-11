@@ -6,6 +6,13 @@ import (
 	"maragu.dev/gomponents/html"
 )
 
+// Checkboxes creates a list of checkbox elements.
+//
+// https://willoma.github.io/bulma-gomponents/form/checkbox.html
+func Checkboxes(children ...any) e.Element {
+	return e.Div(e.Class("checkboxes"), children)
+}
+
 // Checkbox creates a checkbox input element.
 //
 // https://willoma.github.io/bulma-gomponents/form/checkbox.html
@@ -51,8 +58,6 @@ func (cb *checkbox) With(children ...any) e.Element {
 			} else {
 				cb.Element.With(c)
 			}
-		case e.Element:
-			cb.Element.With(c)
 		case []any:
 			cb.With(c...)
 		default:

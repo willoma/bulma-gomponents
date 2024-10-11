@@ -34,8 +34,8 @@ func (s *selectEl) With(children ...any) e.Element {
 			s.selectHTMLElement.With(c...)
 		case onDiv:
 			s.Element.With(c...)
-		case *option:
-			s.selectHTMLElement.With(c)
+		case *icon:
+			s.Element.With(c)
 		case e.Class:
 			switch c {
 			case Hovered, Focused:
@@ -51,7 +51,7 @@ func (s *selectEl) With(children ...any) e.Element {
 		case []any:
 			s.With(c...)
 		default:
-			s.Element.With(c)
+			s.selectHTMLElement.With(c)
 		}
 	}
 
@@ -85,6 +85,8 @@ func (o *option) With(children ...any) e.Element {
 		case e.Class:
 			if c == Selected {
 				o.Element.With(html.Selected())
+			} else {
+				o.Element.With(c)
 			}
 		case []any:
 			o.With(c...)

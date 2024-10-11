@@ -2,7 +2,6 @@ package bulma
 
 import (
 	"io"
-	"sync"
 
 	e "github.com/willoma/gomplements"
 	"maragu.dev/gomponents"
@@ -22,7 +21,6 @@ type icon struct {
 	icon e.Element
 
 	iconClass e.Class
-	rendered  sync.Once
 }
 
 func (i *icon) SetIconClass(c e.Class) {
@@ -45,11 +43,7 @@ func (i *icon) With(children ...any) e.Element {
 }
 
 func (i *icon) Render(w io.Writer) error {
-	i.rendered.Do(func() {
-		i.With(i.iconClass)
-	})
-
-	return i.icon.Render(w)
+	return i.icon.Clone().With(i.iconClass).Render(w)
 }
 
 func (i *icon) Clone() e.Element {
@@ -84,27 +78,4 @@ func newIconText(fn func(...gomponents.Node) gomponents.Node, children ...any) e
 	i := &spanAroundNonIcons{e.Elem(fn, e.Class("icon-text"))}
 	i.With(children...)
 	return i
-}
-
-type iconText struct {
-	e.Element
-}
-
-func (i *iconText) With(children ...any) e.Element {
-	for _, c := range children {
-		switch c := c.(type) {
-		case Color:
-			i.Element.With(c.Text())
-		case []any:
-			i.With(c...)
-		default:
-			i.Element.With(c)
-		}
-	}
-
-	return i
-}
-
-func (i *iconText) Clone() e.Element {
-	return &iconText{i.Element.Clone()}
 }

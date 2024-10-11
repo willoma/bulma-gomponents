@@ -6,6 +6,13 @@ import (
 	"maragu.dev/gomponents/html"
 )
 
+// Radios creates a list of radio elements.
+//
+// https://willoma.github.io/bulma-gomponents/form/radio.html
+func Radios(children ...any) e.Element {
+	return e.Div(e.Class("radios"), children)
+}
+
 // Radio creates a radio element, together with its label container.
 //
 // https://willoma.github.io/bulma-gomponents/form/radio.html
@@ -19,7 +26,7 @@ func Radio(children ...any) e.Element {
 	return r
 }
 
-// Checked, when provided as a child of Radio, makes it so the
+// Checked, when provided as a child of Radio or Checkbox, makes it so the
 // radio button is checked.
 //
 // https://willoma.github.io/bulma-gomponents/form/radio.html
@@ -53,8 +60,6 @@ func (r *radio) With(children ...any) e.Element {
 			} else {
 				r.Element.With(c)
 			}
-		case e.Element:
-			r.Element.With(c)
 		case []any:
 			r.With(c...)
 		default:

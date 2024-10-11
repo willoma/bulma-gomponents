@@ -119,10 +119,6 @@ func IterationCount(c float64) func(a any) {
 	}
 }
 
-func (a *animationBase) setTiming(t string) {
-	a.timing = t
-}
-
 func TimingEase(a any) {
 	if b, ok := a.(*animationBase); ok {
 		b.timing = "ease"
