@@ -58,8 +58,6 @@ func (cb *checkbox) With(children ...any) e.Element {
 			} else {
 				cb.Element.With(c)
 			}
-		case e.Element:
-			cb.Element.With(c)
 		case []any:
 			cb.With(c...)
 		default:

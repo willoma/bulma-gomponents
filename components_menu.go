@@ -57,8 +57,6 @@ func (m *menu) With(children ...any) e.Element {
 			} else {
 				m.addToMenuList(c)
 			}
-		case e.Element:
-			m.addToMenuList(c)
 		case []any:
 			m.With(c...)
 		default:

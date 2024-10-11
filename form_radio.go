@@ -60,8 +60,6 @@ func (r *radio) With(children ...any) e.Element {
 			} else {
 				r.Element.With(c)
 			}
-		case e.Element:
-			r.Element.With(c)
 		case []any:
 			r.With(c...)
 		default:
