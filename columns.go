@@ -1,8 +1,8 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 )
 
 // Columns creates a columns container.

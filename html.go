@@ -1,10 +1,10 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents"
-	"github.com/maragudk/gomponents/components"
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
+	"maragu.dev/gomponents/components"
+	"maragu.dev/gomponents/html"
 )
 
 const cdnPath = "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"

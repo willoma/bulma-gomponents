@@ -3,8 +3,8 @@ package bulma
 import (
 	"io"
 
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 )
 
 type MessageTitle string

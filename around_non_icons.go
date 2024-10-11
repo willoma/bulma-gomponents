@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/maragudk/gomponents"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents"
 )
 
 type spanAroundNonIconsIfHasIcons struct {

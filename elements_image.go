@@ -1,8 +1,8 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 )
 
 // ImgAlt is a modifier that, when applied to ImageImg, adds an alt attribute.

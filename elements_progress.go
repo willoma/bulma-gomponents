@@ -3,8 +3,8 @@ package bulma
 import (
 	"strconv"
 
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 )
 
 // Progress creates a progress bar.

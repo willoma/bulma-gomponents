@@ -1,8 +1,8 @@
 package bulma
 
 import (
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 )
 
 // TitleLevel is used for thtle level, it corresponds to h1 to h6

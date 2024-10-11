@@ -3,8 +3,8 @@ package bulma
 import (
 	"io"
 
-	"github.com/maragudk/gomponents/html"
 	e "github.com/willoma/gomplements"
+	"maragu.dev/gomponents/html"
 )
 
 // Navbar creates a navbar.
